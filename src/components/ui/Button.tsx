@@ -30,7 +30,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-sans font-medium rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+    "inline-flex items-center justify-center font-sans font-medium rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
 
   const sizeStyles = {
     sm: "text-xs px-3 py-1.5 gap-1.5",
@@ -40,7 +40,7 @@ export function Button({
 
   const variantStyles = {
     primary:
-      "bg-violet-600 text-white hover:bg-violet-500 dark:bg-violet-500 dark:hover:bg-violet-400 dark:text-white shadow-sm",
+      "bg-slate-900 text-white hover:bg-slate-700 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white shadow-sm",
     secondary:
       "bg-slate-100 text-slate-900 hover:bg-slate-200 dark:bg-white/[0.06] dark:text-slate-100 dark:hover:bg-white/10",
     outline:
@@ -48,7 +48,7 @@ export function Button({
     ghost:
       "bg-transparent text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-slate-100",
     glow:
-      "bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white shadow-[0_8px_24px_-8px_rgba(139,92,246,0.5)] border-0",
+      "bg-gradient-to-r from-slate-800 to-slate-950 hover:from-slate-700 hover:to-slate-900 text-white dark:from-slate-100 dark:to-white dark:hover:from-white dark:hover:to-slate-200 dark:text-slate-950 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.45)] border-0",
   };
 
   const combinedClasses = cn(

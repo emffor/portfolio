@@ -13,7 +13,7 @@ export function Hero() {
       {/* Brilho ambiente discreto */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[480px] w-[480px] rounded-full bg-violet-600/10 blur-[130px] dark:bg-violet-600/[0.13]"
+        className="pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[480px] w-[480px] rounded-full bg-slate-500/10 blur-[130px] dark:bg-slate-400/[0.08]"
       />
 
       <div className="grid w-full items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
@@ -26,7 +26,7 @@ export function Hero() {
           <div className="space-y-3">
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
               <span className="text-slate-900 dark:text-slate-50">Eloan </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-600 dark:from-violet-400 dark:to-fuchsia-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-500 to-slate-800 dark:from-slate-200 dark:to-slate-400">
                 Ferreira
               </span>
             </h1>
@@ -85,23 +85,23 @@ export function Hero() {
         <div className="relative flex justify-center lg:justify-end">
           {/* Elementos geométricos sutis */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center lg:justify-end">
-            <div className="h-[420px] w-[420px] sm:h-[500px] sm:w-[500px] rounded-full border border-violet-500/10 dark:border-violet-400/10" />
+            <div className="h-[420px] w-[420px] sm:h-[500px] sm:w-[500px] rounded-full border border-slate-400/20 dark:border-white/10" />
           </div>
-          <div
+          <span
             aria-hidden="true"
-            className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/20 blur-[100px] dark:bg-violet-500/25 lg:left-auto lg:right-[8%] lg:translate-x-0"
+            className="absolute top-[8%] right-[12%] hidden h-1.5 w-1.5 rounded-full bg-slate-400/60 sm:block"
           />
           <span
             aria-hidden="true"
-            className="absolute top-[8%] right-[12%] hidden h-1.5 w-1.5 rounded-full bg-violet-500/50 sm:block"
-          />
-          <span
-            aria-hidden="true"
-            className="absolute bottom-[16%] left-[8%] hidden h-1 w-1 rounded-full bg-fuchsia-500/50 sm:block lg:left-[38%]"
+            className="absolute bottom-[16%] left-[8%] hidden h-1 w-1 rounded-full bg-slate-500/50 sm:block lg:left-[38%]"
           />
 
           <figure className="relative w-full max-w-[400px] sm:max-w-[460px]">
-            <div className="overflow-hidden rounded-2xl border border-violet-500/20 bg-[#0d1428] shadow-[0_24px_70px_-24px_rgba(124,58,237,0.45)] dark:border-violet-400/20 dark:shadow-[0_24px_80px_-20px_rgba(124,58,237,0.4)]">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-400/20 blur-[90px] dark:bg-slate-300/10"
+            />
+            <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-[#0d1428] shadow-[0_24px_70px_-24px_rgba(15,23,42,0.45)] dark:border-white/10 dark:shadow-[0_24px_80px_-20px_rgba(0,0,0,0.6)]">
               {PROFILE_DATA.photo ? (
                 <Image
                   src={PROFILE_DATA.photo.src}
@@ -113,6 +113,15 @@ export function Hero() {
                   className="h-auto w-full object-cover aspect-[4/5]"
                 />
               ) : null}
+              {/* Fusão das bordas com o fundo */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a1020]/60 via-transparent to-slate-950/20"
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10"
+              />
             </div>
 
             {PROFILE_DATA.availableForWork && (

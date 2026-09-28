@@ -25,7 +25,7 @@ export function SectionHeading({
       )}
     >
       {tag && (
-        <p className="text-xs font-sans font-semibold uppercase tracking-[0.2em] text-violet-600 dark:text-violet-400">
+        <p className="text-xs font-sans font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           {tag}
         </p>
       )}
@@ -35,7 +35,7 @@ export function SectionHeading({
       <div
         aria-hidden="true"
         className={cn(
-          "mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500",
+          "mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-slate-300 to-slate-500 dark:from-slate-500 dark:to-slate-700",
           align === "center" && "mx-auto"
         )}
       />

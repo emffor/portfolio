@@ -20,7 +20,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
     project.technologies.length - visibleTechnologies.length;
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-slate-200/80 bg-white transition-colors duration-200 hover:border-violet-300 dark:border-white/[0.07] dark:bg-[#0e1730] dark:hover:border-violet-400/25">
+    <article className="group flex flex-col overflow-hidden rounded-xl border border-slate-200/80 bg-white transition-colors duration-200 hover:border-slate-300 dark:border-white/[0.07] dark:bg-[#0e1730] dark:hover:border-white/20">
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-[#0a1020]">
         <Image
           src={project.image}
@@ -35,7 +35,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
       <div className="flex flex-1 flex-col gap-4 p-6 sm:p-7">
         <div>
           <div className="mb-2 flex items-center justify-between gap-3">
-            <span className="font-sans text-xs font-semibold uppercase tracking-wider text-violet-600 dark:text-violet-400">
+            <span className="font-sans text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {project.category}
             </span>
             {project.featured && (

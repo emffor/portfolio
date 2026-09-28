@@ -10,7 +10,7 @@ export const PROFILE_DATA: Profile = {
   location: "Brasil",
   availableForWork: true,
   photo: {
-    src: "/assets/avatar-eloan.png",
+    src: "/assets/perfil.png",
     alt: "Eloan Ferreira - Full Stack Developer",
   },
   summary:

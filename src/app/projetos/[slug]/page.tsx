@@ -76,7 +76,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <nav aria-label="Navegação do case">
         <Link
           href="/#projetos"
-          className="inline-flex items-center gap-1.5 font-sans text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded"
+          className="inline-flex items-center gap-1.5 font-sans text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 rounded"
         >
           <svg
             className="w-4 h-4"
@@ -98,7 +98,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <header className="space-y-6">
         <div className="space-y-3">
-          <p className="font-sans text-xs font-semibold uppercase tracking-wider text-violet-600 dark:text-violet-400">
+          <p className="font-sans text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             {project.category}
           </p>
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
@@ -106,7 +106,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </h1>
           <div
             aria-hidden="true"
-            className="h-1 w-14 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500"
+            className="h-1 w-14 rounded-full bg-gradient-to-r from-slate-300 to-slate-500 dark:from-slate-500 dark:to-slate-700"
           />
           <p className="font-sans text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
             {project.shortDescription}

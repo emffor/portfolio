@@ -15,7 +15,7 @@ export function MobileNav() {
       <button
         onClick={toggle}
         type="button"
-        className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-slate-200 text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/5"
+        className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-slate-200 text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/5"
         aria-expanded={isOpen}
         aria-label={isOpen ? "Fechar menu principal" : "Abrir menu principal"}
       >

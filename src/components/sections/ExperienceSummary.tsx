@@ -36,7 +36,7 @@ export function ExperienceSummary() {
 
         {/* Coluna direita: texto profissional */}
         <div>
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-violet-600 dark:text-violet-400">
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
             Sobre
           </p>
           <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
@@ -44,7 +44,7 @@ export function ExperienceSummary() {
           </h2>
           <div
             aria-hidden="true"
-            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500"
+            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-slate-300 to-slate-500 dark:from-slate-500 dark:to-slate-700"
           />
           <p className="mt-6 font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
             {PROFILE_DATA.summary}
@@ -54,7 +54,7 @@ export function ExperienceSummary() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={PROFILE_DATA.socials.linkedin.label}
-            className="mt-6 inline-flex items-center font-sans text-sm font-medium text-slate-900 underline underline-offset-4 decoration-violet-300 hover:decoration-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded dark:text-slate-100 dark:decoration-violet-400/40 dark:hover:decoration-violet-400"
+            className="mt-6 inline-flex items-center font-sans text-sm font-medium text-slate-900 underline underline-offset-4 decoration-slate-300 hover:decoration-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 rounded dark:text-slate-100 dark:decoration-white/20 dark:hover:decoration-slate-300"
           >
             LinkedIn
             <svg

@@ -13,7 +13,7 @@ export function Footer() {
         <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
           <p className="font-display text-sm font-bold tracking-tight text-slate-900 dark:text-slate-100">
             Eloan{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-fuchsia-500 dark:from-violet-400 dark:to-fuchsia-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-500 to-slate-800 dark:from-slate-300 dark:to-slate-500">
               Ferreira
             </span>
             <span className="ml-3 font-sans text-xs font-normal text-slate-500 dark:text-slate-400">

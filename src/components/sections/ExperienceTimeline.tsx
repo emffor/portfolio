@@ -30,7 +30,7 @@ export async function ExperienceTimeline() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={PROFILE_DATA.socials.linkedin.label}
-            className="mt-4 inline-flex items-center font-sans text-sm font-medium text-slate-900 underline underline-offset-4 decoration-slate-300 hover:decoration-violet-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded dark:text-slate-100 dark:decoration-white/20"
+            className="mt-4 inline-flex items-center font-sans text-sm font-medium text-slate-900 underline underline-offset-4 decoration-slate-300 hover:decoration-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 rounded dark:text-slate-100 dark:decoration-white/20"
           >
             Ver experiência no LinkedIn
             <svg
@@ -54,7 +54,7 @@ export async function ExperienceTimeline() {
           {experiences.map((exp) => (
             <li key={`${exp.company}-${exp.period}`} className="relative pl-6">
               <span
-                className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-violet-500 dark:bg-violet-400"
+                className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-slate-400 dark:bg-slate-300"
                 aria-hidden="true"
               />
               <article className="space-y-3">

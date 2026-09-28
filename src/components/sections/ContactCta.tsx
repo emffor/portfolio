@@ -72,7 +72,7 @@ export function ContactCta() {
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-14">
         {/* Coluna esquerda: título, texto e canais */}
         <div>
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-violet-600 dark:text-violet-400">
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
             Contato
           </p>
           <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
@@ -80,7 +80,7 @@ export function ContactCta() {
           </h2>
           <div
             aria-hidden="true"
-            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500"
+            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-slate-300 to-slate-500 dark:from-slate-500 dark:to-slate-700"
           />
           <p className="mt-6 max-w-md font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
             Aberto a propostas de trabalho e projetos onde excelência técnica
@@ -99,9 +99,9 @@ export function ContactCta() {
                         ? "noopener noreferrer"
                         : undefined
                     }
-                    className="group flex items-center gap-3 rounded-lg px-3 py-2.5 -mx-3 font-sans text-sm text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-slate-100"
+                    className="group flex items-center gap-3 rounded-lg px-3 py-2.5 -mx-3 font-sans text-sm text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-slate-100"
                   >
-                    <span className="text-slate-400 transition-colors group-hover:text-violet-500 dark:text-slate-500 dark:group-hover:text-violet-400">
+                    <span className="text-slate-400 transition-colors group-hover:text-slate-900 dark:text-slate-500 dark:group-hover:text-slate-100">
                       {link.icon}
                     </span>
                     <span className="font-medium text-slate-900 dark:text-slate-200">
