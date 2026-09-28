@@ -32,7 +32,6 @@ export type SkillIconName =
   | "javascript"
   | "typescript"
   | "nodejs"
-  | "nestjs"
   | "react"
   | "nextjs"
   | "mobile"
@@ -40,14 +39,11 @@ export type SkillIconName =
   | "aws"
   | "docker"
   | "cicd"
+  | "tests"
   | "ai"
-  | "api"
   | "architecture"
   | "code"
   | "agile"
-  | "critical"
-  | "problem"
-  | "communication"
   | "collaboration"
   | "leadership"
   | "adaptability"
@@ -57,4 +53,5 @@ export interface Skill {
   title: string;
   description: string;
   icon: SkillIconName;
+  rating?: number;
 }

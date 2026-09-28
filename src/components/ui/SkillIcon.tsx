@@ -22,9 +22,6 @@ const paths: Record<SkillIconName, React.ReactNode> = {
   nodejs: (
     <path d="M12 3.5 20 8v8l-8 4.5L4 16V8l8-4.5Zm0 0v17" />
   ),
-  nestjs: (
-    <path d="M12 4 6 7.5v5L12 16l6-3.5v-5L12 4Zm0 6 6-3.5M12 10 6 6.5M12 10v6" />
-  ),
   react: (
     <>
       <circle cx="12" cy="12" r="2" />
@@ -67,11 +64,10 @@ const paths: Record<SkillIconName, React.ReactNode> = {
       <circle cx="12" cy="12" r="3" />
     </>
   ),
-  api: (
+  tests: (
     <>
-      <path d="M8 8H5v8h3" />
-      <path d="M16 8h3v8h-3" />
-      <path d="M10 12h4" />
+      <circle cx="12" cy="12" r="8" />
+      <path d="m9 12.2 2.2 2.2L15.5 10" />
     </>
   ),
   architecture: (
@@ -94,21 +90,6 @@ const paths: Record<SkillIconName, React.ReactNode> = {
       <rect x="9.75" y="5" width="4.5" height="9" rx="1" />
       <rect x="15.5" y="5" width="4.5" height="6" rx="1" />
     </>
-  ),
-  critical: (
-    <>
-      <circle cx="11" cy="11" r="5.5" />
-      <path d="m15.2 15.2 3.3 3.3" />
-    </>
-  ),
-  problem: (
-    <>
-      <path d="M9 9a3 3 0 1 1 4.2 2.7c-.8.5-1.2 1-1.2 2" />
-      <path d="M12 17.5h.01" />
-    </>
-  ),
-  communication: (
-    <path d="M6 7.5h12v8H9l-3 2.5V7.5Z" />
   ),
   collaboration: (
     <>
