@@ -1,13 +1,30 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { PROFILE_DATA } from "@/data/profile";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { DesktopNav } from "@/components/layout/DesktopNav";
+import { cn } from "@/lib/utils";
 
 export function Header() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/85 backdrop-blur-sm transition-colors">
+    <header
+      className={cn(
+        "sticky top-0 z-40 w-full border-b bg-background/85 backdrop-blur-sm transition-colors",
+        scrolled ? "border-border" : "border-transparent"
+      )}
+    >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10 h-16 flex items-center justify-between gap-4">
         {/* Brand / Logo */}
         <Link

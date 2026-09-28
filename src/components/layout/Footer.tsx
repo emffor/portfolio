@@ -7,7 +7,7 @@ export function Footer() {
   return (
     <footer
       role="contentinfo"
-      className="mt-auto w-full border-t border-border py-10 transition-colors"
+      className="mt-auto w-full py-10 transition-colors"
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10">
         <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">

@@ -17,7 +17,7 @@ export function ExperienceSummary() {
     <section
       id="sobre"
       aria-label="Sobre mim"
-      className="scroll-mt-20 border-t border-border py-16 sm:py-24"
+      className="scroll-mt-20 py-16 sm:py-24"
     >
       <div className="grid grid-cols-1 gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
         {/* Coluna esquerda: indicadores profissionais */}
