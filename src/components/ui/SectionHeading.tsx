@@ -35,7 +35,7 @@ export function SectionHeading({
       <div
         aria-hidden="true"
         className={cn(
-          "mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a3b8db]",
+          "mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a8bdc0]",
           align === "center" && "mx-auto"
         )}
       />

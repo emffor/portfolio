@@ -10,11 +10,8 @@ export function Hero() {
       aria-label="Apresentação inicial"
       className="relative overflow-hidden py-14 sm:py-20 lg:min-h-[78svh] lg:py-0 lg:flex lg:items-center"
     >
-      {/* Brilho ambiente discreto e neutro */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[480px] w-[480px] rounded-full bg-slate-500/10 blur-[130px] dark:bg-slate-400/[0.08]"
-      />
+      {/* Fundo uniforme em toda a largura, sem brilhos laterais */}
+
 
       <div className="grid w-full items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
         {/* Coluna esquerda: conteúdo */}
@@ -83,10 +80,6 @@ export function Hero() {
 
         {/* Coluna direita: avatar */}
         <div className="relative flex justify-center lg:justify-end">
-          {/* Elementos geométricos sutis */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center lg:justify-end">
-            <div className="h-[420px] w-[420px] sm:h-[500px] sm:w-[500px] rounded-full border border-slate-400/20 dark:border-white/10" />
-          </div>
           <span
             aria-hidden="true"
             className="absolute top-[8%] right-[12%] hidden h-1.5 w-1.5 rounded-full bg-slate-400/60 sm:block"
@@ -101,7 +94,7 @@ export function Hero() {
               aria-hidden="true"
               className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-soft blur-[90px]"
             />
-            <div className="relative overflow-hidden rounded-2xl border border-[rgba(120,150,200,0.30)] bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.30),0_0_50px_rgba(120,150,200,0.06)]">
+            <div className="relative overflow-hidden rounded-2xl border border-[rgba(121,148,150,0.30)] bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.30),0_0_50px_rgba(121,148,150,0.06)]">
               {PROFILE_DATA.photo ? (
                 <Image
                   src={PROFILE_DATA.photo.src}
