@@ -7,27 +7,25 @@ export function Footer() {
   return (
     <footer
       role="contentinfo"
-      className="mt-auto w-full border-t border-slate-200/70 py-10 transition-colors dark:border-white/[0.06]"
+      className="mt-auto w-full border-t border-border py-10 transition-colors"
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10">
         <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
-          <p className="font-display text-sm font-bold tracking-tight text-slate-900 dark:text-slate-100">
+          <p className="font-display text-sm font-bold tracking-tight text-foreground">
             Eloan{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-500 to-slate-800 dark:from-slate-300 dark:to-slate-500">
-              Ferreira
-            </span>
-            <span className="ml-3 font-sans text-xs font-normal text-slate-500 dark:text-slate-400">
+            <span className="text-accent">Ferreira</span>
+            <span className="ml-3 font-sans text-xs font-normal text-muted">
               © {currentYear}
             </span>
           </p>
 
-          <div className="flex items-center gap-5 font-sans text-sm font-medium text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-5 font-sans text-sm font-medium text-muted">
             <a
               href={PROFILE_DATA.socials.github.url}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={PROFILE_DATA.socials.github.label}
-              className="transition-colors hover:text-slate-900 dark:hover:text-slate-100"
+              className="transition-colors hover:text-accent"
             >
               GitHub
             </a>
@@ -36,7 +34,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={PROFILE_DATA.socials.linkedin.label}
-              className="transition-colors hover:text-slate-900 dark:hover:text-slate-100"
+              className="transition-colors hover:text-accent"
             >
               LinkedIn
             </a>

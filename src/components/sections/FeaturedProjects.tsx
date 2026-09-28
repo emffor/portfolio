@@ -10,7 +10,7 @@ export async function FeaturedProjects() {
     <section
       id="projetos"
       aria-label="Projetos em destaque"
-      className="scroll-mt-20 border-t border-slate-200/70 py-16 sm:py-24 dark:border-white/[0.06]"
+      className="scroll-mt-20 border-t border-border py-16 sm:py-24"
     >
       <SectionHeading
         tag="Portfólio"

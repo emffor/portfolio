@@ -51,7 +51,7 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <div
-        className="w-9 h-9 rounded-md border border-slate-200 bg-transparent dark:border-white/10"
+        className="w-9 h-9 rounded-md border border-border bg-transparent"
         aria-hidden="true"
       />
     );
@@ -61,7 +61,7 @@ export function ThemeToggle() {
     <button
       onClick={toggleTheme}
       type="button"
-      className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-slate-200 dark:border-white/10 bg-transparent text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
+      className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-border bg-transparent text-muted hover:bg-surface-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
       aria-label={
         theme === "dark" ? "Alternar para tema claro" : "Alternar para tema escuro"
       }

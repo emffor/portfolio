@@ -25,22 +25,22 @@ export function SectionHeading({
       )}
     >
       {tag && (
-        <p className="text-xs font-sans font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+        <p className="text-xs font-sans font-semibold uppercase tracking-[0.2em] text-muted">
           {tag}
         </p>
       )}
-      <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+      <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
         {title}
       </h2>
       <div
         aria-hidden="true"
         className={cn(
-          "mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-slate-300 to-slate-500 dark:from-slate-500 dark:to-slate-700",
+          "mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a3b8db]",
           align === "center" && "mx-auto"
         )}
       />
       {description && (
-        <p className="mt-4 font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
+        <p className="mt-4 font-sans text-sm sm:text-base text-muted max-w-3xl leading-relaxed">
           {description}
         </p>
       )}

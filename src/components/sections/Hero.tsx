@@ -10,7 +10,7 @@ export function Hero() {
       aria-label="Apresentação inicial"
       className="relative overflow-hidden py-14 sm:py-20 lg:min-h-[78svh] lg:py-0 lg:flex lg:items-center"
     >
-      {/* Brilho ambiente discreto */}
+      {/* Brilho ambiente discreto e neutro */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[480px] w-[480px] rounded-full bg-slate-500/10 blur-[130px] dark:bg-slate-400/[0.08]"
@@ -19,23 +19,23 @@ export function Hero() {
       <div className="grid w-full items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
         {/* Coluna esquerda: conteúdo */}
         <div className="space-y-6 sm:space-y-7">
-          <p className="font-sans text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">
+          <p className="font-sans text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-muted">
             Olá, eu sou
           </p>
 
           <div className="space-y-3">
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
-              <span className="text-slate-900 dark:text-slate-50">Eloan </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-500 to-slate-800 dark:from-slate-200 dark:to-slate-400">
+              <span className="text-foreground">Eloan </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-foreground to-accent">
                 Ferreira
               </span>
             </h1>
-            <p className="whitespace-nowrap font-display text-xl sm:text-2xl font-medium tracking-tight text-slate-700 dark:text-slate-200">
+            <p className="whitespace-nowrap font-display text-xl sm:text-2xl font-medium tracking-tight text-foreground/80">
               {PROFILE_DATA.title}
             </p>
           </div>
 
-          <p className="max-w-lg font-sans text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="max-w-lg font-sans text-base sm:text-lg text-muted leading-relaxed">
             {PROFILE_DATA.headline}
           </p>
 
@@ -99,9 +99,9 @@ export function Hero() {
           <figure className="relative w-full max-w-[400px] sm:max-w-[460px]">
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-400/20 blur-[90px] dark:bg-slate-300/10"
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-soft blur-[90px]"
             />
-            <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-[#0d1428] shadow-[0_24px_70px_-24px_rgba(15,23,42,0.45)] dark:border-white/10 dark:shadow-[0_24px_80px_-20px_rgba(0,0,0,0.6)]">
+            <div className="relative overflow-hidden rounded-2xl border border-[rgba(120,150,200,0.30)] bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.30),0_0_50px_rgba(120,150,200,0.06)]">
               {PROFILE_DATA.photo ? (
                 <Image
                   src={PROFILE_DATA.photo.src}
@@ -116,7 +116,7 @@ export function Hero() {
               {/* Fusão das bordas com o fundo */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a1020]/60 via-transparent to-slate-950/20"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
               />
               <div
                 aria-hidden="true"
@@ -125,7 +125,7 @@ export function Hero() {
             </div>
 
             {PROFILE_DATA.availableForWork && (
-              <figcaption className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-slate-200 bg-white/95 px-4 py-2 text-xs font-medium text-slate-700 shadow-lg shadow-slate-900/5 backdrop-blur-sm dark:border-white/10 dark:bg-[#111a33]/95 dark:text-slate-200 dark:shadow-black/40">
+              <figcaption className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-surface/95 px-4 py-2 text-xs font-medium text-foreground shadow-lg backdrop-blur-sm">
                 <span className="mr-2 inline-block h-2 w-2 rounded-full bg-emerald-500" />
                 Disponível para oportunidades
               </figcaption>

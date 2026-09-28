@@ -8,15 +8,52 @@
   --font-mono: var(--font-geist-mono), monospace;
 }
 
+/* Tokens semânticos: resolvem para :root/.dark abaixo (@theme inline),
+   então bg-surface, text-muted, border-border etc. seguem o tema ativo. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-surface: var(--surface);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --background: #f8fafc;
+  --foreground: #111827;
+
+  --accent: #5576a8;
+  --accent-hover: #466693;
+  --accent-soft: rgba(85, 118, 168, 0.12);
+  --on-accent: #ffffff;
+
+  --surface: #ffffff;
+  --surface-secondary: #f1f5f9;
+
+  --border: #dbe3ee;
+  --muted: #64748b;
   color-scheme: light dark;
 }
 
 .dark {
-  --background: #0a1020;
-  --foreground: #e8edf7;
+  --background: #090e1c;
+  --foreground: #e8edf5;
+
+  --accent: #7896c8;
+  --accent-hover: #8ca8d5;
+  --accent-soft: rgba(120, 150, 200, 0.13);
+  --on-accent: #0a1120;
+
+  --surface: #0e1628;
+  --surface-secondary: #121c30;
+
+  --border: #253149;
+  --muted: #929eb2;
 }
 
 html {
@@ -39,7 +76,8 @@ body {
 }
 
 ::selection {
-  background: rgba(148, 163, 184, 0.35);
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 /* Redução de movimento acessível */

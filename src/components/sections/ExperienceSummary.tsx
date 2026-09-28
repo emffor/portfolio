@@ -17,17 +17,17 @@ export function ExperienceSummary() {
     <section
       id="sobre"
       aria-label="Sobre mim"
-      className="scroll-mt-20 border-t border-slate-200/70 py-16 sm:py-24 dark:border-white/[0.06]"
+      className="scroll-mt-20 border-t border-border py-16 sm:py-24"
     >
       <div className="grid grid-cols-1 gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
         {/* Coluna esquerda: indicadores profissionais */}
         <div className="flex flex-row gap-8 md:flex-col md:justify-center md:gap-10">
           {indicators.map((item) => (
             <div key={item.label} className="space-y-1">
-              <p className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+              <p className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
                 {item.value}
               </p>
-              <p className="font-sans text-sm text-slate-500 dark:text-slate-400">
+              <p className="font-sans text-sm text-muted">
                 {item.label}
               </p>
             </div>
@@ -36,17 +36,17 @@ export function ExperienceSummary() {
 
         {/* Coluna direita: texto profissional */}
         <div>
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             Sobre
           </p>
-          <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+          <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
             Sobre mim
           </h2>
           <div
             aria-hidden="true"
-            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-slate-300 to-slate-500 dark:from-slate-500 dark:to-slate-700"
+            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a3b8db]"
           />
-          <p className="mt-6 font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="mt-6 font-sans text-sm sm:text-base text-muted leading-relaxed">
             {PROFILE_DATA.summary}
           </p>
           <a
@@ -54,7 +54,7 @@ export function ExperienceSummary() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={PROFILE_DATA.socials.linkedin.label}
-            className="mt-6 inline-flex items-center font-sans text-sm font-medium text-slate-900 underline underline-offset-4 decoration-slate-300 hover:decoration-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 rounded dark:text-slate-100 dark:decoration-white/20 dark:hover:decoration-slate-300"
+            className="mt-6 inline-flex items-center font-sans text-sm font-medium text-foreground underline underline-offset-4 decoration-border hover:decoration-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
           >
             LinkedIn
             <svg

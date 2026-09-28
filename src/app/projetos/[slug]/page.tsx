@@ -76,7 +76,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <nav aria-label="Navegação do case">
         <Link
           href="/#projetos"
-          className="inline-flex items-center gap-1.5 font-sans text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 rounded"
+          className="inline-flex items-center gap-1.5 font-sans text-sm text-muted hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
         >
           <svg
             className="w-4 h-4"
@@ -98,20 +98,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <header className="space-y-6">
         <div className="space-y-3">
-          <p className="font-sans text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <p className="font-sans text-xs font-semibold uppercase tracking-wider text-accent">
             {project.category}
           </p>
-          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
             {project.title}
           </h1>
           <div
             aria-hidden="true"
-            className="h-1 w-14 rounded-full bg-gradient-to-r from-slate-300 to-slate-500 dark:from-slate-500 dark:to-slate-700"
+            className="h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a3b8db]"
           />
-          <p className="font-sans text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
+          <p className="font-sans text-base sm:text-lg text-muted leading-relaxed max-w-2xl">
             {project.shortDescription}
           </p>
-          <p className="font-sans text-sm text-slate-500 dark:text-slate-500">
+          <p className="font-sans text-sm text-muted">
             Por {AUTHOR_NAME}
           </p>
         </div>
@@ -127,7 +127,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           ))}
         </div>
 
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100 dark:border-white/[0.07] dark:bg-[#0a1020]">
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border bg-surface-secondary">
           <Image
             src={project.image}
             alt={`Imagem principal do projeto ${project.title}`}
@@ -141,37 +141,37 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <main className="space-y-12">
         <section aria-label="Visão geral" className="space-y-3">
-          <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
             Visão geral
           </h2>
-          <p className="font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
             {project.fullDescription}
           </p>
         </section>
 
         <section aria-label="Contexto e problema" className="space-y-3">
-          <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
             Contexto e problema
           </h2>
-          <p className="font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
             {project.context}
           </p>
         </section>
 
         <section aria-label="Solução" className="space-y-3">
-          <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
             Solução
           </h2>
-          <p className="font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
             {project.solution}
           </p>
         </section>
 
         <section aria-label="Desafios técnicos" className="space-y-3">
-          <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
             Principais desafios técnicos
           </h2>
-          <ul className="space-y-2 font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400">
+          <ul className="space-y-2 font-sans text-sm sm:text-base text-muted">
             {project.technicalChallenges.map((challenge, idx) => (
               <li key={idx} className="flex items-start gap-2">
                 <span
@@ -187,10 +187,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </section>
 
         <section aria-label="Minha atuação" className="space-y-3">
-          <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
             Minha atuação
           </h2>
-          <p className="font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
             {project.myRole}
           </p>
         </section>
@@ -200,10 +200,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {project.technicalHighlights &&
           project.technicalHighlights.length > 0 && (
             <section aria-label="Destaques técnicos" className="space-y-3">
-              <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+              <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
                 Destaques técnicos
               </h2>
-              <ul className="space-y-2 font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400">
+              <ul className="space-y-2 font-sans text-sm sm:text-base text-muted">
                 {project.technicalHighlights.map((highlight, idx) => (
                   <li key={idx} className="flex items-start gap-2">
                     <span
@@ -221,26 +221,26 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         {project.decisions && project.decisions.length > 0 && (
           <section aria-label="Decisões e trade-offs" className="space-y-4">
-            <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+            <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
               Decisões e trade-offs
             </h2>
             <div className="space-y-4">
               {project.decisions.map((decision) => (
                 <div
                   key={decision.title}
-                  className="rounded-lg border border-slate-200/80 bg-white px-4 py-3 space-y-2 dark:border-white/[0.07] dark:bg-[#0e1730]"
+                  className="rounded-lg border border-border bg-surface px-4 py-3 space-y-2"
                 >
-                  <p className="font-sans text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  <p className="font-sans text-sm font-semibold text-foreground">
                     {decision.title}
                   </p>
-                  <p className="font-sans text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <p className="font-sans text-sm text-muted leading-relaxed">
                     <span className="font-medium text-emerald-600 dark:text-emerald-400">
                       Benefício:{" "}
                     </span>
                     {decision.benefit}
                   </p>
-                  <p className="font-sans text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    <span className="font-medium text-slate-900 dark:text-slate-100">
+                  <p className="font-sans text-sm text-muted leading-relaxed">
+                    <span className="font-medium text-foreground">
                       Custo:{" "}
                     </span>
                     {decision.cost}
@@ -256,10 +256,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             aria-label="Observação sobre autenticação"
             className="space-y-3"
           >
-            <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+            <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
               Nota sobre autenticação
             </h2>
-            <p className="font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
               {project.authNote}
             </p>
           </section>
@@ -268,7 +268,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <ProjectGallery screenshots={project.screenshots} />
 
         <section aria-label="Links do projeto" className="space-y-4">
-          <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
             Links
           </h2>
           <div className="flex flex-wrap items-center gap-3">
@@ -283,7 +283,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </Button>
             )}
             {!project.projectUrl && !project.githubUrl && (
-              <p className="font-sans text-sm text-slate-500 dark:text-slate-400 italic">
+              <p className="font-sans text-sm text-muted italic">
                 Projeto corporativo proprietário — demonstração mediante
                 contato.
               </p>

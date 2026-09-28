@@ -67,22 +67,22 @@ export function ContactCta() {
     <section
       id="contato"
       aria-label="Informações de contato e canais de comunicação"
-      className="scroll-mt-20 border-t border-slate-200/70 py-16 sm:py-24 dark:border-white/[0.06]"
+      className="scroll-mt-20 border-t border-border py-16 sm:py-24"
     >
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-14">
         {/* Coluna esquerda: título, texto e canais */}
         <div>
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             Contato
           </p>
-          <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+          <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
             Vamos conversar?
           </h2>
           <div
             aria-hidden="true"
-            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-slate-300 to-slate-500 dark:from-slate-500 dark:to-slate-700"
+            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a3b8db]"
           />
-          <p className="mt-6 max-w-md font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="mt-6 max-w-md font-sans text-sm sm:text-base text-muted leading-relaxed">
             Aberto a propostas de trabalho e projetos onde excelência técnica
             e impacto no negócio façam a diferença.
           </p>
@@ -99,12 +99,12 @@ export function ContactCta() {
                         ? "noopener noreferrer"
                         : undefined
                     }
-                    className="group flex items-center gap-3 rounded-lg px-3 py-2.5 -mx-3 font-sans text-sm text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-slate-100"
+                    className="group flex items-center gap-3 rounded-lg px-3 py-2.5 -mx-3 font-sans text-sm text-muted transition-colors hover:bg-surface-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   >
-                    <span className="text-slate-400 transition-colors group-hover:text-slate-900 dark:text-slate-500 dark:group-hover:text-slate-100">
+                    <span className="text-muted transition-colors group-hover:text-accent">
                       {link.icon}
                     </span>
-                    <span className="font-medium text-slate-900 dark:text-slate-200">
+                    <span className="font-medium text-foreground">
                       {link.label}
                     </span>
                     <span className="truncate">{link.value}</span>
@@ -117,17 +117,17 @@ export function ContactCta() {
 
         {/* Coluna direita: disponibilidade e ação direta */}
         <div className="flex items-start md:items-center">
-          <div className="w-full rounded-xl border border-slate-200/80 bg-white p-7 sm:p-8 dark:border-white/[0.07] dark:bg-[#0e1730]">
+          <div className="w-full rounded-xl border border-border bg-surface p-7 sm:p-8">
             {PROFILE_DATA.availableForWork && (
-              <p className="flex items-center gap-2 font-sans text-xs font-medium text-slate-600 dark:text-slate-400">
+              <p className="flex items-center gap-2 font-sans text-xs font-medium text-muted">
                 <span className="h-2 w-2 rounded-full bg-emerald-500" />
                 Disponível para oportunidades
               </p>
             )}
-            <p className="mt-4 font-display text-xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+            <p className="mt-4 font-display text-xl font-bold tracking-tight text-foreground">
               Prefere e-mail direto?
             </p>
-            <p className="mt-2 font-sans text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p className="mt-2 font-sans text-sm text-muted leading-relaxed">
               Sem formulário intermediário: sua mensagem chega direto na
               minha caixa de entrada.
               {PROFILE_DATA.location ? ` Base em ${PROFILE_DATA.location}.` : ""}

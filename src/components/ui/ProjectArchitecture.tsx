@@ -14,26 +14,26 @@ export function ProjectArchitectureDiagram({
 
   return (
     <section aria-label="Arquitetura técnica do projeto" className="space-y-6">
-      <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+      <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
         Arquitetura técnica
       </h2>
 
       <ol className="space-y-0 max-w-xl">
         {architecture.layers.map((layer, idx) => (
           <li key={layer.label}>
-            <div className="rounded-lg border border-slate-200/80 bg-white px-4 py-3 dark:border-white/[0.07] dark:bg-[#0e1730]">
-              <p className="font-sans text-sm font-semibold text-slate-900 dark:text-slate-100">
+            <div className="rounded-lg border border-border bg-surface px-4 py-3">
+              <p className="font-sans text-sm font-semibold text-foreground">
                 {layer.label}
               </p>
               {layer.description && (
-                <p className="mt-0.5 font-sans text-sm text-slate-600 dark:text-slate-400">
+                <p className="mt-0.5 font-sans text-sm text-muted">
                   {layer.description}
                 </p>
               )}
             </div>
             {idx < architecture.layers.length - 1 && (
               <div
-                className="flex justify-center py-1 text-slate-400 dark:text-slate-500"
+                className="flex justify-center py-1 text-muted"
                 aria-hidden="true"
               >
                 <svg
@@ -58,7 +58,7 @@ export function ProjectArchitectureDiagram({
       {architecture.services && architecture.services.length > 0 && (
         <div className="max-w-xl space-y-3">
           <div
-            className="flex justify-center text-slate-400 dark:text-slate-500"
+            className="flex justify-center text-muted"
             aria-hidden="true"
           >
             <svg
@@ -79,18 +79,18 @@ export function ProjectArchitectureDiagram({
             {architecture.services.map((service) => (
               <li
                 key={service.name}
-                className="rounded-lg border border-slate-200/80 bg-white px-4 py-3 space-y-2 dark:border-white/[0.07] dark:bg-[#0e1730]"
+                className="rounded-lg border border-border bg-surface px-4 py-3 space-y-2"
               >
-                <p className="font-sans text-sm font-semibold text-slate-900 dark:text-slate-100">
+                <p className="font-sans text-sm font-semibold text-foreground">
                   {service.name}
                 </p>
                 {service.description && (
-                  <p className="font-sans text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <p className="font-sans text-xs text-muted leading-relaxed">
                     {service.description}
                   </p>
                 )}
                 {service.dependency && (
-                  <p className="font-sans text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-white/[0.06] pt-2">
+                  <p className="font-sans text-xs text-muted border-t border-border pt-2">
                     <span className="font-mono uppercase tracking-wider">
                       ↓{" "}
                     </span>
@@ -105,15 +105,15 @@ export function ProjectArchitectureDiagram({
 
       {architecture.infrastructureServices &&
         architecture.infrastructureServices.length > 0 && (
-          <div className="max-w-xl rounded-lg border border-slate-200/80 bg-slate-50/60 p-4 dark:border-white/[0.07] dark:bg-[#0e1730]">
-            <p className="font-sans text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <div className="max-w-xl rounded-lg border border-border bg-surface-secondary/60 p-4">
+            <p className="font-sans text-xs font-semibold uppercase tracking-wider text-muted">
               {architecture.infrastructureTitle ?? "Infraestrutura"}
             </p>
             <ul className="mt-3 grid grid-cols-2 gap-2">
               {architecture.infrastructureServices.map((service) => (
                 <li
                   key={service}
-                  className="rounded-md border border-slate-200 bg-white px-3 py-2 font-sans text-sm text-slate-700 dark:border-white/[0.07] dark:bg-white/[0.03] dark:text-slate-300"
+                  className="rounded-md border border-border bg-surface px-3 py-2 font-sans text-sm text-foreground"
                 >
                   {service}
                 </li>

@@ -11,7 +11,7 @@ export async function ExperienceTimeline() {
     <section
       id="experiencia"
       aria-label="Experiência profissional"
-      className="scroll-mt-20 border-t border-slate-200/70 py-16 sm:py-24 dark:border-white/[0.06]"
+      className="scroll-mt-20 border-t border-border py-16 sm:py-24"
     >
       <SectionHeading
         tag="Trajetória"
@@ -20,8 +20,8 @@ export async function ExperienceTimeline() {
       />
 
       {experiences.length === 0 ? (
-        <div className="max-w-3xl rounded-xl border border-slate-200/80 bg-white p-6 sm:p-8 dark:border-white/[0.07] dark:bg-[#0e1730]">
-          <p className="font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+        <div className="max-w-3xl rounded-xl border border-border bg-surface p-6 sm:p-8">
+          <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
             Trajetória profissional detalhada disponível no LinkedIn, incluindo
             cargos, períodos e responsabilidades por empresa.
           </p>
@@ -30,7 +30,7 @@ export async function ExperienceTimeline() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={PROFILE_DATA.socials.linkedin.label}
-            className="mt-4 inline-flex items-center font-sans text-sm font-medium text-slate-900 underline underline-offset-4 decoration-slate-300 hover:decoration-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 rounded dark:text-slate-100 dark:decoration-white/20"
+            className="mt-4 inline-flex items-center font-sans text-sm font-medium text-foreground underline underline-offset-4 decoration-border hover:decoration-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
           >
             Ver experiência no LinkedIn
             <svg
@@ -54,25 +54,25 @@ export async function ExperienceTimeline() {
           {experiences.map((exp) => (
             <li key={`${exp.company}-${exp.period}`} className="relative pl-6">
               <span
-                className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-slate-400 dark:bg-slate-300"
+                className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-accent"
                 aria-hidden="true"
               />
               <article className="space-y-3">
                 <div>
-                  <h3 className="font-display text-base font-semibold text-slate-900 dark:text-slate-100">
+                  <h3 className="font-display text-base font-semibold text-foreground">
                     {exp.role} &bull; {exp.company}
                   </h3>
-                  <p className="mt-0.5 font-sans text-sm text-slate-500 dark:text-slate-400">
+                  <p className="mt-0.5 font-sans text-sm text-muted">
                     {exp.period}
                     {exp.location ? ` • ${exp.location}` : ""}
                     {exp.workModel ? ` • ${exp.workModel}` : ""}
                   </p>
                 </div>
-                <p className="font-sans text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="font-sans text-sm text-muted leading-relaxed">
                   {exp.description}
                 </p>
                 {exp.responsibilities.length > 0 && (
-                  <ul className="space-y-1.5 font-sans text-sm text-slate-600 dark:text-slate-400">
+                  <ul className="space-y-1.5 font-sans text-sm text-muted">
                     {exp.responsibilities.map((item) => (
                       <li key={item} className="flex items-start gap-2">
                         <span

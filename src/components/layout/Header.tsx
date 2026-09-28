@@ -7,32 +7,30 @@ import { MobileNav } from "@/components/layout/MobileNav";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-200/70 dark:border-white/[0.06] bg-white/85 dark:bg-[#0a1020]/85 backdrop-blur-sm transition-colors">
+    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/85 backdrop-blur-sm transition-colors">
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10 h-16 flex items-center justify-between gap-4">
         {/* Brand / Logo */}
         <Link
           href="/#inicio"
-          className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 rounded"
+          className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
           aria-label="Ir para o início do portfólio"
         >
-          <span className="text-base sm:text-lg font-bold tracking-tight font-display text-slate-900 dark:text-slate-50">
+          <span className="text-base sm:text-lg font-bold tracking-tight font-display text-foreground">
             Eloan{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-500 to-slate-800 dark:from-slate-300 dark:to-slate-500">
-              Ferreira
-            </span>
+            <span className="text-accent">Ferreira</span>
           </span>
         </Link>
 
         {/* Desktop Navigation */}
         <nav
           aria-label="Navegação Principal"
-          className="hidden md:flex items-center gap-6 font-sans text-sm font-medium text-slate-600 dark:text-slate-400"
+          className="hidden md:flex items-center gap-6 font-sans text-sm font-medium text-muted"
         >
           {NAVIGATION_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 rounded py-1"
+              className="hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded py-1"
             >
               {item.label}
             </Link>
@@ -46,7 +44,7 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={PROFILE_DATA.socials.github.label}
-            className="hidden lg:inline-flex items-center justify-center w-9 h-9 rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
+            className="hidden lg:inline-flex items-center justify-center w-9 h-9 rounded-md text-muted hover:text-accent hover:bg-surface-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             <svg
               className="w-[18px] h-[18px]"
@@ -66,7 +64,7 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={PROFILE_DATA.socials.linkedin.label}
-            className="hidden lg:inline-flex items-center justify-center w-9 h-9 rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
+            className="hidden lg:inline-flex items-center justify-center w-9 h-9 rounded-md text-muted hover:text-accent hover:bg-surface-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             <svg
               className="w-[18px] h-[18px]"

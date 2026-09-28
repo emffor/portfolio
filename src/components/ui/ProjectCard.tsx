@@ -20,8 +20,8 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
     project.technologies.length - visibleTechnologies.length;
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-slate-200/80 bg-white transition-colors duration-200 hover:border-slate-300 dark:border-white/[0.07] dark:bg-[#0e1730] dark:hover:border-white/20">
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-[#0a1020]">
+    <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition-colors duration-200 hover:border-accent/60">
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-secondary">
         <Image
           src={project.image}
           alt={`Demonstração visual do projeto ${project.title}`}
@@ -35,21 +35,21 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
       <div className="flex flex-1 flex-col gap-4 p-6 sm:p-7">
         <div>
           <div className="mb-2 flex items-center justify-between gap-3">
-            <span className="font-sans text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <span className="font-sans text-xs font-semibold uppercase tracking-wider text-accent">
               {project.category}
             </span>
             {project.featured && (
-              <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500 dark:bg-white/[0.06] dark:text-slate-400">
+              <span className="rounded bg-surface-secondary px-2 py-0.5 text-xs font-medium text-muted">
                 Destaque
               </span>
             )}
           </div>
 
-          <h3 className="font-display text-xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+          <h3 className="font-display text-xl font-bold tracking-tight text-foreground">
             {project.title}
           </h3>
 
-          <p className="mt-2 font-sans text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+          <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
             {project.shortDescription}
           </p>
         </div>
@@ -64,7 +64,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
             </Badge>
           ))}
           {remainingCount > 0 && (
-            <span className="px-1 text-xs font-medium text-slate-400 dark:text-slate-500">
+            <span className="px-1 text-xs font-medium text-muted">
               +{remainingCount}
             </span>
           )}

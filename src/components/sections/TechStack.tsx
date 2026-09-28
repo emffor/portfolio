@@ -8,7 +8,7 @@ export function TechStack() {
     <section
       id="tecnologias"
       aria-label="Tecnologias e ferramentas"
-      className="scroll-mt-20 border-t border-slate-200/70 py-16 sm:py-24 dark:border-white/[0.06]"
+      className="scroll-mt-20 border-t border-border py-16 sm:py-24"
     >
       <SectionHeading
         tag="Ferramentas"
@@ -20,11 +20,11 @@ export function TechStack() {
         {TECH_CATEGORIES.map((category) => (
           <div
             key={category.title}
-            className="rounded-xl border border-slate-200/80 bg-white p-6 space-y-4 dark:border-white/[0.07] dark:bg-[#0e1730]"
+            className="rounded-xl border border-border bg-surface p-6 space-y-4"
           >
-            <h3 className="font-display text-sm font-semibold tracking-tight text-slate-900 dark:text-slate-100 flex items-center justify-between">
+            <h3 className="font-display text-sm font-semibold tracking-tight text-foreground flex items-center justify-between">
               <span>{category.title}</span>
-              <span className="font-sans text-xs font-medium text-slate-400 dark:text-slate-500">
+              <span className="font-sans text-xs font-medium text-muted">
                 {category.skills.length} techs
               </span>
             </h3>

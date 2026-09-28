@@ -30,7 +30,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-sans font-medium rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+    "inline-flex items-center justify-center font-sans font-medium rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none";
 
   const sizeStyles = {
     sm: "text-xs px-3 py-1.5 gap-1.5",
@@ -40,15 +40,15 @@ export function Button({
 
   const variantStyles = {
     primary:
-      "bg-slate-900 text-white hover:bg-slate-700 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white shadow-sm",
+      "bg-accent text-[var(--on-accent)] hover:bg-accent-hover shadow-sm",
     secondary:
-      "bg-slate-100 text-slate-900 hover:bg-slate-200 dark:bg-white/[0.06] dark:text-slate-100 dark:hover:bg-white/10",
+      "bg-surface-secondary text-foreground hover:bg-border/60",
     outline:
-      "border border-slate-300 dark:border-white/15 bg-transparent text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5",
+      "border border-border bg-transparent text-foreground hover:border-accent/60 hover:text-accent",
     ghost:
-      "bg-transparent text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-slate-100",
+      "bg-transparent text-muted hover:bg-surface-secondary hover:text-foreground",
     glow:
-      "bg-gradient-to-r from-slate-800 to-slate-950 hover:from-slate-700 hover:to-slate-900 text-white dark:from-slate-100 dark:to-white dark:hover:from-white dark:hover:to-slate-200 dark:text-slate-950 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.45)] border-0",
+      "bg-accent text-[var(--on-accent)] hover:bg-accent-hover border-0 shadow-[0_10px_30px_-10px_var(--accent)]",
   };
 
   const combinedClasses = cn(
