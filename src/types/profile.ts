@@ -32,6 +32,7 @@ export type SkillIconName =
   | "javascript"
   | "typescript"
   | "nodejs"
+  | "python"
   | "react"
   | "nextjs"
   | "mobile"
@@ -41,7 +42,6 @@ export type SkillIconName =
   | "cicd"
   | "tests"
   | "ai"
-  | "code"
   | "english";
 
 export interface Skill {

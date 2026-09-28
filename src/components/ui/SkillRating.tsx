@@ -11,7 +11,7 @@ function Star({ filled }: { filled: boolean }) {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="h-4 w-4"
+      className="h-3.5 w-3.5"
       aria-hidden="true"
       fill={filled ? "currentColor" : "none"}
       stroke="currentColor"
@@ -25,7 +25,7 @@ function Star({ filled }: { filled: boolean }) {
 
 function HalfStar() {
   return (
-    <span className="relative inline-flex h-4 w-4" aria-hidden="true">
+    <span className="relative inline-flex h-3.5 w-3.5" aria-hidden="true">
       <span className="absolute inset-0 text-muted">
         <Star filled={false} />
       </span>
@@ -41,7 +41,7 @@ export function SkillRating({ rating }: SkillRatingProps) {
     <span
       role="img"
       aria-label={`Nota ${rating.toFixed(1)} de 5`}
-      className="mt-4 inline-flex items-center gap-1"
+      className="mt-3 inline-flex items-center gap-1"
     >
       {Array.from({ length: 5 }, (_, index) => {
         const position = index + 1;
@@ -61,7 +61,7 @@ export function SkillRating({ rating }: SkillRatingProps) {
           </span>
         );
       })}
-      <span className="ml-1.5 font-sans text-sm text-muted">
+      <span className="ml-1.5 font-sans text-xs text-muted">
         {rating.toFixed(1)}
       </span>
     </span>

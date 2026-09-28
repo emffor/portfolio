@@ -34,7 +34,7 @@ export const SKILLS: readonly Skill[] = [
   {
     title: "Python",
     description: "Scripts, automações e backend.",
-    icon: "code",
+    icon: "python",
     rating: 4.0,
   },
   {
