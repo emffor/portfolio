@@ -103,7 +103,7 @@ export function Hero() {
                   height={1254}
                   priority
                   sizes="(max-width: 640px) 400px, 460px"
-                  className="hero-photo aspect-[4/5] h-auto w-full origin-center object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                  className="hover-zoom aspect-[4/5] h-auto w-full origin-center object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
                 />
               ) : null}
               {/* Fusão das bordas com o fundo */}

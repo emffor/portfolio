@@ -26,7 +26,35 @@ export interface Profile {
   };
 }
 
-export interface TechCategory {
+export type SkillIconName =
+  | "php"
+  | "laravel"
+  | "javascript"
+  | "typescript"
+  | "nodejs"
+  | "nestjs"
+  | "react"
+  | "nextjs"
+  | "mobile"
+  | "database"
+  | "aws"
+  | "docker"
+  | "cicd"
+  | "ai"
+  | "api"
+  | "architecture"
+  | "code"
+  | "agile"
+  | "critical"
+  | "problem"
+  | "communication"
+  | "collaboration"
+  | "leadership"
+  | "adaptability"
+  | "english";
+
+export interface Skill {
   title: string;
-  skills: readonly string[];
+  description: string;
+  icon: SkillIconName;
 }
