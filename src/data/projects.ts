@@ -76,12 +76,14 @@ export const PROJECTS: readonly Project[] = [
     image: "/assets/vidora.png",
     technologies: [
       "TypeScript",
+      "Vanilla TypeScript",
       "Express 5",
       "PostgreSQL 15",
       "Docker",
       "Docker Compose",
       "Jest",
       "ts-jest",
+      "jsdom",
       "REST",
       "JSON",
       "Vite",
@@ -95,7 +97,7 @@ export const PROJECTS: readonly Project[] = [
     context:
       "Construir uma aplicação Full Stack capaz de autenticar usuários, consumir uma API externa de vídeos e manter favoritos individuais, mantendo responsabilidades e persistência isoladas entre diferentes serviços.",
     solution:
-      "Frontend em Vite e TypeScript comunicando-se por HTTP/REST em JSON exclusivamente com o API Gateway, que atua como ponto único de entrada e encaminha as requisições aos serviços internos: Auth Service para registro, login e autenticação com Bearer; Video Service para pesquisa e consulta de vídeos com integração à YouTube Data API v3 e normalização das respostas externas; Favorites Service para adicionar, remover, listar e verificar favoritos com persistência independente. Chamadas entre serviços com timeout configurado e dois bancos PostgreSQL separados, um por serviço com estado.",
+      "Frontend SPA em Vanilla TypeScript (sem frameworks) comunicando-se por HTTP/REST em JSON exclusivamente com o API Gateway, com roteador client-side próprio (History API, rotas protegidas e 404), store reativa com padrão Observer e HttpClient centralizado (fetch nativo, AbortController, timeout e injeção de Bearer). O gateway atua como ponto único de entrada e encaminha as requisições aos serviços internos: Auth Service para registro, login e autenticação com Bearer; Video Service para pesquisa e consulta de vídeos com integração à YouTube Data API v3 e normalização das respostas externas; Favorites Service para adicionar, remover, listar e verificar favoritos com persistência independente. Chamadas entre serviços com timeout configurado e dois bancos PostgreSQL separados, um por serviço com estado.",
     technicalChallenges: [
       "Isolar responsabilidades e persistência entre serviços mantendo a comunicação distribuída compreensível.",
       "Integrar a YouTube Data API v3 normalizando respostas externas para o contrato interno da aplicação.",
@@ -105,7 +107,9 @@ export const PROJECTS: readonly Project[] = [
     ],
     technicalHighlights: [
       "Arquitetura de microsserviços com API Gateway como ponto único de entrada.",
-      "TypeScript strict em todos os serviços e no frontend.",
+      "TypeScript strict em todos os serviços e no frontend Vanilla (sem frameworks).",
+      "Roteador SPA próprio com History API, rotas protegidas e tratamento de 404.",
+      "Store reativa com padrão Observer e HttpClient centralizado com timeout.",
       "Comunicação HTTP/REST em JSON com timeout entre serviços.",
       "Integração com YouTube Data API v3 com normalização via Adapter.",
       "PostgreSQL isolado por serviço: vidora_auth e vidora_favoritos.",
@@ -145,8 +149,8 @@ export const PROJECTS: readonly Project[] = [
     architecture: {
       layers: [
         {
-          label: "Frontend (Vite + TypeScript)",
-          description: "Descoberta, pesquisa e gerenciamento de vídeos",
+          label: "Frontend (Vite + Vanilla TypeScript)",
+          description: "SPA sem frameworks, roteador próprio e store reativa",
         },
         {
           label: "HTTP / REST",

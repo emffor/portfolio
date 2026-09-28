@@ -28,7 +28,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
           fill
           priority={priority}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 560px"
-          className="object-cover object-center"
+          className="object-contain object-center"
         />
       </div>
 
