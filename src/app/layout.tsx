@@ -1,22 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Sora, Manrope } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, AUTHOR_NAME } from "@/lib/constants";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
-const sora = Sora({
-  variable: "--font-sora",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600", "700", "800"],
-});
-
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
 });
 
 export const viewport: Viewport = {
@@ -70,7 +63,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${sora.variable} ${manrope.variable} antialiased`}
+      className={`${jetbrainsMono.variable} antialiased`}
       suppressHydrationWarning
     >
       <head>
