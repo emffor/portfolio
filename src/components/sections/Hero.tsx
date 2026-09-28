@@ -21,8 +21,8 @@ export function Hero() {
 
       <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
         <div className="space-y-6 sm:space-y-7">
-          <div className="inline-flex items-center text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400">
-            <span>Olá, eu sou</span>
+          <div className="inline-flex items-center font-sans text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400">
+            <span>OLÁ, EU SOU</span>
             <span className="typing-cursor" aria-hidden="true" />
           </div>
 
@@ -33,12 +33,12 @@ export function Hero() {
                 Ferreira
               </span>
             </h1>
-            <p className="text-xl sm:text-2xl font-medium text-zinc-800 dark:text-zinc-200 tracking-tight font-display">
+            <p className="whitespace-nowrap text-xl sm:text-2xl font-medium text-zinc-800 dark:text-zinc-200 tracking-tight font-display">
               Desenvolvedor Full Stack Sênior
             </p>
           </div>
 
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-lg">
+          <p className="font-sans text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-lg">
             Construo produtos rápidos e acessíveis — de APIs REST robustas e arquiteturas escaláveis a interfaces bem acabadas com rigor técnico e foco em valor de negócio.
           </p>
 
@@ -90,17 +90,23 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Coluna da Direita: foto de perfil */}
-        <div className="relative flex justify-center lg:justify-end items-center py-6 lg:py-0">
-          <div className="relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[400px] overflow-hidden rounded-2xl border border-zinc-200/80 bg-zinc-100 shadow-xl shadow-zinc-950/10 dark:border-white/10 dark:bg-zinc-900 dark:shadow-black/40">
+        {/* Coluna da Direita: showcase do avatar sem moldura externa */}
+        <div className="relative flex justify-center items-center py-6 lg:py-0">
+          {/* Glow difuso de fundo */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-[12%] -z-10 rounded-full bg-purple-600/30 blur-3xl dark:bg-purple-600/40"
+          />
+
+          {/* Arte do perfil (sem .avatar-frame redundante) */}
+          <div className="relative w-full max-w-[380px] sm:max-w-[440px] lg:max-w-[480px]">
             <Image
               src="/assets/avatar-eloan.png"
               alt="Eloan Ferreira - Desenvolvedor Full Stack Sênior"
               width={1254}
               height={1254}
               priority
-              sizes="(max-width: 640px) 340px, (max-width: 1024px) 380px, 400px"
-              className="w-full h-auto object-cover aspect-[4/5]"
+              className="w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(168,85,247,0.35)]"
             />
           </div>
         </div>

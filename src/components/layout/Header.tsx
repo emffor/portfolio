@@ -25,7 +25,7 @@ export function Header() {
         {/* Desktop Navigation */}
         <nav
           aria-label="Navegação Principal"
-          className="hidden md:flex items-center gap-6 text-sm font-medium text-zinc-600 dark:text-zinc-400"
+          className="hidden md:flex items-center gap-6 font-sans text-sm font-medium text-zinc-600 dark:text-zinc-400"
         >
           {NAVIGATION_ITEMS.map((item) => (
             <Link
