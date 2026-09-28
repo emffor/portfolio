@@ -106,7 +106,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </h1>
           <div
             aria-hidden="true"
-            className="h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a8bdc0]"
+            className="h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a6c5bf]"
           />
           <p className="font-sans text-base sm:text-lg text-muted leading-relaxed max-w-2xl">
             {project.shortDescription}

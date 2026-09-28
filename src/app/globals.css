@@ -3,63 +3,102 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: var(--font-manrope), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-display: var(--font-sora), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: var(--font-manrope), system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --font-display: var(--font-sora), system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
   --font-mono: var(--font-geist-mono), monospace;
 }
 
-/* Tokens semânticos */
+/* =========================================================
+   TOKENS SEMÂNTICOS
+   ========================================================= */
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-soft: var(--accent-soft);
   --color-on-accent: var(--on-accent);
+
   --color-surface: var(--surface);
   --color-surface-secondary: var(--surface-secondary);
+
   --color-border: var(--border);
   --color-muted: var(--muted);
 }
 
-:root {
-  --background: #f8faf9;
-  --foreground: #172022;
+/* =========================================================
+   LIGHT MODE
+   ========================================================= */
 
-  --accent: #607d7f;
-  --accent-hover: #526d6f;
-  --accent-soft: rgba(96, 125, 127, 0.12);
+:root {
+  --background: #f7f9f8;
+  --foreground: #17201f;
+
+  /*
+   * Verde petróleo mais profundo no light mode
+   * para preservar contraste em fundos claros.
+   */
+  --accent: #386863;
+  --accent-hover: #2f5955;
+  --accent-soft: rgba(56, 104, 99, 0.10);
   --on-accent: #ffffff;
 
   --surface: #ffffff;
-  --surface-secondary: #f1f5f4;
+  --surface-secondary: #f0f4f3;
 
-  --border: #d9e2e1;
-  --muted: #657577;
+  --border: #d9e1df;
+  --muted: #667572;
 
   color-scheme: light dark;
 }
 
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
 .dark {
-  --background: #090f18;
-  --foreground: #e8eeee;
+  /*
+   * Fundo quase preto com leve temperatura verde.
+   * Evita preto absoluto e integra melhor com o accent.
+   */
+  --background: #090d0e;
+  --foreground: #eef2f1;
 
-  --accent: #799496;
-  --accent-hover: #8da6a8;
-  --accent-soft: rgba(121, 148, 150, 0.14);
-  --on-accent: #091112;
+  /*
+   * Accent principal.
+   * Mais luminoso que #386863 para funcionar sobre
+   * o fundo escuro sem perder a identidade petróleo.
+   */
+  --accent: #63a39c;
+  --accent-hover: #76b3ac;
+  --accent-soft: rgba(99, 163, 156, 0.12);
+  --on-accent: #07110f;
 
-  --surface: #0e171f;
-  --surface-secondary: #131e26;
+  --surface: #0f1516;
+  --surface-secondary: #151d1e;
 
-  --border: #29383e;
-  --muted: #94a3a5;
+  --border: #293536;
+  --muted: #96a3a1;
 }
+
+/* =========================================================
+   HTML
+   ========================================================= */
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
 }
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
 
 h1,
 h2,
@@ -72,21 +111,85 @@ h6,
   letter-spacing: -0.025em;
 }
 
+/* =========================================================
+   BODY
+   ========================================================= */
+
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+
   min-height: 100vh;
+
   display: flex;
   flex-direction: column;
+
+  text-rendering: optimizeLegibility;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* =========================================================
+   TEXT SELECTION
+   ========================================================= */
 
 ::selection {
   background: var(--accent);
   color: var(--on-accent);
 }
 
-/* Redução de movimento acessível */
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--background);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border: 2px solid var(--background);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -101,7 +204,3 @@ body {
     scroll-behavior: auto !important;
   }
 }
-
-/* Efeitos do Hero:
-   brilhos estáticos e discretos.
-   Sem animações contínuas, typing ou órbitas em movimento. */

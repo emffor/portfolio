@@ -44,7 +44,7 @@ export function ExperienceSummary() {
           </h2>
           <div
             aria-hidden="true"
-            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a8bdc0]"
+            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a6c5bf]"
           />
           <p className="mt-6 font-sans text-sm sm:text-base text-muted leading-relaxed">
             {PROFILE_DATA.summary}

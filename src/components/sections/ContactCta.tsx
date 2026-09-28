@@ -80,7 +80,7 @@ export function ContactCta() {
           </h2>
           <div
             aria-hidden="true"
-            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a8bdc0]"
+            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a6c5bf]"
           />
           <p className="mt-6 max-w-md font-sans text-sm sm:text-base text-muted leading-relaxed">
             Aberto a propostas de trabalho e projetos onde excelência técnica

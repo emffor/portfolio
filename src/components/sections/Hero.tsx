@@ -94,7 +94,7 @@ export function Hero() {
               aria-hidden="true"
               className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-soft blur-[90px]"
             />
-            <div className="relative overflow-hidden rounded-2xl border border-[rgba(121,148,150,0.30)] bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.30),0_0_50px_rgba(121,148,150,0.06)]">
+            <div className="relative overflow-hidden rounded-2xl border border-[rgba(99,163,156,0.30)] bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.30),0_0_50px_rgba(99,163,156,0.06)]">
               {PROFILE_DATA.photo ? (
                 <Image
                   src={PROFILE_DATA.photo.src}
