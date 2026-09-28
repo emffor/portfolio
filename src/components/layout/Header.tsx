@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import { NAVIGATION_ITEMS } from "@/data/navigation";
-import { PROFILE_DATA } from "@/data/profile";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { MobileNav } from "@/components/layout/MobileNav";
 
@@ -12,14 +11,14 @@ export function Header() {
         {/* Brand / Logo */}
         <Link
           href="/#inicio"
-          className="group flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-100 rounded"
+          className="group flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-100 rounded"
           aria-label="Ir para o início do portfólio"
         >
-          <span className="w-8 h-8 rounded-md bg-zinc-900 text-zinc-50 dark:bg-zinc-100 dark:text-zinc-900 flex items-center justify-center font-mono font-bold text-sm tracking-tight transition-transform group-hover:scale-105">
-            EF
-          </span>
-          <span className="text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
-            {PROFILE_DATA.name}
+          <span className="text-base sm:text-lg font-bold tracking-tight font-display text-zinc-900 dark:text-white">
+            Eloan{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-fuchsia-500">
+              Ferreira
+            </span>
           </span>
         </Link>
 
