@@ -55,6 +55,54 @@ export function ProjectArchitectureDiagram({
         ))}
       </ol>
 
+      {architecture.services && architecture.services.length > 0 && (
+        <div className="max-w-xl space-y-3">
+          <div
+            className="flex justify-center text-zinc-400 dark:text-zinc-500"
+            aria-hidden="true"
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+          </div>
+          <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {architecture.services.map((service) => (
+              <li
+                key={service.name}
+                className="rounded-lg border border-zinc-200/80 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 px-4 py-3 space-y-2"
+              >
+                <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                  {service.name}
+                </p>
+                {service.description && (
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    {service.description}
+                  </p>
+                )}
+                {service.dependency && (
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 border-t border-zinc-100 dark:border-zinc-800 pt-2">
+                    <span className="font-mono uppercase tracking-wider">
+                      ↓{" "}
+                    </span>
+                    {service.dependency}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {architecture.infrastructureServices &&
         architecture.infrastructureServices.length > 0 && (
           <div className="max-w-xl rounded-lg border border-zinc-200/80 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-900/30 p-4">

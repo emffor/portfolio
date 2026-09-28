@@ -193,6 +193,74 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <ProjectArchitectureDiagram architecture={project.architecture} />
 
+        {project.technicalHighlights &&
+          project.technicalHighlights.length > 0 && (
+            <section aria-label="Destaques técnicos" className="space-y-3">
+              <h2 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+                Destaques técnicos
+              </h2>
+              <ul className="space-y-2 text-sm sm:text-base text-zinc-600 dark:text-zinc-300">
+                {project.technicalHighlights.map((highlight, idx) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span
+                      className="text-emerald-500 font-bold shrink-0"
+                      aria-hidden="true"
+                    >
+                      ›
+                    </span>
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+        {project.decisions && project.decisions.length > 0 && (
+          <section aria-label="Decisões e trade-offs" className="space-y-4">
+            <h2 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+              Decisões e trade-offs
+            </h2>
+            <div className="space-y-4">
+              {project.decisions.map((decision) => (
+                <div
+                  key={decision.title}
+                  className="rounded-lg border border-zinc-200/80 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 px-4 py-3 space-y-2"
+                >
+                  <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                    {decision.title}
+                  </p>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                    <span className="font-medium text-emerald-600 dark:text-emerald-400">
+                      Benefício:{" "}
+                    </span>
+                    {decision.benefit}
+                  </p>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                    <span className="font-medium text-zinc-900 dark:text-zinc-100">
+                      Custo:{" "}
+                    </span>
+                    {decision.cost}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {project.authNote && (
+          <section
+            aria-label="Observação sobre autenticação"
+            className="space-y-3"
+          >
+            <h2 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+              Nota sobre autenticação
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
+              {project.authNote}
+            </p>
+          </section>
+        )}
+
         <ProjectGallery screenshots={project.screenshots} />
 
         <section aria-label="Links do projeto" className="space-y-4">
