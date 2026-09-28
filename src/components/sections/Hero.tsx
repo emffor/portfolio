@@ -122,7 +122,7 @@ export function Hero() {
 
             <span
               aria-hidden="true"
-              className="absolute -right-5 -top-5 z-20 flex h-14 w-14 rotate-12 items-center justify-center rounded-2xl border border-accent/40 bg-surface text-accent shadow-[0_12px_35px_rgba(0,0,0,0.35)] sm:-right-6 sm:-top-6 sm:h-16 sm:w-16"
+              className="absolute right-4 top-4 z-20 flex h-14 w-14 rotate-12 items-center justify-center rounded-2xl border border-accent/40 bg-surface text-accent shadow-[0_12px_35px_rgba(0,0,0,0.35)] sm:right-5 sm:top-5 sm:h-16 sm:w-16"
             >
               <TbCode className="h-7 w-7 sm:h-8 sm:w-8" />
             </span>
