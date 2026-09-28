@@ -5,7 +5,7 @@ export const PROJECTS: readonly Project[] = [
     title: "LaFlora Agro",
     slug: "laflora-agro",
     category: "SaaS Multiempresa",
-    featured: true,
+    featured: false,
     shortDescription:
       "Sistema SaaS multiempresa para homologação e gestão de fornecedores agropecuários.",
     fullDescription:
@@ -73,7 +73,7 @@ export const PROJECTS: readonly Project[] = [
       "Plataforma Full Stack para descoberta, pesquisa e gerenciamento de vídeos, construída com arquitetura de microsserviços.",
     fullDescription:
       "Aplicação Full Stack estruturada em microsserviços, com API Gateway como ponto único de entrada e serviços independentes responsáveis por autenticação, vídeos e favoritos. O projeto demonstra separação de responsabilidades, integração com API externa, persistência isolada, comunicação entre serviços e testes automatizados.",
-    image: "/images/projects/vidora.svg",
+    image: "/assets/vidora.png",
     technologies: [
       "TypeScript",
       "Express 5",
@@ -183,6 +183,79 @@ export const PROJECTS: readonly Project[] = [
         "Favorites Service",
         "PostgreSQL",
       ],
+    },
+  },
+  {
+    title: "Rastro Florestal",
+    slug: "rastro-florestal",
+    category: "SaaS Multiempresa",
+    featured: true,
+    shortDescription:
+      "SaaS multi-empresa para madeireiras com conformidade DOF/IBAMA, estoque duplo e mapa visual de pátio.",
+    fullDescription:
+      "SaaS multi-empresa para madeireiras e serrarias reguladas pelo IBAMA. Une conformidade legal do DOF (Documento de Origem Florestal) com operação real de pátio: controla saldo legal em m³ e estoque físico em peças ao mesmo tempo, com mapa visual do pátio, movimentações rastreáveis e relatórios para fiscalização.",
+    image: "/assets/rastro-florestal.png",
+    technologies: [
+      "Laravel 11",
+      "PHP 8.2",
+      "PostgreSQL 16",
+      "Redis 7",
+      "React 19",
+      "TypeScript",
+      "Vite 7",
+      "Tailwind CSS 4",
+      "React-Konva",
+      "Docker",
+      "AWS S3",
+      "PHPUnit 11",
+    ],
+    projectUrl: "https://rastrof.netlify.app/",
+    context:
+      "Empresas madeireiras tomavam multa por controlar o DOF em planilha, com o estoque legal desconectado do estoque físico e sem rastreabilidade pronta para fiscalização.",
+    solution:
+      "Backend em Laravel com controle de estoque duplo (legal em m³ x físico em peças), alocação DOF-lote, movimentações auditáveis e multi-tenancy por empresa. Frontend em React + TypeScript com dashboard operacional, mapa interativo de pátio em canvas e fluxos de saída com preview.",
+    technicalChallenges: [
+      "Sincronizar o estoque duplo com débito casado entre saldo legal (m³) e físico (peças) via volume unitário.",
+      "Modelar a alocação DOF-lote com operações de alocar, transferir, dar baixa e remover.",
+      "Manter movimentações imutáveis (Entrada, Transferência, Baixa, Ajuste) com preview de saída e consumo por fonte.",
+      "Implementar multi-tenancy real com RBAC granular (Master > Admin > Usuário) e permissões por recurso.",
+      "Construir o mapa de pátio interativo em canvas com drag-and-drop, detecção de colisão e áreas bloqueadas.",
+      "Gerenciar anexos polimórficos em S3 com cota mensal e URL temporária cacheada no Redis.",
+    ],
+    technicalHighlights: [
+      "Estoque duplo sincronizado legal x físico.",
+      "Mapa de pátio interativo em canvas com drag-and-drop e colisão.",
+      "Multi-tenancy real com RBAC granular.",
+      "IDs criptografados com Hashids e auditoria com Spatie Activity Log.",
+      "Respostas de API padronizadas e autenticação com Laravel Sanctum.",
+      "Relatórios PDF/Excel de DOF e movimentações.",
+    ],
+    authNote:
+      "Acesso de demonstração em https://rastrof.netlify.app/ — e-mail madeireira@email.com / senha 123123. O código-fonte é privado e não é exposto no portfólio.",
+    myRole:
+      "Desenvolvimento Full Stack: backend em Laravel (regras de negócio, estoque duplo, alocação DOF-lote, RBAC, relatórios PDF/Excel) e frontend em React + TypeScript (dashboard operacional, mapa de pátio em canvas, fluxos de saída e painel administrativo).",
+    screenshots: [],
+    architecture: {
+      layers: [
+        {
+          label: "React 19 + TypeScript",
+          description: "Dashboard operacional, mapa de pátio em canvas e fluxos de saída",
+        },
+        {
+          label: "REST API",
+          description: "Contrato HTTP tipado com respostas padronizadas",
+        },
+        {
+          label: "Laravel 11 / PHP",
+          description: "Regras de negócio, estoque duplo, RBAC e autenticação com Sanctum",
+        },
+        {
+          label: "PostgreSQL 16 + Redis 7",
+          description: "Persistência relacional multi-tenant e cache de URLs temporárias",
+        },
+      ],
+      infrastructureTitle: "Docker + Nginx",
+      infrastructureServices: ["Frontend Web", "API", "PostgreSQL", "Redis", "AWS S3"],
     },
   },
 ] as const;
