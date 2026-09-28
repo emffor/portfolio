@@ -51,6 +51,7 @@
 
   --surface: #ffffff;
   --surface-secondary: #f0f4f3;
+  --section-highlight: rgba(56, 104, 99, 0.12);
 
   --border: #d9e1df;
   --muted: #667572;
@@ -82,6 +83,7 @@
 
   --surface: #0f1516;
   --surface-secondary: #151d1e;
+  --section-highlight: rgba(99, 163, 156, 0.1);
 
   --border: #293536;
   --muted: #96a3a1;
@@ -112,8 +114,8 @@ html {
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    color-mix(in srgb, var(--surface-secondary) 75%, transparent) 24%,
-    color-mix(in srgb, var(--surface-secondary) 75%, transparent) 76%,
+    var(--section-highlight) 24%,
+    var(--section-highlight) 76%,
     transparent 100%
   );
   content: "";

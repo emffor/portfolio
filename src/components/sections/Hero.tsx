@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { TbCode } from "react-icons/tb";
 import { PROFILE_DATA } from "@/data/profile";
 import { Button } from "@/components/ui/Button";
 
@@ -89,33 +90,42 @@ export function Hero() {
             className="absolute bottom-[16%] left-[8%] hidden h-1 w-1 rounded-full bg-slate-500/50 sm:block lg:left-[38%]"
           />
 
-          <figure className="relative w-full max-w-[400px] sm:max-w-[460px]">
+          <figure className="relative z-10 w-full max-w-[400px] sm:max-w-[460px]">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-soft opacity-80 blur-[90px]"
             />
-            <div className="group relative overflow-hidden rounded-2xl border border-accent/30 bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.30),0_0_50px_rgba(99,163,156,0.06)]">
-              {PROFILE_DATA.photo ? (
-                <Image
-                  src={PROFILE_DATA.photo.src}
-                  alt={PROFILE_DATA.photo.alt}
-                  width={1254}
-                  height={1254}
-                  priority
-                  sizes="(max-width: 640px) 400px, 460px"
-                  className="hover-zoom aspect-[4/5] h-auto w-full origin-center object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+            <div className="group relative z-0 rounded-2xl border border-accent/30 bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.30),0_0_50px_rgba(99,163,156,0.06)]">
+              <div className="relative overflow-hidden rounded-2xl">
+                {PROFILE_DATA.photo ? (
+                  <Image
+                    src={PROFILE_DATA.photo.src}
+                    alt={PROFILE_DATA.photo.alt}
+                    width={1254}
+                    height={1254}
+                    priority
+                    sizes="(max-width: 640px) 400px, 460px"
+                    className="hover-zoom aspect-[4/5] h-auto w-full origin-center object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                  />
+                ) : null}
+                {/* Fusão das bordas com o fundo */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent"
                 />
-              ) : null}
-              {/* Fusão das bordas com o fundo */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent"
-              />
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10"
-              />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10"
+                />
+              </div>
             </div>
+
+            <span
+              aria-hidden="true"
+              className="absolute -right-5 -top-5 z-20 flex h-14 w-14 rotate-12 items-center justify-center rounded-2xl border border-accent/40 bg-surface text-accent shadow-[0_12px_35px_rgba(0,0,0,0.35)] sm:-right-6 sm:-top-6 sm:h-16 sm:w-16"
+            >
+              <TbCode className="h-7 w-7 sm:h-8 sm:w-8" />
+            </span>
 
             {PROFILE_DATA.availableForWork && (
               <figcaption className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-surface/95 px-4 py-2 text-xs font-medium text-foreground shadow-lg backdrop-blur-sm">
