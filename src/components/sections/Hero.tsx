@@ -109,7 +109,7 @@ export function Hero() {
               {/* Fusão das bordas com o fundo */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent"
               />
               <div
                 aria-hidden="true"
