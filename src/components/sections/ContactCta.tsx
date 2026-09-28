@@ -67,7 +67,7 @@ export function ContactCta() {
     <section
       id="contato"
       aria-label="Informações de contato e canais de comunicação"
-      className="scroll-mt-20 py-16 sm:py-24"
+      className="scroll-mt-20 bg-[radial-gradient(ellipse_75%_65%_at_50%_45%,var(--surface-secondary)_0%,transparent_72%)] py-16 sm:py-24"
     >
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-14">
         {/* Coluna esquerda: título, texto e canais */}
