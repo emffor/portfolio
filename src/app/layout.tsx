@@ -91,7 +91,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-200">
+      <body
+        className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-200"
+        suppressHydrationWarning
+      >
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 font-sans bg-accent text-[var(--on-accent)] text-sm font-medium rounded-md shadow-md"
