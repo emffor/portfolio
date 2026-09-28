@@ -41,12 +41,7 @@ export type SkillIconName =
   | "cicd"
   | "tests"
   | "ai"
-  | "architecture"
   | "code"
-  | "agile"
-  | "collaboration"
-  | "leadership"
-  | "adaptability"
   | "english";
 
 export interface Skill {

@@ -35,7 +35,7 @@ export const SKILLS: readonly Skill[] = [
     title: "Python",
     description: "Scripts, automações e backend.",
     icon: "code",
-    rating: 3.5,
+    rating: 4.0,
   },
   {
     title: "React",
@@ -89,31 +89,6 @@ export const SKILLS: readonly Skill[] = [
     description: "LLMs, APIs de IA, agentes e automações.",
     icon: "ai",
     rating: 4.5,
-  },
-  {
-    title: "Arquitetura",
-    description: "Desenho de sistemas, integrações e evolução de software.",
-    icon: "architecture",
-  },
-  {
-    title: "Scrum & Kanban",
-    description: "Entrega contínua com Scrum, Kanban e Jira.",
-    icon: "agile",
-  },
-  {
-    title: "Colaboração",
-    description: "Entrega em time, com revisão e responsabilidade compartilhada.",
-    icon: "collaboration",
-  },
-  {
-    title: "Liderança técnica",
-    description: "Oriento decisões, qualidade e evolução do código.",
-    icon: "leadership",
-  },
-  {
-    title: "Adaptabilidade",
-    description: "Ajusto a abordagem quando o contexto muda.",
-    icon: "adaptability",
   },
   {
     title: "Inglês",

@@ -70,42 +70,10 @@ const paths: Record<SkillIconName, React.ReactNode> = {
       <path d="m9 12.2 2.2 2.2L15.5 10" />
     </>
   ),
-  architecture: (
-    <>
-      <rect x="3.5" y="4" width="6" height="5" rx="1" />
-      <rect x="14.5" y="4" width="6" height="5" rx="1" />
-      <rect x="9" y="15" width="6" height="5" rx="1" />
-      <path d="M6.5 9v2.5h11V9M12 11.5V15" />
-    </>
-  ),
   code: (
     <>
       <path d="M8 9 5 12l3 3M16 9l3 3-3 3" />
       <path d="m13 8-2 8" />
-    </>
-  ),
-  agile: (
-    <>
-      <rect x="4" y="5" width="4.5" height="14" rx="1" />
-      <rect x="9.75" y="5" width="4.5" height="9" rx="1" />
-      <rect x="15.5" y="5" width="4.5" height="6" rx="1" />
-    </>
-  ),
-  collaboration: (
-    <>
-      <circle cx="9" cy="9" r="2.2" />
-      <circle cx="16" cy="10" r="1.8" />
-      <path d="M5 17.5c.4-2 2-3.2 4-3.2s3.6 1.2 4 3.2M14 14.4c.8-.4 1.7-.6 2.6-.5 1.6.1 2.7 1.1 3 2.6" />
-    </>
-  ),
-  leadership: (
-    <path d="M12 4 8.5 9.5 4 8l2.2 10h11.6L20 8l-4.5 1.5L12 4Z" />
-  ),
-  adaptability: (
-    <>
-      <path d="M7 8H5.2A2.2 2.2 0 0 0 5.2 12.4H8" />
-      <path d="M17 16h1.8A2.2 2.2 0 0 0 18.8 11.6H16" />
-      <path d="m9.2 6.2 1.6-1.6 1.6 1.6M10.8 4.6v6.2M14.8 17.8l-1.6 1.6-1.6-1.6M13.2 19.4v-6.2" />
     </>
   ),
   english: (
