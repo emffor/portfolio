@@ -10,6 +10,22 @@ export function MobileNav() {
   const toggle = () => setIsOpen((prev) => !prev);
   const close = () => setIsOpen(false);
 
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    close();
+    if (href.startsWith("/#") && window.location.pathname === "/") {
+      e.preventDefault();
+      const targetId = href.replace("/#", "");
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.history.pushState(null, "", href);
+      }
+    }
+  };
+
   return (
     <div className="md:hidden">
       <button
@@ -62,7 +78,7 @@ export function MobileNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                onClick={close}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className="py-1 font-sans text-base font-medium text-muted transition-colors hover:text-accent"
               >
                 {item.label}

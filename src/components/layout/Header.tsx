@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { NAVIGATION_ITEMS } from "@/data/navigation";
 import { PROFILE_DATA } from "@/data/profile";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { DesktopNav } from "@/components/layout/DesktopNav";
 
 export function Header() {
   return (
@@ -21,23 +21,8 @@ export function Header() {
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav
-          aria-label="Navegação Principal"
-          className="hidden md:flex items-center gap-6 font-sans text-sm font-medium text-muted"
-        >
-          {NAVIGATION_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded py-1"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <DesktopNav />
 
-        {/* Right Actions: socials + Theme Toggle & Mobile Nav */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           <a
             href={PROFILE_DATA.socials.github.url}
