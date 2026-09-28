@@ -1,4 +1,5 @@
 import React from "react";
+import { PROFILE_DATA } from "@/data/profile";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function ExperienceSummary() {
@@ -27,14 +28,14 @@ export function ExperienceSummary() {
 
   return (
     <section
-      id="experiencia"
-      aria-label="Resumo profissional e experiência"
+      id="sobre"
+      aria-label="Sobre e forma de trabalhar"
       className="py-16 sm:py-24 border-t border-zinc-200/80 dark:border-zinc-800/80"
     >
       <SectionHeading
-        tag="Trajetória"
-        title="Experiência & Abordagem Técnica"
-        description="Mais de 7 anos construindo aplicações resilientes, priorizando segurança, manutenibilidade e entrega previsível."
+        tag="Sobre"
+        title="Perfil técnico e forma de trabalhar"
+        description={PROFILE_DATA.summary}
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

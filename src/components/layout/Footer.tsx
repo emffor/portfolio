@@ -14,12 +14,14 @@ export function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-zinc-200/60 dark:border-zinc-800/60">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs font-medium text-zinc-600 dark:text-zinc-400">
-                Disponível para novos desafios e projetos
-              </span>
-            </div>
+            {PROFILE_DATA.availableForWork && (
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-xs font-medium text-zinc-600 dark:text-zinc-400">
+                  Disponível para oportunidades
+                </span>
+              </div>
+            )}
             <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 max-w-md">
               {PROFILE_DATA.name} &bull; {PROFILE_DATA.title} &bull; {PROFILE_DATA.domain}
             </p>

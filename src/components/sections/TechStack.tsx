@@ -6,14 +6,14 @@ import { Badge } from "@/components/ui/Badge";
 export function TechStack() {
   return (
     <section
-      id="sobre"
-      aria-label="Tecnologias principais e competências"
+      id="tecnologias"
+      aria-label="Tecnologias e ferramentas"
       className="py-16 sm:py-24 border-t border-zinc-200/80 dark:border-zinc-800/80"
     >
       <SectionHeading
-        tag="Competências"
-        title="Tecnologias Principais"
-        description="Ferramentas e tecnologias aplicadas no desenvolvimento diário de aplicações web, mobile e APIs de alta confiabilidade."
+        tag="Ferramentas"
+        title="Tecnologias"
+        description="Ecossistemas e ferramentas com os quais trabalho no dia a dia."
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

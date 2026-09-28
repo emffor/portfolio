@@ -10,11 +10,13 @@ export function Hero() {
       className="relative pt-16 sm:pt-24 lg:pt-32 pb-16 sm:pb-20"
     >
       <div className="max-w-4xl space-y-8">
-        {/* Status Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-200/80 dark:border-emerald-800/60 bg-emerald-50/50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 text-xs font-medium">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          <span>Disponível para novos projetos e oportunidades</span>
-        </div>
+        {/* Status de disponibilidade */}
+        {PROFILE_DATA.availableForWork && (
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-200/80 dark:border-emerald-800/60 bg-emerald-50/50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 text-xs font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Disponível para oportunidades</span>
+          </div>
+        )}
 
         {/* Nome & Título Principal */}
         <div className="space-y-3">

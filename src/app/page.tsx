@@ -1,8 +1,9 @@
 import React from "react";
 import { Hero } from "@/components/sections/Hero";
 import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
-import { ExperienceSummary } from "@/components/sections/ExperienceSummary";
+import { ExperienceTimeline } from "@/components/sections/ExperienceTimeline";
 import { TechStack } from "@/components/sections/TechStack";
+import { ExperienceSummary } from "@/components/sections/ExperienceSummary";
 import { ContactCta } from "@/components/sections/ContactCta";
 
 export default function Home() {
@@ -10,8 +11,9 @@ export default function Home() {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
       <Hero />
       <FeaturedProjects />
-      <ExperienceSummary />
+      <ExperienceTimeline />
       <TechStack />
+      <ExperienceSummary />
       <ContactCta />
     </div>
   );

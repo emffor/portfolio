@@ -12,7 +12,7 @@ export interface Profile {
   domain: string;
   summary: string;
   location: string;
-  availableForHire: boolean;
+  availableForWork: boolean;
   socials: {
     github: SocialLink;
     linkedin: SocialLink;

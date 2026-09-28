@@ -8,7 +8,7 @@ export const PROFILE_DATA: Profile = {
   yearsOfExperience: "7+ anos",
   domain: "eloandev.fyi",
   location: "Brasil",
-  availableForHire: true,
+  availableForWork: true,
   summary:
     "Com mais de 7 anos construindo soluções digitais, atuo ponta a ponta desde a modelagem de banco de dados e arquitetura de APIs resilientes até a criação de interfaces modernas, acessíveis e de alta performance. Experiência sólida com ecossistemas TypeScript/Node.js e PHP/Laravel, garantindo código limpo, previsibilidade técnica e foco em valor de negócio.",
   socials: {
