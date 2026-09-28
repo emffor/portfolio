@@ -10,10 +10,10 @@ export default function Home() {
   return (
     <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10 space-y-8 sm:space-y-12">
       <Hero />
+      <ExperienceSummary />
       <FeaturedProjects />
       <ExperienceTimeline />
       <TechStack />
-      <ExperienceSummary />
       <ContactCta />
     </div>
   );
