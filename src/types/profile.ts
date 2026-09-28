@@ -4,6 +4,11 @@ export interface SocialLink {
   label: string;
 }
 
+export interface ProfilePhoto {
+  src: string;
+  alt: string;
+}
+
 export interface Profile {
   name: string;
   title: string;
@@ -13,6 +18,7 @@ export interface Profile {
   summary: string;
   location: string;
   availableForWork: boolean;
+  photo?: ProfilePhoto;
   socials: {
     github: SocialLink;
     linkedin: SocialLink;

@@ -47,3 +47,151 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Hero Avatar & Cyberpunk Cosmic Effects */
+@keyframes avatar-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes avatar-status-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes avatar-code-float {
+  0%, 100% {
+    transform: translate(0) rotate(6deg);
+  }
+  50% {
+    transform: translate(3px, -5px) rotate(10deg);
+  }
+}
+
+@keyframes avatar-spark {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.typing-cursor {
+  vertical-align: -0.12em;
+  background: #a855f7;
+  width: 0.08em;
+  height: 1.05em;
+  margin-left: 0.25em;
+  animation: 0.8s step-end infinite cursor-blink;
+  display: inline-block;
+}
+
+.avatar-frame {
+  background: linear-gradient(145deg, rgba(217, 70, 239, 0.75), rgba(168, 85, 247, 0.25) 45%, rgba(6, 182, 212, 0.65));
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 28px 80px -32px rgba(168, 85, 247, 0.5);
+}
+
+.avatar-status {
+  will-change: transform;
+  animation: 3.8s ease-in-out infinite avatar-status-float;
+}
+
+.avatar-code {
+  animation: 4.6s ease-in-out infinite avatar-code-float;
+}
+
+.avatar-spark {
+  animation: 2.4s ease-in-out infinite avatar-spark;
+}
+
+.avatar-spark-two {
+  animation-delay: -1.2s;
+}
+
+.avatar-orbits {
+  pointer-events: none;
+  place-items: center;
+  display: grid;
+  position: absolute;
+  inset: -2.5rem;
+}
+
+.avatar-orbit {
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  animation: linear infinite avatar-orbit;
+  position: absolute;
+}
+
+.avatar-orbit:before,
+.avatar-orbit:after {
+  content: "";
+  background: #a855f7;
+  box-shadow: 0 0 16px #a855f7;
+  border-radius: 9999px;
+  position: absolute;
+}
+
+.avatar-orbit:before {
+  width: 0.5rem;
+  height: 0.5rem;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.avatar-orbit:after {
+  background: #ec4899;
+  width: 0.35rem;
+  height: 0.35rem;
+  box-shadow: 0 0 14px #ec4899;
+  bottom: 50%;
+  right: 0;
+  transform: translate(50%, 50%);
+}
+
+.avatar-orbit-outer {
+  border: 1px dashed rgba(168, 85, 247, 0.25);
+  width: min(118%, 34rem);
+  animation-duration: 38s;
+}
+
+.avatar-orbit-middle {
+  border: 1px solid rgba(236, 72, 153, 0.18);
+  width: min(104%, 30rem);
+  animation-duration: 27s;
+  animation-direction: reverse;
+}
+
+.avatar-orbit-middle:before {
+  background: #ec4899;
+  box-shadow: 0 0 16px #ec4899;
+}
+
+.avatar-orbit-inner {
+  border: 1px dotted rgba(6, 182, 212, 0.22);
+  width: min(92%, 26rem);
+  animation-duration: 21s;
+}
+
+.avatar-orbit-inner:before {
+  background: #06b6d4;
+  width: 0.35rem;
+  height: 0.35rem;
+  box-shadow: 0 0 14px #06b6d4;
+}
+

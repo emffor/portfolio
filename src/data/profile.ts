@@ -9,6 +9,10 @@ export const PROFILE_DATA: Profile = {
   domain: "eloandev.fyi",
   location: "Brasil",
   availableForWork: true,
+  photo: {
+    src: "/assets/dev-perfil.png",
+    alt: "Eloan Ferreira - Full Stack Developer",
+  },
   summary:
     "Com mais de 7 anos construindo soluções digitais, atuo ponta a ponta desde a modelagem de banco de dados e arquitetura de APIs resilientes até a criação de interfaces modernas, acessíveis e de alta performance. Experiência sólida com ecossistemas TypeScript/Node.js e PHP/Laravel, garantindo código limpo, previsibilidade técnica e foco em valor de negócio.",
   socials: {
