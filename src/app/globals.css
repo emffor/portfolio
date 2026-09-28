@@ -96,6 +96,14 @@ html {
   scroll-padding-top: 5rem;
 }
 
+.section-highlight {
+  background: radial-gradient(
+    ellipse 65% 90% at 50% 50%,
+    color-mix(in srgb, var(--surface-secondary) 90%, var(--accent) 10%) 0%,
+    transparent 100%
+  );
+}
+
 /* =========================================================
    TYPOGRAPHY
    ========================================================= */

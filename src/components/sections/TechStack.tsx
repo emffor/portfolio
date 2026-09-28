@@ -9,7 +9,7 @@ export function TechStack() {
     <section
       id="tecnologias"
       aria-label="Skills e tecnologias"
-      className="scroll-mt-20 py-16 sm:py-24"
+      className="scroll-mt-20 py-10 sm:py-16"
     >
       <SectionHeading
         tag="Stack"

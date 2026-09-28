@@ -11,7 +11,7 @@ export async function ExperienceTimeline() {
     <section
       id="experiencia"
       aria-label="Experiência profissional"
-      className="scroll-mt-20 bg-[radial-gradient(ellipse_75%_65%_at_50%_45%,var(--surface-secondary)_0%,transparent_72%)] py-16 sm:py-24"
+      className="section-highlight scroll-mt-20 py-10 sm:py-16"
     >
       <SectionHeading
         tag="Trajetória"
