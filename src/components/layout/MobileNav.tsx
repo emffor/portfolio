@@ -15,7 +15,7 @@ export function MobileNav() {
       <button
         onClick={toggle}
         type="button"
-        className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-100"
+        className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-slate-200 text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/5"
         aria-expanded={isOpen}
         aria-label={isOpen ? "Fechar menu principal" : "Abrir menu principal"}
       >
@@ -53,7 +53,7 @@ export function MobileNav() {
       </button>
 
       {isOpen && (
-        <div className="absolute top-16 left-0 right-0 border-b border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md px-6 py-6 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+        <div className="absolute top-16 left-0 right-0 z-50 border-b border-slate-200 bg-white/95 px-6 py-6 shadow-xl backdrop-blur-sm dark:border-white/[0.06] dark:bg-[#0a1020]/95">
           <nav
             aria-label="Navegação móvel"
             className="flex flex-col space-y-4"
@@ -63,7 +63,7 @@ export function MobileNav() {
                 key={item.href}
                 href={item.href}
                 onClick={close}
-                className="text-base font-medium text-zinc-700 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white transition-colors py-1"
+                className="py-1 font-sans text-base font-medium text-slate-700 transition-colors hover:text-slate-950 dark:text-slate-200 dark:hover:text-white"
               >
                 {item.label}
               </Link>

@@ -11,7 +11,7 @@ export async function ExperienceTimeline() {
     <section
       id="experiencia"
       aria-label="Experiência profissional"
-      className="py-16 sm:py-24 border-t border-zinc-200/80 dark:border-zinc-800/80"
+      className="scroll-mt-20 border-t border-slate-200/70 py-16 sm:py-24 dark:border-white/[0.06]"
     >
       <SectionHeading
         tag="Trajetória"
@@ -20,8 +20,8 @@ export async function ExperienceTimeline() {
       />
 
       {experiences.length === 0 ? (
-        <div className="rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/30 p-6 sm:p-8 max-w-3xl">
-          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
+        <div className="max-w-3xl rounded-xl border border-slate-200/80 bg-white p-6 sm:p-8 dark:border-white/[0.07] dark:bg-[#0e1730]">
+          <p className="font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
             Trajetória profissional detalhada disponível no LinkedIn, incluindo
             cargos, períodos e responsabilidades por empresa.
           </p>
@@ -30,7 +30,7 @@ export async function ExperienceTimeline() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={PROFILE_DATA.socials.linkedin.label}
-            className="mt-4 inline-flex items-center text-sm font-medium text-zinc-900 dark:text-zinc-100 underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-100 rounded"
+            className="mt-4 inline-flex items-center font-sans text-sm font-medium text-slate-900 underline underline-offset-4 decoration-slate-300 hover:decoration-violet-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded dark:text-slate-100 dark:decoration-white/20"
           >
             Ver experiência no LinkedIn
             <svg
@@ -54,25 +54,25 @@ export async function ExperienceTimeline() {
           {experiences.map((exp) => (
             <li key={`${exp.company}-${exp.period}`} className="relative pl-6">
               <span
-                className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-zinc-900 dark:bg-zinc-100"
+                className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-violet-500 dark:bg-violet-400"
                 aria-hidden="true"
               />
               <article className="space-y-3">
                 <div>
-                  <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
+                  <h3 className="font-display text-base font-semibold text-slate-900 dark:text-slate-100">
                     {exp.role} &bull; {exp.company}
                   </h3>
-                  <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
+                  <p className="mt-0.5 font-sans text-sm text-slate-500 dark:text-slate-400">
                     {exp.period}
                     {exp.location ? ` • ${exp.location}` : ""}
                     {exp.workModel ? ` • ${exp.workModel}` : ""}
                   </p>
                 </div>
-                <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                <p className="font-sans text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   {exp.description}
                 </p>
                 {exp.responsibilities.length > 0 && (
-                  <ul className="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-300">
+                  <ul className="space-y-1.5 font-sans text-sm text-slate-600 dark:text-slate-400">
                     {exp.responsibilities.map((item) => (
                       <li key={item} className="flex items-start gap-2">
                         <span

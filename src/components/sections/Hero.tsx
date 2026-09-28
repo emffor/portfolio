@@ -8,70 +8,40 @@ export function Hero() {
     <section
       id="inicio"
       aria-label="Apresentação inicial"
-      className="relative pt-10 sm:pt-16 lg:pt-24 pb-16 sm:pb-24 overflow-hidden"
+      className="relative overflow-hidden py-14 sm:py-20 lg:min-h-[78svh] lg:py-0 lg:flex lg:items-center"
     >
+      {/* Brilho ambiente discreto */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-24 right-0 -z-10 h-[420px] w-[420px] rounded-full bg-purple-600/10 blur-[120px] dark:bg-purple-600/15"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-1/4 -left-20 -z-10 h-[320px] w-[320px] rounded-full bg-fuchsia-600/5 blur-[100px] dark:bg-fuchsia-600/10"
+        className="pointer-events-none absolute -top-32 right-[-10%] -z-10 h-[480px] w-[480px] rounded-full bg-violet-600/10 blur-[130px] dark:bg-violet-600/[0.13]"
       />
 
-      <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+      <div className="grid w-full items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
+        {/* Coluna esquerda: conteúdo */}
         <div className="space-y-6 sm:space-y-7">
-          <div className="inline-flex items-center font-sans text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400">
-            <span>OLÁ, EU SOU</span>
-            <span className="typing-cursor" aria-hidden="true" />
-          </div>
+          <p className="font-sans text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">
+            Olá, eu sou
+          </p>
 
           <div className="space-y-3">
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight font-display">
-              <span className="text-zinc-950 dark:text-white">Eloan </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-fuchsia-500 to-pink-500 dark:from-purple-400 dark:via-fuchsia-400 dark:to-pink-400">
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
+              <span className="text-slate-900 dark:text-slate-50">Eloan </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-600 dark:from-violet-400 dark:to-fuchsia-400">
                 Ferreira
               </span>
             </h1>
-            <p className="whitespace-nowrap text-xl sm:text-2xl font-medium text-zinc-800 dark:text-zinc-200 tracking-tight font-display">
-              Desenvolvedor Full Stack Sênior
+            <p className="whitespace-nowrap font-display text-xl sm:text-2xl font-medium tracking-tight text-slate-700 dark:text-slate-200">
+              {PROFILE_DATA.title}
             </p>
           </div>
 
-          <p className="font-sans text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-lg">
-            Construo produtos rápidos e acessíveis — de APIs REST robustas e arquiteturas escaláveis a interfaces bem acabadas com rigor técnico e foco em valor de negócio.
+          <p className="max-w-lg font-sans text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+            {PROFILE_DATA.headline}
           </p>
 
-          <div className="flex flex-wrap items-center gap-3.5 pt-2">
-            <Button
-              href={PROFILE_DATA.socials.github.url}
-              variant="glow"
-              size="lg"
-              className="h-11 px-7 rounded-md text-sm font-medium"
-              aria-label={PROFILE_DATA.socials.github.label}
-            >
-              <svg
-                className="w-4 h-4 mr-2"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                />
-              </svg>
-              Visitar GitHub
-            </Button>
-
-            <Button
-              href="#contato"
-              variant="outline"
-              size="lg"
-              className="h-11 px-7 rounded-md text-sm font-medium border-zinc-300 dark:border-zinc-700/80 bg-zinc-100/50 dark:bg-zinc-900/60 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-sm"
-            >
-              Falar comigo
+          <div className="flex flex-wrap items-center gap-3 pt-1">
+            <Button href="/#projetos" variant="glow" size="lg">
+              Ver projetos
               <svg
                 className="w-4 h-4 ml-2"
                 fill="none"
@@ -87,28 +57,71 @@ export function Hero() {
                 />
               </svg>
             </Button>
+
+            <Button
+              href={PROFILE_DATA.socials.github.url}
+              variant="outline"
+              size="lg"
+              aria-label={PROFILE_DATA.socials.github.label}
+            >
+              <svg
+                className="w-4 h-4 mr-2"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                />
+              </svg>
+              GitHub
+            </Button>
           </div>
         </div>
 
-        {/* Coluna da Direita: showcase do avatar sem moldura externa */}
-        <div className="relative flex justify-center items-center py-6 lg:py-0">
-          {/* Glow difuso de fundo */}
+        {/* Coluna direita: avatar */}
+        <div className="relative flex justify-center lg:justify-end">
+          {/* Elementos geométricos sutis */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center lg:justify-end">
+            <div className="h-[420px] w-[420px] sm:h-[500px] sm:w-[500px] rounded-full border border-violet-500/10 dark:border-violet-400/10" />
+          </div>
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-[12%] -z-10 rounded-full bg-purple-600/30 blur-3xl dark:bg-purple-600/40"
+            className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/20 blur-[100px] dark:bg-violet-500/25 lg:left-auto lg:right-[8%] lg:translate-x-0"
+          />
+          <span
+            aria-hidden="true"
+            className="absolute top-[8%] right-[12%] hidden h-1.5 w-1.5 rounded-full bg-violet-500/50 sm:block"
+          />
+          <span
+            aria-hidden="true"
+            className="absolute bottom-[16%] left-[8%] hidden h-1 w-1 rounded-full bg-fuchsia-500/50 sm:block lg:left-[38%]"
           />
 
-          {/* Arte do perfil (sem .avatar-frame redundante) */}
-          <div className="relative w-full max-w-[380px] sm:max-w-[440px] lg:max-w-[480px]">
-            <Image
-              src="/assets/avatar-eloan.png"
-              alt="Eloan Ferreira - Desenvolvedor Full Stack Sênior"
-              width={1254}
-              height={1254}
-              priority
-              className="w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(168,85,247,0.35)]"
-            />
-          </div>
+          <figure className="relative w-full max-w-[400px] sm:max-w-[460px]">
+            <div className="overflow-hidden rounded-2xl border border-violet-500/20 bg-[#0d1428] shadow-[0_24px_70px_-24px_rgba(124,58,237,0.45)] dark:border-violet-400/20 dark:shadow-[0_24px_80px_-20px_rgba(124,58,237,0.4)]">
+              {PROFILE_DATA.photo ? (
+                <Image
+                  src={PROFILE_DATA.photo.src}
+                  alt={PROFILE_DATA.photo.alt}
+                  width={1254}
+                  height={1254}
+                  priority
+                  sizes="(max-width: 640px) 400px, 460px"
+                  className="h-auto w-full object-cover aspect-[4/5]"
+                />
+              ) : null}
+            </div>
+
+            {PROFILE_DATA.availableForWork && (
+              <figcaption className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-slate-200 bg-white/95 px-4 py-2 text-xs font-medium text-slate-700 shadow-lg shadow-slate-900/5 backdrop-blur-sm dark:border-white/10 dark:bg-[#111a33]/95 dark:text-slate-200 dark:shadow-black/40">
+                <span className="mr-2 inline-block h-2 w-2 rounded-full bg-emerald-500" />
+                Disponível para oportunidades
+              </figcaption>
+            )}
+          </figure>
         </div>
       </div>
     </section>

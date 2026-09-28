@@ -1,7 +1,5 @@
 import React from "react";
-import Link from "next/link";
 import { PROFILE_DATA } from "@/data/profile";
-import { NAVIGATION_ITEMS } from "@/data/navigation";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -9,39 +7,27 @@ export function Footer() {
   return (
     <footer
       role="contentinfo"
-      className="w-full border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950/60 py-12 transition-colors mt-auto"
+      className="mt-auto w-full border-t border-slate-200/70 py-10 transition-colors dark:border-white/[0.06]"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-zinc-200/60 dark:border-zinc-800/60">
-          <div>
-            {PROFILE_DATA.availableForWork && (
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs font-medium text-zinc-600 dark:text-zinc-400">
-                  Disponível para oportunidades
-                </span>
-              </div>
-            )}
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 max-w-md">
-              {PROFILE_DATA.name} &bull; {PROFILE_DATA.title} &bull; {PROFILE_DATA.domain}
-            </p>
-          </div>
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10">
+        <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
+          <p className="font-display text-sm font-bold tracking-tight text-slate-900 dark:text-slate-100">
+            Eloan{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-fuchsia-500 dark:from-violet-400 dark:to-fuchsia-400">
+              Ferreira
+            </span>
+            <span className="ml-3 font-sans text-xs font-normal text-slate-500 dark:text-slate-400">
+              © {currentYear}
+            </span>
+          </p>
 
-          <div className="flex flex-wrap items-center gap-5 text-sm font-medium text-zinc-600 dark:text-zinc-400">
-            {NAVIGATION_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="flex items-center gap-5 font-sans text-sm font-medium text-slate-500 dark:text-slate-400">
             <a
               href={PROFILE_DATA.socials.github.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+              aria-label={PROFILE_DATA.socials.github.label}
+              className="transition-colors hover:text-slate-900 dark:hover:text-slate-100"
             >
               GitHub
             </a>
@@ -49,20 +35,12 @@ export function Footer() {
               href={PROFILE_DATA.socials.linkedin.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+              aria-label={PROFILE_DATA.socials.linkedin.label}
+              className="transition-colors hover:text-slate-900 dark:hover:text-slate-100"
             >
               LinkedIn
             </a>
           </div>
-        </div>
-
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 dark:text-zinc-400">
-          <p>
-            &copy; {currentYear} {PROFILE_DATA.name}. Todos os direitos reservados.
-          </p>
-          <p className="font-mono text-zinc-400 dark:text-zinc-500">
-            Next.js &bull; TypeScript &bull; Tailwind CSS
-          </p>
         </div>
       </div>
     </footer>

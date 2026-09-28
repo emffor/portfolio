@@ -1,60 +1,78 @@
 import React from "react";
 import { PROFILE_DATA } from "@/data/profile";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+
+const indicators = [
+  {
+    value: PROFILE_DATA.yearsOfExperience,
+    label: "Anos de experiência",
+  },
+  {
+    value: "Full Stack",
+    label: "Web & Mobile",
+  },
+];
 
 export function ExperienceSummary() {
-  const highlights = [
-    {
-      title: "Desenvolvimento Ponta a Ponta",
-      description:
-        "Atuação completa desde a concepção de requisitos e modelagem relacional até a entrega contínua em produção com monitoramento e estabilidade.",
-    },
-    {
-      title: "Arquitetura e Previsibilidade",
-      description:
-        "Adoção de padrões de projeto consolidados, princípios SOLID e arquiteturas limpas/hexagonais para garantir código sustentável a longo prazo.",
-    },
-    {
-      title: "Ecossistemas de Alta Demanda",
-      description:
-        "Experiência com backends robustos em Node.js/NestJS e PHP/Laravel, integrados a interfaces modernas e reativas em React/Next.js e React Native.",
-    },
-    {
-      title: "Bancos de Dados & Dados Críticos",
-      description:
-        "Modelagem estruturada, integridade referencial, consultas otimizadas e governança em PostgreSQL, MySQL e SQL Server.",
-    },
-  ];
-
   return (
     <section
       id="sobre"
-      aria-label="Sobre e forma de trabalhar"
-      className="py-16 sm:py-24 border-t border-zinc-200/80 dark:border-zinc-800/80"
+      aria-label="Sobre mim"
+      className="scroll-mt-20 border-t border-slate-200/70 py-16 sm:py-24 dark:border-white/[0.06]"
     >
-      <SectionHeading
-        tag="Sobre"
-        title="Perfil técnico e forma de trabalhar"
-        description={PROFILE_DATA.summary}
-      />
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {highlights.map((item, idx) => (
-          <div
-            key={idx}
-            className="rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/30 p-6 space-y-2 transition-colors hover:border-zinc-300 dark:hover:border-zinc-700"
-          >
-            <div className="flex items-center gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-900 dark:bg-zinc-100" />
-              <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
-                {item.title}
-              </h3>
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
+        {/* Coluna esquerda: indicadores profissionais */}
+        <div className="flex flex-row gap-8 md:flex-col md:justify-center md:gap-10">
+          {indicators.map((item) => (
+            <div key={item.label} className="space-y-1">
+              <p className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+                {item.value}
+              </p>
+              <p className="font-sans text-sm text-slate-500 dark:text-slate-400">
+                {item.label}
+              </p>
             </div>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed pl-4.5">
-              {item.description}
-            </p>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {/* Coluna direita: texto profissional */}
+        <div>
+          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-violet-600 dark:text-violet-400">
+            Sobre
+          </p>
+          <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+            Sobre mim
+          </h2>
+          <div
+            aria-hidden="true"
+            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500"
+          />
+          <p className="mt-6 font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+            {PROFILE_DATA.summary}
+          </p>
+          <a
+            href={PROFILE_DATA.socials.linkedin.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={PROFILE_DATA.socials.linkedin.label}
+            className="mt-6 inline-flex items-center font-sans text-sm font-medium text-slate-900 underline underline-offset-4 decoration-violet-300 hover:decoration-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 rounded dark:text-slate-100 dark:decoration-violet-400/40 dark:hover:decoration-violet-400"
+          >
+            LinkedIn
+            <svg
+              className="w-3.5 h-3.5 ml-1.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
   );

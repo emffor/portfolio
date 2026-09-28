@@ -13,16 +13,16 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
 
   return (
     <section aria-label="Capturas de tela do projeto" className="space-y-6">
-      <h2 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+      <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
         Screenshots
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {screenshots.map((shot) => (
           <figure
             key={shot.src}
-            className="overflow-hidden rounded-xl border border-zinc-200/80 dark:border-zinc-800 bg-white dark:bg-zinc-900/40"
+            className="overflow-hidden rounded-xl border border-slate-200/80 bg-white dark:border-white/[0.07] dark:bg-[#0e1730]"
           >
-            <div className="relative aspect-[16/10] w-full bg-zinc-100 dark:bg-zinc-950">
+            <div className="relative aspect-[16/10] w-full bg-slate-100 dark:bg-[#0a1020]">
               <Image
                 src={shot.src}
                 alt={shot.alt}
@@ -32,7 +32,7 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
               />
             </div>
             {shot.caption && (
-              <figcaption className="px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400">
+              <figcaption className="px-4 py-3 font-sans text-sm text-slate-600 dark:text-slate-400">
                 {shot.caption}
               </figcaption>
             )}

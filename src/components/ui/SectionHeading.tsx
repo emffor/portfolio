@@ -19,21 +19,28 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        "space-y-2 mb-10 md:mb-12",
+        "mb-10 md:mb-14",
         align === "center" && "text-center mx-auto max-w-2xl",
         className
       )}
     >
       {tag && (
-        <span className="text-xs font-mono tracking-wider uppercase text-zinc-500 dark:text-zinc-400">
-          {`// ${tag}`}
-        </span>
+        <p className="text-xs font-sans font-semibold uppercase tracking-[0.2em] text-violet-600 dark:text-violet-400">
+          {tag}
+        </p>
       )}
-      <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+      <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
         {title}
       </h2>
+      <div
+        aria-hidden="true"
+        className={cn(
+          "mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500",
+          align === "center" && "mx-auto"
+        )}
+      />
       {description && (
-        <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-3xl leading-relaxed">
+        <p className="mt-4 font-sans text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
           {description}
         </p>
       )}

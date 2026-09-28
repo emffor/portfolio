@@ -91,10 +91,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-white dark:bg-[#090614] text-zinc-900 dark:text-zinc-100 transition-colors duration-200">
+      <body className="min-h-screen flex flex-col bg-white dark:bg-[#0a1020] text-slate-900 dark:text-slate-100 transition-colors duration-200">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 text-sm font-medium rounded-md shadow-md"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 font-sans bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 text-sm font-medium rounded-md shadow-md"
         >
           Pular para o conteúdo principal
         </a>
