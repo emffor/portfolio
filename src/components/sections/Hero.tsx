@@ -14,8 +14,7 @@ export function Hero() {
         <div className="min-w-0 space-y-6 sm:space-y-7">
           <div className="space-y-3">
             <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
-              <span className="text-foreground">Eloan </span>
-              <span className="text-accent">Ferreira</span>
+              <span className="text-accent">Eloan Ferreira</span>
             </h1>
             <p className="font-display text-xl sm:text-2xl font-medium tracking-tight text-foreground/80">
               {PROFILE_DATA.title}
