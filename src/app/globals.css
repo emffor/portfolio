@@ -138,27 +138,16 @@ h6,
 }
 
 .hero-name {
-  color: var(--accent);
+  display: inline-block;
   background: linear-gradient(
-    105deg,
-    var(--accent) 0%,
-    var(--accent-hover) 32%,
-    var(--foreground) 50%,
-    var(--accent-hover) 68%,
-    var(--accent) 100%
+    110deg,
+    var(--foreground) 10%,
+    var(--accent) 75%
   );
-  background-size: 200% 100%;
-  background-position: 0% 50%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: inline-block;
-  transition: background-position 600ms ease, filter 300ms ease;
-}
-
-.hero-name:hover {
-  background-position: 100% 50%;
-  filter: brightness(1.15);
+  padding-right: 0.06em;
 }
 
 /* =========================================================
@@ -252,10 +241,5 @@ a {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .hero-name:hover {
-    background-position: 0% 50%;
-    filter: none;
   }
 }
