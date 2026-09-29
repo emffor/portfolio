@@ -3,6 +3,22 @@ import { getExperiences } from "@/data/experience";
 import { PROFILE_DATA } from "@/data/profile";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
+import { ExperienceRelatedLinkType } from "@/types/experience";
+import { TbExternalLink } from "react-icons/tb";
+
+const RELATED_LINK_GROUP_LABELS: Record<
+  Exclude<ExperienceRelatedLinkType, "company">,
+  string
+> = {
+  product: "Produtos em que atuei",
+  client: "Cliente / Instituição",
+};
+
+const RELATED_LINK_TYPES: readonly ExperienceRelatedLinkType[] = [
+  "company",
+  "product",
+  "client",
+];
 
 export async function ExperienceTimeline() {
   const experiences = await getExperiences();
@@ -115,6 +131,49 @@ export async function ExperienceTimeline() {
                         {tech}
                       </Badge>
                     ))}
+                  </div>
+                )}
+
+                {exp.relatedLinks && exp.relatedLinks.length > 0 && (
+                  <div className="flex flex-wrap gap-x-6 gap-y-2 pt-1">
+                    {RELATED_LINK_TYPES.map((type) => {
+                      const links = exp.relatedLinks?.filter(
+                        (link) => link.type === type
+                      );
+
+                      if (!links?.length) return null;
+
+                      return (
+                        <div
+                          key={type}
+                          className="flex flex-wrap items-center gap-x-3 gap-y-1"
+                        >
+                          {type !== "company" && (
+                            <span className="font-mono text-[11px] text-muted">
+                              {type === "product" && links.length === 1
+                                ? "Produto em que atuei"
+                                : RELATED_LINK_GROUP_LABELS[type]}
+                            </span>
+                          )}
+                          {links.map((link) => (
+                            <a
+                              key={`${link.type}-${link.url}`}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`${link.label} (abre em nova aba)`}
+                              className="inline-flex items-center gap-1 font-sans text-xs font-medium text-muted underline decoration-border underline-offset-4 transition-colors hover:text-accent hover:decoration-accent focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:text-sm"
+                            >
+                              {link.label}
+                              <TbExternalLink
+                                className="h-3.5 w-3.5 shrink-0"
+                                aria-hidden="true"
+                              />
+                            </a>
+                          ))}
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
               </article>

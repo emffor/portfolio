@@ -1,3 +1,11 @@
+export type ExperienceRelatedLinkType = "company" | "product" | "client";
+
+export interface ExperienceRelatedLink {
+  label: string;
+  url: string;
+  type: ExperienceRelatedLinkType;
+}
+
 export interface Experience {
   company: string;
   role: string;
@@ -9,4 +17,5 @@ export interface Experience {
   description: string;
   responsibilities: readonly string[];
   technologies: readonly string[];
+  relatedLinks?: readonly ExperienceRelatedLink[];
 }

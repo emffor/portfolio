@@ -35,6 +35,13 @@ export const EXPERIENCES: readonly Experience[] = [
       "LLMs",
       "AI Agents",
     ],
+    relatedLinks: [
+      {
+        label: "READI",
+        url: "https://readi.com.br/",
+        type: "product",
+      },
+    ],
   },
   {
     company: "Velty",
@@ -48,15 +55,23 @@ export const EXPERIENCES: readonly Experience[] = [
       "Evolução das aplicações e integração com serviços em Azure.",
     ],
     technologies: ["React", "React Native", "Tailwind CSS", "Azure"],
+    relatedLinks: [
+      {
+        label: "Conhecer a empresa",
+        url: "https://velty.com.br/",
+        type: "company",
+      },
+    ],
   },
   {
     company: "Nestec",
     role: "Desenvolvedor Full Stack",
     period: "Jan/2022 – Jun/2022",
     location: "Fortaleza/CE",
-    description: "Atuação em solução relacionada ao CREA-CE.",
+    description:
+      "Atuação em uma solução para o CREA-CE envolvendo mapeamento geográfico dinâmico para apoiar processos de fiscalização.",
     responsibilities: [
-      "Implementação de mapeamento geográfico dinâmico utilizando Google Maps API.",
+      "Implementação de mapeamento geográfico dinâmico usando Google Maps API.",
     ],
     technologies: [
       "React Native",
@@ -64,6 +79,13 @@ export const EXPERIENCES: readonly Experience[] = [
       "Node.js",
       "Docker",
       "Google Maps API",
+    ],
+    relatedLinks: [
+      {
+        label: "CREA-CE",
+        url: "https://www.creace.org.br/",
+        type: "client",
+      },
     ],
   },
   {
