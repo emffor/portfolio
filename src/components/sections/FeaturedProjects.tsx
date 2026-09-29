@@ -13,7 +13,7 @@ export async function FeaturedProjects() {
       className="scroll-mt-20 py-10 sm:py-16"
     >
       <SectionHeading
-        tag="Portfólio"
+        tag="Projetos autorais"
         title="Projetos em Destaque"
         description="Cases de produto e de estudo técnico, com decisões de arquitetura, backend e resolução de problemas."
       />

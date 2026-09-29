@@ -54,6 +54,6 @@ export const PROFILE_DATA: Profile = {
       url: "https://linkedin.com/in/eloanferreira",
       label: "Acessar perfil de Eloan Ferreira no LinkedIn",
     },
-    email: "contato@eloandev.fyi",
+    email: "emfeloan@gmail.com",
   },
 };
