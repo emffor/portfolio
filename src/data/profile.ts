@@ -4,17 +4,22 @@ export const PROFILE_DATA: Profile = {
   name: "Eloan Ferreira",
   title: "Full Stack Developer",
   headline:
-    "Desenvolvedor Full Stack com 7+ anos de experiência na concepção e evolução de sistemas web, mobile, APIs e arquitetura de software escalável.",
-  yearsOfExperience: "7+ anos",
+    "Atuo com foco em backend, arquitetura e modernização de sistemas. Construo e evoluo aplicações web, mobile e APIs, das decisões arquiteturais à sustentação em produção.",
+  experienceSince: "2019",
   domain: "eloandev.fyi",
   location: "Brasil",
   availableForWork: true,
+  education: {
+    degree: "Análise e Desenvolvimento de Sistemas",
+    institution: "Estácio de Sá",
+    completionYear: 2023,
+  },
   photo: {
     src: "/assets/perfil.png",
     alt: "Eloan Ferreira - Full Stack Developer",
   },
   summary:
-    "Com mais de 7 anos construindo soluções digitais, atuo ponta a ponta desde a modelagem de banco de dados e arquitetura de APIs resilientes até a criação de interfaces modernas, acessíveis e de alta performance. Experiência sólida com ecossistemas TypeScript/Node.js e PHP/Laravel, garantindo código limpo, previsibilidade técnica e foco em valor de negócio.",
+    "Minha atuação conecta decisões técnicas e operação: participo da modernização de sistemas, desenho e integração de APIs, reviso código e acompanho aplicações em produção. Trabalho entre backend, web e mobile, considerando as necessidades do negócio e a evolução das plataformas.",
   socials: {
     github: {
       name: "GitHub",

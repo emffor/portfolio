@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/Button";
 
 const indicators = [
   {
-    value: PROFILE_DATA.yearsOfExperience,
-    label: "Anos de experiência",
+    value: PROFILE_DATA.experienceSince,
+    label: "Início da atuação profissional",
   },
   {
     value: "Full Stack",

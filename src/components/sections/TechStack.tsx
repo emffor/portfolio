@@ -1,5 +1,6 @@
 import React from "react";
 import { SKILLS } from "@/data/skills";
+import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SkillIcon } from "@/components/ui/SkillIcon";
 
@@ -35,6 +36,28 @@ export function TechStack() {
             </div>
           </article>
         ))}
+      </div>
+
+      <div className="mt-8">
+        <h3 className="font-display text-sm font-semibold text-foreground">
+          Arquitetura & qualidade
+        </h3>
+        <ul
+          className="mt-3 flex flex-wrap gap-1.5"
+          aria-label="Práticas de arquitetura e qualidade"
+        >
+          {[
+            "Arquitetura de Software",
+            "SOLID",
+            "Clean Code",
+            "Design Patterns",
+            "Code Review",
+          ].map((practice) => (
+            <li key={practice}>
+              <Badge variant="subtle">{practice}</Badge>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

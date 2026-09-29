@@ -50,33 +50,51 @@ export async function ExperienceTimeline() {
           </a>
         </div>
       ) : (
-        <ol className="relative space-y-8 max-w-3xl">
+        <ol className="relative max-w-4xl space-y-5">
           {experiences.map((exp) => (
             <li key={`${exp.company}-${exp.period}`} className="relative pl-6">
               <span
-                className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-accent"
+                className="absolute left-0 top-5 h-2 w-2 rounded-full bg-accent"
                 aria-hidden="true"
               />
-              <article className="space-y-3">
-                <div>
-                  <h3 className="font-display text-base font-semibold text-foreground">
-                    {exp.role} &bull; {exp.company}
-                  </h3>
-                  <p className="mt-0.5 font-mono text-xs text-muted">
+              <article
+                className={
+                  exp.featured
+                    ? "space-y-3 rounded-xl border border-accent/25 bg-surface/60 p-5 sm:p-6"
+                    : "space-y-2.5 py-2"
+                }
+              >
+                <header className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+                  <div>
+                    <h3 className="font-display text-base font-semibold text-foreground">
+                      {exp.company}
+                    </h3>
+                    <p className="mt-0.5 font-sans text-sm text-muted">
+                      {exp.role}
+                    </p>
+                    {exp.recognition && (
+                      <div className="mt-2">
+                        <Badge variant="subtle">{exp.recognition}</Badge>
+                      </div>
+                    )}
+                  </div>
+                  <p className="shrink-0 font-mono text-xs text-muted">
                     {exp.period}
-                    {exp.location ? ` • ${exp.location}` : ""}
-                    {exp.workModel ? ` • ${exp.workModel}` : ""}
+                    {exp.location ? ` · ${exp.location}` : ""}
+                    {exp.workModel ? ` · ${exp.workModel}` : ""}
                   </p>
-                </div>
-                <p className="font-sans text-sm text-muted leading-relaxed">
+                </header>
+
+                <p className="font-sans text-sm leading-relaxed text-muted">
                   {exp.description}
                 </p>
+
                 {exp.responsibilities.length > 0 && (
-                  <ul className="space-y-1.5 font-sans text-sm text-muted">
+                  <ul className="space-y-1.5 font-sans text-sm leading-relaxed text-muted">
                     {exp.responsibilities.map((item) => (
                       <li key={item} className="flex items-start gap-2">
                         <span
-                          className="text-emerald-500 font-bold shrink-0"
+                          className="shrink-0 font-bold text-emerald-500"
                           aria-hidden="true"
                         >
                           ›
@@ -86,9 +104,10 @@ export async function ExperienceTimeline() {
                     ))}
                   </ul>
                 )}
+
                 {exp.technologies.length > 0 && (
                   <div
-                    className="flex flex-wrap gap-1.5"
+                    className="flex flex-wrap gap-1.5 pt-1"
                     aria-label={`Tecnologias em ${exp.company}`}
                   >
                     {exp.technologies.map((tech) => (
@@ -103,6 +122,16 @@ export async function ExperienceTimeline() {
           ))}
         </ol>
       )}
+
+      <div className="mt-8 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
+        <span className="font-mono text-xs font-medium uppercase tracking-wider text-muted">
+          Formação
+        </span>
+        <p className="font-sans text-sm text-foreground">
+          {PROFILE_DATA.education.degree} · {PROFILE_DATA.education.institution} ·{" "}
+          {PROFILE_DATA.education.completionYear}
+        </p>
+      </div>
     </section>
   );
 }

@@ -47,8 +47,9 @@ export const SKILLS: readonly Skill[] = [
     icon: "mobile",
   },
   {
-    title: "SQL",
-    description: "Modelagem e consultas em PostgreSQL, MySQL, SQL Server e MongoDB.",
+    title: "Bancos de Dados",
+    description:
+      "Modelagem, consultas e persistência com PostgreSQL, MySQL, SQL Server e MongoDB.",
     icon: "database",
   },
   {
@@ -67,13 +68,14 @@ export const SKILLS: readonly Skill[] = [
     icon: "cicd",
   },
   {
-    title: "Tests",
+    title: "Testes",
     description: "Testes unitários, de integração e E2E para código robusto.",
     icon: "tests",
   },
   {
     title: "AI & LLMs",
-    description: "LLMs, APIs de IA, agentes e automações.",
+    description:
+      "Integração de APIs de LLMs e AI Agents ao backend e a fluxos de automação.",
     icon: "ai",
   },
   {

@@ -9,15 +9,22 @@ export interface ProfilePhoto {
   alt: string;
 }
 
+export interface Education {
+  degree: string;
+  institution: string;
+  completionYear: number;
+}
+
 export interface Profile {
   name: string;
   title: string;
   headline: string;
-  yearsOfExperience: string;
+  experienceSince: string;
   domain: string;
   summary: string;
   location: string;
   availableForWork: boolean;
+  education: Education;
   photo?: ProfilePhoto;
   socials: {
     github: SocialLink;
