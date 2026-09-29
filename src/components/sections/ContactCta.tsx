@@ -72,7 +72,7 @@ export function ContactCta() {
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-14">
         {/* Coluna esquerda: título, texto e canais */}
         <div>
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+          <p className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-muted">
             Contato
           </p>
           <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
@@ -80,7 +80,7 @@ export function ContactCta() {
           </h2>
           <div
             aria-hidden="true"
-            className="mt-4 h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a6c5bf]"
+            className="mt-4 h-1 w-14 rounded-full bg-accent"
           />
           <p className="mt-6 max-w-md font-sans text-sm sm:text-base text-muted leading-relaxed">
             Aberto a propostas de trabalho e projetos onde excelência técnica

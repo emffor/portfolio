@@ -17,14 +17,14 @@ export function Hero() {
       <div className="grid w-full items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
         {/* Coluna esquerda: conteúdo */}
         <div className="space-y-6 sm:space-y-7">
-          <p className="font-sans text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-muted">
+          <p className="font-mono text-xs sm:text-sm font-medium uppercase tracking-[0.2em] text-muted">
             Olá, eu sou
           </p>
 
           <div className="space-y-3">
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
               <span className="text-foreground">Eloan </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-foreground to-accent">
+              <span className="text-accent">
                 Ferreira
               </span>
             </h1>
@@ -95,7 +95,7 @@ export function Hero() {
               aria-hidden="true"
               className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-soft opacity-80 blur-[90px]"
             />
-            <div className="group relative z-0 rounded-2xl border border-accent/30 bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.30),0_0_50px_rgba(99,163,156,0.06)]">
+            <div className="group relative z-0 rounded-2xl border border-accent/30 bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
               <div className="relative overflow-hidden rounded-2xl">
                 {PROFILE_DATA.photo ? (
                   <Image

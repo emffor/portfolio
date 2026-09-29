@@ -2,7 +2,6 @@ import React from "react";
 import { SKILLS } from "@/data/skills";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SkillIcon } from "@/components/ui/SkillIcon";
-import { SkillRating } from "@/components/ui/SkillRating";
 
 export function TechStack() {
   return (
@@ -33,9 +32,6 @@ export function TechStack() {
               <p className="mt-1.5 font-sans text-[13px] leading-relaxed text-muted">
                 {skill.description}
               </p>
-              {typeof skill.rating === "number" && (
-                <SkillRating rating={skill.rating} />
-              )}
             </div>
           </article>
         ))}

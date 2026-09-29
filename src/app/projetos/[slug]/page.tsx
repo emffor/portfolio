@@ -98,7 +98,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <header className="space-y-6">
         <div className="space-y-3">
-          <p className="font-sans text-xs font-semibold uppercase tracking-wider text-accent">
+          <p className="font-mono text-xs font-medium uppercase tracking-wider text-accent">
             {project.category}
           </p>
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
@@ -106,7 +106,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </h1>
           <div
             aria-hidden="true"
-            className="h-1 w-14 rounded-full bg-gradient-to-r from-accent to-[#a6c5bf]"
+            className="h-1 w-14 rounded-full bg-accent"
           />
           <p className="font-sans text-base sm:text-lg text-muted leading-relaxed max-w-2xl">
             {project.shortDescription}

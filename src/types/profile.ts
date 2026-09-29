@@ -48,5 +48,4 @@ export interface Skill {
   title: string;
   description: string;
   icon: SkillIconName;
-  rating?: number;
 }

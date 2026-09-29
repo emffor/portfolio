@@ -89,7 +89,6 @@ portfolio/
 │   ├── icon.svg                # Monograma vetorial
 │   └── images/
 │       └── projects/           # Imagens e mockups dos projetos
-│           └── laflora-agro.svg
 ├── src/
 │   ├── app/                    # Rotas e configurações do App Router
 │   │   ├── globals.css         # Variáveis de tema e estilos globais

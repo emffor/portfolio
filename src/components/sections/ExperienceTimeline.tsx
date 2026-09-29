@@ -62,7 +62,7 @@ export async function ExperienceTimeline() {
                   <h3 className="font-display text-base font-semibold text-foreground">
                     {exp.role} &bull; {exp.company}
                   </h3>
-                  <p className="mt-0.5 font-sans text-sm text-muted">
+                  <p className="mt-0.5 font-mono text-xs text-muted">
                     {exp.period}
                     {exp.location ? ` • ${exp.location}` : ""}
                     {exp.workModel ? ` • ${exp.workModel}` : ""}

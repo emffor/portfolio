@@ -48,7 +48,7 @@ export function Button({
     ghost:
       "bg-transparent text-muted hover:bg-surface-secondary hover:text-foreground",
     glow:
-      "bg-accent text-[var(--on-accent)] hover:bg-accent-hover border-0 shadow-[0_10px_30px_-10px_var(--accent)]",
+      "bg-accent text-[var(--on-accent)] hover:bg-accent-hover border-0 shadow-[0_6px_18px_-10px_var(--accent)]",
   };
 
   const combinedClasses = cn(

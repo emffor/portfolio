@@ -35,7 +35,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
       <div className="flex flex-1 flex-col gap-4 p-6 sm:p-7">
         <div>
           <div className="mb-2 flex items-center justify-between gap-3">
-            <span className="font-sans text-xs font-semibold uppercase tracking-wider text-accent">
+            <span className="font-mono text-xs font-medium uppercase tracking-wider text-accent">
               {project.category}
             </span>
             {project.featured && (
