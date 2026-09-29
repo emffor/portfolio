@@ -44,11 +44,7 @@ export const EXPERIENCES: readonly Experience[] = [
         label: "READI",
         url: "https://readi.com.br/",
         type: "product",
-      },
-      {
-        label: "Medipay",
-        type: "product",
-      },
+      }
     ],
   },
   {
