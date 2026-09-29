@@ -86,7 +86,7 @@ export function Hero() {
               className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-soft opacity-80 blur-[90px]"
             />
             <div className="relative z-0 rounded-2xl border border-accent/30 bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
-              <div className="relative overflow-hidden rounded-2xl">
+              <div className="group relative overflow-hidden rounded-2xl">
                 {PROFILE_DATA.photo ? (
                   <Image
                     src={PROFILE_DATA.photo.src}
@@ -95,7 +95,7 @@ export function Hero() {
                     height={1254}
                     priority
                     sizes="(max-width: 640px) 400px, 460px"
-                    className="aspect-[4/5] h-auto w-full min-w-0 max-w-full object-cover"
+                    className="aspect-[4/5] h-auto w-full min-w-0 max-w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                   />
                 ) : null}
                 <div

@@ -144,10 +144,23 @@ h6,
     var(--foreground) 10%,
     var(--accent) 75%
   );
+  background-size: 180% 100%;
+  background-position: left center;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   padding-right: 0.06em;
+  transform-origin: left center;
+  transition:
+    background-position 500ms ease,
+    filter 500ms ease,
+    transform 500ms ease;
+}
+
+.hero-name:hover {
+  background-position: right center;
+  filter: drop-shadow(0 0 0.3em var(--accent-soft));
+  transform: translateY(-2px) scale(1.015);
 }
 
 /* =========================================================
