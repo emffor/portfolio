@@ -121,7 +121,7 @@ export function ContactCta() {
             {PROFILE_DATA.availableForWork && (
               <p className="flex items-center gap-2 font-sans text-xs font-medium text-muted">
                 <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                Disponível para oportunidades
+                Disponível para projetos
               </p>
             )}
             <p className="mt-4 font-display text-xl font-bold tracking-tight text-foreground">

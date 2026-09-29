@@ -130,7 +130,7 @@ export function Hero() {
             {PROFILE_DATA.availableForWork && (
               <figcaption className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-surface/95 px-4 py-2 text-xs font-medium text-foreground shadow-lg backdrop-blur-sm">
                 <span className="mr-2 inline-block h-2 w-2 rounded-full bg-emerald-500" />
-                Disponível para oportunidades
+                Disponível para projetos
               </figcaption>
             )}
           </figure>
