@@ -68,5 +68,6 @@ export type SkillIconName =
 export interface SkillArea {
   title: string;
   icon: SkillIconName;
+  description?: string;
   items: readonly string[];
 }

@@ -141,26 +141,28 @@ h6,
   display: inline-block;
   background: linear-gradient(
     110deg,
-    var(--foreground) 10%,
-    var(--accent) 75%
+    var(--foreground) 20%,
+    var(--accent) 70%,
+    #a8ded7 100%
   );
-  background-size: 180% 100%;
+  background-size: 200% 100%;
   background-position: left center;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  padding-right: 0.06em;
+  padding-right: 0.08em;
   transform-origin: left center;
+  cursor: default;
   transition:
-    background-position 1800ms ease-in-out,
-    filter 1800ms ease-in-out,
-    transform 2500ms cubic-bezier(0.4, 0, 0.2, 1);
+    transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 350ms ease,
+    background-position 500ms ease;
 }
 
 .hero-name:hover {
   background-position: right center;
-  filter: drop-shadow(0 0 0.3em var(--accent-soft));
-  transform: translateY(-2px) scale(1.015);
+  filter: drop-shadow(0 4px 18px var(--accent-soft));
+  transform: translateY(-2px) scale(1.06);
 }
 
 /* =========================================================
@@ -243,16 +245,10 @@ a {
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
+  .animate-spin,
+  .animate-pulse,
+  .animate-bounce {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }

@@ -15,15 +15,15 @@ export const PROFILE_DATA: Profile = {
   indicators: [
     {
       value: "11",
-      label: "serviços consolidados",
+      label: "microsserviços consolidados na READI",
     },
     {
       value: "~40%",
-      label: "menos tempo em processos manuais",
+      label: "menos tempo em rotinas manuais via automações",
     },
     {
       value: "2024 · 2025",
-      label: "Destaque do Ano",
+      label: "Destaque do Ano na READI",
     },
   ],
   education: {

@@ -2,12 +2,14 @@ import { Project, ProjectKind } from "@/types/project";
 
 export const PROJECT_KIND_LABELS: Record<ProjectKind, string> = {
   product: "Produto",
+  modernization: "Modernização & Arquitetura",
   "technical-study": "Estudo técnico",
 };
 
 const FEATURED_KIND_ORDER: Record<ProjectKind, number> = {
   product: 0,
-  "technical-study": 1,
+  modernization: 1,
+  "technical-study": 2,
 };
 
 export function getProjectKindLabel(kind: ProjectKind): string {
@@ -16,11 +18,246 @@ export function getProjectKindLabel(kind: ProjectKind): string {
 
 export const PROJECTS: readonly Project[] = [
   {
+    title: "Rastro Florestal",
+    slug: "rastro-florestal",
+    kind: "product",
+    category: "SaaS Multiempresa",
+    featured: true,
+    status: "SaaS multi-empresa com demonstração online ativa",
+    shortDescription:
+      "SaaS multi-empresa para madeireiras com conformidade DOF/IBAMA, estoque duplo e mapa visual de pátio.",
+    fullDescription:
+      "SaaS multi-empresa para madeireiras e serrarias reguladas pelo IBAMA. Une conformidade legal do DOF (Documento de Origem Florestal) com a operação real de pátio: controla saldo legal em m³ e estoque físico em peças simultaneamente, com mapa visual do pátio em canvas, movimentações auditáveis e relatórios para fiscalização.",
+    image: "/assets/rastro-florestal.png",
+    technologies: [
+      "Laravel 11",
+      "PHP 8.2",
+      "PostgreSQL 16",
+      "Redis 7",
+      "React 19",
+      "TypeScript",
+      "Vite 7",
+      "Tailwind CSS 4",
+      "React-Konva",
+      "Docker",
+      "AWS S3",
+      "PHPUnit 11",
+    ],
+    projectUrl: "https://rastrof.netlify.app/",
+    brief: [
+      {
+        label: "Problema",
+        text: "Empresas madeireiras sofriam autuações por controlar o DOF em planilhas desconectadas do pátio real, sem conciliação confiável entre volume legal (m³) e peças físicas.",
+      },
+      {
+        label: "Decisão",
+        text: "Estoque duplo sincronizado com débito casado por volume unitário, mapa de pátio interativo em canvas e multi-tenancy com RBAC granular.",
+      },
+      {
+        label: "Trade-off",
+        text: "Validações transacionais mais rigorosas em cada movimentação no backend em troca de integridade jurídica e relatórios instantâneos para fiscalização.",
+      },
+      {
+        label: "Impacto prático",
+        text: "Redução do tempo de conciliação de pátio e auditoria de DOF de dias para poucos cliques, com histórico imutável de movimentações.",
+      },
+    ],
+    context:
+      "Madeireiras e serrarias reguladas pelo IBAMA operavam com divergências frequentes entre o saldo do DOF do órgão ambiental e o estoque físico real. O controle disperso em planilhas gerava passivo jurídico, risco de multas e lentidão operacional.",
+    solution:
+      "Desenvolvimento de uma plataforma SaaS multi-empresa em Laravel e React/TypeScript. No backend, implementei estoque duplo (m³ x peças), alocação DOF-lote, histórico imutável com Spatie Activity Log e multi-tenancy com RBAC. No frontend, construí um mapa interativo de pátio em canvas (React-Konva) com drag-and-drop, detecção de colisão e fluxos de expedição com preview.",
+    technicalChallenges: [
+      "Sincronizar o estoque duplo com débito casado entre saldo legal (m³) e físico (peças) via volume unitário.",
+      "Modelar a alocação DOF-lote com operações atômicas de alocar, transferir, dar baixa e remover.",
+      "Manter movimentações imutáveis (Entrada, Transferência, Baixa, Ajuste) com preview de saída e consumo por fonte.",
+      "Implementar multi-tenancy real com RBAC granular (Master > Admin > Usuário) e permissões por recurso.",
+      "Construir o mapa de pátio interativo em canvas com drag-and-drop, detecção de colisão e áreas bloqueadas.",
+      "Gerenciar anexos polimórficos em S3 com cota mensal e URL temporária cacheada no Redis.",
+    ],
+    technicalHighlights: [
+      "Estoque duplo sincronizado legal (m³) x físico (peças).",
+      "Mapa de pátio interativo em canvas com drag-and-drop e detecção de colisão.",
+      "Multi-tenancy com RBAC granular e autorização por política de recurso.",
+      "Ofuscação de IDs sequenciais com Hashids e auditoria com Spatie Activity Log.",
+      "Respostas de API padronizadas e autenticação com Laravel Sanctum.",
+      "Relatórios PDF/Excel de DOF e movimentações prontos para fiscalização.",
+    ],
+    demoAccess: {
+      email: "madeireira@email.com",
+      password: "123123",
+    },
+    sourceNote:
+      "O código-fonte é privado e protegido por propriedade intelectual.",
+    myRole:
+      "Desenvolvimento Full Stack: arquitetura do backend em Laravel (regras de negócio, estoque duplo, alocação DOF-lote, RBAC e relatórios) e frontend em React + TypeScript (dashboard operacional, mapa de pátio em canvas, fluxos de saída e painel administrativo).",
+    screenshots: [
+      {
+        src: "/assets/rastro-florestal-patio-lote.png",
+        alt: "Mapa interativo do pátio com alocação espacial de lotes e toras",
+        caption:
+          "Mapa interativo em canvas: gestão espacial do pátio madeireiro com alocação e status de lotes.",
+      },
+      {
+        src: "/assets/rastro-florestal-produto-dimensionado.png",
+        alt: "Controle de estoque duplo com conciliação entre metros cúbicos e peças",
+        caption:
+          "Estoque duplo sincronizado: controle simultâneo de saldo legal em m³ e peças físicas.",
+      },
+      {
+        src: "/assets/rastro-florestal-patio-cinza.png",
+        alt: "Visão setorial e zoneamento do pátio de estocagem",
+        caption:
+          "Gestão espacial de áreas do pátio com identificação de setores e zonas de manobra.",
+      },
+    ],
+    architecture: {
+      layers: [
+        {
+          label: "React 19 + TypeScript",
+          description: "Dashboard operacional, mapa de pátio em canvas e fluxos de saída",
+        },
+        {
+          label: "REST API",
+          description: "Contrato HTTP tipado com respostas padronizadas",
+        },
+        {
+          label: "Laravel 11 / PHP",
+          description: "Regras de negócio, estoque duplo, RBAC e autenticação com Sanctum",
+        },
+        {
+          label: "PostgreSQL 16 + Redis 7",
+          description: "Persistência relacional multi-tenant e cache de URLs temporárias",
+        },
+      ],
+      infrastructureTitle: "Docker + Nginx",
+      infrastructureServices: ["Frontend Web", "API", "PostgreSQL", "Redis", "AWS S3"],
+    },
+  },
+  {
+    title: "Consolidação de Microsserviços e Modernização",
+    slug: "consolidacao-arquitetural",
+    kind: "modernization",
+    category: "Arquitetura & Engenharia de Dados",
+    featured: false,
+    status: "Arquitetura consolidada e sustentada em produção na READI",
+    shortDescription:
+      "Unificação de 11 microsserviços e 11 bancos de dados independentes em um monólito modular em Laravel/PHP, reduzindo custos de nuvem e eliminando gargalos de consistência.",
+    fullDescription:
+      "Reestruturação e consolidação profunda da plataforma corporativa da READI. O ecossistema anterior era distribuído em 11 microsserviços em Node.js com 11 bancos de dados independentes (PostgreSQL e SQL Server). A complexidade operacional desnecessária gerava sobrecarga de manutenção, latência e custo elevado. Liderei a estratégia e execução da unificação desses serviços em uma arquitetura modular coesa em Laravel/PHP, garantindo integridade de dados e sustentação contínua.",
+    image: "/assets/consolidacao-readi.svg",
+    technologies: [
+      "Laravel 11",
+      "PHP 8.2",
+      "PostgreSQL",
+      "SQL Server",
+      "Docker",
+      "Node.js",
+      "CI/CD",
+      "AWS",
+      "REST APIs",
+      "SOLID",
+      "Clean Architecture",
+    ],
+    brief: [
+      {
+        label: "Problema",
+        text: "11 microsserviços e 11 bancos heterogêneos geravam alta latência em chamadas HTTP em cadeia, custos desproporcionais de servidores e inconsistências de dados em processos críticos.",
+      },
+      {
+        label: "Decisão",
+        text: "Consolidação dos serviços em um monólito modular estruturado em Laravel/PHP com PostgreSQL e SQL Server, migrando regras de negócio legadas de Node.js.",
+      },
+      {
+        label: "Trade-off",
+        text: "Ganho substancial em simplicidade operacional, transações ACID reais e redução de custos de nuvem em troca de exigir disciplina rigorosa de limites de contexto e modularidade no código.",
+      },
+      {
+        label: "O que eu faria diferente",
+        text: "Definiria contratos tipados de dados e testes de regressão de borda mais cedo no processo de migração para acelerar a validação das regras legadas de Node.js.",
+      },
+    ],
+    context:
+      "A plataforma corporativa operava com 11 microsserviços em Node.js e 11 bancos de dados isolados. O modelo distribuído gerava custos elevados de instâncias de nuvem, chamadas encadeadas com alta latência de rede, lentidão em diagnósticos de produção e impossibilidade de transações ACID nativas entre dados interligados.",
+    solution:
+      "Desenhei e executei a consolidação da plataforma: unificação dos modelos de dados em uma base relacional sólida, migração estruturada dos fluxos de regras de negócio de Node.js para Laravel/PHP com arquitetura em camadas (Form Requests, Services, Repositories), padronização com SOLID/Clean Code e criação de esteiras de CI/CD automatizadas com Docker.",
+    technicalChallenges: [
+      "Mapear e migrar 11 schemas de banco heterogêneos (SQL Server e PostgreSQL) para uma estrutura relacional unificada sem perda de dados históricos.",
+      "Executar a migração de dados sem interrupção dos processos de negócio dos clientes em produção.",
+      "Reescrever e validar regras de negócio complexas do ecossistema legado Node.js para Laravel.",
+      "Manter isolamento lógico e fronteiras de domínio bem definidas dentro do novo monólito modular para evitar acoplamento desordenado.",
+      "Eliminar dependências circulares e chamadas HTTP síncronas entre domínios da aplicação.",
+    ],
+    technicalHighlights: [
+      "Redução expressiva nos custos mensais de servidores e licenças de banco de dados.",
+      "Eliminação de latência de rede inter-serviços com execução de processos em memória e transações ACID nativas.",
+      "Arquitetura modular em camadas com separação clara de domínios, services e repositórios.",
+      "Ambiente 100% conteinerizado com Docker e pipelines de CI/CD para deploy com zero atrito.",
+      "Reconhecimento profissional como Destaque do Ano da empresa em 2024 e 2025 pelo impacto direto no produto e na operação.",
+    ],
+    decisions: [
+      {
+        title: "Monólito Modular vs Microsserviços Distribuídos",
+        benefit:
+          "Eliminação da sobrecarga operacional, observabilidade centralizada, transações ACID e fim da latência de rede.",
+        cost: "Exige rigor técnico contínuo em Code Review e Clean Architecture para evitar que limites de domínio se degradem com o tempo.",
+      },
+      {
+        title: "Consolidação de Bancos de Dados",
+        benefit:
+          "Integridade referencial real, joins nativos de alta performance e fim da necessidade de conciliações assíncronas.",
+        cost: "Complexidade inicial alta no plano de migração, limpeza de dados duplicados e compatibilidade de schemas.",
+      },
+      {
+        title: "Laravel 11 / PHP como Core Backend",
+        benefit:
+          "Ecossistema maduro com Eloquent ORM, filas, autenticação e validações prontas, acelerando a entrega com estabilidade.",
+        cost: "Necessidade de migrar a base de código previamente distribuída em JavaScript/Node.js.",
+      },
+    ],
+    myRole:
+      "Responsável técnico pela arquitetura e execução da consolidação: mapeamento dos 11 bancos legados, modelagem da nova base unificada, reescrita dos módulos de negócio de Node.js para Laravel, implementação de testes, padronização de Clean Code/SOLID e condução das janelas de migração em produção.",
+    screenshots: [],
+    architecture: {
+      layers: [
+        {
+          label: "Frontend Web & Mobile",
+          description: "Aplicações em React e interfaces web consumindo APIs REST tipadas",
+        },
+        {
+          label: "API REST Unificada (Laravel 11)",
+          description:
+            "Camada de domínio modular com Controllers, Form Requests, Services e Repositories",
+        },
+        {
+          label: "Regras de Negócio & Serviços Modulares",
+          description:
+            "Módulos de autenticação, faturamento, integrações com portais públicos e automações",
+        },
+        {
+          label: "Bancos Consolidados (PostgreSQL / SQL Server)",
+          description:
+            "Base relacional única com integridade referencial, índices otimizados e transações ACID",
+        },
+      ],
+      infrastructureTitle: "Docker + CI/CD na Nuvem",
+      infrastructureServices: [
+        "Docker",
+        "AWS",
+        "CI/CD Automatizado",
+        "Nginx",
+        "PostgreSQL / SQL Server",
+      ],
+    },
+    sourceNote:
+      "Projeto corporativo proprietário da READI — regras de negócio, dados e código-fonte são confidenciais e protegidos por sigilo contratual.",
+  },
+  {
     title: "Vidora",
     slug: "vidora",
     kind: "technical-study",
     category: "Arquitetura distribuída",
     featured: true,
+    status: "Estudo técnico de arquitetura com código aberto no GitHub",
     shortDescription:
       "Estudo de arquitetura distribuída para pesquisa de vídeos e favoritos, com API Gateway e serviços independentes.",
     brief: [
@@ -58,7 +295,7 @@ export const PROJECTS: readonly Project[] = [
     context:
       "Construir uma aplicação Full Stack capaz de autenticar usuários, consumir uma API externa de vídeos e manter favoritos individuais, mantendo responsabilidades e persistência isoladas entre diferentes serviços.",
     solution:
-      "Frontend SPA em Vanilla TypeScript (sem frameworks) comunicando-se por HTTP/REST em JSON exclusivamente com o API Gateway, com roteador client-side próprio (History API, rotas protegidas e 404), store reativa com padrão Observer e HttpClient centralizado (fetch nativo, AbortController, timeout e injeção de Bearer). O gateway atua como ponto único de entrada e encaminha as requisições aos serviços internos: Auth Service para registro, login e autenticação com Bearer; Video Service para pesquisa e consulta de vídeos com integração à YouTube Data API v3 e normalização das respostas externas; Favorites Service para adicionar, remover, listar e verificar favoritos com persistência independente. Chamadas entre serviços com timeout configurado e dois bancos PostgreSQL separados, um por serviço com estado.",
+      "Arquitetura distribuída composta por três pilares: (1) Frontend SPA em Vanilla TypeScript (sem frameworks), com roteador client-side próprio via History API, store reativa baseada no padrão Observer e HttpClient com timeouts e injeção de Bearer token; (2) API Gateway atuando como ponto único de entrada e proxy reverso para os clientes; (3) Serviços internos especializados (Auth Service, Video Service com normalização da YouTube Data API v3 via Adapter e Favorites Service), cada um com persistência independente em PostgreSQL e cobertura de testes automatizados com Jest.",
     technicalChallenges: [
       "Isolar responsabilidades e persistência entre serviços mantendo a comunicação distribuída compreensível.",
       "Integrar a YouTube Data API v3 normalizando respostas externas para o contrato interno da aplicação.",
@@ -148,93 +385,6 @@ export const PROJECTS: readonly Project[] = [
         "Favorites Service",
         "PostgreSQL",
       ],
-    },
-  },
-  {
-    title: "Rastro Florestal",
-    slug: "rastro-florestal",
-    kind: "product",
-    category: "SaaS Multiempresa",
-    featured: true,
-    shortDescription:
-      "SaaS multi-empresa para madeireiras com conformidade DOF/IBAMA, estoque duplo e mapa visual de pátio.",
-    fullDescription:
-      "SaaS multi-empresa para madeireiras e serrarias reguladas pelo IBAMA. Une conformidade legal do DOF (Documento de Origem Florestal) com operação real de pátio: controla saldo legal em m³ e estoque físico em peças ao mesmo tempo, com mapa visual do pátio, movimentações rastreáveis e relatórios para fiscalização.",
-    image: "/assets/rastro-florestal.png",
-    technologies: [
-      "Laravel 11",
-      "PHP 8.2",
-      "PostgreSQL 16",
-      "Redis 7",
-      "React 19",
-      "TypeScript",
-      "Vite 7",
-      "Tailwind CSS 4",
-      "React-Konva",
-      "Docker",
-      "AWS S3",
-      "PHPUnit 11",
-    ],
-    projectUrl: "https://rastrof.netlify.app/",
-    context:
-      "Empresas madeireiras tomavam multa por controlar o DOF em planilha, com o estoque legal desconectado do estoque físico e sem rastreabilidade pronta para fiscalização.",
-    solution:
-      "Backend em Laravel com controle de estoque duplo (legal em m³ x físico em peças), alocação DOF-lote, movimentações auditáveis e multi-tenancy por empresa. Frontend em React + TypeScript com dashboard operacional, mapa interativo de pátio em canvas e fluxos de saída com preview.",
-    technicalChallenges: [
-      "Sincronizar o estoque duplo com débito casado entre saldo legal (m³) e físico (peças) via volume unitário.",
-      "Modelar a alocação DOF-lote com operações de alocar, transferir, dar baixa e remover.",
-      "Manter movimentações imutáveis (Entrada, Transferência, Baixa, Ajuste) com preview de saída e consumo por fonte.",
-      "Implementar multi-tenancy real com RBAC granular (Master > Admin > Usuário) e permissões por recurso.",
-      "Construir o mapa de pátio interativo em canvas com drag-and-drop, detecção de colisão e áreas bloqueadas.",
-      "Gerenciar anexos polimórficos em S3 com cota mensal e URL temporária cacheada no Redis.",
-    ],
-    technicalHighlights: [
-      "Estoque duplo sincronizado legal x físico.",
-      "Mapa de pátio interativo em canvas com drag-and-drop e colisão.",
-      "Multi-tenancy real com RBAC granular.",
-      "IDs criptografados com Hashids e auditoria com Spatie Activity Log.",
-      "Respostas de API padronizadas e autenticação com Laravel Sanctum.",
-      "Relatórios PDF/Excel de DOF e movimentações.",
-    ],
-    demoAccess: {
-      email: "madeireira@email.com",
-      password: "123123",
-    },
-    sourceNote:
-      "O código-fonte é privado e não é exposto no portfólio.",
-    myRole:
-      "Desenvolvimento Full Stack: backend em Laravel (regras de negócio, estoque duplo, alocação DOF-lote, RBAC, relatórios PDF/Excel) e frontend em React + TypeScript (dashboard operacional, mapa de pátio em canvas, fluxos de saída e painel administrativo).",
-    screenshots: [
-      {
-        src: "/assets/rastro-florestal-produto-dimensionado.png",
-        alt: "Tela de cadastro de produtos dimensionados do Rastro Florestal",
-      },
-      {
-        src: "/assets/rastro-florestal-patio-azul.png",
-        alt: "Mapa visual do pátio azul do Rastro Florestal",
-      },
-    ],
-    architecture: {
-      layers: [
-        {
-          label: "React 19 + TypeScript",
-          description: "Dashboard operacional, mapa de pátio em canvas e fluxos de saída",
-        },
-        {
-          label: "REST API",
-          description: "Contrato HTTP tipado com respostas padronizadas",
-        },
-        {
-          label: "Laravel 11 / PHP",
-          description: "Regras de negócio, estoque duplo, RBAC e autenticação com Sanctum",
-        },
-        {
-          label: "PostgreSQL 16 + Redis 7",
-          description: "Persistência relacional multi-tenant e cache de URLs temporárias",
-        },
-      ],
-      infrastructureTitle: "Docker + Nginx",
-      infrastructureServices: ["Frontend Web", "API", "PostgreSQL", "Redis", "AWS S3"],
     },
   },
 ] as const;

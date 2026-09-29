@@ -3,12 +3,43 @@
 import React, { useSyncExternalStore } from "react";
 
 function subscribe(callback: () => void) {
-  window.addEventListener("storage", callback);
+  const onStorage = () => {
+    try {
+      const saved = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (saved === "dark" || (!saved && prefersDark)) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    } catch {
+      // Ignora erro de acesso a storage
+    }
+    callback();
+  };
+
   const media = window.matchMedia("(prefers-color-scheme: dark)");
-  media.addEventListener("change", callback);
+  const onMediaChange = (e: MediaQueryListEvent) => {
+    try {
+      const saved = localStorage.getItem("theme");
+      if (!saved) {
+        if (e.matches) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      }
+    } catch {
+      // Ignora erro de acesso a storage
+    }
+    callback();
+  };
+
+  window.addEventListener("storage", onStorage);
+  media.addEventListener("change", onMediaChange);
   return () => {
-    window.removeEventListener("storage", callback);
-    media.removeEventListener("change", callback);
+    window.removeEventListener("storage", onStorage);
+    media.removeEventListener("change", onMediaChange);
   };
 }
 

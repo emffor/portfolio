@@ -47,6 +47,10 @@ export function Hero() {
               </svg>
             </Button>
 
+            <Button href="/#contato" variant="outline" size="lg">
+              Entrar em contato
+            </Button>
+
             <Button
               href={PROFILE_DATA.socials.github.url}
               variant="outline"
@@ -67,6 +71,23 @@ export function Hero() {
               </svg>
               GitHub
             </Button>
+
+            <Button
+              href={PROFILE_DATA.socials.linkedin.url}
+              variant="outline"
+              size="lg"
+              aria-label={PROFILE_DATA.socials.linkedin.label}
+            >
+              <svg
+                className="w-4 h-4 mr-2"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
+              </svg>
+              LinkedIn
+            </Button>
           </div>
         </div>
 
@@ -80,13 +101,13 @@ export function Hero() {
             className="absolute bottom-[16%] left-[8%] hidden h-1 w-1 rounded-full bg-slate-500/50 sm:block lg:left-[38%]"
           />
 
-          <figure className="relative z-10 w-full min-w-0 max-w-full sm:max-w-[460px]">
+          <figure className="group relative z-10 w-full min-w-0 max-w-full sm:max-w-[460px]">
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-soft opacity-80 blur-[90px]"
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-soft opacity-80 blur-[90px] transition-all duration-500 ease-out group-hover:scale-110 group-hover:opacity-100"
             />
-            <div className="relative z-0 rounded-2xl border border-accent/30 bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
-              <div className="group relative overflow-hidden rounded-2xl">
+            <div className="relative z-0 rounded-2xl border border-accent/30 bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.28)] transition-all duration-500 ease-out group-hover:border-accent group-hover:shadow-[0_20px_60px_rgba(99,163,156,0.35)]">
+              <div className="relative overflow-hidden rounded-2xl">
                 {PROFILE_DATA.photo ? (
                   <Image
                     src={PROFILE_DATA.photo.src}
@@ -95,7 +116,7 @@ export function Hero() {
                     height={1254}
                     priority
                     sizes="(max-width: 640px) 400px, 460px"
-                    className="aspect-[4/5] h-auto w-full min-w-0 max-w-full object-cover transition-transform duration-[2500ms] ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-[1.04]"
+                    className="aspect-[4/5] h-auto w-full min-w-0 max-w-full object-cover transition-transform duration-500 ease-out group-hover:scale-108 group-hover:brightness-[1.03]"
                   />
                 ) : null}
                 <div

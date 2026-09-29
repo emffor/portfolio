@@ -52,7 +52,17 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
             {project.title}
           </h3>
 
-          <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
+          {project.status && (
+            <p className="mt-1.5 flex items-center gap-1.5 font-sans text-xs text-muted">
+              <span
+                className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500"
+                aria-hidden="true"
+              />
+              {project.status}
+            </p>
+          )}
+
+          <p className="mt-2.5 font-sans text-sm leading-relaxed text-muted">
             {project.shortDescription}
           </p>
         </div>

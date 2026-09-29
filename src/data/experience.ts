@@ -8,11 +8,8 @@ export const EXPERIENCES: readonly Experience[] = [
     location: "Fortaleza/CE",
     featured: true,
     recognition: "Destaque do Ano · 2024 e 2025",
-    recognitionLabel: "Reconhecimento",
-    contextLabel: "Contexto",
     description:
-      "Atuação na evolução e modernização de uma plataforma corporativa de alta complexidade.",
-    impactLabel: "Impactos",
+      "Atuação na evolução e modernização de uma plataforma corporativa de alta complexidade, conectando decisões técnicas e arquitetura de backend à operação do produto.",
     responsibilities: [
       "Consolidação de 11 microsserviços e 11 bancos de dados em uma única base, otimizando a arquitetura e os custos de infraestrutura com Laravel, Docker, SQL Server e PostgreSQL.",
       "Migração de sistema legado de Node.js para Laravel/PHP, com reestruturação de fluxos e regras de negócio essenciais.",
@@ -28,23 +25,22 @@ export const EXPERIENCES: readonly Experience[] = [
       "Node.js",
       "TypeScript",
       "React",
-      "Next.js",
-      "Python",
-      "SQL Server",
       "PostgreSQL",
-      "AWS",
+      "SQL Server",
       "Docker",
-      "CI/CD",
-      "REST APIs",
-      "LLMs",
-      "AI Agents",
+      "AWS",
     ],
     relatedLinks: [
       {
+        label: "Ver case da consolidação",
+        url: "/projetos/consolidacao-arquitetural",
+        type: "product",
+      },
+      {
         label: "READI",
         url: "https://readi.com.br/",
-        type: "product",
-      }
+        type: "company",
+      },
     ],
   },
   {

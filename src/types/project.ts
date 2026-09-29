@@ -28,7 +28,7 @@ export interface ProjectDecision {
   cost: string;
 }
 
-export type ProjectKind = "product" | "technical-study";
+export type ProjectKind = "product" | "modernization" | "technical-study";
 
 export interface ProjectBriefItem {
   label: string;
@@ -50,6 +50,7 @@ export interface Project {
   kind: ProjectKind;
   category: string;
   featured: boolean;
+  status?: string;
   brief?: readonly ProjectBriefItem[];
   projectUrl?: string;
   githubUrl?: string;

@@ -16,10 +16,12 @@ export function ProjectImageCarousel({
   priority,
 }: ProjectImageCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     if (
       images.length < 2 ||
+      isPaused ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
       return;
@@ -27,13 +29,20 @@ export function ProjectImageCarousel({
 
     const intervalId = window.setInterval(() => {
       setActiveIndex((currentIndex) => (currentIndex + 1) % images.length);
-    }, 3000);
+    }, 4000);
 
     return () => window.clearInterval(intervalId);
-  }, [images.length]);
+  }, [images.length, isPaused]);
 
   return (
-    <div className="relative h-full w-full" aria-live="off">
+    <div
+      className="relative h-full w-full"
+      aria-live="polite"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocus={() => setIsPaused(true)}
+      onBlur={() => setIsPaused(false)}
+    >
       {images.map((image, index) => (
         <Image
           key={image.src}
@@ -51,7 +60,7 @@ export function ProjectImageCarousel({
 
       {images.length > 1 && (
         <div
-          className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-white/15 bg-black/65 px-2.5 py-1.5 shadow-sm backdrop-blur-sm"
+          className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/15 bg-black/65 px-2 py-1 shadow-sm backdrop-blur-sm"
           role="group"
           aria-label={`Imagens do projeto ${projectTitle}`}
         >
@@ -62,12 +71,16 @@ export function ProjectImageCarousel({
               aria-label={`Mostrar imagem ${index + 1} de ${images.length}`}
               aria-pressed={activeIndex === index}
               onClick={() => setActiveIndex(index)}
-              className={`h-1.5 rounded-full transition-all duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
-                activeIndex === index
-                  ? "w-5 bg-white"
-                  : "w-1.5 bg-white/55 hover:bg-white/80"
-              }`}
-            />
+              className="flex items-center justify-center p-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-full"
+            >
+              <span
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  activeIndex === index
+                    ? "w-5 bg-white"
+                    : "w-2 bg-white/50 hover:bg-white/80"
+                }`}
+              />
+            </button>
           ))}
         </div>
       )}

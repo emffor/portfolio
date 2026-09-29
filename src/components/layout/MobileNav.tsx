@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { NAVIGATION_ITEMS } from "@/data/navigation";
 
@@ -9,6 +9,15 @@ export function MobileNav() {
 
   const toggle = () => setIsOpen((prev) => !prev);
   const close = () => setIsOpen(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -20,7 +29,15 @@ export function MobileNav() {
       const targetId = href.replace("/#", "");
       const element = document.getElementById(targetId);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        const headerOffset = 76;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition =
+          elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
         window.history.pushState(null, "", href);
       }
     }
@@ -33,6 +50,7 @@ export function MobileNav() {
         type="button"
         className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-border text-muted hover:bg-surface-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         aria-expanded={isOpen}
+        aria-controls="mobile-navigation-menu"
         aria-label={isOpen ? "Fechar menu principal" : "Abrir menu principal"}
       >
         {isOpen ? (
@@ -69,7 +87,10 @@ export function MobileNav() {
       </button>
 
       {isOpen && (
-        <div className="absolute top-16 left-0 right-0 z-50 border-b border-border bg-background/95 px-6 py-6 shadow-xl backdrop-blur-sm">
+        <div
+          id="mobile-navigation-menu"
+          className="absolute top-16 left-0 right-0 z-50 border-b border-border bg-background/95 px-6 py-6 shadow-xl backdrop-blur-sm"
+        >
           <nav
             aria-label="Navegação móvel"
             className="flex flex-col space-y-4"
