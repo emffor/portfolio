@@ -1,34 +1,58 @@
-import { Project } from "@/types/project";
+import { Project, ProjectKind } from "@/types/project";
+
+export const PROJECT_KIND_LABELS: Record<ProjectKind, string> = {
+  product: "Produto",
+  "technical-study": "Estudo técnico",
+};
+
+const FEATURED_KIND_ORDER: Record<ProjectKind, number> = {
+  product: 0,
+  "technical-study": 1,
+};
+
+export function getProjectKindLabel(kind: ProjectKind): string {
+  return PROJECT_KIND_LABELS[kind];
+}
 
 export const PROJECTS: readonly Project[] = [
   {
     title: "Vidora",
     slug: "vidora",
-    category: "Full Stack / Microsserviços",
+    kind: "technical-study",
+    category: "Arquitetura distribuída",
     featured: true,
     shortDescription:
-      "Plataforma Full Stack para descoberta, pesquisa e gerenciamento de vídeos, construída com arquitetura de microsserviços.",
+      "Estudo de arquitetura distribuída para pesquisa de vídeos e favoritos, com API Gateway e serviços independentes.",
+    brief: [
+      {
+        label: "Problema",
+        text: "Autenticar usuários, consultar vídeos em uma API externa e manter favoritos individuais, com responsabilidades e persistência isoladas.",
+      },
+      {
+        label: "Decisão",
+        text: "API Gateway como ponto único de entrada e serviços separados para autenticação, vídeos e favoritos.",
+      },
+      {
+        label: "Trade-off",
+        text: "Isolamento de responsabilidades em troca de maior complexidade operacional e comunicação distribuída.",
+      },
+      {
+        label: "O que eu faria diferente",
+        text: "Para produção, usar uma biblioteca JWT mantida e Argon2 ou bcrypt para hashing de senha, em vez da implementação manual feita para estudo.",
+      },
+    ],
     fullDescription:
       "Aplicação Full Stack estruturada em microsserviços, com API Gateway como ponto único de entrada e serviços independentes responsáveis por autenticação, vídeos e favoritos. O projeto demonstra separação de responsabilidades, integração com API externa, persistência isolada, comunicação entre serviços e testes automatizados.",
     image: "/assets/vidora.png",
     technologies: [
       "TypeScript",
-      "Vanilla TypeScript",
-      "Express 5",
-      "PostgreSQL 15",
+      "Express",
+      "PostgreSQL",
       "Docker",
-      "Docker Compose",
       "Jest",
-      "ts-jest",
-      "jsdom",
-      "REST",
-      "JSON",
       "Vite",
-      "YouTube Data API v3",
-      "Swagger / OpenAPI",
-      "pg",
-      "cors",
-      "dotenv",
+      "YouTube Data API",
+      "OpenAPI",
     ],
     githubUrl: "https://github.com/emffor/vidora",
     context:
@@ -129,6 +153,7 @@ export const PROJECTS: readonly Project[] = [
   {
     title: "Rastro Florestal",
     slug: "rastro-florestal",
+    kind: "product",
     category: "SaaS Multiempresa",
     featured: true,
     shortDescription:
@@ -171,8 +196,12 @@ export const PROJECTS: readonly Project[] = [
       "Respostas de API padronizadas e autenticação com Laravel Sanctum.",
       "Relatórios PDF/Excel de DOF e movimentações.",
     ],
-    authNote:
-      "Acesso de demonstração em https://rastrof.netlify.app/ — e-mail madeireira@email.com / senha 123123. O código-fonte é privado e não é exposto no portfólio.",
+    demoAccess: {
+      email: "madeireira@email.com",
+      password: "123123",
+    },
+    sourceNote:
+      "O código-fonte é privado e não é exposto no portfólio.",
     myRole:
       "Desenvolvimento Full Stack: backend em Laravel (regras de negócio, estoque duplo, alocação DOF-lote, RBAC, relatórios PDF/Excel) e frontend em React + TypeScript (dashboard operacional, mapa de pátio em canvas, fluxos de saída e painel administrativo).",
     screenshots: [],
@@ -202,7 +231,9 @@ export const PROJECTS: readonly Project[] = [
 ] as const;
 
 export async function getFeaturedProjects(): Promise<Project[]> {
-  return PROJECTS.filter((p) => p.featured);
+  return PROJECTS.filter((project) => project.featured).sort(
+    (a, b) => FEATURED_KIND_ORDER[a.kind] - FEATURED_KIND_ORDER[b.kind]
+  );
 }
 
 export async function getAllProjects(): Promise<Project[]> {

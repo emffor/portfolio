@@ -7,7 +7,8 @@ import {
   getAllProjects,
   getProjectBySlug,
 } from "@/data/projects";
-import { SITE_URL, AUTHOR_NAME } from "@/lib/constants";
+import { SITE_URL, SITE_NAME, AUTHOR_NAME } from "@/lib/constants";
+import { getProjectKindLabel } from "@/data/projects";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { ProjectGallery } from "@/components/ui/ProjectGallery";
@@ -47,7 +48,7 @@ export async function generateMetadata({
       url,
       title: project.title,
       description: project.shortDescription,
-      siteName: SITE_URL,
+      siteName: SITE_NAME,
       images: [
         {
           url: project.image,
@@ -98,8 +99,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <header className="space-y-6">
         <div className="space-y-3">
-          <p className="font-mono text-xs font-medium uppercase tracking-wider text-accent">
-            {project.category}
+          <p className="font-mono text-xs font-medium uppercase tracking-wider text-muted">
+            {getProjectKindLabel(project.kind)}
+            <span className="mx-1.5 text-border" aria-hidden="true">
+              ·
+            </span>
+            <span className="text-accent">{project.category}</span>
           </p>
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
             {project.title}
@@ -140,6 +145,26 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </header>
 
       <main className="space-y-12">
+        {project.brief && project.brief.length > 0 && (
+          <section aria-label="Síntese do case">
+            <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {project.brief.map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-lg border border-border bg-surface px-4 py-3"
+                >
+                  <dt className="font-sans text-xs font-medium text-muted">
+                    {item.label}
+                  </dt>
+                  <dd className="mt-1.5 font-sans text-sm leading-relaxed text-foreground">
+                    {item.text}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
+
         <section aria-label="Visão geral" className="space-y-3">
           <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
             Visão geral
@@ -289,6 +314,28 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </p>
             )}
           </div>
+          {project.demoAccess && (
+            <details className="max-w-md rounded-lg border border-border bg-surface px-4 py-3">
+              <summary className="cursor-pointer font-sans text-sm font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded">
+                Credenciais de demonstração
+              </summary>
+              <dl className="mt-3 space-y-1.5 font-sans text-sm">
+                <div className="flex flex-wrap gap-x-2">
+                  <dt className="text-muted">E-mail</dt>
+                  <dd className="text-foreground">{project.demoAccess.email}</dd>
+                </div>
+                <div className="flex flex-wrap gap-x-2">
+                  <dt className="text-muted">Senha</dt>
+                  <dd className="text-foreground">
+                    {project.demoAccess.password}
+                  </dd>
+                </div>
+              </dl>
+            </details>
+          )}
+          {project.sourceNote && (
+            <p className="font-sans text-sm text-muted">{project.sourceNote}</p>
+          )}
         </section>
       </main>
     </div>

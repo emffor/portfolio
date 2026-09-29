@@ -82,13 +82,19 @@ export async function ExperienceTimeline() {
               >
                 <header className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
                   <div>
-                    <h3 className="font-display text-base font-semibold text-foreground">
+                    <h3
+                      className={
+                        exp.featured
+                          ? "font-display text-lg font-semibold text-foreground"
+                          : "font-display text-base font-semibold text-foreground"
+                      }
+                    >
                       {exp.company}
                     </h3>
                     <p className="mt-0.5 font-sans text-sm text-muted">
                       {exp.role}
                     </p>
-                    {exp.recognition && (
+                    {exp.recognition && !exp.recognitionLabel && (
                       <div className="mt-2">
                         <Badge variant="subtle">{exp.recognition}</Badge>
                       </div>
@@ -101,36 +107,52 @@ export async function ExperienceTimeline() {
                   </p>
                 </header>
 
-                <p className="font-sans text-sm leading-relaxed text-muted">
-                  {exp.description}
-                </p>
+                <div className="space-y-1.5">
+                  {exp.contextLabel && (
+                    <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-muted">
+                      {exp.contextLabel}
+                    </p>
+                  )}
+                  <p className="font-sans text-sm leading-relaxed text-muted">
+                    {exp.description}
+                  </p>
+                </div>
 
                 {exp.responsibilities.length > 0 && (
-                  <ul className="space-y-1.5 font-sans text-sm leading-relaxed text-muted">
-                    {exp.responsibilities.map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <span
-                          className="shrink-0 font-bold text-emerald-500"
-                          aria-hidden="true"
-                        >
-                          ›
-                        </span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="space-y-2">
+                    {exp.impactLabel && (
+                      <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-muted">
+                        {exp.impactLabel}
+                      </p>
+                    )}
+                    <ul
+                      className={
+                        exp.featured
+                          ? "space-y-2 font-sans text-sm leading-relaxed text-foreground/90"
+                          : "space-y-1.5 font-sans text-sm leading-relaxed text-muted"
+                      }
+                    >
+                      {exp.responsibilities.map((item) => (
+                        <li key={item} className="flex items-start gap-2">
+                          <span
+                            className="shrink-0 font-bold text-emerald-500"
+                            aria-hidden="true"
+                          >
+                            ›
+                          </span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
 
-                {exp.technologies.length > 0 && (
-                  <div
-                    className="flex flex-wrap gap-1.5 pt-1"
-                    aria-label={`Tecnologias em ${exp.company}`}
-                  >
-                    {exp.technologies.map((tech) => (
-                      <Badge key={tech} variant="subtle">
-                        {tech}
-                      </Badge>
-                    ))}
+                {exp.recognition && exp.recognitionLabel && (
+                  <div className="space-y-2">
+                    <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-muted">
+                      {exp.recognitionLabel}
+                    </p>
+                    <Badge variant="subtle">{exp.recognition}</Badge>
                   </div>
                 )}
 
@@ -155,25 +177,47 @@ export async function ExperienceTimeline() {
                                 : RELATED_LINK_GROUP_LABELS[type]}
                             </span>
                           )}
-                          {links.map((link) => (
-                            <a
-                              key={`${link.type}-${link.url}`}
-                              href={link.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={`${link.label} (abre em nova aba)`}
-                              className="inline-flex items-center gap-1 font-sans text-xs font-medium text-muted underline decoration-border underline-offset-4 transition-colors hover:text-accent hover:decoration-accent focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:text-sm"
-                            >
-                              {link.label}
-                              <TbExternalLink
-                                className="h-3.5 w-3.5 shrink-0"
-                                aria-hidden="true"
-                              />
-                            </a>
-                          ))}
+                          {links.map((link) =>
+                            link.url ? (
+                              <a
+                                key={`${link.type}-${link.url}`}
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`${link.label} (abre em nova aba)`}
+                                className="inline-flex items-center gap-1 font-sans text-xs font-medium text-muted underline decoration-border underline-offset-4 transition-colors hover:text-accent hover:decoration-accent focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:text-sm"
+                              >
+                                {link.label}
+                                <TbExternalLink
+                                  className="h-3.5 w-3.5 shrink-0"
+                                  aria-hidden="true"
+                                />
+                              </a>
+                            ) : (
+                              <span
+                                key={`${link.type}-${link.label}`}
+                                className="font-sans text-xs font-medium text-muted sm:text-sm"
+                              >
+                                {link.label}
+                              </span>
+                            )
+                          )}
                         </div>
                       );
                     })}
+                  </div>
+                )}
+
+                {exp.technologies.length > 0 && (
+                  <div
+                    className="flex flex-wrap gap-1.5 pt-1"
+                    aria-label={`Tecnologias em ${exp.company}`}
+                  >
+                    {exp.technologies.map((tech) => (
+                      <Badge key={tech} variant="subtle">
+                        {tech}
+                      </Badge>
+                    ))}
                   </div>
                 )}
               </article>
@@ -182,14 +226,28 @@ export async function ExperienceTimeline() {
         </ol>
       )}
 
-      <div className="mt-8 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
-        <span className="font-mono text-xs font-medium uppercase tracking-wider text-muted">
-          Formação
-        </span>
-        <p className="font-sans text-sm text-foreground">
-          {PROFILE_DATA.education.degree} · {PROFILE_DATA.education.institution} ·{" "}
-          {PROFILE_DATA.education.completionYear}
-        </p>
+      <div className="mt-8 space-y-3">
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
+          <span className="font-mono text-xs font-medium uppercase tracking-wider text-muted">
+            Formação
+          </span>
+          <p className="font-sans text-sm text-foreground">
+            {PROFILE_DATA.education.degree} · {PROFILE_DATA.education.institution} ·{" "}
+            {PROFILE_DATA.education.completionYear}
+          </p>
+        </div>
+        {PROFILE_DATA.languages && PROFILE_DATA.languages.length > 0 && (
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
+            <span className="font-mono text-xs font-medium uppercase tracking-wider text-muted">
+              Idiomas
+            </span>
+            <p className="font-sans text-sm text-foreground">
+              {PROFILE_DATA.languages
+                .map((language) => `${language.name} · ${language.level}`)
+                .join(" · ")}
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

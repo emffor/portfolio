@@ -3,23 +3,46 @@ import { Profile } from "@/types/profile";
 export const PROFILE_DATA: Profile = {
   name: "Eloan Ferreira",
   title: "Full Stack Developer",
+  positioning:
+    "Backend, arquitetura e sistemas em produção.",
   headline:
-    "Atuo com foco em backend, arquitetura e modernização de sistemas. Construo e evoluo aplicações web, mobile e APIs, das decisões arquiteturais à sustentação em produção.",
+    "Evoluo aplicações web, mobile e APIs, do legado à sustentação, principalmente com Laravel/PHP e TypeScript/Node.js.",
   experienceSince: "2019",
   domain: "eloandev.fyi",
   location: "Brasil",
   availableForWork: true,
+  availabilityLabel: "Aberto a oportunidades",
+  indicators: [
+    {
+      value: "11",
+      label: "serviços consolidados",
+    },
+    {
+      value: "~40%",
+      label: "menos tempo em processos manuais",
+    },
+    {
+      value: "2024 · 2025",
+      label: "Destaque do Ano",
+    },
+  ],
   education: {
     degree: "Análise e Desenvolvimento de Sistemas",
     institution: "Estácio de Sá",
     completionYear: 2023,
   },
+  languages: [
+    {
+      name: "Inglês",
+      level: "Intermediário B1",
+    },
+  ],
   photo: {
     src: "/assets/perfil.png",
     alt: "Eloan Ferreira - Full Stack Developer",
   },
   summary:
-    "Minha atuação conecta decisões técnicas e operação: participo da modernização de sistemas, desenho e integração de APIs, reviso código e acompanho aplicações em produção. Trabalho entre backend, web e mobile, considerando as necessidades do negócio e a evolução das plataformas.",
+    "Minha atuação conecta decisões técnicas à operação do produto. Trabalho na evolução de sistemas existentes, na modernização de arquitetura, na integração de APIs, na revisão de código e na sustentação de aplicações em produção, entre backend, web, mobile e infraestrutura.",
   socials: {
     github: {
       name: "GitHub",

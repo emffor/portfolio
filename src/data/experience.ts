@@ -8,15 +8,19 @@ export const EXPERIENCES: readonly Experience[] = [
     location: "Fortaleza/CE",
     featured: true,
     recognition: "Destaque do Ano · 2024 e 2025",
+    recognitionLabel: "Reconhecimento",
+    contextLabel: "Contexto",
     description:
-      "Atuação na evolução arquitetural e modernização de uma plataforma de alta complexidade, do backend à infraestrutura, automações e integrações com IA.",
+      "Atuação na evolução e modernização de uma plataforma corporativa de alta complexidade.",
+    impactLabel: "Impactos",
     responsibilities: [
-      "Unificação de 11 microsserviços e 11 bancos de dados em uma única base, otimizando a arquitetura e os custos de infraestrutura com Laravel, Docker, SQL Server e PostgreSQL.",
+      "Consolidação de 11 microsserviços e 11 bancos de dados em uma única base, otimizando a arquitetura e os custos de infraestrutura com Laravel, Docker, SQL Server e PostgreSQL.",
       "Migração de sistema legado de Node.js para Laravel/PHP, com reestruturação de fluxos e regras de negócio essenciais.",
+      "Automações em Node.js e Python para autenticação, consultas e validações em portais públicos, com redução de aproximadamente 40% do tempo gasto em processos manuais.",
+      "Aplicações web com React e Next.js integradas às APIs REST da plataforma.",
+      "Infraestrutura, build e deploy com AWS, Docker e CI/CD.",
+      "Integração de APIs de LLMs e AI Agents ao backend.",
       "Code Review e padronização arquitetural com SOLID, Clean Code e Design Patterns.",
-      "Desenvolvimento de aplicações web com React e Next.js integradas às APIs REST da plataforma.",
-      "Automações em Node.js e Python para autenticação, consultas e validações em portais públicos, reduzindo em aproximadamente 40% o tempo gasto em processos manuais.",
-      "Evolução da infraestrutura e automação de build e deploy com AWS, Docker e CI/CD; integração de APIs de LLMs e AI Agents ao backend.",
     ],
     technologies: [
       "Laravel",
@@ -39,6 +43,10 @@ export const EXPERIENCES: readonly Experience[] = [
       {
         label: "READI",
         url: "https://readi.com.br/",
+        type: "product",
+      },
+      {
+        label: "Medipay",
         type: "product",
       },
     ],

@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Project } from "@/types/project";
+import { getProjectKindLabel } from "@/data/projects";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
@@ -34,16 +35,13 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
 
       <div className="flex flex-1 flex-col gap-4 p-6 sm:p-7">
         <div>
-          <div className="mb-2 flex items-center justify-between gap-3">
-            <span className="font-mono text-xs font-medium uppercase tracking-wider text-accent">
-              {project.category}
+          <p className="mb-2 font-mono text-xs font-medium uppercase tracking-wider text-muted">
+            {getProjectKindLabel(project.kind)}
+            <span className="mx-1.5 text-border" aria-hidden="true">
+              ·
             </span>
-            {project.featured && (
-              <span className="rounded bg-surface-secondary px-2 py-0.5 text-xs font-medium text-muted">
-                Destaque
-              </span>
-            )}
-          </div>
+            <span className="text-accent">{project.category}</span>
+          </p>
 
           <h3 className="font-display text-xl font-bold tracking-tight text-foreground">
             {project.title}

@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { TbCode } from "react-icons/tb";
 import { PROFILE_DATA } from "@/data/profile";
 import { Button } from "@/components/ui/Button";
 
@@ -11,25 +10,18 @@ export function Hero() {
       aria-label="Apresentação inicial"
       className="relative overflow-hidden py-14 sm:py-20 lg:min-h-[78svh] lg:py-0 lg:flex lg:items-center"
     >
-      {/* Fundo uniforme em toda a largura, sem brilhos laterais */}
-
-
-      <div className="grid w-full items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
-        {/* Coluna esquerda: conteúdo */}
-        <div className="space-y-6 sm:space-y-7">
-          <p className="font-mono text-xs sm:text-sm font-medium uppercase tracking-[0.2em] text-muted">
-            Olá, eu sou
-          </p>
-
+      <div className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)] items-center gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
+        <div className="min-w-0 space-y-6 sm:space-y-7">
           <div className="space-y-3">
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
+            <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
               <span className="text-foreground">Eloan </span>
-              <span className="text-accent">
-                Ferreira
-              </span>
+              <span className="text-accent">Ferreira</span>
             </h1>
-            <p className="whitespace-nowrap font-display text-xl sm:text-2xl font-medium tracking-tight text-foreground/80">
+            <p className="font-display text-xl sm:text-2xl font-medium tracking-tight text-foreground/80">
               {PROFILE_DATA.title}
+            </p>
+            <p className="max-w-md break-words font-display text-base font-medium leading-snug tracking-tight text-foreground sm:text-lg">
+              {PROFILE_DATA.positioning}
             </p>
           </div>
 
@@ -79,8 +71,7 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Coluna direita: avatar */}
-        <div className="relative flex justify-center lg:justify-end">
+        <div className="relative flex min-w-0 justify-center lg:justify-end">
           <span
             aria-hidden="true"
             className="absolute top-[8%] right-[12%] hidden h-1.5 w-1.5 rounded-full bg-slate-400/60 sm:block"
@@ -90,12 +81,12 @@ export function Hero() {
             className="absolute bottom-[16%] left-[8%] hidden h-1 w-1 rounded-full bg-slate-500/50 sm:block lg:left-[38%]"
           />
 
-          <figure className="relative z-10 w-full max-w-[400px] sm:max-w-[460px]">
+          <figure className="relative z-10 w-full min-w-0 max-w-full sm:max-w-[460px]">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-soft opacity-80 blur-[90px]"
             />
-            <div className="group relative z-0 rounded-2xl border border-accent/30 bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
+            <div className="relative z-0 rounded-2xl border border-accent/30 bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
               <div className="relative overflow-hidden rounded-2xl">
                 {PROFILE_DATA.photo ? (
                   <Image
@@ -105,10 +96,9 @@ export function Hero() {
                     height={1254}
                     priority
                     sizes="(max-width: 640px) 400px, 460px"
-                    className="hover-zoom aspect-[4/5] h-auto w-full origin-center object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                    className="aspect-[4/5] h-auto w-full min-w-0 max-w-full object-cover"
                   />
                 ) : null}
-                {/* Fusão das bordas com o fundo */}
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent"
@@ -120,17 +110,10 @@ export function Hero() {
               </div>
             </div>
 
-            <span
-              aria-hidden="true"
-              className="absolute right-4 top-4 z-20 flex h-14 w-14 rotate-12 items-center justify-center rounded-2xl border border-accent/40 bg-surface text-accent shadow-[0_12px_35px_rgba(0,0,0,0.35)] sm:right-5 sm:top-5 sm:h-16 sm:w-16"
-            >
-              <TbCode className="h-7 w-7 sm:h-8 sm:w-8" />
-            </span>
-
             {PROFILE_DATA.availableForWork && (
               <figcaption className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-surface/95 px-4 py-2 text-xs font-medium text-foreground shadow-lg backdrop-blur-sm">
                 <span className="mr-2 inline-block h-2 w-2 rounded-full bg-emerald-500" />
-                Disponível para projetos
+                {PROFILE_DATA.availabilityLabel}
               </figcaption>
             )}
           </figure>

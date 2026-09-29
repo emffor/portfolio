@@ -229,8 +229,4 @@ a {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-
-  .hover-zoom {
-    transition-duration: 700ms !important;
-  }
 }

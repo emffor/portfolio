@@ -15,7 +15,7 @@ export async function FeaturedProjects() {
       <SectionHeading
         tag="Portfólio"
         title="Projetos em Destaque"
-        description="Seleção de aplicações em produção e sistemas corporativos com foco em escalabilidade, arquitetura limpa e entrega de valor real."
+        description="Cases de produto e de estudo técnico, com decisões de arquitetura, backend e resolução de problemas."
       />
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

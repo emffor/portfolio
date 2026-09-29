@@ -76,15 +76,15 @@ export function ContactCta() {
             Contato
           </p>
           <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-            Vamos conversar?
+            Entre em contato
           </h2>
           <div
             aria-hidden="true"
             className="mt-4 h-1 w-14 rounded-full bg-accent"
           />
           <p className="mt-6 max-w-md font-sans text-sm sm:text-base text-muted leading-relaxed">
-            Aberto a propostas de trabalho e projetos onde excelência técnica
-            e impacto no negócio façam a diferença.
+            Aberto a novas oportunidades profissionais. Fale por e-mail ou
+            LinkedIn.
           </p>
 
           <ul className="mt-8 space-y-1">
@@ -121,16 +121,15 @@ export function ContactCta() {
             {PROFILE_DATA.availableForWork && (
               <p className="flex items-center gap-2 font-sans text-xs font-medium text-muted">
                 <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                Disponível para projetos
+                {PROFILE_DATA.availabilityLabel}
               </p>
             )}
             <p className="mt-4 font-display text-xl font-bold tracking-tight text-foreground">
-              Prefere e-mail direto?
+              E-mail direto
             </p>
             <p className="mt-2 font-sans text-sm text-muted leading-relaxed">
-              Sem formulário intermediário: sua mensagem chega direto na
-              minha caixa de entrada.
-              {PROFILE_DATA.location ? ` Base em ${PROFILE_DATA.location}.` : ""}
+              Sem formulário: a mensagem chega direto na caixa de entrada.
+              {PROFILE_DATA.location ? ` ${PROFILE_DATA.location}.` : ""}
             </p>
             {PROFILE_DATA.socials.email && (
               <Button

@@ -28,6 +28,18 @@ export interface ProjectDecision {
   cost: string;
 }
 
+export type ProjectKind = "product" | "technical-study";
+
+export interface ProjectBriefItem {
+  label: string;
+  text: string;
+}
+
+export interface ProjectDemoAccess {
+  email: string;
+  password: string;
+}
+
 export interface Project {
   title: string;
   slug: string;
@@ -35,10 +47,14 @@ export interface Project {
   fullDescription: string;
   image: string;
   technologies: readonly string[];
+  kind: ProjectKind;
   category: string;
   featured: boolean;
+  brief?: readonly ProjectBriefItem[];
   projectUrl?: string;
   githubUrl?: string;
+  demoAccess?: ProjectDemoAccess;
+  sourceNote?: string;
   context: string;
   solution: string;
   technicalChallenges: readonly string[];

@@ -15,16 +15,30 @@ export interface Education {
   completionYear: number;
 }
 
+export interface ProfessionalIndicator {
+  value: string;
+  label: string;
+}
+
+export interface Language {
+  name: string;
+  level: string;
+}
+
 export interface Profile {
   name: string;
   title: string;
+  positioning: string;
   headline: string;
   experienceSince: string;
   domain: string;
   summary: string;
   location: string;
   availableForWork: boolean;
+  availabilityLabel: string;
+  indicators: readonly ProfessionalIndicator[];
   education: Education;
+  languages?: readonly Language[];
   photo?: ProfilePhoto;
   socials: {
     github: SocialLink;
@@ -49,10 +63,10 @@ export type SkillIconName =
   | "cicd"
   | "tests"
   | "ai"
-  | "english";
+  | "architecture";
 
-export interface Skill {
+export interface SkillArea {
   title: string;
-  description: string;
   icon: SkillIconName;
+  items: readonly string[];
 }

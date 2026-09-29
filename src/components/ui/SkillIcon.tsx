@@ -17,7 +17,7 @@ import {
   TbBrandAws,
   TbBrandReactNative,
   TbDatabase,
-  TbLanguage,
+  TbBinaryTree,
   TbTestPipe,
 } from "react-icons/tb";
 import { SkillIconName } from "@/types/profile";
@@ -43,7 +43,7 @@ const icons: Record<SkillIconName, IconType> = {
   cicd: SiGithubactions,
   tests: TbTestPipe,
   ai: TbBrain,
-  english: TbLanguage,
+  architecture: TbBinaryTree,
 };
 
 export function SkillIcon({ name, className }: SkillIconProps) {

@@ -1,5 +1,5 @@
 import React from "react";
-import { SKILLS } from "@/data/skills";
+import { SKILL_AREAS } from "@/data/skills";
 import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SkillIcon } from "@/components/ui/SkillIcon";
@@ -14,50 +14,32 @@ export function TechStack() {
       <SectionHeading
         tag="Stack"
         title="Skills"
-        description="Ferramentas, práticas e habilidades que uso no dia a dia."
+        description="Competências usadas na evolução, entrega e sustentação de sistemas."
       />
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {SKILLS.map((skill) => (
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {SKILL_AREAS.map((area) => (
           <article
-            key={skill.title}
-            className="group h-full overflow-hidden rounded-xl border border-border bg-surface"
+            key={area.title}
+            className="rounded-xl border border-border bg-surface p-5"
           >
-            <div className="hover-zoom origin-center p-4 transition-transform duration-700 ease-out group-hover:scale-[1.04]">
-              <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-md border border-accent/30 bg-accent-soft text-accent">
-                <SkillIcon name={skill.icon} />
-              </div>
+            <div className="mb-3 flex items-center gap-2.5">
+              <span className="flex h-8 w-8 items-center justify-center rounded-md border border-accent/30 bg-accent-soft text-accent">
+                <SkillIcon name={area.icon} />
+              </span>
               <h3 className="font-display text-sm font-semibold tracking-tight text-foreground">
-                {skill.title}
+                {area.title}
               </h3>
-              <p className="mt-1.5 font-sans text-[13px] leading-relaxed text-muted">
-                {skill.description}
-              </p>
             </div>
+            <ul className="flex flex-wrap gap-1.5" aria-label={area.title}>
+              {area.items.map((item) => (
+                <li key={item}>
+                  <Badge variant="subtle">{item}</Badge>
+                </li>
+              ))}
+            </ul>
           </article>
         ))}
-      </div>
-
-      <div className="mt-8">
-        <h3 className="font-display text-sm font-semibold text-foreground">
-          Arquitetura & qualidade
-        </h3>
-        <ul
-          className="mt-3 flex flex-wrap gap-1.5"
-          aria-label="Práticas de arquitetura e qualidade"
-        >
-          {[
-            "Arquitetura de Software",
-            "SOLID",
-            "Clean Code",
-            "Design Patterns",
-            "Code Review",
-          ].map((practice) => (
-            <li key={practice}>
-              <Badge variant="subtle">{practice}</Badge>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

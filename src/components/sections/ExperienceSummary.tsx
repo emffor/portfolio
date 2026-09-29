@@ -2,17 +2,6 @@ import React from "react";
 import { PROFILE_DATA } from "@/data/profile";
 import { Button } from "@/components/ui/Button";
 
-const indicators = [
-  {
-    value: PROFILE_DATA.experienceSince,
-    label: "Início da atuação profissional",
-  },
-  {
-    value: "Full Stack",
-    label: "Web & Mobile",
-  },
-];
-
 export function ExperienceSummary() {
   return (
     <section
@@ -21,21 +10,19 @@ export function ExperienceSummary() {
       className="section-highlight scroll-mt-20 py-10 sm:py-16"
     >
       <div className="grid grid-cols-1 gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
-        {/* Coluna esquerda: indicadores profissionais */}
-        <div className="flex flex-row gap-8 md:flex-col md:justify-center md:gap-10">
-          {indicators.map((item) => (
-            <div key={item.label} className="space-y-1">
-              <p className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
+        <ul className="flex flex-col gap-6 md:justify-center md:gap-8">
+          {PROFILE_DATA.indicators.map((item) => (
+            <li key={item.label} className="space-y-1">
+              <p className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                 {item.value}
               </p>
-              <p className="font-sans text-sm text-muted">
+              <p className="max-w-[16rem] font-sans text-sm text-muted">
                 {item.label}
               </p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        {/* Coluna direita: texto profissional */}
         <div>
           <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             Sobre
