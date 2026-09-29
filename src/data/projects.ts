@@ -28,7 +28,7 @@ export const PROJECTS: readonly Project[] = [
       "SaaS multi-empresa para madeireiras com conformidade DOF/IBAMA, estoque duplo e mapa visual de pátio.",
     fullDescription:
       "SaaS multi-empresa para madeireiras e serrarias reguladas pelo IBAMA. Une conformidade legal do DOF (Documento de Origem Florestal) com a operação real de pátio: controla saldo legal em m³ e estoque físico em peças simultaneamente, com mapa visual do pátio em canvas, movimentações auditáveis e relatórios para fiscalização.",
-    image: "/assets/rastro-florestal-patio-lote.png",
+    image: "/assets/rastro-florestal.png",
     technologies: [
       "Laravel 11",
       "PHP 8.2",
@@ -92,16 +92,34 @@ export const PROJECTS: readonly Project[] = [
       "Desenvolvimento Full Stack: arquitetura do backend em Laravel (regras de negócio, estoque duplo, alocação DOF-lote, RBAC e relatórios) e frontend em React + TypeScript (dashboard operacional, mapa de pátio em canvas, fluxos de saída e painel administrativo).",
     screenshots: [
       {
-        src: "/assets/rastro-florestal-patio-lote.png",
-        alt: "Mapa do Pátio Cinza em modo de edição, com três lotes posicionados no canvas",
+        src: "/assets/rastro-florestal-movimentacoes.png",
+        alt: "Histórico de movimentações com 8 entradas, volume filtrado e relatórios em PDF e Excel",
         caption:
-          "Edição do layout do pátio: posicionamento e rotação de lotes no canvas. A captura mostra a configuração do espaço, ainda sem estoque alocado.",
+          "Movimentações com dados de demonstração: histórico imutável de entradas, filtros por tipo e relatórios em PDF e Excel.",
+      },
+      {
+        src: "/assets/rastro-florestal-movimentacoes-dimencao.png",
+        alt: "Peças dimensionadas no Lote 2 com 3.500 peças e volumes por produto",
+        caption:
+          "Estoque físico no lote: 3.500 peças distribuídas por produto dimensionado, com volume individual em m³.",
+      },
+      {
+        src: "/assets/rastro-florestal-patio-lote-descricao.png",
+        alt: "Alocações de DOF no Lote 2 com 22,5 m³ distribuídos em 4 documentos",
+        caption:
+          "Estoque legal no lote: 22,5 m³ vinculados a 4 DOFs, com status, ocupação e itens com peças.",
       },
       {
         src: "/assets/rastro-florestal-produto-dimensionado.png",
         alt: "Lista de produtos dimensionados com espécies, dimensões e volume unitário em metros cúbicos",
         caption:
           "Cadastro de produtos dimensionados: espécies vinculadas e volume unitário utilizado na conversão entre peças e metros cúbicos.",
+      },
+      {
+        src: "/assets/rastro-florestal-patio-lote.png",
+        alt: "Mapa do Pátio Cinza em modo de edição, com três lotes posicionados no canvas",
+        caption:
+          "Edição do layout do pátio: posicionamento e rotação de lotes no canvas.",
       },
       {
         src: "/assets/rastro-florestal-patio-cinza.png",

@@ -8,6 +8,7 @@ interface ProjectImageCarouselProps {
   images: readonly ProjectScreenshot[];
   projectTitle: string;
   priority: boolean;
+  sizes?: string;
 }
 
 function subscribeToMotionPreference(callback: () => void) {
@@ -24,6 +25,7 @@ export function ProjectImageCarousel({
   images,
   projectTitle,
   priority,
+  sizes = "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 360px",
 }: ProjectImageCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -67,7 +69,7 @@ export function ProjectImageCarousel({
             alt={image.alt || `Demonstração visual do projeto ${projectTitle}`}
             fill
             preload={priority && index === 0}
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 360px"
+            sizes={sizes}
             className={`object-contain object-center transition-opacity duration-700 ease-in-out ${
               activeIndex === index ? "opacity-100" : "opacity-0"
             }`}

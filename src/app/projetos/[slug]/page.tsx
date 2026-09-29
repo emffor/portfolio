@@ -1,8 +1,9 @@
 import React from "react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ProjectImageCarousel } from "@/components/ui/ProjectImageCarousel";
+import { ProjectScreenshot } from "@/types/project";
 import {
   getAllProjects,
   getProjectBySlug,
@@ -82,6 +83,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     allProjects.length > 1
       ? allProjects[(currentIndex - 1 + allProjects.length) % allProjects.length]
       : undefined;
+
+  const projectImages: readonly ProjectScreenshot[] = [
+    {
+      src: project.image,
+      alt: `Imagem principal do projeto ${project.title}`,
+    },
+    ...(project.screenshots ?? []).filter(
+      (image) => image.src !== project.image
+    ),
+  ];
 
   return (
     <article className="max-w-4xl mx-auto px-5 sm:px-8 lg:px-10 py-12 sm:py-16 space-y-12">
@@ -222,13 +233,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         )}
 
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border bg-surface-secondary">
-          <Image
-            src={project.image}
-            alt={`Imagem principal do projeto ${project.title}`}
-            fill
-            preload
+          <ProjectImageCarousel
+            images={projectImages}
+            projectTitle={project.title}
+            priority
             sizes="(max-width: 768px) 100vw, 896px"
-            className="object-contain object-center"
           />
         </div>
       </header>

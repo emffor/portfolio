@@ -1,10 +1,9 @@
 import React from "react";
+import Image from "next/image";
 import { Project } from "@/types/project";
 import { getProjectKindLabel } from "@/data/projects";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { ProjectImageCarousel } from "@/components/ui/ProjectImageCarousel";
-import { ProjectScreenshot } from "@/types/project";
 
 interface ProjectCardProps {
   project: Project;
@@ -20,21 +19,17 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
   );
   const remainingCount =
     project.technologies.length - visibleTechnologies.length;
-  const projectImages: readonly ProjectScreenshot[] = [
-    {
-      src: project.image,
-      alt: `Demonstração visual do projeto ${project.title}`,
-    },
-    ...(project.screenshots ?? []).filter((image) => image.src !== project.image),
-  ];
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition-colors duration-200 hover:border-accent/60">
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-secondary">
-        <ProjectImageCarousel
-          images={projectImages}
-          projectTitle={project.title}
-          priority={priority}
+        <Image
+          src={project.image}
+          alt={`Demonstração visual do projeto ${project.title}`}
+          fill
+          preload={priority}
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 360px"
+          className="object-contain object-center"
         />
       </div>
 
