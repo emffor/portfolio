@@ -1,5 +1,6 @@
 import React from "react";
 import { PROFILE_DATA } from "@/data/profile";
+import { Button } from "@/components/ui/Button";
 
 const indicators = [
   {
@@ -49,16 +50,16 @@ export function ExperienceSummary() {
           <p className="mt-6 font-sans text-sm sm:text-base text-muted leading-relaxed">
             {PROFILE_DATA.summary}
           </p>
-          <a
+          <Button
             href={PROFILE_DATA.socials.linkedin.url}
-            target="_blank"
-            rel="noopener noreferrer"
+            variant="outline"
+            size="lg"
+            className="mt-6"
             aria-label={PROFILE_DATA.socials.linkedin.label}
-            className="mt-6 inline-flex items-center font-sans text-sm font-medium text-foreground underline underline-offset-4 decoration-border hover:decoration-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
           >
-            LinkedIn
+            Visitar LinkedIn
             <svg
-              className="w-3.5 h-3.5 ml-1.5"
+              className="h-4 w-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -67,11 +68,11 @@ export function ExperienceSummary() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                strokeWidth={1.75}
+                d="M5 12h14m-7-7 7 7-7 7"
               />
             </svg>
-          </a>
+          </Button>
         </div>
       </div>
     </section>
