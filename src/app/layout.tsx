@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Manrope, Sora } from "next/font/google";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, AUTHOR_NAME } from "@/lib/constants";
+import { HOME_ASSEMBLY_SCRIPT } from "@/lib/home-assembly";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
@@ -81,6 +82,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <script
+          id="home-assembly"
+          dangerouslySetInnerHTML={{ __html: HOME_ASSEMBLY_SCRIPT }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `

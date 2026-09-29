@@ -165,6 +165,108 @@ h6,
   transform: translateY(-2px) scale(1.015);
 }
 
+@keyframes interface-assembly {
+  from {
+    opacity: 0;
+    transform: translate3d(
+      calc(var(--assembly-x, 0px) * var(--assembly-distance)),
+      calc(var(--assembly-y, 0px) * var(--assembly-distance)),
+      0
+    ) scale(var(--assembly-scale, 1));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-home-assembly] [data-assembly] {
+    --assembly-distance: 1;
+    animation: interface-assembly var(--assembly-duration, 760ms)
+      cubic-bezier(0.22, 1, 0.36, 1) var(--assembly-delay, 0ms) backwards;
+  }
+
+  [data-assembly="header"] {
+    --assembly-y: -10px;
+    --assembly-duration: 620ms;
+  }
+
+  [data-assembly="name"] {
+    --assembly-x: -22px;
+    --assembly-y: -4px;
+    --assembly-delay: 120ms;
+    --assembly-duration: 840ms;
+  }
+
+  [data-assembly="title"] {
+    --assembly-x: 14px;
+    --assembly-y: 8px;
+    --assembly-delay: 260ms;
+  }
+
+  [data-assembly="positioning"] {
+    --assembly-y: 12px;
+    --assembly-delay: 340ms;
+  }
+
+  [data-assembly="description"] {
+    --assembly-x: -14px;
+    --assembly-y: 6px;
+    --assembly-delay: 420ms;
+  }
+
+  [data-assembly="primary-cta"] {
+    --assembly-x: -8px;
+    --assembly-y: 14px;
+    --assembly-delay: 500ms;
+  }
+
+  [data-assembly="secondary-cta"] {
+    --assembly-x: 8px;
+    --assembly-y: 14px;
+    --assembly-delay: 580ms;
+  }
+
+  [data-assembly="socials"] {
+    --assembly-y: 8px;
+    --assembly-delay: 640ms;
+  }
+
+  [data-assembly="portrait"] {
+    --assembly-x: 24px;
+    --assembly-y: 12px;
+    --assembly-scale: 0.985;
+    --assembly-delay: 100ms;
+    --assembly-duration: 900ms;
+  }
+
+  [data-assembly="badge"] {
+    --assembly-x: -8px;
+    --assembly-y: -10px;
+    --assembly-scale: 0.97;
+    --assembly-delay: 300ms;
+  }
+
+  [data-assembly="dot-top"] {
+    --assembly-x: 12px;
+    --assembly-y: -10px;
+    --assembly-delay: 420ms;
+  }
+
+  [data-assembly="dot-bottom"] {
+    --assembly-x: -12px;
+    --assembly-y: 10px;
+    --assembly-delay: 600ms;
+  }
+
+  @media (max-width: 639px) {
+    html[data-home-assembly] [data-assembly] {
+      --assembly-distance: 0.5;
+    }
+  }
+}
+
 /* =========================================================
    BODY
    ========================================================= */

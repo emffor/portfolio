@@ -20,6 +20,7 @@ export function Header() {
 
   return (
     <header
+      data-assembly="header"
       className={cn(
         "sticky top-0 z-40 w-full border-b bg-background/85 backdrop-blur-sm transition-colors",
         scrolled ? "border-border" : "border-transparent"

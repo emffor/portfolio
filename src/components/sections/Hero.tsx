@@ -13,23 +13,23 @@ export function Hero() {
       <div className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)] items-center gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.9fr)] lg:gap-12">
         <div className="min-w-0 space-y-6 sm:space-y-7">
           <div className="space-y-3">
-            <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
+            <h1 data-assembly="name" className="font-display text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
               <span className="hero-name">{PROFILE_DATA.name}</span>
             </h1>
-            <p className="font-display text-xl sm:text-2xl font-medium tracking-tight text-foreground/80">
+            <p data-assembly="title" className="font-display text-xl sm:text-2xl font-medium tracking-tight text-foreground/80">
               {PROFILE_DATA.title}
             </p>
-            <p className="max-w-md break-words font-display text-base font-medium leading-snug tracking-tight text-foreground sm:text-lg">
+            <p data-assembly="positioning" className="max-w-md break-words font-display text-base font-medium leading-snug tracking-tight text-foreground sm:text-lg">
               {PROFILE_DATA.positioning}
             </p>
           </div>
 
-          <p className="max-w-lg font-sans text-base sm:text-lg text-muted leading-relaxed">
+          <p data-assembly="description" className="max-w-lg font-sans text-base sm:text-lg text-muted leading-relaxed">
             {PROFILE_DATA.headline}
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <Button href="/#projetos" variant="glow" size="lg">
+            <Button data-assembly="primary-cta" href="/#projetos" variant="glow" size="lg">
               Ver projetos
               <svg
                 className="w-4 h-4 ml-2"
@@ -47,12 +47,12 @@ export function Hero() {
               </svg>
             </Button>
 
-            <Button href="/#contato" variant="outline" size="lg">
+            <Button data-assembly="secondary-cta" href="/#contato" variant="outline" size="lg">
               Entrar em contato
             </Button>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div data-assembly="socials" className="flex flex-wrap items-center gap-3">
             <Button
               href={PROFILE_DATA.socials.github.url}
               variant="ghost"
@@ -95,10 +95,12 @@ export function Hero() {
 
         <div className="relative flex min-w-0 justify-center lg:justify-end">
           <span
+            data-assembly="dot-top"
             aria-hidden="true"
             className="absolute top-[8%] right-[12%] hidden h-1.5 w-1.5 rounded-full bg-slate-400/60 sm:block"
           />
           <span
+            data-assembly="dot-bottom"
             aria-hidden="true"
             className="absolute bottom-[16%] left-[8%] hidden h-1 w-1 rounded-full bg-slate-500/50 sm:block lg:left-[38%]"
           />
@@ -108,7 +110,7 @@ export function Hero() {
               aria-hidden="true"
               className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-soft opacity-80 blur-[90px] transition-all duration-500 ease-out group-hover:scale-110 group-hover:opacity-100"
             />
-            <div className="relative z-0 rounded-2xl border border-accent/30 bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.28)] transition-all duration-500 ease-out group-hover:border-accent group-hover:shadow-[0_20px_60px_rgba(99,163,156,0.35)]">
+            <div data-assembly="portrait" className="relative z-0 rounded-2xl border border-accent/30 bg-surface shadow-[0_20px_60px_rgba(0,0,0,0.28)] transition-all duration-500 ease-out group-hover:border-accent group-hover:shadow-[0_20px_60px_rgba(99,163,156,0.35)]">
               <div className="relative overflow-hidden rounded-2xl">
                 {PROFILE_DATA.photo ? (
                   <Image
@@ -133,7 +135,7 @@ export function Hero() {
             </div>
 
             {PROFILE_DATA.availableForWork && (
-              <figcaption className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-surface/95 px-4 py-2 text-xs font-medium text-foreground shadow-lg backdrop-blur-sm">
+              <figcaption data-assembly="badge" className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-surface/95 px-4 py-2 text-xs font-medium text-foreground shadow-lg backdrop-blur-sm">
                 <span className="mr-2 inline-block h-2 w-2 rounded-full bg-emerald-500" />
                 {PROFILE_DATA.availabilityLabel}
               </figcaption>

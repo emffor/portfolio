@@ -5,6 +5,7 @@ import { createRequire } from "node:module";
 import { createServer } from "node:net";
 import { setTimeout as delay } from "node:timers/promises";
 import { after, before, test } from "node:test";
+import { runInNewContext } from "node:vm";
 
 const require = createRequire(import.meta.url);
 let server;
@@ -132,4 +133,108 @@ test("um slug inexistente retorna 404", async () => {
   const response = await fetch(`${baseUrl}/projetos/projeto-inexistente`);
   assert.equal(response.status, 404);
   await response.body?.cancel();
+});
+
+async function openHomeAssembly({ storage = new Map(), reducedMotion = false, pathname = "/", hash = "", storageError } = {}) {
+  const html = await getPage("/");
+  const script = html.match(/<script\b[^>]*id="home-assembly"[^>]*>([\s\S]*?)<\/script>/)?.[1];
+  assert.ok(script, "Inicialização da animação ausente no HTML do servidor");
+
+  const attributes = new Map();
+  const timers = new Map();
+  const document = Object.assign(new EventTarget(), {
+    readyState: "loading",
+    documentElement: {
+      setAttribute: (name, value) => attributes.set(name, value),
+      removeAttribute: (name) => attributes.delete(name),
+    },
+  });
+  const motion = Object.assign(new EventTarget(), { matches: reducedMotion });
+  const window = Object.assign(new EventTarget(), {
+    location: { pathname, hash },
+    matchMedia: () => motion,
+    setTimeout: (callback) => { timers.set(callback, callback); return callback; },
+    clearTimeout: (id) => timers.delete(id),
+  });
+  runInNewContext(script, {
+    document,
+    window,
+    sessionStorage: {
+      getItem: (key) => {
+        if (storageError === "read") throw new Error("Storage indisponível");
+        return storage.get(key) ?? null;
+      },
+      setItem: (key, value) => {
+        if (storageError === "write") throw new Error("Quota excedida");
+        storage.set(key, value);
+      },
+    },
+  });
+  return { attributes, timers, document, window, motion, storage };
+}
+
+test("a montagem é habilitada antes da hydration somente uma vez por sessão", async () => {
+  const first = await openHomeAssembly();
+  assert.ok(first.attributes.has("data-home-assembly"));
+  first.document.dispatchEvent(new Event("DOMContentLoaded"));
+  assert.equal(first.timers.size, 1);
+  for (const finish of first.timers.values()) finish();
+  assert.equal(first.attributes.has("data-home-assembly"), false);
+  assert.equal(first.timers.size, 0);
+
+  const repeat = await openHomeAssembly({ storage: first.storage });
+  assert.equal(repeat.attributes.has("data-home-assembly"), false);
+  assert.equal(repeat.timers.size, 0);
+  assert.ok((await openHomeAssembly()).attributes.has("data-home-assembly"), "Nova sessão deve animar");
+});
+
+test("movimento reduzido, storage bloqueado e links profundos mantêm conteúdo imediato", async () => {
+  for (const options of [
+    { reducedMotion: true },
+    { storageError: "read" },
+    { storageError: "write" },
+    { pathname: "/projetos/vidora" },
+    { hash: "#contato" },
+  ]) {
+    const page = await openHomeAssembly(options);
+    assert.equal(page.attributes.has("data-home-assembly"), false, JSON.stringify(options));
+    assert.equal(page.timers.size, 0);
+  }
+  assert.ok((await openHomeAssembly({ hash: "#inicio" })).attributes.has("data-home-assembly"));
+});
+
+test("interação, histórico e mudança de preferência encerram a montagem e limpam o fallback", async () => {
+  for (const [target, event] of [
+    ["document", "pointerdown"],
+    ["document", "focusin"],
+    ["window", "pagehide"],
+    ["window", "popstate"],
+    ["motion", "change"],
+  ]) {
+    const page = await openHomeAssembly();
+    page.document.dispatchEvent(new Event("DOMContentLoaded"));
+    page[target].dispatchEvent(new Event(event));
+    assert.equal(page.attributes.has("data-home-assembly"), false, event);
+    assert.equal(page.timers.size, 0, event);
+  }
+});
+
+test("uma visita sem animação não impede a montagem após desativar movimento reduzido", async () => {
+  for (const options of [{ reducedMotion: true }, { hash: "#contato" }]) {
+    const skipped = await openHomeAssembly(options);
+    assert.equal(skipped.storage.get("portfolio:home-assembly"), undefined);
+    const eligible = await openHomeAssembly({ storage: skipped.storage });
+    assert.ok(eligible.attributes.has("data-home-assembly"));
+    assert.equal(eligible.storage.get("portfolio:home-assembly"), "seen");
+    const repeat = await openHomeAssembly({ storage: eligible.storage });
+    assert.equal(repeat.attributes.has("data-home-assembly"), false);
+  }
+});
+
+test("o Hero permanece completo no HTML sem depender de JavaScript", async () => {
+  const html = markup(await getPage("/"));
+  assert.match(html, /<h1\b[^>]*><span class="hero-name">Eloan Ferreira<\/span><\/h1>/);
+  assert.match(html, /<a\b[^>]*data-assembly="primary-cta"[^>]*>/);
+  assert.match(html, /<html\b(?![^>]*data-home-assembly)[^>]*>/);
+  assert.doesNotMatch(html, /<(?:header|h1|p|figcaption)\b[^>]*(?:inert|visibility:\s*hidden|opacity:\s*0)/);
 });
