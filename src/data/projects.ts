@@ -204,7 +204,16 @@ export const PROJECTS: readonly Project[] = [
       "O código-fonte é privado e não é exposto no portfólio.",
     myRole:
       "Desenvolvimento Full Stack: backend em Laravel (regras de negócio, estoque duplo, alocação DOF-lote, RBAC, relatórios PDF/Excel) e frontend em React + TypeScript (dashboard operacional, mapa de pátio em canvas, fluxos de saída e painel administrativo).",
-    screenshots: [],
+    screenshots: [
+      {
+        src: "/assets/rastro-florestal-produto-dimensionado.png",
+        alt: "Tela de cadastro de produtos dimensionados do Rastro Florestal",
+      },
+      {
+        src: "/assets/rastro-florestal-patio-azul.png",
+        alt: "Mapa visual do pátio azul do Rastro Florestal",
+      },
+    ],
     architecture: {
       layers: [
         {

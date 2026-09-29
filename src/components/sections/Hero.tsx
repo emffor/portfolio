@@ -95,7 +95,7 @@ export function Hero() {
                     height={1254}
                     priority
                     sizes="(max-width: 640px) 400px, 460px"
-                    className="aspect-[4/5] h-auto w-full min-w-0 max-w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    className="aspect-[4/5] h-auto w-full min-w-0 max-w-full object-cover transition-transform duration-[2500ms] ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-[1.04]"
                   />
                 ) : null}
                 <div

@@ -28,7 +28,7 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
                 alt={shot.alt}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover object-center"
+                className="object-contain object-center"
               />
             </div>
             {shot.caption && (
