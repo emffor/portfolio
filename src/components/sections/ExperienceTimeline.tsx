@@ -104,16 +104,31 @@ export async function ExperienceTimeline() {
 
               {exp.responsibilities.length > 0 && (
                 <ul className="mt-4 space-y-2 font-sans text-sm leading-relaxed text-foreground/90">
-                  {exp.responsibilities.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5">
-                      <span
-                        className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
-                        aria-hidden="true"
-                      />
-                      <span>{item}</span>
-                    </li>
-                  ))}
+                  {exp.responsibilities
+                    .slice(0, exp.featured ? 3 : exp.responsibilities.length)
+                    .map((item) => (
+                      <li key={item} className="flex items-start gap-2.5">
+                        <span
+                          className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                          aria-hidden="true"
+                        />
+                        <span>{item}</span>
+                      </li>
+                    ))}
                 </ul>
+              )}
+
+              {exp.featured && exp.responsibilities.length > 3 && (
+                <details className="mt-4 text-sm">
+                  <summary className="cursor-pointer py-2 font-medium text-accent">
+                    Outras responsabilidades
+                  </summary>
+                  <ul className="mt-2 list-disc space-y-2 pl-5 leading-relaxed text-muted">
+                    {exp.responsibilities.slice(3).map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </details>
               )}
 
               {exp.relatedLinks && exp.relatedLinks.length > 0 && (

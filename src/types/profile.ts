@@ -18,6 +18,8 @@ export interface Education {
 export interface ProfessionalIndicator {
   value: string;
   label: string;
+  href?: string;
+  linkLabel?: string;
 }
 
 export interface Language {

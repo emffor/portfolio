@@ -8,13 +8,13 @@ export function Hero() {
     <section
       id="inicio"
       aria-label="Apresentação inicial"
-      className="relative overflow-hidden py-14 sm:py-20 lg:min-h-[78svh] lg:py-0 lg:flex lg:items-center"
+      className="relative overflow-hidden py-12 sm:py-16 lg:min-h-[38rem] lg:flex lg:items-center"
     >
-      <div className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)] items-center gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
+      <div className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)] items-center gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.9fr)] lg:gap-12">
         <div className="min-w-0 space-y-6 sm:space-y-7">
           <div className="space-y-3">
             <h1 className="font-display text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
-              <span className="hero-name">Eloan Ferreira</span>
+              <span className="hero-name">{PROFILE_DATA.name}</span>
             </h1>
             <p className="font-display text-xl sm:text-2xl font-medium tracking-tight text-foreground/80">
               {PROFILE_DATA.title}
@@ -50,11 +50,13 @@ export function Hero() {
             <Button href="/#contato" variant="outline" size="lg">
               Entrar em contato
             </Button>
+          </div>
 
+          <div className="flex flex-wrap items-center gap-3">
             <Button
               href={PROFILE_DATA.socials.github.url}
-              variant="outline"
-              size="lg"
+              variant="ghost"
+              size="sm"
               aria-label={PROFILE_DATA.socials.github.label}
             >
               <svg
@@ -74,8 +76,8 @@ export function Hero() {
 
             <Button
               href={PROFILE_DATA.socials.linkedin.url}
-              variant="outline"
-              size="lg"
+              variant="ghost"
+              size="sm"
               aria-label={PROFILE_DATA.socials.linkedin.label}
             >
               <svg
@@ -101,7 +103,7 @@ export function Hero() {
             className="absolute bottom-[16%] left-[8%] hidden h-1 w-1 rounded-full bg-slate-500/50 sm:block lg:left-[38%]"
           />
 
-          <figure className="group relative z-10 w-full min-w-0 max-w-full sm:max-w-[460px]">
+          <figure className="group relative z-10 w-full min-w-0 max-w-[280px] sm:max-w-[360px] lg:max-w-[400px]">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-soft opacity-80 blur-[90px] transition-all duration-500 ease-out group-hover:scale-110 group-hover:opacity-100"
@@ -112,11 +114,11 @@ export function Hero() {
                   <Image
                     src={PROFILE_DATA.photo.src}
                     alt={PROFILE_DATA.photo.alt}
-                    width={1254}
-                    height={1254}
-                    priority
-                    sizes="(max-width: 640px) 400px, 460px"
-                    className="aspect-[4/5] h-auto w-full min-w-0 max-w-full object-cover transition-transform duration-500 ease-out group-hover:scale-108 group-hover:brightness-[1.03]"
+                    width={1024}
+                    height={1536}
+                    preload
+                    sizes="(max-width: 640px) 280px, (max-width: 1024px) 360px, 400px"
+                    className="hero-photo aspect-[4/5] h-auto w-full min-w-0 max-w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                   />
                 ) : null}
                 <div

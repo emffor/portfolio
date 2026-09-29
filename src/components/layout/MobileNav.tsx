@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { NAVIGATION_ITEMS } from "@/data/navigation";
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const toggle = () => setIsOpen((prev) => !prev);
   const close = () => setIsOpen(false);
@@ -13,42 +15,43 @@ export function MobileNav() {
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
+      if (e.key === "Escape") {
+        close();
+        buttonRef.current?.focus();
+      }
+    };
+    const handlePointerDown = (e: PointerEvent) => {
+      if (e.target instanceof Node && !containerRef.current?.contains(e.target)) {
+        close();
+      }
+    };
+    const media = window.matchMedia("(min-width: 768px)");
+    const handleResize = () => {
+      if (media.matches) close();
     };
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    document.addEventListener("pointerdown", handlePointerDown);
+    media.addEventListener("change", handleResize);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("pointerdown", handlePointerDown);
+      media.removeEventListener("change", handleResize);
+    };
   }, [isOpen]);
 
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    close();
-    if (href.startsWith("/#") && window.location.pathname === "/") {
-      e.preventDefault();
-      const targetId = href.replace("/#", "");
-      const element = document.getElementById(targetId);
-      if (element) {
-        const headerOffset = 76;
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition =
-          elementPosition + window.pageYOffset - headerOffset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
-        window.history.pushState(null, "", href);
-      }
-    }
-  };
-
   return (
-    <div className="md:hidden">
+    <div
+      ref={containerRef}
+      className="md:hidden"
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) close();
+      }}
+    >
       <button
+        ref={buttonRef}
         onClick={toggle}
         type="button"
-        className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-border text-muted hover:bg-surface-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        className="inline-flex items-center justify-center w-11 h-11 rounded-md border border-border text-muted hover:bg-surface-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         aria-expanded={isOpen}
         aria-controls="mobile-navigation-menu"
         aria-label={isOpen ? "Fechar menu principal" : "Abrir menu principal"}
@@ -86,28 +89,30 @@ export function MobileNav() {
         )}
       </button>
 
-      {isOpen && (
-        <div
-          id="mobile-navigation-menu"
-          className="absolute top-16 left-0 right-0 z-50 border-b border-border bg-background/95 px-6 py-6 shadow-xl backdrop-blur-sm"
+      <div
+        id="mobile-navigation-menu"
+        hidden={!isOpen}
+        className="absolute top-16 left-0 right-0 z-50 border-b border-border bg-background/95 px-6 py-6 shadow-xl backdrop-blur-sm"
+      >
+        <nav
+          aria-label="Navegação móvel"
+          className="flex flex-col space-y-4"
         >
-          <nav
-            aria-label="Navegação móvel"
-            className="flex flex-col space-y-4"
-          >
-            {NAVIGATION_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className="py-1 font-sans text-base font-medium text-muted transition-colors hover:text-accent"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      )}
+          {NAVIGATION_ITEMS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => {
+                close();
+                buttonRef.current?.focus({ preventScroll: true });
+              }}
+              className="py-1 font-sans text-base font-medium text-muted transition-colors hover:text-accent"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      </div>
     </div>
   );
 }

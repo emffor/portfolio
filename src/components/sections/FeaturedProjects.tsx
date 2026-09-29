@@ -13,18 +13,14 @@ export async function FeaturedProjects() {
       className="scroll-mt-20 py-10 sm:py-16"
     >
       <SectionHeading
-        tag="Projetos autorais"
+        tag="Trabalhos selecionados"
         title="Projetos em Destaque"
-        description="Cases de produto e de estudo técnico, com decisões de arquitetura, backend e resolução de problemas."
+        description="Produto autoral, modernização em produção e estudo técnico: diferentes contextos para decisões de engenharia."
       />
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {projects.map((project, idx) => (
-          <ProjectCard
-            key={project.slug}
-            project={project}
-            priority={idx === 0}
-          />
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {projects.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
     </section>

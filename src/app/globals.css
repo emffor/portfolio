@@ -56,7 +56,7 @@
   --border: #d9e1df;
   --muted: #667572;
 
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
 /* =========================================================
@@ -64,6 +64,7 @@
    ========================================================= */
 
 .dark {
+  color-scheme: dark;
   /*
    * Fundo quase preto com leve temperatura verde.
    * Evita preto absoluto e integra melhor com o accent.
@@ -95,7 +96,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 1rem;
 }
 
 .section-highlight {
@@ -142,8 +143,7 @@ h6,
   background: linear-gradient(
     110deg,
     var(--foreground) 20%,
-    var(--accent) 70%,
-    #a8ded7 100%
+    var(--accent) 100%
   );
   background-size: 200% 100%;
   background-position: left center;
@@ -162,7 +162,7 @@ h6,
 .hero-name:hover {
   background-position: right center;
   filter: drop-shadow(0 4px 18px var(--accent-soft));
-  transform: translateY(-2px) scale(1.06);
+  transform: translateY(-2px) scale(1.015);
 }
 
 /* =========================================================
@@ -245,10 +245,21 @@ a {
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-spin,
-  .animate-pulse,
-  .animate-bounce {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-name:hover,
+  .group:hover .hero-photo {
+    transform: none;
   }
 }

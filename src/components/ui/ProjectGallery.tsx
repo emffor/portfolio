@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { ProjectScreenshot } from "@/types/project";
 
@@ -10,6 +10,8 @@ interface ProjectGalleryProps {
 
 export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const isOpen = selectedIdx !== null;
 
   const closeModal = useCallback(() => {
     setSelectedIdx(null);
@@ -32,27 +34,21 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
   }, [screenshots]);
 
   useEffect(() => {
-    if (selectedIdx === null) return;
-
+    if (!isOpen) return;
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const trigger = document.activeElement;
     const originalOverflow = document.body.style.overflow;
+    dialog.showModal();
     document.body.style.overflow = "hidden";
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        closeModal();
-      } else if (e.key === "ArrowRight") {
-        showNext();
-      } else if (e.key === "ArrowLeft") {
-        showPrev();
+    return () => {
+      dialog.close();
+      document.body.style.overflow = originalOverflow;
+      if (trigger instanceof HTMLElement && trigger.isConnected) {
+        trigger.focus({ preventScroll: true });
       }
     };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.body.style.overflow = originalOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedIdx, closeModal, showNext, showPrev]);
+  }, [isOpen]);
 
   if (!screenshots || screenshots.length === 0) {
     return null;
@@ -77,26 +73,22 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
           <figure
             key={shot.src}
             className="group cursor-zoom-in overflow-hidden rounded-xl border border-border bg-surface transition-all duration-200 hover:border-accent/60"
-            onClick={() => setSelectedIdx(idx)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                setSelectedIdx(idx);
-              }
-            }}
-            tabIndex={0}
-            role="button"
-            aria-label={`Ampliar imagem: ${shot.alt || `Tela ${idx + 1}`}`}
           >
-            <div className="relative aspect-[16/10] w-full bg-surface-secondary overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setSelectedIdx(idx)}
+              aria-label={`Ampliar imagem: ${shot.alt || `Tela ${idx + 1}`}`}
+              aria-haspopup="dialog"
+              className="relative block aspect-[16/10] w-full cursor-zoom-in overflow-hidden bg-surface-secondary focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent"
+            >
               <Image
                 src={shot.src}
                 alt={shot.alt}
                 fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-contain object-center transition-transform duration-300 group-hover:scale-[1.02]"
+                sizes="(max-width: 640px) 100vw, 400px"
+                className="object-contain object-center"
               />
-            </div>
+            </button>
             {shot.caption && (
               <figcaption className="px-4 py-3 font-sans text-xs sm:text-sm text-muted">
                 {shot.caption}
@@ -106,27 +98,43 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
         ))}
       </div>
 
-      {currentScreenshot && selectedIdx !== null && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Visualização ampliada da tela ${selectedIdx + 1}`}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 sm:p-6 md:p-8 backdrop-blur-sm"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) closeModal();
-          }}
-        >
-          <div className="relative flex max-h-[92vh] max-w-5xl w-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-border/80 bg-surface/95 shadow-2xl">
+      <dialog
+        ref={dialogRef}
+        aria-label="Visualização ampliada das telas do projeto"
+        className="fixed inset-0 m-auto max-h-[92svh] w-[calc(100%-2rem)] max-w-5xl overflow-y-auto rounded-xl border border-border bg-surface p-0 text-foreground shadow-2xl backdrop:bg-black/85 backdrop:backdrop-blur-sm"
+        onCancel={(event) => {
+          event.preventDefault();
+          closeModal();
+        }}
+        onClose={() => {
+          // Um evento de fechamento anterior pode chegar após uma reabertura.
+          if (!dialogRef.current?.open) closeModal();
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowRight") {
+            event.preventDefault();
+            showNext();
+          } else if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            showPrev();
+          }
+        }}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) closeModal();
+        }}
+      >
+        {currentScreenshot && selectedIdx !== null && (
+          <div className="relative flex w-full flex-col items-center justify-center">
             {/* Header com controles */}
             <div className="flex w-full items-center justify-between border-b border-border/70 px-4 py-3 sm:px-6">
-              <span className="font-mono text-xs text-muted">
+              <span className="font-mono text-xs text-muted" aria-live="polite">
                 Tela {selectedIdx + 1} de {screenshots.length}
               </span>
               <button
                 type="button"
                 onClick={closeModal}
                 aria-label="Fechar visualização ampliada (Esc)"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border/80 text-muted transition-colors hover:bg-surface-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border/80 text-muted transition-colors hover:bg-surface-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
                 <svg
                   className="h-4 w-4"
@@ -151,7 +159,7 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
                 src={currentScreenshot.src}
                 alt={currentScreenshot.alt}
                 fill
-                priority
+                loading="eager"
                 sizes="(max-width: 1280px) 100vw, 1200px"
                 className="object-contain object-center"
               />
@@ -219,8 +227,8 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
               </div>
             )}
           </div>
-        </div>
-      )}
+        )}
+      </dialog>
     </section>
   );
 }

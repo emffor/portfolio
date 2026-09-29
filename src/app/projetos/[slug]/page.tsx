@@ -200,17 +200,46 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         )}
 
+        {project.demoAccess && (
+          <details className="max-w-md rounded-lg border border-border bg-surface px-4 py-3">
+            <summary className="cursor-pointer rounded py-1 text-sm font-medium focus-visible:ring-2 focus-visible:ring-accent">
+              Como acessar a demonstração
+            </summary>
+            <dl className="mt-3 space-y-2 text-sm">
+              <div className="flex flex-wrap gap-x-2">
+                <dt className="text-muted">E-mail</dt>
+                <dd className="break-all">{project.demoAccess.email}</dd>
+              </div>
+              <div className="flex flex-wrap gap-x-2">
+                <dt className="text-muted">Senha</dt>
+                <dd>{project.demoAccess.password}</dd>
+              </div>
+            </dl>
+          </details>
+        )}
+        {project.sourceNote && (
+          <p className="text-sm leading-relaxed text-muted">{project.sourceNote}</p>
+        )}
+
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border bg-surface-secondary">
           <Image
             src={project.image}
             alt={`Imagem principal do projeto ${project.title}`}
             fill
-            priority
+            preload
             sizes="(max-width: 768px) 100vw, 896px"
             className="object-contain object-center"
           />
         </div>
       </header>
+
+      <nav aria-label="Seções do case" className="flex flex-wrap gap-x-6 gap-y-3 border-y border-border py-4 text-sm text-muted">
+        <a href="#contexto" className="hover:text-accent">Contexto</a>
+        <a href="#solucao" className="hover:text-accent">Solução</a>
+        {project.architecture && <a href="#arquitetura" className="hover:text-accent">Arquitetura</a>}
+        {!!project.decisions?.length && <a href="#decisoes" className="hover:text-accent">Decisões</a>}
+        {!!project.screenshots?.length && <a href="#telas" className="hover:text-accent">Telas do projeto</a>}
+      </nav>
 
       <div className="space-y-12">
         {project.brief && project.brief.length > 0 && (
@@ -233,31 +262,37 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </section>
         )}
 
-        <section aria-label="Visão geral" className="space-y-3">
+        <section aria-label="Minha atuação" className="space-y-3">
           <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-            Visão geral
+            Minha atuação
           </h2>
           <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
-            {project.fullDescription}
+            {project.myRole}
           </p>
         </section>
 
-        <section aria-label="Contexto e problema" className="space-y-3">
+        <section id="contexto" aria-label="Contexto e problema" className="scroll-mt-20 space-y-3">
           <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
             Contexto e problema
           </h2>
           <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
             {project.context}
           </p>
+          <details className="rounded-lg border border-border px-4 py-3">
+            <summary className="cursor-pointer text-sm font-medium">Visão geral do projeto</summary>
+            <p className="mt-3 text-sm leading-relaxed text-muted">{project.fullDescription}</p>
+          </details>
         </section>
 
-        <section aria-label="Solução" className="space-y-3">
+        <section id="solucao" aria-label="Solução" className="scroll-mt-20 space-y-3">
           <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
             Solução
           </h2>
-          <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
-            {project.solution}
-          </p>
+          {project.solution.split("\n\n").map((paragraph) => (
+            <p key={paragraph} className="font-sans text-sm sm:text-base text-muted leading-relaxed">
+              {paragraph}
+            </p>
+          ))}
         </section>
 
         <section aria-label="Desafios técnicos" className="space-y-3">
@@ -279,24 +314,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </ul>
         </section>
 
-        <section aria-label="Minha atuação" className="space-y-3">
-          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-            Minha atuação
-          </h2>
-          <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
-            {project.myRole}
-          </p>
-        </section>
-
-        <ProjectArchitectureDiagram architecture={project.architecture} />
+        {project.architecture && (
+          <div id="arquitetura" className="scroll-mt-20">
+            <ProjectArchitectureDiagram architecture={project.architecture} />
+          </div>
+        )}
 
         {project.technicalHighlights &&
           project.technicalHighlights.length > 0 && (
-            <section aria-label="Destaques técnicos" className="space-y-3">
-              <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-                Destaques técnicos
-              </h2>
-              <ul className="space-y-2 font-sans text-sm sm:text-base text-muted">
+            <details className="rounded-lg border border-border bg-surface p-5">
+              <summary className="cursor-pointer font-display text-base font-semibold text-foreground">
+                Ver outros destaques técnicos
+              </summary>
+              <ul className="mt-4 space-y-2 font-sans text-sm sm:text-base text-muted">
                 {project.technicalHighlights.map((highlight, idx) => (
                   <li key={idx} className="flex items-start gap-2">
                     <span
@@ -309,11 +339,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </li>
                 ))}
               </ul>
-            </section>
+            </details>
           )}
 
         {project.decisions && project.decisions.length > 0 && (
-          <section aria-label="Decisões e trade-offs" className="space-y-4">
+          <section id="decisoes" aria-label="Decisões e trade-offs" className="scroll-mt-20 space-y-4">
             <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
               Decisões e trade-offs
             </h2>
@@ -358,52 +388,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </section>
         )}
 
-        <ProjectGallery screenshots={project.screenshots} />
-
-        <section aria-label="Links do projeto" className="space-y-4">
-          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-            Links
-          </h2>
-          <div className="flex flex-wrap items-center gap-3">
-            {project.projectUrl && (
-              <Button href={project.projectUrl} variant="primary" size="md">
-                Acessar demonstração
-              </Button>
-            )}
-            {project.githubUrl && (
-              <Button href={project.githubUrl} variant="outline" size="md">
-                Código fonte
-              </Button>
-            )}
-            {!project.projectUrl && !project.githubUrl && (
-              <p className="font-sans text-sm text-muted italic">
-                Projeto corporativo proprietário — demonstração mediante
-                contato.
-              </p>
-            )}
+        {!!project.screenshots?.length && (
+          <div id="telas" className="scroll-mt-20">
+            <ProjectGallery screenshots={project.screenshots} />
           </div>
-          {project.demoAccess && (
-            <details className="max-w-md rounded-lg border border-border bg-surface px-4 py-3">
-              <summary className="cursor-pointer font-sans text-sm font-medium text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded">
-                Credenciais de demonstração
-              </summary>
-              <dl className="mt-3 space-y-1.5 font-sans text-sm">
-                <div className="flex flex-wrap gap-x-2">
-                  <dt className="text-muted">E-mail</dt>
-                  <dd className="text-foreground">{project.demoAccess.email}</dd>
-                </div>
-                <div className="flex flex-wrap gap-x-2">
-                  <dt className="text-muted">Senha</dt>
-                  <dd className="text-foreground">
-                    {project.demoAccess.password}
-                  </dd>
-                </div>
-              </dl>
-            </details>
-          )}
-          {project.sourceNote && (
-            <p className="font-sans text-sm text-muted">{project.sourceNote}</p>
-          )}
+        )}
+
+        <section aria-label="Conversar sobre o projeto" className="space-y-4 rounded-xl border border-border bg-surface p-6">
+          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
+            Vamos conversar sobre este projeto?
+          </h2>
+          <p className="text-sm leading-relaxed text-muted">
+            Entre em contato para conversar sobre minha atuação e as decisões técnicas deste case.
+          </p>
+          <Button href="/#contato" variant="primary" size="md">Entrar em contato</Button>
         </section>
 
         {(prevProject || nextProject) && (

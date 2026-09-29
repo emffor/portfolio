@@ -25,7 +25,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
       src: project.image,
       alt: `Demonstração visual do projeto ${project.title}`,
     },
-    ...(project.screenshots ?? []),
+    ...(project.screenshots ?? []).filter((image) => image.src !== project.image),
   ];
 
   return (

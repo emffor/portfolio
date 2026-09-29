@@ -3,43 +3,31 @@
 import React, { useSyncExternalStore } from "react";
 
 function subscribe(callback: () => void) {
-  const onStorage = () => {
+  const media = window.matchMedia("(prefers-color-scheme: dark)");
+  const syncTheme = () => {
+    let saved: string | null = null;
     try {
-      const saved = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (saved === "dark" || (!saved && prefersDark)) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
+      saved = localStorage.getItem("theme");
     } catch {
-      // Ignora erro de acesso a storage
+      // Sem storage, acompanha a preferência do sistema.
     }
+    document.documentElement.classList.toggle(
+      "dark",
+      saved === "dark" || (saved !== "light" && media.matches)
+    );
     callback();
   };
-
-  const media = window.matchMedia("(prefers-color-scheme: dark)");
-  const onMediaChange = (e: MediaQueryListEvent) => {
-    try {
-      const saved = localStorage.getItem("theme");
-      if (!saved) {
-        if (e.matches) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      }
-    } catch {
-      // Ignora erro de acesso a storage
-    }
-    callback();
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === "theme" || event.key === null) syncTheme();
   };
 
   window.addEventListener("storage", onStorage);
-  media.addEventListener("change", onMediaChange);
+  window.addEventListener("theme-change", callback);
+  media.addEventListener("change", syncTheme);
   return () => {
     window.removeEventListener("storage", onStorage);
-    media.removeEventListener("change", onMediaChange);
+    window.removeEventListener("theme-change", callback);
+    media.removeEventListener("change", syncTheme);
   };
 }
 
@@ -76,13 +64,13 @@ export function ThemeToggle() {
       // Ignora erro caso localStorage esteja desabilitado
     }
 
-    window.dispatchEvent(new Event("storage"));
+    window.dispatchEvent(new Event("theme-change"));
   };
 
   if (!mounted) {
     return (
       <div
-        className="w-9 h-9 rounded-md border border-border bg-transparent"
+        className="w-11 h-11 rounded-md border border-border bg-transparent"
         aria-hidden="true"
       />
     );
@@ -92,7 +80,7 @@ export function ThemeToggle() {
     <button
       onClick={toggleTheme}
       type="button"
-      className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-border bg-transparent text-muted hover:bg-surface-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      className="inline-flex items-center justify-center w-11 h-11 rounded-md border border-border bg-transparent text-muted hover:bg-surface-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
       aria-label={
         theme === "dark" ? "Alternar para tema claro" : "Alternar para tema escuro"
       }

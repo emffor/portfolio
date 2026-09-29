@@ -23,12 +23,12 @@ export const PROJECTS: readonly Project[] = [
     kind: "product",
     category: "SaaS Multiempresa",
     featured: true,
-    status: "SaaS multi-empresa com demonstração online ativa",
+    status: "Demonstração online disponível",
     shortDescription:
       "SaaS multi-empresa para madeireiras com conformidade DOF/IBAMA, estoque duplo e mapa visual de pátio.",
     fullDescription:
       "SaaS multi-empresa para madeireiras e serrarias reguladas pelo IBAMA. Une conformidade legal do DOF (Documento de Origem Florestal) com a operação real de pátio: controla saldo legal em m³ e estoque físico em peças simultaneamente, com mapa visual do pátio em canvas, movimentações auditáveis e relatórios para fiscalização.",
-    image: "/assets/rastro-florestal.png",
+    image: "/assets/rastro-florestal-patio-lote.png",
     technologies: [
       "Laravel 11",
       "PHP 8.2",
@@ -55,17 +55,17 @@ export const PROJECTS: readonly Project[] = [
       },
       {
         label: "Trade-off",
-        text: "Validações transacionais mais rigorosas em cada movimentação no backend em troca de integridade jurídica e relatórios instantâneos para fiscalização.",
+        text: "Maior complexidade nas validações de cada movimentação para manter a consistência entre estoque legal, estoque físico e relatórios.",
       },
       {
-        label: "Impacto prático",
-        text: "Redução do tempo de conciliação de pátio e auditoria de DOF de dias para poucos cliques, com histórico imutável de movimentações.",
+        label: "Entrega",
+        text: "Consulta centralizada de saldos, mapa do pátio e histórico de movimentações para apoiar a conciliação de estoque e a preparação de relatórios.",
       },
     ],
     context:
       "Madeireiras e serrarias reguladas pelo IBAMA operavam com divergências frequentes entre o saldo do DOF do órgão ambiental e o estoque físico real. O controle disperso em planilhas gerava passivo jurídico, risco de multas e lentidão operacional.",
     solution:
-      "Desenvolvimento de uma plataforma SaaS multi-empresa em Laravel e React/TypeScript. No backend, implementei estoque duplo (m³ x peças), alocação DOF-lote, histórico imutável com Spatie Activity Log e multi-tenancy com RBAC. No frontend, construí um mapa interativo de pátio em canvas (React-Konva) com drag-and-drop, detecção de colisão e fluxos de expedição com preview.",
+      "No backend em Laravel, implementei estoque duplo (m³ x peças), alocação DOF-lote, registro de auditoria com Spatie Activity Log e multi-tenancy com RBAC.\n\nNo frontend em React e TypeScript, construí um mapa interativo de pátio em canvas (React-Konva) com drag-and-drop, detecção de colisão e fluxos de expedição com preview.",
     technicalChallenges: [
       "Sincronizar o estoque duplo com débito casado entre saldo legal (m³) e físico (peças) via volume unitário.",
       "Modelar a alocação DOF-lote com operações atômicas de alocar, transferir, dar baixa e remover.",
@@ -93,21 +93,21 @@ export const PROJECTS: readonly Project[] = [
     screenshots: [
       {
         src: "/assets/rastro-florestal-patio-lote.png",
-        alt: "Mapa interativo do pátio com alocação espacial de lotes e toras",
+        alt: "Mapa do Pátio Cinza em modo de edição, com três lotes posicionados no canvas",
         caption:
-          "Mapa interativo em canvas: gestão espacial do pátio madeireiro com alocação e status de lotes.",
+          "Edição do layout do pátio: posicionamento e rotação de lotes no canvas. A captura mostra a configuração do espaço, ainda sem estoque alocado.",
       },
       {
         src: "/assets/rastro-florestal-produto-dimensionado.png",
-        alt: "Controle de estoque duplo com conciliação entre metros cúbicos e peças",
+        alt: "Lista de produtos dimensionados com espécies, dimensões e volume unitário em metros cúbicos",
         caption:
-          "Estoque duplo sincronizado: controle simultâneo de saldo legal em m³ e peças físicas.",
+          "Cadastro de produtos dimensionados: espécies vinculadas e volume unitário utilizado na conversão entre peças e metros cúbicos.",
       },
       {
         src: "/assets/rastro-florestal-patio-cinza.png",
-        alt: "Visão setorial e zoneamento do pátio de estocagem",
+        alt: "Listagem de pátios com filtros, área total e acesso ao mapa do Pátio Cinza",
         caption:
-          "Gestão espacial de áreas do pátio com identificação de setores e zonas de manobra.",
+          "Listagem de pátios: consulta de áreas, quantidade de lotes, filtros e acesso ao mapa de cada pátio.",
       },
     ],
     architecture: {
@@ -138,7 +138,7 @@ export const PROJECTS: readonly Project[] = [
     slug: "consolidacao-arquitetural",
     kind: "modernization",
     category: "Arquitetura & Engenharia de Dados",
-    featured: false,
+    featured: true,
     status: "Arquitetura consolidada e sustentada em produção na READI",
     shortDescription:
       "Unificação de 11 microsserviços e 11 bancos de dados independentes em um monólito modular em Laravel/PHP, reduzindo custos de nuvem e eliminando gargalos de consistência.",
@@ -295,7 +295,7 @@ export const PROJECTS: readonly Project[] = [
     context:
       "Construir uma aplicação Full Stack capaz de autenticar usuários, consumir uma API externa de vídeos e manter favoritos individuais, mantendo responsabilidades e persistência isoladas entre diferentes serviços.",
     solution:
-      "Arquitetura distribuída composta por três pilares: (1) Frontend SPA em Vanilla TypeScript (sem frameworks), com roteador client-side próprio via History API, store reativa baseada no padrão Observer e HttpClient com timeouts e injeção de Bearer token; (2) API Gateway atuando como ponto único de entrada e proxy reverso para os clientes; (3) Serviços internos especializados (Auth Service, Video Service com normalização da YouTube Data API v3 via Adapter e Favorites Service), cada um com persistência independente em PostgreSQL e cobertura de testes automatizados com Jest.",
+      "Frontend SPA em Vanilla TypeScript com roteador via History API, store reativa baseada no padrão Observer e HttpClient com timeout e injeção de Bearer token.\n\nAPI Gateway como ponto único de entrada, encaminhando requisições para autenticação, vídeos e favoritos. O Video Service integra a YouTube Data API v3 e normaliza suas respostas com um Adapter.\n\nAuth Service e Favorites Service possuem bancos PostgreSQL independentes. O Video Service consulta a API externa, sem banco próprio. Os fluxos são cobertos por testes automatizados com Jest.",
     technicalChallenges: [
       "Isolar responsabilidades e persistência entre serviços mantendo a comunicação distribuída compreensível.",
       "Integrar a YouTube Data API v3 normalizando respostas externas para o contrato interno da aplicação.",

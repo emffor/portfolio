@@ -4,9 +4,9 @@ export const PROFILE_DATA: Profile = {
   name: "Eloan Ferreira",
   title: "Full Stack Developer",
   positioning:
-    "Backend, arquitetura e sistemas em produção.",
+    "Backend e modernização de sistemas em produção.",
   headline:
-    "Evoluo aplicações web, mobile e APIs, do legado à sustentação, principalmente com Laravel/PHP e TypeScript/Node.js.",
+    "Desenvolvo e modernizo aplicações com Laravel, Node.js e TypeScript, conectando decisões de arquitetura às necessidades do negócio.",
   experienceSince: "2019",
   domain: "eloandev.fyi",
   location: "Brasil",
@@ -16,10 +16,14 @@ export const PROFILE_DATA: Profile = {
     {
       value: "11",
       label: "microsserviços consolidados na READI",
+      href: "/projetos/consolidacao-arquitetural",
+      linkLabel: "Conhecer a modernização",
     },
     {
       value: "~40%",
-      label: "menos tempo em rotinas manuais via automações",
+      label: "menos tempo em consultas e validações manuais na READI",
+      href: "/#experiencia",
+      linkLabel: "Ver contexto na experiência",
     },
     {
       value: "2024 · 2025",
@@ -42,7 +46,7 @@ export const PROFILE_DATA: Profile = {
     alt: "Eloan Ferreira - Full Stack Developer",
   },
   summary:
-    "Minha atuação conecta decisões técnicas à operação do produto. Trabalho na evolução de sistemas existentes, na modernização de arquitetura, na integração de APIs, na revisão de código e na sustentação de aplicações em produção, entre backend, web, mobile e infraestrutura.",
+    "Minha trajetória em desenvolvimento começou em 2019. Atuo da modelagem de dados ao deploy, com experiência em aplicações web e mobile, integração de APIs e sustentação. Na READI, participo da modernização da plataforma, de revisões de código e de automações da operação.",
   socials: {
     github: {
       name: "GitHub",

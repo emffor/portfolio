@@ -65,6 +65,9 @@ Apresentar de maneira objetiva e estruturada a trajetória profissional de mais 
 Para validar tipagem, linter e gerar o bundle de produção:
 
 ```bash
+# Gerar tipos das rotas em um clone novo
+pnpm exec next typegen
+
 # Verificação estática de tipos
 pnpm typecheck
 
@@ -74,9 +77,17 @@ pnpm lint
 # Compilação e build de produção
 pnpm build
 
+# Smoke tests HTTP sobre o build de produção (iniciam e encerram um servidor local)
+pnpm test:smoke
+
 # Execução do bundle gerado
 pnpm start
 ```
+
+O workflow `.github/workflows/quality.yml` executa geração de tipos do Next.js,
+typecheck, lint, build e smoke tests em pushes e pull requests. Os smoke tests
+verificam rotas, metadados, links internos, imagens, acesso à demonstração e 404.
+Interações de teclado, tema, carrossel e galeria também devem ser verificadas no navegador.
 
 ---
 
@@ -137,7 +148,9 @@ A arquitetura foi projetada para separar dados de apresentação. Para adicionar
    {
      title: "Nome do Projeto",
      slug: "nome-do-projeto",
+     kind: "product", // product, modernization ou technical-study
      category: "SaaS / Mobile / API",
+     status: "Descreva a etapa real do projeto",
      featured: true, // true para exibir na seção de destaque
      shortDescription: "Resumo em uma linha para o cabeçalho do card.",
      fullDescription: "Descrição detalhada do propósito e escopo.",

@@ -21,7 +21,7 @@ export function TechStack() {
         {SKILL_AREAS.map((area) => (
           <article
             key={area.title}
-            className="flex flex-col justify-between rounded-xl border border-border bg-surface p-5 transition-colors hover:border-accent/40"
+            className="flex flex-col justify-between rounded-xl border border-border bg-surface p-5 transition-colors hover:border-accent/40 last:odd:sm:col-span-2"
           >
             <div>
               <div className="mb-2 flex items-center gap-2.5">

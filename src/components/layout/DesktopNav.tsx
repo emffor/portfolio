@@ -1,31 +1,32 @@
 "use client";
 
-import React, { useEffect, useState, useTransition } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { NAVIGATION_ITEMS } from "@/data/navigation";
 
 export function DesktopNav() {
   const pathname = usePathname();
-  const router = useRouter();
-  const [, startTransition] = useTransition();
   const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
     if (pathname !== "/") return;
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 120;
       const sections = NAVIGATION_ITEMS.map((item) =>
         item.href.replace("/#", "")
       );
+
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+        setActiveSection(sections[sections.length - 1] ?? "");
+        return;
+      }
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const sectionId = sections[i];
         const element = document.getElementById(sectionId);
         if (element) {
-          const top = element.offsetTop;
-          if (scrollPosition >= top) {
+          if (element.getBoundingClientRect().top <= 160) {
             setActiveSection(sectionId);
             return;
           }
@@ -36,40 +37,12 @@ export function DesktopNav() {
 
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, [pathname]);
-
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    if (href.startsWith("/#")) {
-      const targetId = href.replace("/#", "");
-
-      if (pathname === "/") {
-        e.preventDefault();
-        const element = document.getElementById(targetId);
-        if (element) {
-          const headerOffset = 76;
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition =
-            elementPosition + window.pageYOffset - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
-          setActiveSection(targetId);
-          window.history.pushState(null, "", href);
-        }
-      } else {
-        e.preventDefault();
-        startTransition(() => {
-          router.push(href);
-        });
-      }
-    }
-  };
 
   return (
     <nav
@@ -78,14 +51,14 @@ export function DesktopNav() {
     >
       {NAVIGATION_ITEMS.map((item) => {
         const targetId = item.href.replace("/#", "");
-        const isActive = activeSection === targetId;
+        const isActive = pathname === "/" && activeSection === targetId;
 
         return (
           <Link
             key={item.href}
             href={item.href}
-            onClick={(e) => handleNavClick(e, item.href)}
-            className={`relative py-1.5 transition-all duration-200 hover:text-accent hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded ${
+            aria-current={isActive ? "location" : undefined}
+            className={`relative py-1.5 transition-colors duration-200 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded ${
               isActive ? "text-accent font-semibold" : "text-muted"
             }`}
           >
