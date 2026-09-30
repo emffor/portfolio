@@ -18,7 +18,7 @@ export async function FeaturedProjects() {
         description="Produto autoral, modernização em produção e estudo técnico: diferentes contextos para decisões de engenharia."
       />
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-2">
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}

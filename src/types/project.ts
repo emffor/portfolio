@@ -50,9 +50,11 @@ export interface Project {
   kind: ProjectKind;
   category: string;
   featured: boolean;
+  featuredOrder?: number;
   status?: string;
   brief?: readonly ProjectBriefItem[];
   projectUrl?: string;
+  projectUrlLabel?: string;
   githubUrl?: string;
   demoAccess?: ProjectDemoAccess;
   sourceNote?: string;

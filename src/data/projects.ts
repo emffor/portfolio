@@ -6,12 +6,6 @@ export const PROJECT_KIND_LABELS: Record<ProjectKind, string> = {
   "technical-study": "Estudo técnico",
 };
 
-const FEATURED_KIND_ORDER: Record<ProjectKind, number> = {
-  product: 0,
-  modernization: 1,
-  "technical-study": 2,
-};
-
 export function getProjectKindLabel(kind: ProjectKind): string {
   return PROJECT_KIND_LABELS[kind];
 }
@@ -23,6 +17,7 @@ export const PROJECTS: readonly Project[] = [
     kind: "product",
     category: "SaaS Multiempresa",
     featured: true,
+    featuredOrder: 0,
     status: "Demonstração online disponível",
     shortDescription:
       "SaaS multi-empresa para madeireiras com conformidade DOF/IBAMA, estoque duplo e mapa visual de pátio.",
@@ -157,6 +152,7 @@ export const PROJECTS: readonly Project[] = [
     kind: "modernization",
     category: "Arquitetura & Engenharia de Dados",
     featured: true,
+    featuredOrder: 1,
     status: "Arquitetura consolidada e sustentada em produção na READI",
     shortDescription:
       "Unificação de 11 microsserviços e 11 bancos de dados independentes em um monólito modular em Laravel/PHP, reduzindo custos de nuvem e eliminando gargalos de consistência.",
@@ -270,11 +266,117 @@ export const PROJECTS: readonly Project[] = [
       "Projeto corporativo proprietário da READI — regras de negócio, dados e código-fonte são confidenciais e protegidos por sigilo contratual.",
   },
   {
+    title: "Task Markdown",
+    slug: "task-markdown",
+    kind: "product",
+    category: "Ferramenta para Desenvolvedores",
+    featured: true,
+    featuredOrder: 2,
+    status: "Aplicação online disponível",
+    shortDescription:
+      "Ferramenta para organizar projetos e conteúdos em Markdown, com persistência local, drag-and-drop e visualização de diagramas técnicos.",
+    fullDescription:
+      "Aplicação para organizar projetos e itens em Markdown, com renderização de conteúdo, persistência local, visualizações combinadas e diagramas técnicos.",
+    image: "/assets/taskmarkdown/1.png",
+    technologies: [
+      "Next.js 14",
+      "React 18",
+      "TypeScript",
+      "Tailwind CSS",
+      "Dexie",
+      "IndexedDB",
+      "React Markdown",
+      "dnd-kit",
+      "React-Konva",
+      "Vitest",
+      "Testing Library",
+    ],
+    projectUrl: "https://taskmarkdown.emfsystems.com.br",
+    projectUrlLabel: "Acessar aplicação",
+    brief: [
+      {
+        label: "Problema",
+        text: "Centralizar e organizar conteúdos técnicos em Markdown por projeto, mantendo dados disponíveis localmente e permitindo manipulação visual de informações relacionadas.",
+      },
+      {
+        label: "Decisão",
+        text: "Persistência local com Dexie/IndexedDB, organização por projetos, drag-and-drop para ordenação e React-Konva para visualizações e diagramas.",
+      },
+      {
+        label: "Trade-off",
+        text: "A abordagem local-first reduz dependência de backend e simplifica o uso, mas os dados ficam vinculados ao armazenamento do navegador e exigem mecanismos próprios de backup e restauração.",
+      },
+      {
+        label: "Entrega",
+        text: "Aplicação funcional para organização de Markdown, manipulação de projetos, persistência local, backup e visualização de diagramas.",
+      },
+      {
+        label: "HTML em Markdown",
+        text: "A renderização utiliza rehype-raw para processar HTML embutido, sem plugin de sanitização configurado.",
+      },
+    ],
+    context:
+      "O projeto reúne conteúdos técnicos em Markdown organizados por projeto, com recursos para manipular itens, visualizar conteúdos relacionados e manter os dados no armazenamento local do navegador.",
+    solution:
+      "A aplicação organiza projetos e itens Markdown, oferece renderização de Markdown, ordenação por drag-and-drop e visualizações combinadas. Dexie utiliza IndexedDB para persistir projetos, itens e estados dos diagramas; mecanismos de importação e exportação permitem criar e restaurar backups.",
+    technicalChallenges: [
+      "Manter a ordem dos itens e sincronizar as visualizações do conteúdo organizado.",
+      "Persistir o estado e o layout de diagramas técnicos, incluindo diagramas de banco de dados interpretados a partir de DBML.",
+      "Implementar importação e exportação de backups de projetos, itens e estados visuais.",
+    ],
+    technicalHighlights: [
+      "Renderização de Markdown com React Markdown.",
+      "Ordenação de itens com dnd-kit e visualização de diagramas em canvas com React-Konva.",
+      "Testes automatizados com Vitest e Testing Library.",
+    ],
+    myRole:
+      "Desenvolvimento do produto, definição da arquitetura frontend, persistência local com IndexedDB, organização de projetos e itens, drag-and-drop, renderização de Markdown, diagramas e testes automatizados.",
+    screenshots: [
+      {
+        src: "/assets/taskmarkdown/1.png",
+        alt: "Tela de projetos do Task Markdown com criação, importação e exportação de projetos",
+        caption: "Organização dos conteúdos por projetos e acesso às ações de importação e exportação.",
+      },
+      {
+        src: "/assets/taskmarkdown/db.png",
+        alt: "Editor DBML e canvas com diagrama de tabelas e relações",
+        caption: "Edição de DBML ao lado da visualização do diagrama de banco de dados.",
+      },
+    ],
+    architecture: {
+      layers: [
+        {
+          label: "Next.js 14 / React 18",
+          description: "Aplicação frontend em TypeScript",
+        },
+        {
+          label: "Camada de aplicação e componentes",
+          description:
+            "Organização de projetos e itens, renderização Markdown, drag-and-drop e visualizações com React-Konva",
+        },
+        {
+          label: "Serviços e regras de manipulação",
+          description:
+            "Operações de projetos, itens, diagramas e importação/exportação de backups",
+        },
+        {
+          label: "Dexie",
+          description: "Acesso aos dados locais",
+        },
+        {
+          label: "IndexedDB",
+          description: "Armazenamento local no navegador",
+        },
+      ],
+    },
+  },
+  {
     title: "Vidora",
     slug: "vidora",
     kind: "technical-study",
     category: "Arquitetura distribuída",
     featured: true,
+    featuredOrder: 3,
     status: "Estudo técnico de arquitetura com código aberto no GitHub",
     shortDescription:
       "Estudo de arquitetura distribuída para pesquisa de vídeos e favoritos, com API Gateway e serviços independentes.",
@@ -409,7 +511,7 @@ export const PROJECTS: readonly Project[] = [
 
 export async function getFeaturedProjects(): Promise<Project[]> {
   return PROJECTS.filter((project) => project.featured).sort(
-    (a, b) => FEATURED_KIND_ORDER[a.kind] - FEATURED_KIND_ORDER[b.kind]
+    (a, b) => (a.featuredOrder ?? 0) - (b.featuredOrder ?? 0)
   );
 }
 

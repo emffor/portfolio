@@ -104,7 +104,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
 
           {project.projectUrl && (
             <Button href={project.projectUrl} variant="outline" size="sm">
-              Acessar demonstração
+              {project.projectUrlLabel ?? "Acessar demonstração"}
               <svg
                 className="w-3.5 h-3.5 ml-1"
                 fill="none"

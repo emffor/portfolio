@@ -169,7 +169,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <div className="flex flex-wrap items-center gap-3 pt-1">
             {project.projectUrl && (
               <Button href={project.projectUrl} variant="primary" size="sm">
-                Acessar demonstração
+                {project.projectUrlLabel ?? "Acessar demonstração"}
                 <svg
                   className="w-3.5 h-3.5 ml-1"
                   fill="none"

@@ -65,11 +65,24 @@ function markup(html) {
   return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "");
 }
 
-test("a home apresenta os três cases e os caminhos para contato", async () => {
+test("a home apresenta os quatro cases e os caminhos para contato", async () => {
   const html = markup(await getPage("/"));
-  for (const slug of ["rastro-florestal", "consolidacao-arquitetural", "vidora"]) {
+  for (const slug of ["rastro-florestal", "consolidacao-arquitetural", "task-markdown", "vidora"]) {
     assert.ok(html.includes(`href="/projetos/${slug}"`), `Case ausente: ${slug}`);
   }
+  const featuredSectionStart = html.indexOf('<section id="projetos"');
+  const featuredSectionEnd = html.indexOf("</section>", featuredSectionStart);
+  const featuredSection = html.slice(featuredSectionStart, featuredSectionEnd);
+  const featuredOrder = [
+    "rastro-florestal",
+    "consolidacao-arquitetural",
+    "task-markdown",
+    "vidora",
+  ].map((slug) => featuredSection.indexOf(`href="/projetos/${slug}"`));
+  assert.deepEqual(featuredOrder, [...featuredOrder].sort((a, b) => a - b));
+  assert.ok(html.includes('href="https://taskmarkdown.emfsystems.com.br"'));
+  assert.ok(!html.includes('href="https://github.com/emffor/task-markdown"'));
+  assert.ok(html.includes("Acessar aplicação"));
   assert.ok(html.includes('href="/#contato"'));
   assert.match(html, /href="mailto:[^"]+"/);
   for (const id of ["inicio", "sobre", "projetos", "experiencia", "tecnologias", "contato"]) {
