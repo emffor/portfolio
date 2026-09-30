@@ -83,6 +83,12 @@ export default function RootLayout({
     >
       <head>
         <script
+          id="hide-netlify-hud"
+          dangerouslySetInnerHTML={{
+            __html: `try { localStorage.setItem('nl-hud:public:v1', 'hidden'); } catch (error) {}`,
+          }}
+        />
+        <script
           id="home-assembly"
           dangerouslySetInnerHTML={{ __html: HOME_ASSEMBLY_SCRIPT }}
         />

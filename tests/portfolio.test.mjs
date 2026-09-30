@@ -258,3 +258,9 @@ test("o tema inicial é escuro e respeita uma preferência clara salva", async (
   assert.match(html, /if \(saved !== 'light'\)/);
   assert.doesNotMatch(html, /var prefersDark = window\.matchMedia/);
 });
+
+test("a preferência para ocultar o HUD da Netlify é aplicada no carregamento do site", async () => {
+  const html = await getPage("/");
+  assert.match(html, /id="hide-netlify-hud"/);
+  assert.match(html, /localStorage\.setItem\('nl-hud:public:v1', 'hidden'\)/);
+});
