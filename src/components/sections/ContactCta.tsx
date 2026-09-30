@@ -76,15 +76,15 @@ export function ContactCta() {
             Contato
           </p>
           <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-            Entre em contato
+            Vamos conversar?
           </h2>
           <div
             aria-hidden="true"
             className="mt-4 h-1 w-14 rounded-full bg-accent"
           />
           <p className="mt-6 max-w-md font-sans text-sm sm:text-base text-muted leading-relaxed">
-            Aberto a novas oportunidades profissionais. Fale por e-mail ou
-            LinkedIn.
+            Para oportunidades em desenvolvimento Full Stack, backend e
+            modernização de sistemas, fale comigo por e-mail ou LinkedIn.
           </p>
 
           <ul className="mt-8 space-y-1">
@@ -117,30 +117,40 @@ export function ContactCta() {
 
         {/* Coluna direita: disponibilidade e ação direta */}
         <div className="flex items-start md:items-center">
-          <div className="w-full rounded-xl border border-border bg-surface p-7 sm:p-8">
+          <div className="min-w-0 w-full rounded-xl border border-border bg-surface p-5 sm:p-8">
             {PROFILE_DATA.availableForWork && (
               <p className="flex items-center gap-2 font-sans text-xs font-medium text-muted">
-                <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent" />
                 {PROFILE_DATA.availabilityLabel}
               </p>
             )}
             <p className="mt-4 font-display text-xl font-bold tracking-tight text-foreground">
-              E-mail direto
+              Vamos falar sobre sua oportunidade
             </p>
             <p className="mt-2 font-sans text-sm text-muted leading-relaxed">
-              Sem formulário: a mensagem chega direto na caixa de entrada.
-              {PROFILE_DATA.location ? ` ${PROFILE_DATA.location}.` : ""}
+              Compartilhe o contexto da vaga, os desafios do time e como posso
+              contribuir. Meu currículo também está disponível para consulta e impressão.
             </p>
-            {PROFILE_DATA.socials.email && (
+            <div className="mt-6 grid gap-3 sm:w-fit sm:grid-cols-2">
+              {PROFILE_DATA.socials.email && (
+                <Button
+                  href={`mailto:${PROFILE_DATA.socials.email}`}
+                  variant="glow"
+                  size="lg"
+                  className="w-full break-all sm:min-w-56"
+                >
+                  {PROFILE_DATA.socials.email}
+                </Button>
+              )}
               <Button
-                href={`mailto:${PROFILE_DATA.socials.email}`}
-                variant="glow"
+                href="/curriculo"
+                variant="outline"
                 size="lg"
-                className="mt-6 w-full sm:w-auto"
+                className="w-full sm:min-w-56"
               >
-                {PROFILE_DATA.socials.email}
+                Ver currículo
               </Button>
-            )}
+            </div>
           </div>
         </div>
       </div>

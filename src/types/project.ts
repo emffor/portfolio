@@ -65,6 +65,7 @@ export interface Project {
   projectUrlLabel?: string;
   githubUrl?: string;
   demoAccess?: ProjectDemoAccess;
+  accessNote?: string;
   sourceNote?: string;
   context: string;
   solution: string;

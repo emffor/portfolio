@@ -17,6 +17,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 1.0,
     },
+    {
+      url: `${SITE_URL}/curriculo`,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
     ...projectRoutes,
   ];
 }

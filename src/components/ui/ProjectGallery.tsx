@@ -101,7 +101,7 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
       <dialog
         ref={dialogRef}
         aria-label="Visualização ampliada das telas do projeto"
-        className="fixed inset-0 m-auto max-h-[92svh] w-[calc(100%-2rem)] max-w-5xl overflow-y-auto rounded-xl border border-border bg-surface p-0 text-foreground shadow-2xl backdrop:bg-black/85 backdrop:backdrop-blur-sm"
+        className="fixed inset-0 m-auto max-h-[92svh] w-[calc(100%_-_2rem)] max-w-5xl overflow-y-auto rounded-xl border border-border bg-surface p-0 text-foreground shadow-2xl backdrop:bg-black/85 backdrop:backdrop-blur-sm"
         onCancel={(event) => {
           event.preventDefault();
           closeModal();
@@ -120,7 +120,11 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
           }
         }}
         onClick={(e) => {
-          if (e.target === e.currentTarget) closeModal();
+          if (e.target !== e.currentTarget) return;
+          const bounds = e.currentTarget.getBoundingClientRect();
+          if (e.clientX < bounds.left || e.clientX > bounds.right || e.clientY < bounds.top || e.clientY > bounds.bottom) {
+            closeModal();
+          }
         }}
       >
         {currentScreenshot && selectedIdx !== null && (

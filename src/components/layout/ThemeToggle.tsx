@@ -8,7 +8,7 @@ function subscribe(callback: () => void) {
     try {
       saved = localStorage.getItem("theme");
     } catch {
-      // Sem storage, acompanha a preferência do sistema.
+      // Sem storage, mantém o tema escuro padrão.
     }
     document.documentElement.classList.toggle(
       "dark",

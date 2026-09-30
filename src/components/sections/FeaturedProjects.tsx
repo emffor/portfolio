@@ -14,13 +14,13 @@ export async function FeaturedProjects() {
     >
       <SectionHeading
         tag="Trabalhos selecionados"
-        title="Projetos que mostram como trabalho"
-        description="Do problema à entrega: minha atuação, decisões de arquitetura e os trade-offs de cada solução. Produtos autorais, modernização em produção e um estudo de sistemas distribuídos."
+        title="Projetos selecionados"
+        description="Produtos autorais e engenharia em produção. Cada case apresenta o problema, minha contribuição, as entregas e os trade-offs da solução."
       />
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
         {projects.map((project, index) => (
-          <ProjectCard key={project.slug} project={project} spotlight={index < 2} />
+          <ProjectCard key={project.slug} project={project} spotlight={index === 0} />
         ))}
       </div>
     </section>

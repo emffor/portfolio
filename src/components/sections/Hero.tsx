@@ -8,11 +8,14 @@ export function Hero() {
     <section
       id="inicio"
       aria-label="Apresentação inicial"
-      className="relative overflow-hidden py-12 sm:py-16 lg:min-h-[38rem] lg:flex lg:items-center"
+      className="relative scroll-mt-20 py-12 pb-16 sm:py-16 lg:min-h-[38rem] lg:flex lg:items-center"
     >
       <div className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)] items-center gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.9fr)] lg:gap-12">
         <div className="min-w-0 space-y-6 sm:space-y-7">
           <div className="space-y-3">
+            <p className="font-mono text-xs font-medium uppercase tracking-wider text-accent">
+              Desenvolvimento de software · Desde {PROFILE_DATA.experienceSince}
+            </p>
             <h1 data-assembly="name" className="font-display text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
               <span className="hero-name">{PROFILE_DATA.name}</span>
             </h1>
@@ -90,6 +93,10 @@ export function Hero() {
               </svg>
               LinkedIn
             </Button>
+            <Button href="/curriculo" variant="ghost" size="sm">
+              Ver currículo
+              <span aria-hidden="true">↗</span>
+            </Button>
           </div>
         </div>
 
@@ -119,7 +126,7 @@ export function Hero() {
                     width={1024}
                     height={1536}
                     preload
-                    sizes="(max-width: 640px) 280px, (max-width: 1024px) 360px, 400px"
+                    sizes="(max-width: 639px) min(280px, calc(100vw - 40px)), (max-width: 1023px) 360px, 400px"
                     className="hero-photo aspect-[4/5] h-auto w-full min-w-0 max-w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                   />
                 ) : null}
@@ -136,7 +143,7 @@ export function Hero() {
 
             {PROFILE_DATA.availableForWork && (
               <figcaption data-assembly="badge" className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-surface/95 px-4 py-2 text-xs font-medium text-foreground shadow-lg backdrop-blur-sm">
-                <span className="mr-2 inline-block h-2 w-2 rounded-full bg-emerald-500" />
+                <span aria-hidden="true" className="mr-2 inline-block h-2 w-2 rounded-full bg-accent" />
                 {PROFILE_DATA.availabilityLabel}
               </figcaption>
             )}

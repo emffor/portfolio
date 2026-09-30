@@ -146,7 +146,12 @@ export function ProjectCard({
           </Button>
 
           {project.projectUrl && (
-            <Button href={project.projectUrl} variant="outline" size="sm">
+            <Button
+              href={project.projectUrl}
+              variant="outline"
+              size="sm"
+              aria-label={`${project.projectUrlLabel ?? "Acessar demonstração"} de ${project.title} (abre em nova aba)`}
+            >
               {project.projectUrlLabel ?? "Acessar demonstração"}
               <svg
                 className="w-3.5 h-3.5 ml-1"

@@ -12,7 +12,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## 1. Visão Geral
 Portfólio profissional de **Eloan Ferreira (Full Stack Developer)**, voltado para apresentação em processos seletivos e entrevistas técnicas de alto nível.
-- **Domínio planejado:** `eloandev.fyi`
+- **Domínio de produção:** `me.emfsystems.com.br`
 - **GitHub:** `github.com/emffor/portfolio`
 - **Público-alvo:** Recrutadores técnicos, Tech Leads e Engineering Managers.
 

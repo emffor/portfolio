@@ -92,11 +92,11 @@ export function MobileNav() {
       <div
         id="mobile-navigation-menu"
         hidden={!isOpen}
-        className="absolute top-16 left-0 right-0 z-50 border-b border-border bg-background/95 px-6 py-6 shadow-xl backdrop-blur-sm"
+        className="absolute top-16 left-0 right-0 z-50 max-h-[calc(100svh_-_4rem)] overflow-y-auto border-b border-border bg-background/95 px-6 py-4 shadow-xl backdrop-blur-sm"
       >
         <nav
           aria-label="Navegação móvel"
-          className="flex flex-col space-y-4"
+          className="flex flex-col gap-1"
         >
           {NAVIGATION_ITEMS.map((item) => (
             <Link
@@ -106,7 +106,7 @@ export function MobileNav() {
                 close();
                 buttonRef.current?.focus({ preventScroll: true });
               }}
-              className="py-1 font-sans text-base font-medium text-muted transition-colors hover:text-accent"
+              className="flex min-h-11 items-center rounded-sm py-2 font-sans text-base font-medium text-muted transition-colors hover:text-accent"
             >
               {item.label}
             </Link>

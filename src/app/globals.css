@@ -365,3 +365,82 @@ a {
     transform: none;
   }
 }
+
+/* Currículo: texto selecionável e layout próprio para impressão em A4. */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  html:has(.resume-page) {
+    color-scheme: light;
+    --background: #ffffff;
+    --foreground: #17201f;
+    --muted: #3d4c48;
+    --accent: #305953;
+    --border: #d9e1df;
+  }
+
+  body:has(.resume-page) {
+    display: block;
+    min-height: auto;
+    background: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    transition: none;
+  }
+
+  body:has(.resume-page) > header,
+  body:has(.resume-page) > footer,
+  body:has(.resume-page) > a,
+  .resume-actions {
+    display: none !important;
+  }
+
+  .resume-page {
+    max-width: none;
+    padding: 0;
+  }
+
+  .resume-page section {
+    margin-top: 18pt;
+  }
+
+  .resume-page h1 {
+    font-size: 24pt;
+  }
+
+  .resume-page h1,
+  .resume-page h2,
+  .resume-page h3 {
+    font-family: inherit;
+    letter-spacing: normal;
+  }
+
+  .resume-page h2 {
+    break-after: avoid;
+    font-size: 13pt;
+  }
+
+  .resume-page h3 {
+    break-after: avoid;
+    font-size: 11pt;
+  }
+
+  .resume-page p,
+  .resume-page li,
+  .resume-page dd {
+    font-size: 10pt;
+    line-height: 1.5;
+  }
+
+  .resume-entry {
+    break-inside: avoid;
+  }
+
+  .resume-page a {
+    color: inherit;
+    text-decoration: none;
+  }
+}

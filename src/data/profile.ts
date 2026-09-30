@@ -6,9 +6,9 @@ export const PROFILE_DATA: Profile = {
   positioning:
     "Backend e modernização de sistemas em produção.",
   headline:
-    "Desenvolvo e modernizo aplicações com Laravel, Node.js e TypeScript, conectando decisões de arquitetura às necessidades do negócio.",
+    "Transformo regras de negócio complexas em aplicações com Laravel, Node.js e TypeScript — da modelagem de dados à interface e ao deploy.",
   experienceSince: "2019",
-  domain: "eloandev.fyi",
+  domain: "me.emfsystems.com.br",
   location: "Brasil",
   availableForWork: true,
   availabilityLabel: "Aberto a oportunidades",
@@ -48,7 +48,7 @@ export const PROFILE_DATA: Profile = {
     alt: "Eloan Ferreira - Full Stack Developer",
   },
   summary:
-    "Minha trajetória em desenvolvimento começou em 2019. Atuo da modelagem de dados ao deploy, com experiência em aplicações web e mobile, integração de APIs e sustentação. Na READI, participo da modernização da plataforma, de revisões de código e de automações da operação.",
+    "Atuo em desenvolvimento de software desde 2019, com experiência em aplicações web e mobile, APIs e sistemas em produção. Na READI, sou responsável técnico pela consolidação da plataforma em um monólito modular Laravel. Meu foco é reduzir a complexidade da operação, preservar as regras do negócio e entregar soluções que a equipe consiga manter e evoluir.",
   socials: {
     github: {
       name: "GitHub",

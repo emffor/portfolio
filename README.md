@@ -2,7 +2,7 @@
 
 Portfólio profissional de **Eloan Ferreira | Full Stack Developer**, projetado com foco em clareza, alta performance, tipografia forte e apresentação direta para processos seletivos e oportunidades técnicas de alto impacto.
 
-- **Domínio de produção:** [eloandev.fyi](https://eloandev.fyi)
+- **Domínio de produção:** [me.emfsystems.com.br](https://me.emfsystems.com.br/)
 - **GitHub:** [github.com/emffor](https://github.com/emffor)
 - **LinkedIn:** [linkedin.com/in/eloanferreira](https://linkedin.com/in/eloanferreira)
 
@@ -10,7 +10,7 @@ Portfólio profissional de **Eloan Ferreira | Full Stack Developer**, projetado 
 
 ## 🎯 Objetivo
 
-Apresentar de maneira objetiva e estruturada a trajetória profissional de mais de 7 anos em engenharia de software, destacando competências com ecossistemas **TypeScript/Node.js** e **PHP/Laravel**, capacidade de modelagem de arquiteturas escaláveis e projetos reais em produção.
+Apresentar de maneira objetiva e estruturada a trajetória profissional iniciada em 2019, destacando competências com ecossistemas **TypeScript/Node.js** e **PHP/Laravel**, decisões de arquitetura e projetos reais em produção.
 
 ---
 
@@ -21,7 +21,7 @@ Apresentar de maneira objetiva e estruturada a trajetória profissional de mais 
 - **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
 - **Package Manager:** [pnpm](https://pnpm.io/)
 - **Linter & Qualidade:** [ESLint](https://eslint.org/)
-- **SEO & Metadados:** Metadata API nativa, Open Graph, `robots.ts` e `sitemap.ts`
+- **SEO & Metadados:** Metadata API nativa, Open Graph, JSON-LD de perfil e cases, `robots.ts` e `sitemap.ts`
 
 ---
 
@@ -91,7 +91,7 @@ Interações de teclado, tema, carrossel e galeria também devem ser verificadas
 
 ## Apresentação dos projetos
 
-- Os dois primeiros projetos em `featuredOrder` recebem destaque editorial na home.
+- O primeiro projeto em `featuredOrder` recebe destaque editorial na home; os demais formam uma grade equilibrada.
 - Os cards apresentam contexto, atuação, entrega principal e tecnologias selecionadas.
 - Cada case inclui resumo, atuação, entregas, contexto, solução e stack. Arquitetura,
   decisões, limites e galeria aparecem conforme os dados disponíveis.
@@ -100,11 +100,21 @@ Interações de teclado, tema, carrossel e galeria também devem ser verificadas
   preferência de movimento reduzido desabilita a rotação automática.
 - As prévias de compartilhamento são geradas em PNG para cada projeto em
   `/projetos/[slug]/opengraph-image`.
+- Competências possuem links para exemplos nos cases e na experiência profissional.
+- Aplicações com acesso controlado podem informar `accessNote` com orientação para solicitar uma demonstração.
 
 Ao editar o conteúdo, diferencie produto, case corporativo e estudo técnico.
 Descreva entregas verificáveis e sua participação; inclua métricas somente quando
 houver contexto e dados que as sustentem. Capturas de demonstração e diagramas
 conceituais devem ser identificados nas legendas.
+
+## Currículo
+
+A rota `/curriculo` reúne resumo, competências, experiência, projetos, formação e
+contatos a partir das mesmas fontes tipadas do portfólio. O botão **Imprimir / salvar
+em PDF** abre a impressão do navegador; selecione **Salvar como PDF** para exportar.
+O layout de impressão usa fundo claro e formato A4, mantém o texto selecionável e
+oculta a navegação e os controles. Revise os dados em `src/data/` antes de compartilhar.
 
 ---
 
@@ -195,6 +205,8 @@ A arquitetura foi projetada para separar dados de apresentação. Para adicionar
 
 ---
 
-## 📜 Licença
+## Propriedade e conteúdo
 
-Distribuído sob a licença MIT. Consulte os arquivos do projeto para mais informações.
+As informações profissionais e capturas estão publicadas para apresentação do
+portfólio. Projetos corporativos e produtos com código privado mantêm os avisos de
+propriedade e confidencialidade indicados em seus respectivos cases.

@@ -149,6 +149,58 @@ test("as páginas do sitemap têm metadados, landmarks e links internos válidos
   }
 });
 
+test("o currículo é acessível pela home, indexável e completo no HTML do servidor", async () => {
+  const home = markup(await getPage("/"));
+  assert.ok(home.includes('href="/curriculo"'));
+  const sitemap = await getPage("/sitemap.xml");
+  assert.ok([...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].some(([, url]) => new URL(url).pathname === "/curriculo"));
+
+  const html = markup(await getPage("/curriculo"));
+  assert.ok(html.includes("Imprimir / salvar em PDF"));
+  for (const section of ["Resumo profissional", "Competências técnicas", "Experiência profissional", "Projetos selecionados", "Formação e idiomas"]) {
+    assert.ok(html.includes(section), `Seção ausente no currículo: ${section}`);
+  }
+  for (const company of ["READI", "Velty", "Nestec", "SN Representação", "Data Business"]) {
+    assert.ok(html.includes(company), `Experiência ausente no currículo: ${company}`);
+  }
+  assert.match(html, /href="mailto:[^"]+"/);
+  assert.ok(html.replaceAll("<!-- -->", "").includes("Inglês: Intermediário B1"));
+  assert.doesNotMatch(html, /madeireira@email\.com|123123/);
+});
+
+test("os dados estruturados identificam o autor e a hierarquia de cada case", async () => {
+  function schemas(html) {
+    return [...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)]
+      .map(([, content]) => JSON.parse(content));
+  }
+
+  const [profile] = schemas(await getPage("/"));
+  assert.equal(profile["@type"], "ProfilePage");
+  assert.equal(profile.mainEntity["@type"], "Person");
+  assert.equal(profile.mainEntity.name, "Eloan Ferreira");
+  assert.ok(profile.mainEntity.sameAs.includes("https://github.com/emffor"));
+
+  const sitemap = await getPage("/sitemap.xml");
+  const routes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(([, url]) => new URL(url).pathname).filter((route) => route.startsWith("/projetos/"));
+  for (const route of routes) {
+    const [schema] = schemas(await getPage(route));
+    const work = schema["@graph"].find((item) => item["@type"] === "CreativeWork");
+    const breadcrumb = schema["@graph"].find((item) => item["@type"] === "BreadcrumbList");
+    assert.equal(new URL(work.url).pathname, route);
+    assert.equal(work.author["@id"], profile.mainEntity["@id"]);
+    assert.equal(new URL(breadcrumb.itemListElement[1].item).pathname, route);
+    assert.equal(breadcrumb.itemListElement[1].name, work.name);
+  }
+});
+
+test("o Investidor explica o acesso controlado e oferece solicitação de demonstração", async () => {
+  const html = markup(await getPage("/projetos/investidor"));
+  const accessNote = html.indexOf("A aplicação tem acesso controlado.");
+  assert.ok(accessNote >= 0 && accessNote < html.indexOf('id="contexto"'));
+  assert.match(html, /href="mailto:[^"]+\?subject=Demonstra/);
+  assert.ok(html.includes("Solicitar demonstração"));
+});
+
 test("o case adicional retorna à seção correspondente sem entrar na navegação principal", async () => {
   const html = markup(await getPage("/projetos/bruna-e-eloan"));
   assert.ok(html.includes('href="/#projetos-adicionais"'));

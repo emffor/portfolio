@@ -29,7 +29,7 @@ export function SectionHeading({
           {tag}
         </p>
       )}
-      <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+      <h2 className="mt-2 text-balance font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
         {title}
       </h2>
       <div

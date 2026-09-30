@@ -20,7 +20,7 @@ export const PROJECTS: readonly Project[] = [
     featuredOrder: 0,
     status: "Demonstração online disponível",
     shortDescription:
-      "SaaS multi-empresa para madeireiras com conformidade DOF/IBAMA, estoque duplo e mapa visual de pátio.",
+      "SaaS multiempresa para madeireiras: conciliação de estoque legal e físico, rastreabilidade de DOFs e mapa interativo do pátio.",
     fullDescription:
       "SaaS multi-empresa para madeireiras e serrarias reguladas pelo IBAMA. Une conformidade legal do DOF (Documento de Origem Florestal) com a operação real de pátio: controla saldo legal em m³ e estoque físico em peças simultaneamente, com mapa visual do pátio em canvas, movimentações auditáveis e relatórios para fiscalização.",
     image: "/assets/rastro-florestal.png",
@@ -324,7 +324,7 @@ export const PROJECTS: readonly Project[] = [
     featuredOrder: 1,
     status: "Aplicação online com acesso controlado",
     shortDescription:
-      "Plataforma Full Stack para consolidação e análise de investimentos, integrando múltiplas fontes de dados financeiros em uma experiência única para carteira, renda, empresas, dividendos e valuation.",
+      "Plataforma de investimentos que reúne carteira, renda e análise de empresas, com API própria para integrar e normalizar fontes de dados financeiros.",
     fullDescription:
       "Produto autoral para acompanhar carteira, renda e patrimônio, consultar empresas e analisar dividendos e referências de valuation. Uma API própria integra e normaliza dados financeiros externos para a aplicação.",
     image: "/assets/investidor/valuationEmpresa.png",
@@ -382,6 +382,7 @@ export const PROJECTS: readonly Project[] = [
     projectUrl: "https://investidor.emfsystems.com.br",
     projectUrlLabel: "Acessar aplicação",
     sourceNote: "Código-fonte privado. Projeto autoral.",
+    accessNote: "A aplicação tem acesso controlado. Entre em contato para solicitar uma demonstração e conhecer os fluxos do produto.",
     brief: [
       {
         label: "Problema",

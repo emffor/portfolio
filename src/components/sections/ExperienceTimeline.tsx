@@ -32,7 +32,7 @@ export async function ExperienceTimeline() {
     >
       <SectionHeading
         tag="Trajetória"
-        title="Experiência Profissional"
+        title="Experiência profissional"
         description="Onde trabalhei e quais responsabilidades assumi em cada etapa."
       />
 
@@ -91,7 +91,7 @@ export async function ExperienceTimeline() {
                     {exp.role}
                   </p>
                 </div>
-                <p className="shrink-0 font-mono text-xs text-muted">
+                <p className="font-mono text-xs leading-relaxed text-muted sm:max-w-64 sm:text-right">
                   {exp.period}
                   {exp.location ? ` · ${exp.location}` : ""}
                   {exp.workModel ? ` · ${exp.workModel}` : ""}

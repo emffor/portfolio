@@ -6,10 +6,45 @@ import { ExperienceTimeline } from "@/components/sections/ExperienceTimeline";
 import { TechStack } from "@/components/sections/TechStack";
 import { ExperienceSummary } from "@/components/sections/ExperienceSummary";
 import { ContactCta } from "@/components/sections/ContactCta";
+import { PROFILE_DATA } from "@/data/profile";
+import { SKILL_AREAS } from "@/data/skills";
+import { SITE_URL } from "@/lib/constants";
+
+const profileSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${SITE_URL}/#profile`,
+  url: SITE_URL,
+  name: `${PROFILE_DATA.name} — Portfólio profissional`,
+  inLanguage: "pt-BR",
+  mainEntity: {
+    "@type": "Person",
+    "@id": `${SITE_URL}/#person`,
+    name: PROFILE_DATA.name,
+    url: SITE_URL,
+    jobTitle: PROFILE_DATA.title,
+    description: PROFILE_DATA.summary,
+    ...(PROFILE_DATA.photo && {
+      image: new URL(PROFILE_DATA.photo.src, SITE_URL).href,
+    }),
+    sameAs: [PROFILE_DATA.socials.github.url, PROFILE_DATA.socials.linkedin.url],
+    knowsAbout: [...new Set(SKILL_AREAS.flatMap((area) => area.items))],
+    alumniOf: {
+      "@type": "EducationalOrganization",
+      name: PROFILE_DATA.education.institution,
+    },
+  },
+};
 
 export default function Home() {
   return (
     <div className="mx-auto min-w-0 max-w-[1200px] px-5 sm:px-8 lg:px-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(profileSchema).replace(/</g, "\\u003c"),
+        }}
+      />
       <Hero />
       <ExperienceSummary />
       <FeaturedProjects />

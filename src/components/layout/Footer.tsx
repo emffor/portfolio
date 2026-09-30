@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { PROFILE_DATA } from "@/data/profile";
 
 export function Footer() {
@@ -7,7 +8,7 @@ export function Footer() {
   return (
     <footer
       role="contentinfo"
-      className="mt-auto w-full py-10 transition-colors"
+      className="mt-auto w-full border-t border-border py-8 transition-colors"
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10">
         <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
@@ -19,13 +20,16 @@ export function Footer() {
             </span>
           </p>
 
-          <div className="flex items-center gap-5 font-sans text-sm font-medium text-muted">
+          <div className="flex flex-wrap items-center gap-5 font-sans text-sm font-medium text-muted">
+            <Link href="/curriculo" className="inline-flex min-h-11 items-center transition-colors hover:text-accent">
+              Currículo
+            </Link>
             <a
               href={PROFILE_DATA.socials.github.url}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={PROFILE_DATA.socials.github.label}
-              className="transition-colors hover:text-accent"
+              className="inline-flex min-h-11 items-center transition-colors hover:text-accent"
             >
               GitHub
             </a>
@@ -34,7 +38,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={PROFILE_DATA.socials.linkedin.label}
-              className="transition-colors hover:text-accent"
+              className="inline-flex min-h-11 items-center transition-colors hover:text-accent"
             >
               LinkedIn
             </a>

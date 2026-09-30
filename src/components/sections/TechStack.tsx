@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { SKILL_AREAS } from "@/data/skills";
 import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -13,8 +14,8 @@ export function TechStack() {
     >
       <SectionHeading
         tag="Competências"
-        title="Competências Técnicas"
-        description="Tecnologias, padrões de arquitetura e ferramentas aplicadas na sustentação, evolução e entrega de sistemas em produção."
+        title="Competências aplicadas"
+        description="Minha stack de trabalho, conectada a exemplos de implementação nos projetos e na experiência profissional."
       />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -24,16 +25,16 @@ export function TechStack() {
             className="flex flex-col justify-between rounded-xl border border-border bg-surface p-5 transition-colors hover:border-accent/40 last:odd:sm:col-span-2"
           >
             <div>
-              <div className="mb-2 flex items-center gap-2.5">
+              <div className="mb-3 flex items-center gap-2.5">
                 <span className="flex h-8 w-8 items-center justify-center rounded-md border border-accent/30 bg-accent-soft text-accent">
                   <SkillIcon name={area.icon} />
                 </span>
-                <h3 className="font-display text-sm font-semibold tracking-tight text-foreground">
+                <h3 className="font-display text-base font-semibold tracking-tight text-foreground">
                   {area.title}
                 </h3>
               </div>
               {area.description && (
-                <p className="mb-3.5 font-sans text-xs text-muted leading-relaxed">
+                <p className="mb-4 font-sans text-sm text-muted leading-relaxed">
                   {area.description}
                 </p>
               )}
@@ -45,6 +46,12 @@ export function TechStack() {
                 </li>
               ))}
             </ul>
+            {area.evidence && (
+              <Link href={area.evidence.href} className="mt-4 inline-flex min-h-11 items-center gap-2 self-start rounded-sm text-sm font-medium text-accent underline underline-offset-4">
+                {area.evidence.label}
+                <span aria-hidden="true">→</span>
+              </Link>
+            )}
           </article>
         ))}
       </div>

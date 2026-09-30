@@ -76,6 +76,14 @@ export function Button({
       );
     }
 
+    if (href.startsWith("mailto:") || href.startsWith("tel:")) {
+      return (
+        <a href={href} className={combinedClasses} {...anchorProps}>
+          {children}
+        </a>
+      );
+    }
+
     return (
       <Link href={href} className={combinedClasses} {...anchorProps}>
         {children}
@@ -85,6 +93,7 @@ export function Button({
 
   return (
     <button
+      type="button"
       className={combinedClasses}
       {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
     >

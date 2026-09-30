@@ -72,4 +72,8 @@ export interface SkillArea {
   icon: SkillIconName;
   description?: string;
   items: readonly string[];
+  evidence?: {
+    label: string;
+    href: string;
+  };
 }

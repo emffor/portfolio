@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { ProjectGallery } from "@/components/ui/ProjectGallery";
 import { ProjectArchitectureDiagram } from "@/components/ui/ProjectArchitecture";
+import { PROFILE_DATA } from "@/data/profile";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -110,14 +111,52 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     ...(project.outcomes?.length ? [{ id: "entregas", label: "Entregas e evidências" }] : []),
     { id: "contexto", label: "Contexto e problema" },
     { id: "solucao", label: "Solução" },
+    ...(project.technicalChallenges.length ? [{ id: "desafios", label: "Desafios técnicos" }] : []),
     ...(project.architecture ? [{ id: "arquitetura", label: "Arquitetura" }] : []),
     ...(project.decisions?.length ? [{ id: "decisoes", label: "Decisões e trade-offs" }] : []),
+    ...(project.authNote || project.limitationNote ? [{ id: "limites", label: "Limites da implementação" }] : []),
     { id: "stack", label: "Stack do projeto" },
     ...(project.screenshots?.length ? [{ id: "telas", label: "Telas do projeto" }] : []),
   ];
 
+  const caseUrl = `${SITE_URL}/projetos/${project.slug}`;
+  const caseSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CreativeWork",
+        "@id": `${caseUrl}#case`,
+        name: project.title,
+        description: project.shortDescription,
+        url: caseUrl,
+        image: new URL(project.image, SITE_URL).href,
+        inLanguage: "pt-BR",
+        author: {
+          "@type": "Person",
+          "@id": `${SITE_URL}/#person`,
+          name: AUTHOR_NAME,
+          url: SITE_URL,
+        },
+        keywords: (project.primaryTechnologies ?? project.technologies).join(", "),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Portfólio", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: project.title, item: caseUrl },
+        ],
+      },
+    ],
+  };
+
   return (
     <article className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10 py-10 sm:py-16 space-y-10 sm:space-y-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(caseSchema).replace(/</g, "\\u003c"),
+        }}
+      />
       <nav aria-label="Navegação do case">
         <Link
           href={project.featured ? "/#projetos" : "/#projetos-adicionais"}
@@ -239,6 +278,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {project.sourceNote && (
           <p className="text-sm leading-relaxed text-muted">{project.sourceNote}</p>
         )}
+        {project.accessNote && (
+          <div className="max-w-2xl space-y-3 rounded-lg border border-border bg-surface p-4">
+            <p className="text-sm leading-relaxed text-muted">{project.accessNote}</p>
+            {PROFILE_DATA.socials.email && (
+              <Button
+                href={`mailto:${PROFILE_DATA.socials.email}?subject=${encodeURIComponent(`Demonstração do projeto ${project.title}`)}`}
+                variant="outline"
+                size="sm"
+              >
+                Solicitar demonstração
+              </Button>
+            )}
+          </div>
+        )}
 
         <ProjectImageCarousel
           key={project.slug}
@@ -341,7 +394,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </section>
 
           {project.technicalChallenges.length > 0 && (
-            <section aria-label="Desafios técnicos" className="space-y-3">
+            <section id="desafios" aria-label="Desafios técnicos" className="scroll-mt-20 space-y-3">
               <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
                 Principais desafios técnicos
               </h2>
@@ -404,7 +457,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           )}
 
           {project.authNote && (
-            <section aria-label="Observação sobre autenticação" className="space-y-3">
+            <section id="limites" aria-label="Observação sobre autenticação" className="scroll-mt-20 space-y-3">
               <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
                 Nota sobre autenticação
               </h2>
@@ -415,7 +468,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           )}
 
           {project.limitationNote && (
-            <section aria-label="Limites da implementação" className="space-y-3 rounded-lg border border-border bg-surface p-5">
+            <section id={project.authNote ? undefined : "limites"} aria-label="Limites da implementação" className="scroll-mt-20 space-y-3 rounded-lg border border-border bg-surface p-5">
               <h2 className="font-display text-xl font-semibold tracking-tight">Limites da implementação</h2>
               <p className="text-sm leading-relaxed text-muted">{project.limitationNote}</p>
             </section>

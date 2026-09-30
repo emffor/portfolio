@@ -7,13 +7,17 @@ export const SKILL_AREAS: readonly SkillArea[] = [
     description:
       "Desenvolvimento de APIs REST, regras de negócio e modernização de legado com Laravel/PHP, Node.js e Python.",
     items: [
-      "Laravel 11",
+      "Laravel",
       "PHP 8.2+",
       "Node.js",
       "TypeScript",
       "Python",
       "REST APIs",
     ],
+    evidence: {
+      label: "API e integrações no Investidor",
+      href: "/projetos/investidor#solucao",
+    },
   },
   {
     title: "Dados & Infraestrutura",
@@ -28,6 +32,10 @@ export const SKILL_AREAS: readonly SkillArea[] = [
       "AWS",
       "CI/CD",
     ],
+    evidence: {
+      label: "Migração de dados na READI",
+      href: "/projetos/consolidacao-arquitetural#contexto",
+    },
   },
   {
     title: "Arquitetura & Qualidade",
@@ -42,6 +50,10 @@ export const SKILL_AREAS: readonly SkillArea[] = [
       "Code Review",
       "Testes Automatizados",
     ],
+    evidence: {
+      label: "Decisões na modernização da READI",
+      href: "/projetos/consolidacao-arquitetural#decisoes",
+    },
   },
   {
     title: "Frontend & Interfaces",
@@ -49,12 +61,16 @@ export const SKILL_AREAS: readonly SkillArea[] = [
     description:
       "Dashboards operacionais, mapas em canvas interativo e SPAs responsivas com ecossistema React.",
     items: [
-      "React 19",
+      "React",
       "Next.js",
       "TypeScript",
       "Tailwind CSS",
       "HTML5 Canvas",
     ],
+    evidence: {
+      label: "Mapa de pátio no Rastro Florestal",
+      href: "/projetos/rastro-florestal#telas",
+    },
   },
   {
     title: "IA & Automações",
@@ -67,5 +83,9 @@ export const SKILL_AREAS: readonly SkillArea[] = [
       "Automação de Portais",
       "Python Scripting",
     ],
+    evidence: {
+      label: "Automações na experiência profissional",
+      href: "/#experiencia",
+    },
   },
 ] as const;

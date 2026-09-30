@@ -12,11 +12,10 @@ export function DesktopNav() {
   useEffect(() => {
     if (pathname !== "/") return;
 
+    const sections = NAVIGATION_ITEMS.map((item) => item.href.replace("/#", ""));
+    let frame: number | undefined;
     const handleScroll = () => {
-      const sections = NAVIGATION_ITEMS.map((item) =>
-        item.href.replace("/#", "")
-      );
-
+      frame = undefined;
       if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
         setActiveSection(sections[sections.length - 1] ?? "");
         return;
@@ -35,12 +34,17 @@ export function DesktopNav() {
       setActiveSection("");
     };
 
+    const scheduleUpdate = () => {
+      if (frame === undefined) frame = window.requestAnimationFrame(handleScroll);
+    };
+
     handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
+      if (frame !== undefined) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
     };
   }, [pathname]);
 
@@ -58,7 +62,7 @@ export function DesktopNav() {
             key={item.href}
             href={item.href}
             aria-current={isActive ? "location" : undefined}
-            className={`relative py-1.5 transition-colors duration-200 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded ${
+            className={`relative inline-flex min-h-11 items-center transition-colors duration-200 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded ${
               isActive ? "text-accent font-semibold" : "text-muted"
             }`}
           >
