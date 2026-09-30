@@ -65,9 +65,9 @@ function markup(html) {
   return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "");
 }
 
-test("a home apresenta os quatro cases e os caminhos para contato", async () => {
+test("a home apresenta os cinco cases e os caminhos para contato", async () => {
   const html = markup(await getPage("/"));
-  for (const slug of ["rastro-florestal", "consolidacao-arquitetural", "task-markdown", "vidora"]) {
+  for (const slug of ["rastro-florestal", "investidor", "consolidacao-arquitetural", "task-markdown", "vidora"]) {
     assert.ok(html.includes(`href="/projetos/${slug}"`), `Case ausente: ${slug}`);
   }
   const featuredSectionStart = html.indexOf('<section id="projetos"');
@@ -75,6 +75,7 @@ test("a home apresenta os quatro cases e os caminhos para contato", async () => 
   const featuredSection = html.slice(featuredSectionStart, featuredSectionEnd);
   const featuredOrder = [
     "rastro-florestal",
+    "investidor",
     "consolidacao-arquitetural",
     "task-markdown",
     "vidora",
@@ -99,11 +100,23 @@ test("a home apresenta os quatro cases e os caminhos para contato", async () => 
   }
 });
 
+test("o case Investidor usa a aplicação pública sem expor GitHub", async () => {
+  const html = markup(await getPage("/projetos/investidor"));
+  const caseContent = html.slice(html.indexOf("<main"), html.indexOf("</main>"));
+  assert.ok(html.includes('href="https://investidor.emfsystems.com.br"'));
+  assert.ok(html.includes("Acessar aplicação"));
+  assert.ok(html.includes("Código-fonte privado. Projeto autoral."));
+  assert.doesNotMatch(caseContent, /github|ver no github/i);
+  assert.doesNotMatch(caseContent, /investidor-emffor\.netlify\.app|api-investidor\.emfforai\.shop/);
+  assert.ok(caseContent.includes('src="/_next/image?url=%2Fassets%2Finvestidor%2FvaluationEmpresa.png'));
+});
+
 test("as páginas do sitemap têm metadados, landmarks e links internos válidos", async () => {
   const sitemap = await getPage("/sitemap.xml");
   const routes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => new URL(match[1]).pathname);
   assert.ok(routes.includes("/projetos/consolidacao-arquitetural"));
   assert.ok(routes.includes("/projetos/bruna-e-eloan"));
+  assert.ok(routes.includes("/projetos/investidor"));
 
   for (const route of routes) {
     const html = markup(await getPage(route));
@@ -157,7 +170,7 @@ test("todos os cases apresentam atuação, entregas, stack e resumo com âncoras
 });
 
 test("cada case tem prévia social própria em PNG disponível para compartilhamento", async () => {
-  for (const slug of ["rastro-florestal", "consolidacao-arquitetural", "task-markdown", "vidora", "bruna-e-eloan"]) {
+  for (const slug of ["rastro-florestal", "investidor", "consolidacao-arquitetural", "task-markdown", "vidora", "bruna-e-eloan"]) {
     const route = `/projetos/${slug}`;
     const html = markup(await getPage(route));
     for (const property of ['property="og:image"', 'name="twitter:image"']) {

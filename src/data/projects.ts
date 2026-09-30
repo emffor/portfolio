@@ -183,7 +183,7 @@ export const PROJECTS: readonly Project[] = [
     kind: "modernization",
     category: "Arquitetura & Engenharia de Dados",
     featured: true,
-    featuredOrder: 1,
+    featuredOrder: 2,
     status: "Em produção na READI",
     shortDescription:
       "Consolidação de 11 microsserviços e 11 bancos de dados em um monólito modular Laravel, com migração do legado e sustentação em produção.",
@@ -316,12 +316,204 @@ export const PROJECTS: readonly Project[] = [
       "Projeto corporativo proprietário da READI — regras de negócio, dados e código-fonte são confidenciais e protegidos por sigilo contratual.",
   },
   {
+    title: "Investidor",
+    slug: "investidor",
+    kind: "product",
+    category: "Fintech & Dados Financeiros",
+    featured: true,
+    featuredOrder: 1,
+    status: "Aplicação online com acesso controlado",
+    shortDescription:
+      "Plataforma Full Stack para consolidação e análise de investimentos, integrando múltiplas fontes de dados financeiros em uma experiência única para carteira, renda, empresas, dividendos e valuation.",
+    fullDescription:
+      "Produto autoral para acompanhar carteira, renda e patrimônio, consultar empresas e analisar dividendos e referências de valuation. Uma API própria integra e normaliza dados financeiros externos para a aplicação.",
+    image: "/assets/investidor/valuationEmpresa.png",
+    imageAlt: "Análise de empresa com métricas financeiras e referências de valuation Graham, Bazin e Damodaran",
+    imageCaption:
+      "Detalhe de empresa com referências Graham e Bazin e framework Damodaran que explicita completude e limitações dos dados.",
+    primaryTechnologies: [
+      "Laravel",
+      "React",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "React Query",
+    ],
+    roleLabel: "Desenvolvimento Full Stack de produto autoral",
+    outcomeSummary:
+      "Carteira, renda e análises financeiras reunidas em uma aplicação com acesso controlado.",
+    outcomes: [
+      {
+        title: "Visão financeira consolidada",
+        description:
+          "Áreas para carteira, patrimônio, renda, dividendos, agenda, extrato e imposto de renda.",
+      },
+      {
+        title: "Análise de empresas",
+        description:
+          "Busca global e detalhes de empresas com indicadores, dividendos e ferramentas de valuation.",
+      },
+      {
+        title: "Integrações acompanhadas",
+        description:
+          "API própria para integrar e normalizar fontes externas, com monitoramento de disponibilidade e alterações de contrato.",
+      },
+    ],
+    technologies: [
+      "Laravel 13",
+      "PHP 8.3",
+      "PostgreSQL 16",
+      "Docker",
+      "Docker Compose",
+      "React 19",
+      "TypeScript",
+      "Vite 8",
+      "Tailwind CSS 4",
+      "TanStack React Query",
+      "Axios",
+      "Recharts",
+      "PHPUnit",
+      "Vitest",
+      "Testing Library",
+    ],
+    projectUrl: "https://investidor.emfsystems.com.br",
+    projectUrlLabel: "Acessar aplicação",
+    sourceNote: "Código-fonte privado. Projeto autoral.",
+    brief: [
+      {
+        label: "Problema",
+        text: "Dados de carteira, dividendos, empresas e análises financeiras ficam distribuídos entre diferentes fontes e ferramentas, dificultando uma visão consolidada do patrimônio e da geração de renda.",
+      },
+      {
+        label: "Decisão",
+        text: "Centralizar integrações em uma API Laravel responsável pelo controle de acesso, normalização e orquestração de provedores externos, mantendo o frontend React desacoplado das particularidades de cada fonte.",
+      },
+      {
+        label: "Trade-off",
+        text: "A dependência de provedores externos demanda considerar indisponibilidades, cache, renovação de credenciais e mudanças de contrato, além do isolamento cuidadoso de dados sensíveis.",
+      },
+      {
+        label: "Entrega",
+        text: "Aplicação Full Stack responsiva com acompanhamento de renda e patrimônio, análise de empresas, dividendos, agenda, extrato, imposto de renda e ferramentas de valuation.",
+      },
+    ],
+    context:
+      "Informações de carteira, renda, empresas e análises financeiras chegam de fontes distintas. O produto reúne essas áreas em uma aplicação e concentra a integração com provedores externos em uma API própria.",
+    solution:
+      "O frontend em React e TypeScript consome uma API REST Laravel por meio de Axios e usa TanStack React Query para estado remoto e cache. A API concentra o gate de acesso, a normalização e a orquestração das integrações externas, protegendo o frontend das particularidades de cada provedor.\n\nA aplicação reúne acompanhamento de carteira, patrimônio e renda, consulta de empresas, dividendos, agenda, extrato, imposto de renda e ferramentas de análise. O framework baseado em metodologias de Damodaran classifica empresas, avalia completude e apresenta métricas e riscos; não calcula um valor numérico completo por DCF.",
+    technicalChallenges: [
+      "Integrar fontes financeiras externas e normalizar os dados para consumo por áreas distintas da aplicação.",
+      "Tratar indisponibilidade, cache e alterações nos contratos das integrações sem acoplar o frontend às respostas dos provedores.",
+      "Separar sessões de acesso e proteger credenciais e dados sensíveis, inclusive no modo de demonstração isolado.",
+      "Explicitar a completude e as limitações dos dados nas análises de valuation.",
+    ],
+    technicalHighlights: [
+      "API Laravel como camada de orquestração e normalização de múltiplas fontes financeiras.",
+      "Gate de acesso com Bearer tokens temporários, rate limiting e revogação de sessão.",
+      "Sessões isoladas para demonstração, separando dados e configurações do ambiente principal.",
+      "Segurança aplicada em integrações autenticadas, com gerenciamento de credenciais e proteção de segredos.",
+      "Monitoramento de disponibilidade e alterações de contrato/schema nas integrações externas.",
+      "Ferramentas de valuation com Graham e Bazin, além de framework de classificação e análise de completude baseado em metodologias de Damodaran.",
+      "Suíte automatizada no backend e frontend cobrindo integrações, contratos, regras de valuation e fluxos críticos.",
+    ],
+    decisions: [
+      {
+        title: "API própria como camada de integração",
+        benefit:
+          "Centraliza autenticação, normalização e orquestração, mantendo o frontend desacoplado dos contratos externos.",
+        cost:
+          "A camada precisa lidar com indisponibilidade, cache, renovação de credenciais e mudanças nos contratos dos provedores.",
+      },
+      {
+        title: "Acesso controlado com sessões isoladas de demonstração",
+        benefit:
+          "Tokens temporários, revogação e isolamento permitem controlar o acesso e separar os dados e as configurações da demonstração.",
+        cost:
+          "O gate de acesso não substitui um sistema tradicional de identidade e exige cuidado com o ciclo de vida das sessões.",
+      },
+      {
+        title: "Framework Damodaran orientado à completude",
+        benefit:
+          "Classificação, métricas, métodos aplicáveis e riscos podem ser apresentados sem ocultar limitações dos dados disponíveis.",
+        cost:
+          "O framework ainda não calcula um valor intrínseco numérico completo por DCF/NAV/FCFE.",
+      },
+    ],
+    myRole:
+      "Desenvolvimento Full Stack do produto: arquitetura da API Laravel e integração com provedores financeiros, construção da interface React, modelagem de dados, controle de acesso, segurança aplicada, monitoramento das integrações, testes e infraestrutura Docker.",
+    screenshots: [
+      {
+        src: "/assets/investidor/analiseDetalhadasEmpresas.png",
+        alt: "Detalhe de empresa com indicadores, abas de análise e referências de preço",
+        caption:
+          "Visão da empresa com indicadores e navegação entre áreas de análise financeira.",
+      },
+      {
+        src: "/assets/investidor/analiseDeCompraEmpresa.png",
+        alt: "Análise de empresa com critérios avaliados, cobertura dos dados e riscos",
+        caption:
+          "Análise orientada a renda que apresenta critérios, cobertura e riscos do recorte avaliado.",
+      },
+      {
+        src: "/assets/investidor/analiseIAEmpresas.png",
+        alt: "Análise detalhada de empresa com critérios financeiros e indicadores",
+        caption:
+          "Visão analítica de uma empresa com critérios financeiros e indicadores organizados por seção.",
+      },
+      {
+        src: "/assets/investidor/projecaoPagamentoDividendos.png",
+        alt: "Histórico anual de dividendos e projeção mensal de uma empresa",
+        caption:
+          "Consulta de histórico anual e projeções de dividendos no detalhe de uma empresa.",
+      },
+    ],
+    architecture: {
+      layers: [
+        {
+          label: "React 19 + TypeScript",
+          description:
+            "Interface responsiva com TanStack React Query, Axios e Recharts",
+        },
+        {
+          label: "REST / Axios",
+          description: "Comunicação entre a aplicação e a API própria",
+        },
+        {
+          label: "Laravel 13 API",
+          description:
+            "Gate de acesso, regras da aplicação e orquestração",
+        },
+        {
+          label: "Services e integrações",
+          description:
+            "Normalização de dados e isolamento das particularidades externas",
+        },
+        {
+          label: "APIs financeiras externas",
+          description: "Múltiplas fontes de dados financeiros",
+        },
+        {
+          label: "PostgreSQL 16 + cache",
+          description: "Persistência e suporte às integrações e sessões",
+        },
+      ],
+      infrastructureTitle: "Docker Compose",
+      infrastructureServices: [
+        "Frontend React",
+        "Laravel API",
+        "PostgreSQL 16",
+        "Cache",
+        "Makefile",
+      ],
+    },
+  },
+  {
     title: "Task Markdown",
     slug: "task-markdown",
     kind: "product",
     category: "Ferramenta para Desenvolvedores",
     featured: true,
-    featuredOrder: 2,
+    featuredOrder: 3,
     status: "Aplicação online disponível",
     shortDescription:
       "Ferramenta para organizar projetos e conteúdos em Markdown, com persistência local, drag-and-drop e visualização de diagramas técnicos.",
@@ -455,7 +647,7 @@ export const PROJECTS: readonly Project[] = [
     kind: "technical-study",
     category: "Arquitetura distribuída",
     featured: true,
-    featuredOrder: 3,
+    featuredOrder: 4,
     status: "Estudo técnico · código aberto",
     shortDescription:
       "Estudo de arquitetura distribuída para pesquisa de vídeos e favoritos, com API Gateway e serviços independentes.",
