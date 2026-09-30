@@ -466,6 +466,12 @@ export const PROJECTS: readonly Project[] = [
         caption:
           "Consulta de histórico anual e projeções de dividendos no detalhe de uma empresa.",
       },
+      {
+        src: "/assets/investidor/empresasRecomentadasValores.png",
+        alt: "Empresas recomendadas com quantidades sugeridas e indicadores financeiros",
+        caption:
+          "Empresas recomendadas com quantidades e valores apresentados para apoiar a análise de aporte.",
+      },
     ],
     architecture: {
       layers: [
