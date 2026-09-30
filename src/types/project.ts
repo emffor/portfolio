@@ -40,13 +40,21 @@ export interface ProjectDemoAccess {
   password: string;
 }
 
+export interface ProjectOutcome {
+  title: string;
+  description: string;
+}
+
 export interface Project {
   title: string;
   slug: string;
   shortDescription: string;
   fullDescription: string;
   image: string;
+  imageAlt?: string;
+  imageCaption?: string;
   technologies: readonly string[];
+  primaryTechnologies?: readonly string[];
   kind: ProjectKind;
   category: string;
   featured: boolean;
@@ -64,6 +72,10 @@ export interface Project {
   technicalHighlights?: readonly string[];
   decisions?: readonly ProjectDecision[];
   authNote?: string;
+  limitationNote?: string;
+  roleLabel?: string;
+  outcomeSummary?: string;
+  outcomes?: readonly ProjectOutcome[];
   myRole: string;
   screenshots?: readonly ProjectScreenshot[];
   architecture?: ProjectArchitecture;

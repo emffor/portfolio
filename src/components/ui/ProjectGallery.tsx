@@ -85,7 +85,7 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
                 src={shot.src}
                 alt={shot.alt}
                 fill
-                sizes="(max-width: 640px) 100vw, 400px"
+                sizes="(max-width: 639px) 100vw, 420px"
                 className="object-contain object-center"
               />
             </button>
@@ -173,7 +173,7 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
                       showPrev();
                     }}
                     aria-label="Imagem anterior (Seta para a esquerda)"
-                    className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white shadow-md backdrop-blur-sm transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white shadow-md backdrop-blur-sm transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   >
                     <svg
                       className="h-5 w-5"
@@ -197,7 +197,7 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
                       showNext();
                     }}
                     aria-label="Próxima imagem (Seta para a direita)"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white shadow-md backdrop-blur-sm transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white shadow-md backdrop-blur-sm transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   >
                     <svg
                       className="h-5 w-5"

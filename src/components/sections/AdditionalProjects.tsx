@@ -21,9 +21,12 @@ export async function AdditionalProjects() {
           Projetos adicionais
         </h2>
         <div aria-hidden="true" className="mt-3 h-1 w-12 rounded-full bg-accent" />
+        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
+          Outras aplicações que complementam minha experiência com interfaces, persistência e integrações de serviços.
+        </p>
       </div>
 
-      <div className="w-full">
+      <div className="w-full space-y-6">
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} compact />
         ))}

@@ -2,7 +2,7 @@ import { Project, ProjectKind } from "@/types/project";
 
 export const PROJECT_KIND_LABELS: Record<ProjectKind, string> = {
   product: "Produto",
-  modernization: "Modernização & Arquitetura",
+  modernization: "Case corporativo",
   "technical-study": "Estudo técnico",
 };
 
@@ -24,6 +24,25 @@ export const PROJECTS: readonly Project[] = [
     fullDescription:
       "SaaS multi-empresa para madeireiras e serrarias reguladas pelo IBAMA. Une conformidade legal do DOF (Documento de Origem Florestal) com a operação real de pátio: controla saldo legal em m³ e estoque físico em peças simultaneamente, com mapa visual do pátio em canvas, movimentações auditáveis e relatórios para fiscalização.",
     image: "/assets/rastro-florestal.png",
+    imageAlt: "Dashboard do Rastro Florestal com saldos de DOF, estoque e movimentações por lote",
+    imageCaption: "Visão operacional do produto com dados de demonstração. Os volumes exibidos ilustram o fluxo de estoque.",
+    primaryTechnologies: ["Laravel", "React", "PostgreSQL", "TypeScript"],
+    roleLabel: "Arquitetura e desenvolvimento Full Stack",
+    outcomeSummary: "Saldo legal em m³ e estoque físico em peças conectados à operação do pátio.",
+    outcomes: [
+      {
+        title: "Estoque conciliado",
+        description: "Controle de volume legal e peças físicas com alocação de DOFs por lote e débito casado nas movimentações.",
+      },
+      {
+        title: "Operação visual",
+        description: "Mapa interativo para organizar lotes, consultar ocupação e preparar a expedição com preview de saída.",
+      },
+      {
+        title: "Rastreabilidade",
+        description: "Histórico de movimentações, permissões por recurso e relatórios PDF/Excel para apoiar a conferência do estoque.",
+      },
+    ],
     technologies: [
       "Laravel 11",
       "PHP 8.2",
@@ -42,7 +61,7 @@ export const PROJECTS: readonly Project[] = [
     brief: [
       {
         label: "Problema",
-        text: "Empresas madeireiras sofriam autuações por controlar o DOF em planilhas desconectadas do pátio real, sem conciliação confiável entre volume legal (m³) e peças físicas.",
+        text: "O controle do DOF em planilhas desconectadas do pátio dificulta a conciliação entre volume legal (m³) e peças físicas, aumentando o risco de divergências e autuações.",
       },
       {
         label: "Decisão",
@@ -76,6 +95,18 @@ export const PROJECTS: readonly Project[] = [
       "Ofuscação de IDs sequenciais com Hashids e auditoria com Spatie Activity Log.",
       "Respostas de API padronizadas e autenticação com Laravel Sanctum.",
       "Relatórios PDF/Excel de DOF e movimentações prontos para fiscalização.",
+    ],
+    decisions: [
+      {
+        title: "Estoque legal e físico no mesmo fluxo",
+        benefit: "Cada movimentação relaciona peças e volume unitário, permitindo conferir o saldo do lote e sua origem documental.",
+        cost: "Exige validações e operações atômicas para que alocações, transferências e baixas mantenham os dois saldos consistentes.",
+      },
+      {
+        title: "Canvas para o mapa do pátio",
+        benefit: "React-Konva permite posicionar e rotacionar lotes em uma representação visual do espaço físico.",
+        cost: "O editor precisa tratar colisões, áreas bloqueadas e persistência do posicionamento dos lotes.",
+      },
     ],
     demoAccess: {
       email: "madeireira@email.com",
@@ -147,18 +178,37 @@ export const PROJECTS: readonly Project[] = [
     },
   },
   {
-    title: "Consolidação de Microsserviços e Modernização",
+    title: "Modernização da plataforma READI",
     slug: "consolidacao-arquitetural",
     kind: "modernization",
     category: "Arquitetura & Engenharia de Dados",
     featured: true,
     featuredOrder: 1,
-    status: "Arquitetura consolidada e sustentada em produção na READI",
+    status: "Em produção na READI",
     shortDescription:
-      "Unificação de 11 microsserviços e 11 bancos de dados independentes em um monólito modular em Laravel/PHP, reduzindo custos de nuvem e eliminando gargalos de consistência.",
+      "Consolidação de 11 microsserviços e 11 bancos de dados em um monólito modular Laravel, com migração do legado e sustentação em produção.",
     fullDescription:
-      "Reestruturação e consolidação profunda da plataforma corporativa da READI. O ecossistema anterior era distribuído em 11 microsserviços em Node.js com 11 bancos de dados independentes (PostgreSQL e SQL Server). A complexidade operacional desnecessária gerava sobrecarga de manutenção, latência e custo elevado. Liderei a estratégia e execução da unificação desses serviços em uma arquitetura modular coesa em Laravel/PHP, garantindo integridade de dados e sustentação contínua.",
+      "Modernização da plataforma corporativa da READI, anteriormente distribuída em 11 microsserviços Node.js e 11 bancos de dados independentes em PostgreSQL e SQL Server. Liderei a estratégia e a execução da consolidação em um monólito modular Laravel/PHP, com migração das regras de negócio, dos dados históricos e sustentação da nova arquitetura em produção.",
     image: "/assets/consolidacao-readi.svg",
+    imageAlt: "Diagrama da consolidação de 11 microsserviços Node.js em um monólito modular Laravel",
+    imageCaption: "Representação conceitual da mudança arquitetural. O diagrama não expõe dados ou detalhes internos da plataforma.",
+    primaryTechnologies: ["Laravel", "PostgreSQL", "SQL Server", "Docker"],
+    roleLabel: "Responsável técnico pela consolidação",
+    outcomeSummary: "11 microsserviços consolidados em uma arquitetura modular sustentada em produção.",
+    outcomes: [
+      {
+        title: "11 microsserviços consolidados",
+        description: "Regras de negócio antes distribuídas em Node.js migradas para módulos de uma aplicação Laravel/PHP.",
+      },
+      {
+        title: "11 bancos no escopo da migração",
+        description: "Mapeamento dos schemas legados, modelagem relacional e migração dos dados históricos para a estrutura consolidada.",
+      },
+      {
+        title: "Sustentação em produção",
+        description: "Operação da arquitetura consolidada com Docker, pipelines de CI/CD e manutenção dos limites entre domínios.",
+      },
+    ],
     technologies: [
       "Laravel 11",
       "PHP 8.2",
@@ -183,7 +233,7 @@ export const PROJECTS: readonly Project[] = [
       },
       {
         label: "Trade-off",
-        text: "Ganho substancial em simplicidade operacional, transações ACID reais e redução de custos de nuvem em troca de exigir disciplina rigorosa de limites de contexto e modularidade no código.",
+        text: "Menos comunicação entre serviços e operação centralizada, em troca de maior responsabilidade compartilhada no deploy e disciplina nos limites entre os módulos.",
       },
       {
         label: "O que eu faria diferente",
@@ -202,23 +252,23 @@ export const PROJECTS: readonly Project[] = [
       "Eliminar dependências circulares e chamadas HTTP síncronas entre domínios da aplicação.",
     ],
     technicalHighlights: [
-      "Redução expressiva nos custos mensais de servidores e licenças de banco de dados.",
-      "Eliminação de latência de rede inter-serviços com execução de processos em memória e transações ACID nativas.",
+      "Redução de custos de infraestrutura com a consolidação dos serviços.",
+      "Substituição de chamadas HTTP entre os módulos consolidados por chamadas internas à aplicação.",
       "Arquitetura modular em camadas com separação clara de domínios, services e repositórios.",
-      "Ambiente 100% conteinerizado com Docker e pipelines de CI/CD para deploy com zero atrito.",
+      "Ambiente conteinerizado com Docker e pipelines de CI/CD para padronizar build e deploy.",
       "Reconhecimento profissional como Destaque do Ano da empresa em 2024 e 2025 pelo impacto direto no produto e na operação.",
     ],
     decisions: [
       {
         title: "Monólito Modular vs Microsserviços Distribuídos",
         benefit:
-          "Eliminação da sobrecarga operacional, observabilidade centralizada, transações ACID e fim da latência de rede.",
+          "Operação centralizada e redução das chamadas de rede entre os domínios consolidados.",
         cost: "Exige rigor técnico contínuo em Code Review e Clean Architecture para evitar que limites de domínio se degradem com o tempo.",
       },
       {
         title: "Consolidação de Bancos de Dados",
         benefit:
-          "Integridade referencial real, joins nativos de alta performance e fim da necessidade de conciliações assíncronas.",
+          "Modelagem relacional integrada e consultas diretas entre dados antes distribuídos em bases independentes.",
         cost: "Complexidade inicial alta no plano de migração, limpeza de dados duplicados e compatibilidade de schemas.",
       },
       {
@@ -250,7 +300,7 @@ export const PROJECTS: readonly Project[] = [
         {
           label: "Bancos Consolidados (PostgreSQL / SQL Server)",
           description:
-            "Base relacional única com integridade referencial, índices otimizados e transações ACID",
+            "Persistência relacional dos módulos consolidados e migração das bases legadas",
         },
       ],
       infrastructureTitle: "Docker + CI/CD na Nuvem",
@@ -278,6 +328,25 @@ export const PROJECTS: readonly Project[] = [
     fullDescription:
       "Aplicação para organizar projetos e itens em Markdown, com renderização de conteúdo, persistência local, visualizações combinadas e diagramas técnicos.",
     image: "/assets/taskmarkdown/1.png",
+    imageAlt: "Workspace do Task Markdown com organização de conteúdos por projeto e ações de backup",
+    imageCaption: "Organização por projetos, com importação e exportação dos conteúdos armazenados no navegador.",
+    primaryTechnologies: ["Next.js", "TypeScript", "IndexedDB", "React-Konva"],
+    roleLabel: "Produto e desenvolvimento frontend",
+    outcomeSummary: "Workspace local-first para organizar Markdown, diagramas e backups por projeto.",
+    outcomes: [
+      {
+        title: "Conteúdo organizado",
+        description: "Projetos e itens em Markdown com ordenação por drag-and-drop e visualizações combinadas.",
+      },
+      {
+        title: "Persistência local",
+        description: "Projetos, itens e layouts salvos no IndexedDB, com importação e exportação para backup.",
+      },
+      {
+        title: "Diagramas técnicos",
+        description: "Edição de DBML e visualização de tabelas e relações em canvas, com persistência do estado visual.",
+      },
+    ],
     technologies: [
       "Next.js 14",
       "React 18",
@@ -311,9 +380,18 @@ export const PROJECTS: readonly Project[] = [
         label: "Entrega",
         text: "Aplicação funcional para organização de Markdown, manipulação de projetos, persistência local, backup e visualização de diagramas.",
       },
+    ],
+    limitationNote: "Os dados ficam no armazenamento do navegador; a portabilidade depende da exportação e restauração de backups. A renderização de HTML embutido utiliza rehype-raw sem plugin de sanitização configurado, uma limitação para o uso com conteúdo não confiável.",
+    decisions: [
       {
-        label: "HTML em Markdown",
-        text: "A renderização utiliza rehype-raw para processar HTML embutido, sem plugin de sanitização configurado.",
+        title: "Persistência local com IndexedDB",
+        benefit: "Mantém projetos e conteúdo no navegador, sem depender de um backend para as operações de armazenamento.",
+        cost: "Não oferece sincronização automática entre dispositivos e exige backup para proteger os dados de uma limpeza do navegador.",
+      },
+      {
+        title: "Diagramas em canvas",
+        benefit: "Permite explorar visualmente tabelas e relações a partir do DBML junto ao conteúdo técnico.",
+        cost: "O estado visual e a disposição dos elementos precisam ser persistidos além do conteúdo textual.",
       },
     ],
     context:
@@ -378,7 +456,7 @@ export const PROJECTS: readonly Project[] = [
     category: "Arquitetura distribuída",
     featured: true,
     featuredOrder: 3,
-    status: "Estudo técnico de arquitetura com código aberto no GitHub",
+    status: "Estudo técnico · código aberto",
     shortDescription:
       "Estudo de arquitetura distribuída para pesquisa de vídeos e favoritos, com API Gateway e serviços independentes.",
     brief: [
@@ -402,6 +480,25 @@ export const PROJECTS: readonly Project[] = [
     fullDescription:
       "Aplicação Full Stack estruturada em microsserviços, com API Gateway como ponto único de entrada e serviços independentes responsáveis por autenticação, vídeos e favoritos. O projeto demonstra separação de responsabilidades, integração com API externa, persistência isolada, comunicação entre serviços e testes automatizados.",
     image: "/assets/vidora.png",
+    imageAlt: "Interface do Vidora com pesquisa de vídeos e ações para adicionar favoritos",
+    imageCaption: "Interface do estudo técnico: pesquisa na YouTube Data API e favoritos por usuário.",
+    primaryTechnologies: ["TypeScript", "Express", "PostgreSQL", "Docker"],
+    roleLabel: "Arquitetura e desenvolvimento Full Stack",
+    outcomeSummary: "Gateway, serviços e persistência isolada para explorar os custos da arquitetura distribuída.",
+    outcomes: [
+      {
+        title: "Responsabilidades isoladas",
+        description: "Gateway e serviços de autenticação, vídeos e favoritos com contratos HTTP explícitos.",
+      },
+      {
+        title: "Integração externa",
+        description: "YouTube Data API normalizada por um Adapter, com timeout na comunicação entre serviços.",
+      },
+      {
+        title: "Ambiente reproduzível",
+        description: "Docker Compose, documentação OpenAPI e testes com Jest para explorar os fluxos da aplicação.",
+      },
+    ],
     technologies: [
       "TypeScript",
       "Express",
@@ -514,11 +611,31 @@ export const PROJECTS: readonly Project[] = [
     kind: "product",
     category: "Aplicação web · Pagamentos & integrações",
     featured: false,
+    status: "Aplicação de evento · online",
     shortDescription:
       "Aplicação web para casamento com confirmação de presença, lista de presentes, carrinho, pagamentos e persistência de mensagens dos convidados.",
     fullDescription:
       "Aplicação responsiva para reunir informações do casamento, confirmação de presença, lista de presentes, carrinho e mensagens dos convidados.",
     image: "/assets/brunaeeloan/capa.png",
+    imageAlt: "Página inicial da aplicação Bruna & Eloan com informações do casamento",
+    imageCaption: "Aplicação do evento com informações, confirmação de presença e lista de presentes.",
+    primaryTechnologies: ["React", "TypeScript", "Supabase", "Mercado Pago"],
+    roleLabel: "Desenvolvimento Full Stack e integrações",
+    outcomeSummary: "Informações do evento, confirmações de presença e presentes em uma experiência integrada.",
+    outcomes: [
+      {
+        title: "Informações centralizadas",
+        description: "Aplicação responsiva com detalhes e localização do evento para os convidados.",
+      },
+      {
+        title: "RSVP e mensagens",
+        description: "Confirmações de presença e mensagens com persistência no Supabase.",
+      },
+      {
+        title: "Fluxo de presentes",
+        description: "Lista de presentes, cálculo do carrinho e redirecionamento ao checkout do provedor de pagamentos.",
+      },
+    ],
     technologies: [
       "React",
       "TypeScript",

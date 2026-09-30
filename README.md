@@ -89,6 +89,23 @@ typecheck, lint, build e smoke tests em pushes e pull requests. Os smoke tests
 verificam rotas, metadados, links internos, imagens, acesso à demonstração e 404.
 Interações de teclado, tema, carrossel e galeria também devem ser verificadas no navegador.
 
+## Apresentação dos projetos
+
+- Os dois primeiros projetos em `featuredOrder` recebem destaque editorial na home.
+- Os cards apresentam contexto, atuação, entrega principal e tecnologias selecionadas.
+- Cada case inclui resumo, atuação, entregas, contexto, solução e stack. Arquitetura,
+  decisões, limites e galeria aparecem conforme os dados disponíveis.
+- A navegação por seções fica fixa na lateral em telas grandes.
+- O carrossel inicia parado e permite navegação manual ou rotação opcional. A
+  preferência de movimento reduzido desabilita a rotação automática.
+- As prévias de compartilhamento são geradas em PNG para cada projeto em
+  `/projetos/[slug]/opengraph-image`.
+
+Ao editar o conteúdo, diferencie produto, case corporativo e estudo técnico.
+Descreva entregas verificáveis e sua participação; inclua métricas somente quando
+houver contexto e dados que as sustentem. Capturas de demonstração e diagramas
+conceituais devem ser identificados nas legendas.
+
 ---
 
 ## 📁 Estrutura do Projeto
@@ -96,10 +113,7 @@ Interações de teclado, tema, carrossel e galeria também devem ser verificadas
 ```
 portfolio/
 ├── public/                     # Arquivos estáticos públicos
-│   ├── favicon.ico
-│   ├── icon.svg                # Monograma vetorial
-│   └── images/
-│       └── projects/           # Imagens e mockups dos projetos
+│   └── assets/                 # Capturas de tela e imagens dos projetos
 ├── src/
 │   ├── app/                    # Rotas e configurações do App Router
 │   │   ├── globals.css         # Variáveis de tema e estilos globais
@@ -139,7 +153,7 @@ portfolio/
 A arquitetura foi projetada para separar dados de apresentação. Para adicionar um novo projeto:
 
 1. **Adicione o asset visual:**
-   Insira a imagem ou mockup em `public/images/projects/seu-projeto.png` (ou `.svg`).
+   Insira a imagem ou mockup em `public/assets/seu-projeto.png` (ou `.svg`).
 
 2. **Cadastre os dados em `src/data/projects.ts`:**
    Adicione um novo objeto ao array `PROJECTS` seguindo a interface `Project`:
@@ -154,8 +168,16 @@ A arquitetura foi projetada para separar dados de apresentação. Para adicionar
      featured: true, // true para exibir na seção de destaque
      shortDescription: "Resumo em uma linha para o cabeçalho do card.",
      fullDescription: "Descrição detalhada do propósito e escopo.",
-     image: "/images/projects/seu-projeto.svg",
+     image: "/assets/seu-projeto.png",
+     imageAlt: "Descrição do que a captura mostra",
+     imageCaption: "Contexto da imagem e identificação de dados de demonstração, se aplicável.",
      technologies: ["TypeScript", "Next.js", "PostgreSQL", "Docker"],
+     primaryTechnologies: ["TypeScript", "Next.js", "PostgreSQL"],
+     roleLabel: "Arquitetura e desenvolvimento Full Stack",
+     outcomeSummary: "Entrega principal em uma frase, sem métricas não verificadas.",
+     outcomes: [
+       { title: "Entrega verificável", description: "O que foi implementado e qual necessidade atende." },
+     ],
      context: "Problema real de negócio ou desafio enfrentado.",
      solution: "Abordagem arquitetural e técnica aplicada.",
      technicalChallenges: [

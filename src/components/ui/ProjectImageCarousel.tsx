@@ -28,7 +28,7 @@ export function ProjectImageCarousel({
   sizes = "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 360px",
 }: ProjectImageCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isPaused, setIsPaused] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const reducedMotion = useSyncExternalStore(
@@ -48,10 +48,17 @@ export function ProjectImageCarousel({
     return () => window.clearInterval(intervalId);
   }, [images.length, isPlaying]);
 
+  const activeImage = images[activeIndex];
+  if (!activeImage) return null;
+
+  function showImage(direction: number) {
+    setIsPaused(true);
+    setActiveIndex((index) => (index + direction + images.length) % images.length);
+  }
+
   return (
-    <div
-      className="relative h-full w-full"
-      role="group"
+    <figure
+      className="overflow-hidden rounded-xl border border-border bg-surface"
       aria-roledescription="carrossel"
       aria-label={`Imagens de ${projectTitle}`}
       onMouseEnter={() => setIsHovered(true)}
@@ -61,71 +68,59 @@ export function ProjectImageCarousel({
         if (!event.currentTarget.contains(event.relatedTarget)) setIsFocused(false);
       }}
     >
-      <div className="relative h-full w-full" aria-live={isPlaying ? "off" : "polite"}>
-        {images.map((image, index) => (
-          <Image
-            key={image.src}
-            src={image.src}
-            alt={image.alt || `Demonstração visual do projeto ${projectTitle}`}
-            fill
-            preload={priority && index === 0}
-            sizes={sizes}
-            className={`object-contain object-center transition-opacity duration-700 ease-in-out ${
-              activeIndex === index ? "opacity-100" : "opacity-0"
-            }`}
-            aria-hidden={activeIndex !== index}
-          />
-        ))}
+      <div className="relative aspect-[16/9] w-full bg-surface-secondary">
+        <Image
+          key={activeImage.src}
+          src={activeImage.src}
+          alt={activeImage.alt || `Demonstração visual do projeto ${projectTitle}`}
+          fill
+          preload={priority && activeIndex === 0}
+          sizes={sizes}
+          className="object-contain object-center"
+        />
       </div>
 
-      {images.length > 1 && (
-        <div
-          className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/15 bg-black/65 px-2 py-1 shadow-sm backdrop-blur-sm"
-          role="group"
-          aria-label={`Imagens do projeto ${projectTitle}`}
-        >
-          <button
-            type="button"
-            disabled={reducedMotion}
-            onClick={() => setIsPaused((paused) => !paused)}
-            aria-label={
-              reducedMotion
-                ? "Rotação desativada: movimento reduzido"
-                : isPaused ? "Retomar rotação de imagens" : "Pausar rotação de imagens"
-            }
-            className="flex h-11 w-11 items-center justify-center rounded-full text-white focus-visible:ring-2 focus-visible:ring-white disabled:opacity-60"
-          >
-            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              {reducedMotion || isPaused ? (
-                <path d="M8 5v14l11-7z" />
-              ) : (
-                <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
-              )}
-            </svg>
-          </button>
-          {images.map((image, index) => (
-            <button
-              key={image.src}
-              type="button"
-              aria-label={`Mostrar imagem ${index + 1} de ${images.length}`}
-              aria-pressed={activeIndex === index}
-              onClick={() => {
-                setIsPaused(true);
-                setActiveIndex(index);
-              }}
-              className="flex h-11 w-11 items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-full"
-            >
-              <span
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  activeIndex === index
-                    ? "w-5 bg-white"
-                    : "w-2 bg-white/50 hover:bg-white/80"
-                }`}
-              />
-            </button>
-          ))}
-        </div>
+      {(activeImage.caption || images.length > 1) && (
+        <figcaption className="flex flex-col gap-3 border-t border-border px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+          <p className="text-xs leading-relaxed text-muted sm:text-sm" aria-live={isPlaying ? "off" : "polite"}>
+            {activeImage.caption ?? activeImage.alt}
+          </p>
+          {images.length > 1 && (
+            <div className="flex shrink-0 items-center gap-2" role="group" aria-label="Controles das imagens">
+              <button
+                type="button"
+                disabled={reducedMotion}
+                onClick={() => setIsPaused((paused) => !paused)}
+                aria-label={reducedMotion ? "Rotação desativada: movimento reduzido" : isPaused ? "Iniciar rotação de imagens" : "Pausar rotação de imagens"}
+                className="flex h-11 w-11 items-center justify-center rounded-lg text-muted hover:bg-surface-secondary focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-50"
+              >
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  {reducedMotion || isPaused ? <path d="M8 5v14l11-7z" /> : <path d="M6 5h4v14H6zm8 0h4v14h-4z" />}
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={() => showImage(-1)}
+                aria-label="Mostrar imagem anterior"
+                className="flex h-11 w-11 items-center justify-center rounded-lg border border-border hover:bg-surface-secondary focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                <span aria-hidden="true">←</span>
+              </button>
+              <span className="min-w-12 text-center font-mono text-xs text-muted" aria-live={isPlaying ? "off" : "polite"} aria-atomic="true">
+                <span className="sr-only">Imagem </span>{activeIndex + 1} / {images.length}
+              </span>
+              <button
+                type="button"
+                onClick={() => showImage(1)}
+                aria-label="Mostrar próxima imagem"
+                className="flex h-11 w-11 items-center justify-center rounded-lg border border-border hover:bg-surface-secondary focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          )}
+        </figcaption>
       )}
-    </div>
+    </figure>
   );
 }

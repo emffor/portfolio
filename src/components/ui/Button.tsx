@@ -33,9 +33,9 @@ export function Button({
     "inline-flex items-center justify-center font-sans font-medium rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none";
 
   const sizeStyles = {
-    sm: "text-xs px-3 py-1.5 gap-1.5",
-    md: "text-sm px-4 py-2 gap-2",
-    lg: "text-base px-5 py-2.5 gap-2.5",
+    sm: "min-h-11 text-xs px-3 py-2 gap-1.5",
+    md: "min-h-11 text-sm px-4 py-2 gap-2",
+    lg: "min-h-12 text-base px-5 py-2.5 gap-2.5",
   };
 
   const variantStyles = {

@@ -10,7 +10,17 @@ export const socialImageSize = {
 
 export const socialImageContentType = "image/png";
 
-export function createSocialImage() {
+interface SocialImageContent {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+}
+
+export function createSocialImage({
+  title = AUTHOR_NAME,
+  subtitle = AUTHOR_ROLE,
+  description = "Backend · Arquitetura · Sistemas em produção",
+}: SocialImageContent = {}) {
   return new ImageResponse(
     (
       <div
@@ -32,6 +42,7 @@ export function createSocialImage() {
         <div
           style={{
             display: "flex",
+            flex: 1,
             flexDirection: "column",
             justifyContent: "center",
             padding: "72px 80px",
@@ -40,13 +51,13 @@ export function createSocialImage() {
           <div
             style={{
               display: "flex",
-              fontSize: 68,
+              fontSize: title.length > 30 ? 54 : 68,
               fontWeight: 700,
               letterSpacing: "-0.03em",
               lineHeight: 1.05,
             }}
           >
-            {AUTHOR_NAME}
+            {title}
           </div>
           <div
             style={{
@@ -56,17 +67,18 @@ export function createSocialImage() {
               color: "#63a39c",
             }}
           >
-            {AUTHOR_ROLE}
+            {subtitle}
           </div>
           <div
             style={{
               display: "flex",
               marginTop: 28,
               fontSize: 26,
+              lineHeight: 1.5,
               color: "#96a3a1",
             }}
           >
-            Backend · Arquitetura · Sistemas em produção
+            {description}
           </div>
         </div>
       </div>

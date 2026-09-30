@@ -20,6 +20,8 @@ interface ProjectPageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const projects = await getAllProjects();
   return projects.map((project) => ({ slug: project.slug }));
@@ -51,10 +53,13 @@ export async function generateMetadata({
       title: project.title,
       description: project.shortDescription,
       siteName: SITE_NAME,
+      locale: "pt_BR",
       images: [
         {
-          url: project.image,
-          alt: `Imagem do projeto ${project.title}`,
+          url: `/projetos/${project.slug}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: `${project.title} — case de ${AUTHOR_NAME}`,
         },
       ],
     },
@@ -62,6 +67,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: project.title,
       description: project.shortDescription,
+      images: [`/projetos/${project.slug}/opengraph-image`],
     },
   };
 }
@@ -90,15 +96,28 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const projectImages: readonly ProjectScreenshot[] = [
     {
       src: project.image,
-      alt: `Imagem principal do projeto ${project.title}`,
+      alt: project.imageAlt ?? `Imagem principal do projeto ${project.title}`,
+      caption: project.imageCaption,
     },
     ...(project.screenshots ?? []).filter(
       (image) => image.src !== project.image
     ),
   ];
 
+  const caseSections = [
+    ...(project.brief?.length ? [{ id: "resumo", label: "Resumo do case" }] : []),
+    { id: "atuacao", label: "Minha atuação" },
+    ...(project.outcomes?.length ? [{ id: "entregas", label: "Entregas e evidências" }] : []),
+    { id: "contexto", label: "Contexto e problema" },
+    { id: "solucao", label: "Solução" },
+    ...(project.architecture ? [{ id: "arquitetura", label: "Arquitetura" }] : []),
+    ...(project.decisions?.length ? [{ id: "decisoes", label: "Decisões e trade-offs" }] : []),
+    { id: "stack", label: "Stack do projeto" },
+    ...(project.screenshots?.length ? [{ id: "telas", label: "Telas do projeto" }] : []),
+  ];
+
   return (
-    <article className="max-w-4xl mx-auto px-5 sm:px-8 lg:px-10 py-12 sm:py-16 space-y-12">
+    <article className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10 py-10 sm:py-16 space-y-10 sm:space-y-12">
       <nav aria-label="Navegação do case">
         <Link
           href={project.featured ? "/#projetos" : "/#projetos-adicionais"}
@@ -123,7 +142,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       </nav>
 
       <header className="space-y-6">
-        <div className="space-y-3">
+        <div className="max-w-4xl space-y-4">
           <p className="font-mono text-xs font-medium uppercase tracking-wider text-muted">
             {getProjectKindLabel(project.kind)}
             <span className="mx-1.5 text-border" aria-hidden="true">
@@ -131,7 +150,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </span>
             <span className="text-accent">{project.category}</span>
           </p>
-          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
+          <h1 className="text-balance font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-foreground">
             {project.title}
           </h1>
           <div
@@ -141,32 +160,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <p className="font-sans text-base sm:text-lg text-muted leading-relaxed max-w-2xl">
             {project.shortDescription}
           </p>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1">
-            <p className="font-sans text-sm text-muted">
-              Por {AUTHOR_NAME}
-            </p>
-            {project.status && (
-              <span className="inline-flex items-center gap-1.5 font-sans text-xs font-medium text-muted">
-                <span
-                  className="h-1.5 w-1.5 rounded-full bg-emerald-500"
-                  aria-hidden="true"
-                />
-                {project.status}
-              </span>
-            )}
-          </div>
         </div>
 
-        <div
-          className="flex flex-wrap gap-1.5"
-          aria-label="Tecnologias utilizadas"
-        >
-          {project.technologies.map((tech) => (
-            <Badge key={tech} variant="default">
-              {tech}
-            </Badge>
-          ))}
-        </div>
+        <dl className="grid max-w-4xl gap-5 border-y border-border py-5 text-sm sm:grid-cols-2">
+          <div>
+            <dt className="text-xs text-muted">Minha atuação</dt>
+            <dd className="mt-1.5 font-medium">{project.roleLabel ?? AUTHOR_NAME}</dd>
+          </div>
+          <div>
+            <dt className="text-xs text-muted">Contexto do projeto</dt>
+            <dd className="mt-1.5 font-medium">{project.status ?? getProjectKindLabel(project.kind)}</dd>
+          </div>
+        </dl>
 
         {(project.projectUrl || project.githubUrl) && (
           <div className="flex flex-wrap items-center gap-3 pt-1">
@@ -194,7 +199,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 href={project.githubUrl}
                 variant="outline"
                 size="sm"
-                aria-label={`Ver código do projeto ${project.title} no GitHub`}
+                aria-label={`Ver no GitHub: código do projeto ${project.title}`}
               >
                 Ver no GitHub
                 <svg
@@ -235,120 +240,137 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <p className="text-sm leading-relaxed text-muted">{project.sourceNote}</p>
         )}
 
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border bg-surface-secondary">
-          <ProjectImageCarousel
-            images={projectImages}
-            projectTitle={project.title}
-            priority
-            sizes="(max-width: 768px) 100vw, 896px"
-          />
-        </div>
+        <ProjectImageCarousel
+          key={project.slug}
+          images={projectImages}
+          projectTitle={project.title}
+          priority
+          sizes="(max-width: 1200px) 100vw, 1120px"
+        />
       </header>
 
-      <nav aria-label="Seções do case" className="flex flex-wrap gap-x-6 gap-y-3 border-y border-border py-4 text-sm text-muted">
-        <a href="#contexto" className="hover:text-accent">Contexto</a>
-        <a href="#solucao" className="hover:text-accent">Solução</a>
-        {project.architecture && <a href="#arquitetura" className="hover:text-accent">Arquitetura</a>}
-        {!!project.decisions?.length && <a href="#decisoes" className="hover:text-accent">Decisões</a>}
-        {!!project.screenshots?.length && <a href="#telas" className="hover:text-accent">Telas do projeto</a>}
-      </nav>
+      <div className="grid min-w-0 gap-10 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-12">
+        <nav aria-label="Seções do case" className="self-start border-y border-border py-4 lg:sticky lg:top-24 lg:border-y-0 lg:border-l lg:py-0 lg:pl-5">
+          <p className="mb-3 font-mono text-xs uppercase tracking-wider text-muted">Neste case</p>
+          <ul className="flex flex-wrap gap-x-5 gap-y-1 lg:flex-col lg:gap-1">
+            {caseSections.map((section) => (
+              <li key={section.id}>
+                <a href={`#${section.id}`} className="inline-flex min-h-11 items-center rounded-sm text-sm text-muted transition-colors hover:text-accent">
+                  {section.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-      <div className="space-y-12">
-        {project.brief && project.brief.length > 0 && (
-          <section aria-label="Síntese do case">
-            <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {project.brief.map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-lg border border-border bg-surface px-4 py-3"
-                >
-                  <dt className="font-sans text-xs font-medium text-muted">
-                    {item.label}
-                  </dt>
-                  <dd className="mt-1.5 font-sans text-sm leading-relaxed text-foreground">
-                    {item.text}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </section>
-        )}
+        <div className="min-w-0 space-y-12">
+          {project.brief && project.brief.length > 0 && (
+            <section id="resumo" aria-labelledby="resumo-title" className="scroll-mt-24 space-y-5">
+              <h2 id="resumo-title" className="font-display text-xl font-semibold tracking-tight">
+                Resumo do case
+              </h2>
+              <dl className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                {project.brief.map((item) => (
+                  <div key={item.label} className="border-l-2 border-accent/40 pl-4">
+                    <dt className="font-sans text-xs font-semibold uppercase tracking-wide text-accent">
+                      {item.label}
+                    </dt>
+                    <dd className="mt-1.5 font-sans text-sm leading-relaxed text-foreground">
+                      {item.text}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          )}
 
-        <section aria-label="Minha atuação" className="space-y-3">
-          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-            Minha atuação
-          </h2>
-          <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
-            {project.myRole}
-          </p>
-        </section>
-
-        <section id="contexto" aria-label="Contexto e problema" className="scroll-mt-20 space-y-3">
-          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-            Contexto e problema
-          </h2>
-          <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
-            {project.context}
-          </p>
-          <details className="rounded-lg border border-border px-4 py-3">
-            <summary className="cursor-pointer text-sm font-medium">Visão geral do projeto</summary>
-            <p className="mt-3 text-sm leading-relaxed text-muted">{project.fullDescription}</p>
-          </details>
-        </section>
-
-        <section id="solucao" aria-label="Solução" className="scroll-mt-20 space-y-3">
-          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-            Solução
-          </h2>
-          {project.solution.split("\n\n").map((paragraph) => (
-            <p key={paragraph} className="font-sans text-sm sm:text-base text-muted leading-relaxed">
-              {paragraph}
-            </p>
-          ))}
-        </section>
-
-        {project.technicalChallenges.length > 0 && (
-          <section aria-label="Desafios técnicos" className="space-y-3">
+          <section id="atuacao" aria-label="Minha atuação" className="scroll-mt-24 space-y-3">
             <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-              Principais desafios técnicos
+              Minha atuação
             </h2>
-            <ul className="space-y-2 font-sans text-sm sm:text-base text-muted">
-              {project.technicalChallenges.map((challenge, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <span
-                    className="text-emerald-500 font-bold shrink-0"
-                    aria-hidden="true"
-                  >
-                    ›
-                  </span>
-                  <span>{challenge}</span>
-                </li>
-              ))}
-            </ul>
+            <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
+              {project.myRole}
+            </p>
           </section>
-        )}
 
-        {project.architecture && (
-          <div id="arquitetura" className="scroll-mt-20">
-            <ProjectArchitectureDiagram architecture={project.architecture} />
-          </div>
-        )}
+          {!!project.outcomes?.length && (
+            <section id="entregas" aria-labelledby="entregas-title" className="scroll-mt-24 space-y-5">
+              <div className="space-y-2">
+                <h2 id="entregas-title" className="font-display text-xl font-semibold tracking-tight">
+                  Entregas e evidências
+                </h2>
+                <p className="text-sm leading-relaxed text-muted">
+                  {project.kind === "technical-study"
+                    ? "O que foi implementado para explorar a arquitetura e seus limites."
+                    : "O que a implementação passou a oferecer no contexto deste projeto."}
+                </p>
+              </div>
+              <ul className="grid gap-4 sm:grid-cols-3">
+                {project.outcomes.map((outcome) => (
+                  <li key={outcome.title} className="border-t-2 border-accent/50 pt-4">
+                    <h3 className="text-sm font-semibold leading-relaxed">{outcome.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">{outcome.description}</p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
-        {project.technicalHighlights &&
-          project.technicalHighlights.length > 0 && (
+          <section id="contexto" aria-label="Contexto e problema" className="scroll-mt-20 space-y-3">
+            <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
+              Contexto e problema
+            </h2>
+            <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
+              {project.context}
+            </p>
+            <details className="rounded-lg border border-border px-4 py-3">
+              <summary className="cursor-pointer text-sm font-medium">Visão geral do projeto</summary>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{project.fullDescription}</p>
+            </details>
+          </section>
+
+          <section id="solucao" aria-label="Solução" className="scroll-mt-20 space-y-3">
+            <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
+              Solução
+            </h2>
+            {project.solution.split("\n\n").map((paragraph) => (
+              <p key={paragraph} className="font-sans text-sm sm:text-base text-muted leading-relaxed">
+                {paragraph}
+              </p>
+            ))}
+          </section>
+
+          {project.technicalChallenges.length > 0 && (
+            <section aria-label="Desafios técnicos" className="space-y-3">
+              <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
+                Principais desafios técnicos
+              </h2>
+              <ul className="space-y-2 font-sans text-sm sm:text-base text-muted">
+                {project.technicalChallenges.map((challenge) => (
+                  <li key={challenge} className="flex items-start gap-2">
+                    <span className="text-accent font-bold shrink-0" aria-hidden="true">›</span>
+                    <span>{challenge}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {project.architecture && (
+            <div id="arquitetura" className="scroll-mt-20">
+              <ProjectArchitectureDiagram architecture={project.architecture} />
+            </div>
+          )}
+
+          {!!project.technicalHighlights?.length && (
             <details className="rounded-lg border border-border bg-surface p-5">
               <summary className="cursor-pointer font-display text-base font-semibold text-foreground">
                 Ver outros destaques técnicos
               </summary>
               <ul className="mt-4 space-y-2 font-sans text-sm sm:text-base text-muted">
-                {project.technicalHighlights.map((highlight, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span
-                      className="text-emerald-500 font-bold shrink-0"
-                      aria-hidden="true"
-                    >
-                      ›
-                    </span>
+                {project.technicalHighlights.map((highlight) => (
+                  <li key={highlight} className="flex items-start gap-2">
+                    <span className="text-accent font-bold shrink-0" aria-hidden="true">›</span>
                     <span>{highlight}</span>
                   </li>
                 ))}
@@ -356,103 +378,103 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </details>
           )}
 
-        {project.decisions && project.decisions.length > 0 && (
-          <section id="decisoes" aria-label="Decisões e trade-offs" className="scroll-mt-20 space-y-4">
-            <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-              Decisões e trade-offs
-            </h2>
-            <div className="space-y-4">
-              {project.decisions.map((decision) => (
-                <div
-                  key={decision.title}
-                  className="rounded-lg border border-border bg-surface px-4 py-3 space-y-2"
-                >
-                  <p className="font-sans text-sm font-semibold text-foreground">
-                    {decision.title}
-                  </p>
-                  <p className="font-sans text-sm text-muted leading-relaxed">
-                    <span className="font-medium text-emerald-600 dark:text-emerald-400">
-                      Benefício:{" "}
-                    </span>
-                    {decision.benefit}
-                  </p>
-                  <p className="font-sans text-sm text-muted leading-relaxed">
-                    <span className="font-medium text-foreground">
-                      Custo:{" "}
-                    </span>
-                    {decision.cost}
-                  </p>
-                </div>
+          {!!project.decisions?.length && (
+            <section id="decisoes" aria-label="Decisões e trade-offs" className="scroll-mt-20 space-y-4">
+              <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
+                Decisões e trade-offs
+              </h2>
+              <div className="space-y-4">
+                {project.decisions.map((decision) => (
+                  <div key={decision.title} className="rounded-lg border border-border bg-surface px-4 py-3 space-y-2">
+                    <h3 className="font-sans text-sm font-semibold text-foreground">
+                      {decision.title}
+                    </h3>
+                    <p className="font-sans text-sm text-muted leading-relaxed">
+                      <span className="font-medium text-accent">Benefício: </span>
+                      {decision.benefit}
+                    </p>
+                    <p className="font-sans text-sm text-muted leading-relaxed">
+                      <span className="font-medium text-foreground">Custo: </span>
+                      {decision.cost}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {project.authNote && (
+            <section aria-label="Observação sobre autenticação" className="space-y-3">
+              <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
+                Nota sobre autenticação
+              </h2>
+              <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
+                {project.authNote}
+              </p>
+            </section>
+          )}
+
+          {project.limitationNote && (
+            <section aria-label="Limites da implementação" className="space-y-3 rounded-lg border border-border bg-surface p-5">
+              <h2 className="font-display text-xl font-semibold tracking-tight">Limites da implementação</h2>
+              <p className="text-sm leading-relaxed text-muted">{project.limitationNote}</p>
+            </section>
+          )}
+
+          <section id="stack" aria-labelledby="stack-title" className="scroll-mt-24 space-y-4">
+            <h2 id="stack-title" className="font-display text-xl font-semibold tracking-tight">Stack do projeto</h2>
+            <ul className="flex flex-wrap gap-2" aria-label="Tecnologias utilizadas">
+              {project.technologies.map((tech) => (
+                <li key={tech}><Badge variant="default">{tech}</Badge></li>
               ))}
-            </div>
+            </ul>
           </section>
-        )}
 
-        {project.authNote && (
-          <section
-            aria-label="Observação sobre autenticação"
-            className="space-y-3"
-          >
+          {!!project.screenshots?.length && (
+            <div id="telas" className="scroll-mt-20">
+              <ProjectGallery screenshots={project.screenshots} />
+            </div>
+          )}
+
+          <section aria-label="Conversar sobre o projeto" className="space-y-4 rounded-xl border border-border bg-surface p-6">
             <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-              Nota sobre autenticação
+              Vamos conversar sobre este projeto?
             </h2>
-            <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
-              {project.authNote}
+            <p className="text-sm leading-relaxed text-muted">
+              Entre em contato para conversar sobre minha atuação e as decisões técnicas deste case.
             </p>
+            <Button href="/#contato" variant="primary" size="md">Entrar em contato</Button>
           </section>
-        )}
 
-        {!!project.screenshots?.length && (
-          <div id="telas" className="scroll-mt-20">
-            <ProjectGallery screenshots={project.screenshots} />
-          </div>
-        )}
-
-        <section aria-label="Conversar sobre o projeto" className="space-y-4 rounded-xl border border-border bg-surface p-6">
-          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-            Vamos conversar sobre este projeto?
-          </h2>
-          <p className="text-sm leading-relaxed text-muted">
-            Entre em contato para conversar sobre minha atuação e as decisões técnicas deste case.
-          </p>
-          <Button href="/#contato" variant="primary" size="md">Entrar em contato</Button>
-        </section>
-
-        {(prevProject || nextProject) && (
-          <nav
-            aria-label="Navegação entre cases"
-            className="border-t border-border pt-8 mt-12"
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {prevProject && prevProject.slug !== project.slug && (
-                <Link
-                  href={`/projetos/${prevProject.slug}`}
-                  className="group flex flex-col gap-1 rounded-xl border border-border bg-surface p-4 transition-colors hover:border-accent/60"
-                >
-                  <span className="font-mono text-xs text-muted">
-                    ← Case anterior
-                  </span>
-                  <span className="font-display text-sm font-semibold text-foreground group-hover:text-accent transition-colors">
-                    {prevProject.title}
-                  </span>
-                </Link>
-              )}
-              {nextProject && nextProject.slug !== project.slug && (
-                <Link
-                  href={`/projetos/${nextProject.slug}`}
-                  className="group flex flex-col gap-1 sm:text-right rounded-xl border border-border bg-surface p-4 transition-colors hover:border-accent/60"
-                >
-                  <span className="font-mono text-xs text-muted">
-                    Próximo case →
-                  </span>
-                  <span className="font-display text-sm font-semibold text-foreground group-hover:text-accent transition-colors">
-                    {nextProject.title}
-                  </span>
-                </Link>
-              )}
-            </div>
-          </nav>
-        )}
+          {(prevProject || nextProject) && (
+            <nav aria-label="Navegação entre cases" className="border-t border-border pt-8 mt-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {prevProject && prevProject.slug !== project.slug && (
+                  <Link
+                    href={`/projetos/${prevProject.slug}`}
+                    className="group flex flex-col gap-1 rounded-xl border border-border bg-surface p-4 transition-colors hover:border-accent/60"
+                  >
+                    <span className="font-mono text-xs text-muted">← Case anterior</span>
+                    <span className="font-display text-sm font-semibold text-foreground group-hover:text-accent transition-colors">
+                      {prevProject.title}
+                    </span>
+                  </Link>
+                )}
+                {nextProject && nextProject.slug !== project.slug && (
+                  <Link
+                    href={`/projetos/${nextProject.slug}`}
+                    className="group flex flex-col gap-1 sm:text-right rounded-xl border border-border bg-surface p-4 transition-colors hover:border-accent/60"
+                  >
+                    <span className="font-mono text-xs text-muted">Próximo case →</span>
+                    <span className="font-display text-sm font-semibold text-foreground group-hover:text-accent transition-colors">
+                      {nextProject.title}
+                    </span>
+                  </Link>
+                )}
+              </div>
+            </nav>
+          )}
+        </div>
       </div>
     </article>
   );

@@ -139,6 +139,43 @@ test("o CTA do GitHub do Task Markdown aparece no card e no case", async () => {
   assert.ok(html.includes("Ver no GitHub"));
 });
 
+test("todos os cases apresentam atuação, entregas, stack e resumo com âncoras", async () => {
+  const sitemap = await getPage("/sitemap.xml");
+  const routes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)]
+    .map((match) => new URL(match[1]).pathname)
+    .filter((path) => path.startsWith("/projetos/"));
+
+  for (const route of routes) {
+    const html = markup(await getPage(route));
+    for (const id of ["resumo", "atuacao", "entregas", "stack"]) {
+      assert.ok(html.includes(`id="${id}"`), `Seção ausente: ${route}#${id}`);
+      assert.ok(html.includes(`href="#${id}"`), `Navegação ausente: ${route}#${id}`);
+    }
+    assert.ok(html.indexOf("Minha atuação") < html.indexOf('aria-roledescription="carrossel"'));
+    assert.match(html, /<figcaption\b/);
+  }
+});
+
+test("cada case tem prévia social própria em PNG disponível para compartilhamento", async () => {
+  for (const slug of ["rastro-florestal", "consolidacao-arquitetural", "task-markdown", "vidora", "bruna-e-eloan"]) {
+    const route = `/projetos/${slug}`;
+    const html = markup(await getPage(route));
+    for (const property of ['property="og:image"', 'name="twitter:image"']) {
+      const image = html.match(new RegExp(`<meta ${property} content="([^"]+)"`));
+      assert.ok(image, `Prévia ausente: ${route} ${property}`);
+      const imageUrl = new URL(image[1].replaceAll("&amp;", "&"));
+      assert.equal(imageUrl.pathname, `${route}/opengraph-image`);
+      const response = await fetch(new URL(imageUrl.pathname + imageUrl.search, baseUrl));
+      assert.equal(response.status, 200);
+      assert.match(response.headers.get("content-type"), /^image\/png/);
+      const bytes = Buffer.from(await response.arrayBuffer());
+      assert.equal(bytes.subarray(1, 4).toString(), "PNG");
+      assert.equal(bytes.readUInt32BE(16), 1200);
+      assert.equal(bytes.readUInt32BE(20), 630);
+    }
+  }
+});
+
 test("as imagens utilizadas nas páginas existem", async () => {
   const assets = new Set();
   const sitemap = await getPage("/sitemap.xml");
@@ -169,7 +206,9 @@ test("o acesso à demonstração fica disponível antes do conteúdo longo", asy
 test("um slug inexistente retorna 404", async () => {
   const response = await fetch(`${baseUrl}/projetos/projeto-inexistente`);
   assert.equal(response.status, 404);
-  await response.body?.cancel();
+  const html = markup(await response.text());
+  assert.ok(html.includes("Este endereço não está no portfólio."));
+  assert.ok(html.includes('href="/#projetos"'));
 });
 
 async function openHomeAssembly({ storage = new Map(), reducedMotion = false, pathname = "/", hash = "", storageError } = {}) {
