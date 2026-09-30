@@ -28,6 +28,8 @@ export const PROFILE_DATA: Profile = {
     {
       value: "2024 · 2025",
       label: "Destaque do Ano na READI",
+      href: "https://www.linkedin.com/posts/eloanferreira_destaquetech-gratidaeto-inovaaexaeto-activity-7275562861198790656-ngqM?utm_source=share&utm_medium=member_desktop&rcm=ACoAAC1Jm_sBcLwJPBGBts8leF2NMZAPHQY_uR8",
+      linkLabel: "Ver publicação no LinkedIn",
     },
   ],
   education: {

@@ -20,7 +20,12 @@ export function ExperienceSummary() {
                 {item.label}
               </p>
               {item.href && item.linkLabel && (
-                <Link href={item.href} className="inline-block py-2 text-xs font-medium text-accent underline underline-offset-4">
+                <Link
+                  href={item.href}
+                  target={item.href.startsWith("https://") ? "_blank" : undefined}
+                  rel={item.href.startsWith("https://") ? "noopener noreferrer" : undefined}
+                  className="inline-block py-2 text-xs font-medium text-accent underline underline-offset-4"
+                >
                   {item.linkLabel}
                 </Link>
               )}

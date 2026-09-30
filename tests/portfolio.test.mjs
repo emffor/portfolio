@@ -92,6 +92,8 @@ test("a home apresenta os cinco cases e os caminhos para contato", async () => {
   assert.ok(html.includes('href="https://rastro.emfsystems.com.br/"'));
   assert.ok(html.includes('href="https://taskmarkdown.emfsystems.com.br"'));
   assert.ok(html.includes('href="https://github.com/emffor/task-markdown"'));
+  assert.ok(html.includes("Ver publicação no LinkedIn"));
+  assert.match(html, /<a\b(?=[^>]*href="https:\/\/www\.linkedin\.com\/posts\/eloanferreira_destaquetech-gratidaeto-inovaaexaeto-activity-7275562861198790656-ngqM\?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAAC1Jm_sBcLwJPBGBts8leF2NMZAPHQY_uR8")(?=[^>]*target="_blank")[^>]*>Ver publicação no LinkedIn<\/a>/);
   assert.ok(html.includes("Acessar aplicação"));
   assert.ok(html.includes('href="/#contato"'));
   assert.match(html, /href="mailto:[^"]+"/);
