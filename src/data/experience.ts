@@ -19,6 +19,15 @@ export const EXPERIENCES: readonly Experience[] = [
       "Integração de APIs de LLMs e AI Agents ao backend.",
       "Code Review e padronização arquitetural com SOLID, Clean Code e Design Patterns.",
     ],
+    resumeResponsibilities: [
+      "Otimizei a arquitetura e custos de infraestrutura ao unificar 11 microsserviços e 11 bancos de dados em uma única base, utilizando Laravel, Docker, SQL Server e PostgreSQL.",
+      "Aumentei a estabilidade e performance do backend migrando o sistema legado de Node.js para Laravel/PHP, reestruturando fluxos e regras de negócio essenciais.",
+      "Elevei o padrão de qualidade técnica do time conduzindo revisões de PRs e padronização arquitetural com foco em SOLID, Clean Code e Design Patterns.",
+      "Melhorei a experiência de uso e entrega de interfaces construindo novas aplicações web com React e Next.js, integradas às APIs REST da plataforma.",
+      "Criei automações em Node.js e Python para autenticação, consultas e validações em portais públicos, reduzindo em cerca de 40% o tempo gasto em processos manuais.",
+      "Atuo na evolução da infraestrutura e automação de build e deploy utilizando AWS, Docker e CI/CD.",
+      "Otimizei a análise de dados e fluxos operacionais integrando APIs de LLMs e AI Agents diretamente ao backend da aplicação.",
+    ],
     technologies: [
       "Laravel",
       "PHP",
@@ -54,6 +63,11 @@ export const EXPERIENCES: readonly Experience[] = [
       "Integração de módulos de estoque, compras e controle financeiro.",
       "Evolução das aplicações e integração com serviços em Azure.",
     ],
+    resumeResponsibilities: [
+      "Desenvolvi painéis web e aplicativos mobile para clientes do setor de beleza, utilizando React, React Native, Tailwind CSS e Azure.",
+      "Centralizei a gestão de estoque, compras e controle financeiro por meio da integração de módulos críticos da plataforma.",
+      "Atuei na evolução das aplicações e integração com serviços em Azure, garantindo suporte aos fluxos operacionais da plataforma.",
+    ],
     technologies: ["React", "React Native", "Tailwind CSS", "Azure"],
     relatedLinks: [
       {
@@ -72,6 +86,9 @@ export const EXPERIENCES: readonly Experience[] = [
       "Atuação em uma solução para o CREA-CE envolvendo mapeamento geográfico dinâmico para apoiar processos de fiscalização.",
     responsibilities: [
       "Implementação de mapeamento geográfico dinâmico usando Google Maps API.",
+    ],
+    resumeResponsibilities: [
+      "Aprimorei a fiscalização e gestão de pedidos do CREA-CE implementando mapeamento geográfico dinâmico via Google Maps API, utilizando React Native, TypeScript, Node.js e Docker.",
     ],
     technologies: [
       "React Native",
@@ -98,6 +115,9 @@ export const EXPERIENCES: readonly Experience[] = [
     responsibilities: [
       "Automação dos processos comerciais e operacionais da empresa.",
     ],
+    resumeResponsibilities: [
+      "Automatizei 100% dos processos comerciais e operacionais da empresa desenvolvendo do zero uma plataforma ERP web/mobile em tempo real com NestJS, React Native, PostgreSQL e AWS.",
+    ],
     technologies: ["NestJS", "React Native", "PostgreSQL", "AWS"],
   },
   {
@@ -109,6 +129,9 @@ export const EXPERIENCES: readonly Experience[] = [
     responsibilities: [
       "Otimização de consultas SQL complexas em sistemas legados.",
       "Integração de APIs externas.",
+    ],
+    resumeResponsibilities: [
+      "Melhorei o tempo de resposta e a estabilidade de sistemas legados otimizando consultas SQL complexas e integrando APIs externas via JavaScript e GeneXus.",
     ],
     technologies: ["JavaScript", "GeneXus", "SQL"],
   },

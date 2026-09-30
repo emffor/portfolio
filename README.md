@@ -111,10 +111,15 @@ conceituais devem ser identificados nas legendas.
 ## Currículo
 
 A rota `/curriculo` reúne resumo, competências, experiência, projetos, formação e
-contatos a partir das mesmas fontes tipadas do portfólio. O botão **Imprimir / salvar
-em PDF** abre a impressão do navegador; selecione **Salvar como PDF** para exportar.
-O layout de impressão usa fundo claro e formato A4, mantém o texto selecionável e
-oculta a navegação e os controles. Revise os dados em `src/data/` antes de compartilhar.
+contatos. O resumo, contato e competências específicos do currículo ficam em
+`src/data/resume.ts`; as experiências reutilizam `src/data/experience.ts`, com
+`resumeResponsibilities` para o detalhamento transcrito do PDF.
+
+O documento oficial está em `public/documentos/EloanFerreira.pdf`. **Baixar PDF**
+inicia o download desse arquivo; **Imprimir PDF** abre o mesmo documento em uma nova
+aba, onde a impressão é feita pelo visualizador do navegador. Ao substituir o PDF,
+atualize também os dados tipados da página para manter as informações alinhadas.
+O layout A4 da página permanece disponível pela impressão nativa do navegador.
 
 ---
 

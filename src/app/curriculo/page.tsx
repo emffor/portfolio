@@ -3,13 +3,13 @@ import Link from "next/link";
 import { PROFILE_DATA } from "@/data/profile";
 import { getExperiences } from "@/data/experience";
 import { getFeaturedProjects } from "@/data/projects";
-import { SKILL_AREAS } from "@/data/skills";
+import { RESUME_DATA } from "@/data/resume";
 import { Button } from "@/components/ui/Button";
 import { PrintResumeButton } from "@/components/ui/PrintResumeButton";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
 
 const title = `Currículo de ${PROFILE_DATA.name}`;
-const description = `${PROFILE_DATA.title} com atuação em backend, APIs e modernização de sistemas. Experiência profissional, competências, projetos e formação.`;
+const description = `${RESUME_DATA.title} com atuação em backend, APIs e modernização de sistemas. Experiência profissional, competências, projetos e formação.`;
 
 export const metadata: Metadata = {
   title: "Currículo",
@@ -36,17 +36,25 @@ export default async function ResumePage() {
     <article className="resume-page mx-auto max-w-4xl px-5 py-10 sm:px-8 sm:py-16">
       <div className="resume-actions mb-10 flex flex-wrap items-center justify-between gap-4">
         <Button href="/" variant="ghost">← Voltar ao portfólio</Button>
-        <div>
-          <PrintResumeButton />
-          <p className="mt-2 text-xs text-muted">Na janela de impressão, selecione “Salvar como PDF”.</p>
+        <div className="max-w-sm">
+          <div className="grid w-fit grid-cols-2 gap-3">
+            <Button href={RESUME_DATA.document.href} download={RESUME_DATA.document.fileName}>
+              Baixar PDF
+            </Button>
+            <PrintResumeButton />
+          </div>
+          <p className="mt-2 text-xs leading-relaxed text-muted">
+            Para imprimir, use o controle de impressão do visualizador de PDF na nova aba.
+          </p>
         </div>
       </div>
 
       <header className="border-b border-border pb-6">
         <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">{PROFILE_DATA.name}</h1>
-        <p className="mt-2 text-lg font-medium text-accent">{PROFILE_DATA.title}</p>
-        <p className="mt-2 text-sm text-muted">{PROFILE_DATA.positioning} · {PROFILE_DATA.location}</p>
+        <p className="mt-2 text-lg font-medium text-accent">{RESUME_DATA.title}</p>
+        <p className="mt-2 text-sm text-muted">{PROFILE_DATA.positioning} · {RESUME_DATA.location}</p>
         <ul aria-label="Contato e perfis profissionais" className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+          <li><a href={RESUME_DATA.phone.href} className="underline underline-offset-4">{RESUME_DATA.phone.label}</a></li>
           {PROFILE_DATA.socials.email && (
             <li><a href={`mailto:${PROFILE_DATA.socials.email}`} className="break-all underline underline-offset-4">{PROFILE_DATA.socials.email}</a></li>
           )}
@@ -61,13 +69,13 @@ export default async function ResumePage() {
 
       <section aria-labelledby="resume-summary" className="mt-8">
         <h2 id="resume-summary" className="font-display text-xl font-semibold">Resumo profissional</h2>
-        <p className="mt-3 text-sm leading-relaxed text-muted">{PROFILE_DATA.summary}</p>
+        <p className="mt-3 text-sm leading-relaxed text-muted">{RESUME_DATA.summary}</p>
       </section>
 
       <section aria-labelledby="resume-skills" className="mt-8">
         <h2 id="resume-skills" className="font-display text-xl font-semibold">Competências técnicas</h2>
         <dl className="mt-3 space-y-2 text-sm leading-relaxed">
-          {SKILL_AREAS.map((area) => (
+          {RESUME_DATA.skillAreas.map((area) => (
             <div key={area.title} className="resume-entry">
               <dt className="inline font-semibold">{area.title}: </dt>
               <dd className="inline text-muted">{area.items.join(" · ")}</dd>
@@ -85,9 +93,10 @@ export default async function ResumePage() {
                 <h3 className="font-display text-base font-semibold">{experience.company} · {experience.role}</h3>
                 <p className="text-xs text-muted">{experience.period}</p>
               </div>
+              {experience.location && <p className="mt-1 text-xs text-muted">{experience.location}</p>}
               <p className="mt-2 text-sm leading-relaxed text-muted">{experience.description}</p>
               <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-muted">
-                {experience.responsibilities.map((responsibility) => (
+                {(experience.resumeResponsibilities ?? experience.responsibilities).map((responsibility) => (
                   <li key={responsibility}>{responsibility}</li>
                 ))}
               </ul>

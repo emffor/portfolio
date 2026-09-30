@@ -76,7 +76,12 @@ export function Button({
       );
     }
 
-    if (href.startsWith("mailto:") || href.startsWith("tel:")) {
+    if (
+      href.startsWith("mailto:") ||
+      href.startsWith("tel:") ||
+      anchorProps.download !== undefined ||
+      anchorProps.target === "_blank"
+    ) {
       return (
         <a href={href} className={combinedClasses} {...anchorProps}>
           {children}

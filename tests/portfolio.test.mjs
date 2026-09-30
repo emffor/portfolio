@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
+import { readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { createServer } from "node:net";
 import { setTimeout as delay } from "node:timers/promises";
@@ -141,6 +142,12 @@ test("as páginas do sitemap têm metadados, landmarks e links internos válidos
 
     for (const [, href] of html.matchAll(/<a\b[^>]*href="([/#][^"]*)"/g)) {
       const target = new URL(href, `${baseUrl}${route}`);
+      if (target.pathname.endsWith(".pdf")) {
+        const response = await fetch(target, { method: "HEAD" });
+        assert.equal(response.status, 200, `PDF indisponível: ${href}`);
+        assert.match(response.headers.get("content-type"), /^application\/pdf/);
+        continue;
+      }
       const destination = markup(await getPage(target.pathname));
       if (target.hash) {
         assert.ok(destination.includes(`id="${target.hash.slice(1)}"`), `Âncora quebrada: ${route} → ${href}`);
@@ -156,7 +163,8 @@ test("o currículo é acessível pela home, indexável e completo no HTML do ser
   assert.ok([...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].some(([, url]) => new URL(url).pathname === "/curriculo"));
 
   const html = markup(await getPage("/curriculo"));
-  assert.ok(html.includes("Imprimir / salvar em PDF"));
+  assert.ok(html.includes("Baixar PDF"));
+  assert.ok(html.includes("Imprimir PDF"));
   for (const section of ["Resumo profissional", "Competências técnicas", "Experiência profissional", "Projetos selecionados", "Formação e idiomas"]) {
     assert.ok(html.includes(section), `Seção ausente no currículo: ${section}`);
   }
@@ -164,8 +172,29 @@ test("o currículo é acessível pela home, indexável e completo no HTML do ser
     assert.ok(html.includes(company), `Experiência ausente no currículo: ${company}`);
   }
   assert.match(html, /href="mailto:[^"]+"/);
+  assert.match(html, /href="tel:\+55\d+"/);
+  assert.ok(html.includes("Fortaleza/CE"));
+  assert.ok(html.includes("Experiência como referência técnica em projetos de alta complexidade"));
+  assert.ok(html.includes("Automatizei 100% dos processos comerciais e operacionais"));
+  for (const skill of ["NestJS", "React Native", "MySQL", "Generative AI"]) {
+    assert.ok(html.includes(skill), `Competência do PDF ausente na página: ${skill}`);
+  }
   assert.ok(html.replaceAll("<!-- -->", "").includes("Inglês: Intermediário B1"));
   assert.doesNotMatch(html, /madeireira@email\.com|123123/);
+});
+
+test("download e impressão usam o PDF oficial enviado, com o mesmo conteúdo do arquivo", async () => {
+  const html = markup(await getPage("/curriculo"));
+  assert.match(html, /<a\b(?=[^>]*href="\/documentos\/EloanFerreira\.pdf")(?=[^>]*download="EloanFerreira\.pdf")[^>]*>Baixar PDF<\/a>/);
+  assert.match(html, /<a\b(?=[^>]*href="\/documentos\/EloanFerreira\.pdf")(?=[^>]*target="_blank")(?=[^>]*rel="noopener noreferrer")[^>]*>Imprimir PDF<\/a>/);
+
+  const response = await fetch(`${baseUrl}/documentos/EloanFerreira.pdf`);
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("content-type"), /^application\/pdf/);
+  const document = Buffer.from(await response.arrayBuffer());
+  assert.equal(document.subarray(0, 5).toString(), "%PDF-");
+  const original = await readFile(new URL("../public/documentos/EloanFerreira.pdf", import.meta.url));
+  assert.deepEqual(document, original);
 });
 
 test("os dados estruturados identificam o autor e a hierarquia de cada case", async () => {

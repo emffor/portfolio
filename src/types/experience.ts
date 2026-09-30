@@ -18,6 +18,7 @@ export interface Experience {
   description: string;
   impactLabel?: string;
   responsibilities: readonly string[];
+  resumeResponsibilities?: readonly string[];
   recognitionLabel?: string;
   technologies: readonly string[];
   relatedLinks?: readonly ExperienceRelatedLink[];
