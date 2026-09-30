@@ -375,6 +375,9 @@ export const PROJECTS: readonly Project[] = [
       "PHPUnit",
       "Vitest",
       "Testing Library",
+      "Node.js",
+      "Puppeteer",
+      "Chromium",
     ],
     projectUrl: "https://investidor.emfsystems.com.br",
     projectUrlLabel: "Acessar aplicação",
@@ -400,18 +403,20 @@ export const PROJECTS: readonly Project[] = [
     context:
       "Informações de carteira, renda, empresas e análises financeiras chegam de fontes distintas. O produto reúne essas áreas em uma aplicação e concentra a integração com provedores externos em uma API própria.",
     solution:
-      "O frontend em React e TypeScript consome uma API REST Laravel por meio de Axios e usa TanStack React Query para estado remoto e cache. A API concentra o gate de acesso, a normalização e a orquestração das integrações externas, protegendo o frontend das particularidades de cada provedor.\n\nA aplicação reúne acompanhamento de carteira, patrimônio e renda, consulta de empresas, dividendos, agenda, extrato, imposto de renda e ferramentas de análise. O framework baseado em metodologias de Damodaran classifica empresas, avalia completude e apresenta métricas e riscos; não calcula um valor numérico completo por DCF.",
+      "O frontend em React e TypeScript consome uma API REST Laravel por meio de Axios e usa TanStack React Query para estado remoto e cache. A API concentra o gate de acesso, a normalização e a orquestração das integrações externas, protegendo o frontend das particularidades de cada provedor. Para fluxos autenticados que dependem de interfaces externas, automações com Node.js, Chromium e Puppeteer são executadas no backend para manter atualizadas as credenciais necessárias às integrações. As atualizações são aplicadas ao runtime da API, sem expor os valores completos ao frontend; os processos têm timeouts e as falhas retornam mensagens da API, não a saída completa dos processos.\n\nA aplicação reúne acompanhamento de carteira, patrimônio e renda, consulta de empresas, dividendos, agenda, extrato, imposto de renda e ferramentas de análise. O framework baseado em metodologias de Damodaran classifica empresas, avalia completude e apresenta métricas e riscos; não calcula um valor numérico completo por DCF.",
     technicalChallenges: [
       "Integrar fontes financeiras externas e normalizar os dados para consumo por áreas distintas da aplicação.",
       "Tratar indisponibilidade, cache e alterações nos contratos das integrações sem acoplar o frontend às respostas dos provedores.",
-      "Separar sessões de acesso e proteger credenciais e dados sensíveis, inclusive no modo de demonstração isolado.",
+      "Automatizar fluxos autenticados e manter credenciais de integração atualizadas no backend sem expor segredos ao frontend.",
+      "Separar sessões e dados do modo de demonstração do ambiente principal.",
       "Explicitar a completude e as limitações dos dados nas análises de valuation.",
     ],
     technicalHighlights: [
       "API Laravel como camada de orquestração e normalização de múltiplas fontes financeiras.",
+      "Automação de fluxos autenticados com Chromium/Puppeteer para manutenção controlada das credenciais utilizadas pelas integrações.",
+      "Segurança aplicada em integrações autenticadas, com gerenciamento de credenciais e proteção de segredos.",
       "Gate de acesso com Bearer tokens temporários, rate limiting e revogação de sessão.",
       "Sessões isoladas para demonstração, separando dados e configurações do ambiente principal.",
-      "Segurança aplicada em integrações autenticadas, com gerenciamento de credenciais e proteção de segredos.",
       "Monitoramento de disponibilidade e alterações de contrato/schema nas integrações externas.",
       "Ferramentas de valuation com Graham e Bazin, além de framework de classificação e análise de completude baseado em metodologias de Damodaran.",
       "Suíte automatizada no backend e frontend cobrindo integrações, contratos, regras de valuation e fluxos críticos.",
@@ -440,8 +445,14 @@ export const PROJECTS: readonly Project[] = [
       },
     ],
     myRole:
-      "Desenvolvimento Full Stack do produto: arquitetura da API Laravel e integração com provedores financeiros, construção da interface React, modelagem de dados, controle de acesso, segurança aplicada, monitoramento das integrações, testes e infraestrutura Docker.",
+      "Desenvolvimento Full Stack do produto: arquitetura da API Laravel e integração com provedores financeiros, automação de fluxos autenticados, construção da interface React, modelagem de dados, controle de acesso, segurança aplicada, monitoramento das integrações, testes e infraestrutura Docker.",
     screenshots: [
+      {
+        src: "/assets/investidor/valuationEmpresa.png",
+        alt: "Análise de empresa com métricas financeiras e referências de valuation Graham, Bazin e Damodaran",
+        caption:
+          "Detalhe de empresa com referências Graham e Bazin e framework Damodaran que explicita completude e limitações dos dados.",
+      },
       {
         src: "/assets/investidor/analiseDetalhadasEmpresas.png",
         alt: "Detalhe de empresa com indicadores, abas de análise e referências de preço",
@@ -492,7 +503,7 @@ export const PROJECTS: readonly Project[] = [
         {
           label: "Services e integrações",
           description:
-            "Normalização de dados e isolamento das particularidades externas",
+            "Normalização de dados, integração com provedores e automação de fluxos autenticados",
         },
         {
           label: "APIs financeiras externas",

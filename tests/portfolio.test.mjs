@@ -111,6 +111,15 @@ test("o case Investidor usa a aplicação pública sem expor GitHub", async () =
   assert.doesNotMatch(caseContent, /github|ver no github/i);
   assert.doesNotMatch(caseContent, /investidor-emffor\.netlify\.app|api-investidor\.emfforai\.shop/);
   assert.ok(caseContent.includes('src="/_next/image?url=%2Fassets%2Finvestidor%2FvaluationEmpresa.png'));
+  assert.ok(caseContent.includes("Automação de fluxos autenticados com Chromium/Puppeteer"));
+  for (const technology of ["Node.js", "Puppeteer", "Chromium"]) {
+    assert.ok(caseContent.includes(technology), `Tecnologia ausente na stack: ${technology}`);
+  }
+  const galleryStart = caseContent.indexOf('<section aria-label="Telas e capturas do projeto"');
+  const galleryDialogStart = caseContent.indexOf("<dialog", galleryStart);
+  const gallery = caseContent.slice(galleryStart, galleryDialogStart);
+  assert.equal([...gallery.matchAll(/<figure\b/g)].length, 6);
+  assert.ok(gallery.includes("valuationEmpresa.png"));
 });
 
 test("as páginas do sitemap têm metadados, landmarks e links internos válidos", async () => {
