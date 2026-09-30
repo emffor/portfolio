@@ -238,3 +238,10 @@ test("o Hero permanece completo no HTML sem depender de JavaScript", async () =>
   assert.match(html, /<html\b(?![^>]*data-home-assembly)[^>]*>/);
   assert.doesNotMatch(html, /<(?:header|h1|p|figcaption)\b[^>]*(?:inert|visibility:\s*hidden|opacity:\s*0)/);
 });
+
+test("o tema inicial é escuro e respeita uma preferência clara salva", async () => {
+  const html = await getPage("/");
+  assert.match(html, /<html\b[^>]*class="[^"]*\bdark\b[^"]*"/);
+  assert.match(html, /if \(saved !== 'light'\)/);
+  assert.doesNotMatch(html, /var prefersDark = window\.matchMedia/);
+});

@@ -3,7 +3,6 @@
 import React, { useSyncExternalStore } from "react";
 
 function subscribe(callback: () => void) {
-  const media = window.matchMedia("(prefers-color-scheme: dark)");
   const syncTheme = () => {
     let saved: string | null = null;
     try {
@@ -13,7 +12,7 @@ function subscribe(callback: () => void) {
     }
     document.documentElement.classList.toggle(
       "dark",
-      saved === "dark" || (saved !== "light" && media.matches)
+      saved !== "light"
     );
     callback();
   };
@@ -23,11 +22,9 @@ function subscribe(callback: () => void) {
 
   window.addEventListener("storage", onStorage);
   window.addEventListener("theme-change", callback);
-  media.addEventListener("change", syncTheme);
   return () => {
     window.removeEventListener("storage", onStorage);
     window.removeEventListener("theme-change", callback);
-    media.removeEventListener("change", syncTheme);
   };
 }
 

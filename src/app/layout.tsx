@@ -78,7 +78,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${manrope.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased`}
+      className={`${manrope.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased dark`}
       suppressHydrationWarning
     >
       <head>
@@ -93,8 +93,7 @@ export default function RootLayout({
                 try {
                   var saved = null;
                   try { saved = localStorage.getItem('theme'); } catch (e) {}
-                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  if (saved === 'dark' || (saved !== 'light' && prefersDark)) {
+                  if (saved !== 'light') {
                     document.documentElement.classList.add('dark');
                   } else {
                     document.documentElement.classList.remove('dark');
