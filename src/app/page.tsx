@@ -1,6 +1,7 @@
 import React from "react";
 import { Hero } from "@/components/sections/Hero";
 import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
+import { AdditionalProjects } from "@/components/sections/AdditionalProjects";
 import { ExperienceTimeline } from "@/components/sections/ExperienceTimeline";
 import { TechStack } from "@/components/sections/TechStack";
 import { ExperienceSummary } from "@/components/sections/ExperienceSummary";
@@ -12,6 +13,7 @@ export default function Home() {
       <Hero />
       <ExperienceSummary />
       <FeaturedProjects />
+      <AdditionalProjects />
       <ExperienceTimeline />
       <TechStack />
       <ContactCta />

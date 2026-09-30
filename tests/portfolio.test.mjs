@@ -80,8 +80,17 @@ test("a home apresenta os quatro cases e os caminhos para contato", async () => 
     "vidora",
   ].map((slug) => featuredSection.indexOf(`href="/projetos/${slug}"`));
   assert.deepEqual(featuredOrder, [...featuredOrder].sort((a, b) => a - b));
+  assert.ok(!featuredSection.includes('href="/projetos/bruna-e-eloan"'));
+  const additionalSectionStart = html.indexOf('<section id="projetos-adicionais"');
+  assert.ok(additionalSectionStart > html.indexOf("</section>", featuredSectionStart));
+  const experienceSectionStart = html.indexOf('id="experiencia"');
+  assert.ok(additionalSectionStart < experienceSectionStart);
+  assert.ok(html.includes('href="/projetos/bruna-e-eloan"'));
+  assert.ok(html.includes('href="https://brunaeeloan.emfsystems.com.br/"'));
+  assert.ok(html.includes('href="https://github.com/emffor/projeto_casamento_web"'));
+  assert.ok(html.includes('href="https://rastro.emfsystems.com.br/"'));
   assert.ok(html.includes('href="https://taskmarkdown.emfsystems.com.br"'));
-  assert.ok(!html.includes('href="https://github.com/emffor/task-markdown"'));
+  assert.ok(html.includes('href="https://github.com/emffor/task-markdown"'));
   assert.ok(html.includes("Acessar aplicação"));
   assert.ok(html.includes('href="/#contato"'));
   assert.match(html, /href="mailto:[^"]+"/);
@@ -94,6 +103,7 @@ test("as páginas do sitemap têm metadados, landmarks e links internos válidos
   const sitemap = await getPage("/sitemap.xml");
   const routes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => new URL(match[1]).pathname);
   assert.ok(routes.includes("/projetos/consolidacao-arquitetural"));
+  assert.ok(routes.includes("/projetos/bruna-e-eloan"));
 
   for (const route of routes) {
     const html = markup(await getPage(route));
@@ -113,6 +123,20 @@ test("as páginas do sitemap têm metadados, landmarks e links internos válidos
       }
     }
   }
+});
+
+test("o case adicional retorna à seção correspondente sem entrar na navegação principal", async () => {
+  const html = markup(await getPage("/projetos/bruna-e-eloan"));
+  assert.ok(html.includes('href="/#projetos-adicionais"'));
+  assert.doesNotMatch(html, /Case anterior|Próximo case/);
+  assert.ok(html.includes("Acessar aplicação"));
+  assert.ok(html.includes("Ver no GitHub"));
+});
+
+test("o CTA do GitHub do Task Markdown aparece no card e no case", async () => {
+  const html = markup(await getPage("/projetos/task-markdown"));
+  assert.ok(html.includes('href="https://github.com/emffor/task-markdown"'));
+  assert.ok(html.includes("Ver no GitHub"));
 });
 
 test("as imagens utilizadas nas páginas existem", async () => {

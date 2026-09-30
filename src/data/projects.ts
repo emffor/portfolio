@@ -38,7 +38,7 @@ export const PROJECTS: readonly Project[] = [
       "AWS S3",
       "PHPUnit 11",
     ],
-    projectUrl: "https://rastrof.netlify.app/",
+    projectUrl: "https://rastro.emfsystems.com.br/",
     brief: [
       {
         label: "Problema",
@@ -293,6 +293,7 @@ export const PROJECTS: readonly Project[] = [
     ],
     projectUrl: "https://taskmarkdown.emfsystems.com.br",
     projectUrlLabel: "Acessar aplicação",
+    githubUrl: "https://github.com/emffor/task-markdown",
     brief: [
       {
         label: "Problema",
@@ -507,12 +508,80 @@ export const PROJECTS: readonly Project[] = [
       ],
     },
   },
+  {
+    title: "Bruna & Eloan",
+    slug: "bruna-e-eloan",
+    kind: "product",
+    category: "Aplicação web · Pagamentos & integrações",
+    featured: false,
+    shortDescription:
+      "Aplicação web para casamento com confirmação de presença, lista de presentes, carrinho, pagamentos e persistência de mensagens dos convidados.",
+    fullDescription:
+      "Aplicação responsiva para reunir informações do casamento, confirmação de presença, lista de presentes, carrinho e mensagens dos convidados.",
+    image: "/assets/brunaeeloan/capa.png",
+    technologies: [
+      "React",
+      "TypeScript",
+      "Material UI",
+      "Supabase",
+      "Mercado Pago",
+      "Google Maps",
+      "Netlify",
+    ],
+    projectUrl: "https://brunaeeloan.emfsystems.com.br/",
+    projectUrlLabel: "Acessar aplicação",
+    githubUrl: "https://github.com/emffor/projeto_casamento_web",
+    brief: [
+      {
+        label: "Problema",
+        text: "Centralizar informações do casamento, confirmação de presença e lista de presentes em uma única experiência digital.",
+      },
+      {
+        label: "Decisão",
+        text: "Aplicação React integrada ao Supabase para confirmações e mensagens, com carrinho próprio e integração externa para o fluxo de pagamento.",
+      },
+      {
+        label: "Trade-off",
+        text: "A solução priorizou simplicidade e entrega para um evento específico, utilizando serviços externos para persistência e processamento de pagamentos.",
+      },
+      {
+        label: "Entrega",
+        text: "Aplicação utilizada como ponto central do evento, reunindo informações, RSVP, mensagens de convidados e lista de presentes.",
+      },
+    ],
+    context:
+      "As informações do evento, as confirmações de presença e a lista de presentes foram reunidas em uma aplicação web responsiva.",
+    solution:
+      "O site apresenta as informações e localização do evento, recebe confirmações e mensagens dos convidados com persistência no Supabase, e oferece lista de presentes com carrinho. O fluxo de checkout envia os itens a uma API externa e redireciona para a URL de pagamento retornada.",
+    technicalChallenges: [
+      "Persistir confirmações de presença e consultar mensagens dos convidados usando o Supabase.",
+      "Calcular quantidades e total do carrinho e iniciar checkout por meio da API de pagamentos.",
+    ],
+    myRole:
+      "Desenvolvimento da aplicação web, experiência responsiva, fluxo de RSVP, persistência com Supabase, lista de presentes, carrinho e integração do checkout.",
+    screenshots: [
+      {
+        src: "/assets/brunaeeloan/presentes.png",
+        alt: "Lista de presentes com cards de itens e acesso ao carrinho",
+        caption: "Lista de presentes, com opção de adicionar itens ao carrinho.",
+      },
+      {
+        src: "/assets/brunaeeloan/confirmar.png",
+        alt: "Formulário de confirmação de presença com nome, e-mail, telefone, convidados e mensagem",
+        caption: "Formulário de RSVP e mensagem para os noivos.",
+      },
+    ],
+  },
 ] as const;
 
 export async function getFeaturedProjects(): Promise<Project[]> {
   return PROJECTS.filter((project) => project.featured).sort(
     (a, b) => (a.featuredOrder ?? 0) - (b.featuredOrder ?? 0)
   );
+}
+
+export async function getAdditionalProjects(): Promise<Project[]> {
+  return PROJECTS.filter((project) => !project.featured);
 }
 
 export async function getAllProjects(): Promise<Project[]> {

@@ -8,21 +8,36 @@ import { Button } from "@/components/ui/Button";
 interface ProjectCardProps {
   project: Project;
   priority?: boolean;
+  compact?: boolean;
 }
 
 const VISIBLE_TECHNOLOGIES = 6;
 
-export function ProjectCard({ project, priority = false }: ProjectCardProps) {
+export function ProjectCard({
+  project,
+  priority = false,
+  compact = false,
+}: ProjectCardProps) {
   const visibleTechnologies = project.technologies.slice(
     0,
-    VISIBLE_TECHNOLOGIES
+    compact ? 4 : VISIBLE_TECHNOLOGIES
   );
   const remainingCount =
     project.technologies.length - visibleTechnologies.length;
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition-colors duration-200 hover:border-accent/60">
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-secondary">
+    <article
+      className={`group flex overflow-hidden rounded-xl border border-border bg-surface transition-colors duration-200 hover:border-accent/60 ${
+        compact ? "flex-col sm:flex-row" : "flex-col"
+      }`}
+    >
+      <div
+        className={`relative w-full overflow-hidden bg-surface-secondary ${
+          compact
+            ? "aspect-[16/10] sm:aspect-auto sm:w-48 sm:shrink-0"
+            : "aspect-[16/8]"
+        }`}
+      >
         <Image
           src={project.image}
           alt={`Demonstração visual do projeto ${project.title}`}
@@ -33,7 +48,11 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
         />
       </div>
 
-      <div className="flex flex-1 flex-col gap-4 p-6 sm:p-7">
+      <div
+        className={`flex flex-1 flex-col ${
+          compact ? "gap-3 p-4 sm:p-5" : "gap-3 p-5 sm:p-6"
+        }`}
+      >
         <div>
           <p className="mb-2 font-mono text-xs font-medium uppercase tracking-wider text-muted">
             {getProjectKindLabel(project.kind)}

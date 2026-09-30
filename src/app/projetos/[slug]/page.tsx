@@ -6,6 +6,7 @@ import { ProjectImageCarousel } from "@/components/ui/ProjectImageCarousel";
 import { ProjectScreenshot } from "@/types/project";
 import {
   getAllProjects,
+  getFeaturedProjects,
   getProjectBySlug,
 } from "@/data/projects";
 import { SITE_URL, SITE_NAME, AUTHOR_NAME } from "@/lib/constants";
@@ -73,15 +74,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  const allProjects = await getAllProjects();
-  const currentIndex = allProjects.findIndex((p) => p.slug === slug);
+  const featuredProjects = project.featured ? await getFeaturedProjects() : [];
+  const currentIndex = featuredProjects.findIndex((item) => item.slug === slug);
   const nextProject =
-    allProjects.length > 1
-      ? allProjects[(currentIndex + 1) % allProjects.length]
+    currentIndex >= 0 && featuredProjects.length > 1
+      ? featuredProjects[(currentIndex + 1) % featuredProjects.length]
       : undefined;
   const prevProject =
-    allProjects.length > 1
-      ? allProjects[(currentIndex - 1 + allProjects.length) % allProjects.length]
+    currentIndex >= 0 && featuredProjects.length > 1
+      ? featuredProjects[
+          (currentIndex - 1 + featuredProjects.length) % featuredProjects.length
+        ]
       : undefined;
 
   const projectImages: readonly ProjectScreenshot[] = [
@@ -98,7 +101,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <article className="max-w-4xl mx-auto px-5 sm:px-8 lg:px-10 py-12 sm:py-16 space-y-12">
       <nav aria-label="Navegação do case">
         <Link
-          href="/#projetos"
+          href={project.featured ? "/#projetos" : "/#projetos-adicionais"}
           className="inline-flex items-center gap-1.5 font-sans text-sm text-muted hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
         >
           <svg
@@ -304,24 +307,26 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           ))}
         </section>
 
-        <section aria-label="Desafios técnicos" className="space-y-3">
-          <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-            Principais desafios técnicos
-          </h2>
-          <ul className="space-y-2 font-sans text-sm sm:text-base text-muted">
-            {project.technicalChallenges.map((challenge, idx) => (
-              <li key={idx} className="flex items-start gap-2">
-                <span
-                  className="text-emerald-500 font-bold shrink-0"
-                  aria-hidden="true"
-                >
-                  ›
-                </span>
-                <span>{challenge}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {project.technicalChallenges.length > 0 && (
+          <section aria-label="Desafios técnicos" className="space-y-3">
+            <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
+              Principais desafios técnicos
+            </h2>
+            <ul className="space-y-2 font-sans text-sm sm:text-base text-muted">
+              {project.technicalChallenges.map((challenge, idx) => (
+                <li key={idx} className="flex items-start gap-2">
+                  <span
+                    className="text-emerald-500 font-bold shrink-0"
+                    aria-hidden="true"
+                  >
+                    ›
+                  </span>
+                  <span>{challenge}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {project.architecture && (
           <div id="arquitetura" className="scroll-mt-20">
