@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { PROFILE_DATA } from "@/data/profile";
+import { profilePhotoUrl } from "@/lib/storage";
 import { Button } from "@/components/ui/Button";
 
 export function Hero() {
@@ -121,7 +122,7 @@ export function Hero() {
               <div className="relative overflow-hidden rounded-2xl">
                 {PROFILE_DATA.photo ? (
                   <Image
-                    src={PROFILE_DATA.photo.src}
+                    src={profilePhotoUrl(PROFILE_DATA.photo.src)}
                     alt={PROFILE_DATA.photo.alt}
                     width={1024}
                     height={1536}

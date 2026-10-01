@@ -1,12 +1,14 @@
 import type { NextConfig } from "next";
 
 function getStorageRemotePattern() {
-  const storageUrlEnv = process.env.NEXT_PUBLIC_STORAGE_URL;
+  const storageUrlEnv =
+    process.env.NEXT_PUBLIC_STORAGE_URL ?? process.env.AWS_ENDPOINT;
   if (!storageUrlEnv) return [];
 
   try {
     const parsed = new URL(storageUrlEnv);
-    const bucket = process.env.NEXT_PUBLIC_STORAGE_BUCKET;
+    const bucket =
+      process.env.NEXT_PUBLIC_STORAGE_BUCKET ?? process.env.AWS_BUCKET;
     const protocol = parsed.protocol.replace(":", "") as "http" | "https";
 
     return [

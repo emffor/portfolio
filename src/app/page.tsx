@@ -9,6 +9,7 @@ import { ContactCta } from "@/components/sections/ContactCta";
 import { PROFILE_DATA } from "@/data/profile";
 import { SKILL_AREAS } from "@/data/skills";
 import { SITE_URL } from "@/lib/constants";
+import { profilePhotoUrl } from "@/lib/storage";
 
 const profileSchema = {
   "@context": "https://schema.org",
@@ -25,7 +26,7 @@ const profileSchema = {
     jobTitle: PROFILE_DATA.title,
     description: PROFILE_DATA.summary,
     ...(PROFILE_DATA.photo && {
-      image: new URL(PROFILE_DATA.photo.src, SITE_URL).href,
+      image: profilePhotoUrl(PROFILE_DATA.photo.src),
     }),
     sameAs: [PROFILE_DATA.socials.github.url, PROFILE_DATA.socials.linkedin.url],
     knowsAbout: [...new Set(SKILL_AREAS.flatMap((area) => area.items))],

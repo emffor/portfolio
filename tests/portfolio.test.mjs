@@ -19,8 +19,10 @@ try {
   // Ignora se arquivo .env não existir no ambiente
 }
 
-const storageUrlEnv = process.env.NEXT_PUBLIC_STORAGE_URL ?? "";
-const storageBucketEnv = process.env.NEXT_PUBLIC_STORAGE_BUCKET ?? "";
+const storageUrlEnv =
+  process.env.NEXT_PUBLIC_STORAGE_URL ?? process.env.AWS_ENDPOINT ?? "";
+const storageBucketEnv =
+  process.env.NEXT_PUBLIC_STORAGE_BUCKET ?? process.env.AWS_BUCKET ?? "";
 const storagePrefix = storageUrlEnv && storageBucketEnv
   ? `${storageUrlEnv.replace(/\/+$/, "")}/${storageBucketEnv.replace(/^\/+|\/+$/g, "")}/`
   : "";

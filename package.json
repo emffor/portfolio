@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test:smoke": "node --test tests/portfolio.test.mjs"
+    "test:smoke": "node --test tests/portfolio.test.mjs",
+    "upload:assets": "bash scripts/upload-assets-to-s3.sh"
   },
   "dependencies": {
     "next": "16.3.6",
