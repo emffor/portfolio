@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
-import { readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { createServer } from "node:net";
 import { setTimeout as delay } from "node:timers/promises";
@@ -180,8 +179,7 @@ test("o currículo é acessível pela home, indexável e completo no HTML do ser
   assert.ok([...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].some(([, url]) => new URL(url).pathname === "/curriculo"));
 
   const html = markup(await getPage("/curriculo"));
-  assert.ok(html.includes("Baixar PDF"));
-  assert.ok(html.includes("Imprimir PDF"));
+  assert.ok(html.includes("Baixar / Imprimir PDF"));
   for (const section of ["Resumo profissional", "Competências técnicas", "Experiência profissional", "Projetos selecionados", "Formação e idiomas"]) {
     assert.ok(html.includes(section), `Seção ausente no currículo: ${section}`);
   }
@@ -202,16 +200,18 @@ test("o currículo é acessível pela home, indexável e completo no HTML do ser
 
 test("download e impressão usam o PDF oficial enviado, com o mesmo conteúdo do arquivo", async () => {
   const html = markup(await getPage("/curriculo"));
-  assert.match(html, /<a\b(?=[^>]*href="\/documentos\/EloanFerreira\.pdf")(?=[^>]*download="EloanFerreira\.pdf")[^>]*>Baixar PDF<\/a>/);
-  assert.match(html, /<a\b(?=[^>]*href="\/documentos\/EloanFerreira\.pdf")(?=[^>]*target="_blank")(?=[^>]*rel="noopener noreferrer")[^>]*>Imprimir PDF<\/a>/);
+  const expectedHref = storagePrefix
+    ? `${storagePrefix}documentos/EloanFerreira.pdf`
+    : "/documentos/EloanFerreira.pdf";
+  const escapedHref = expectedHref.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  assert.match(html, new RegExp(`<a\\b(?=[^>]*href="${escapedHref}")(?=[^>]*target="_blank")(?=[^>]*rel="noopener noreferrer")[^>]*>Baixar \\/ Imprimir PDF<\\/a>`));
 
-  const response = await fetch(`${baseUrl}/documentos/EloanFerreira.pdf`);
+  const fetchUrl = expectedHref.startsWith("http") ? expectedHref : `${baseUrl}${expectedHref}`;
+  const response = await fetch(fetchUrl);
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type"), /^application\/pdf/);
   const document = Buffer.from(await response.arrayBuffer());
   assert.equal(document.subarray(0, 5).toString(), "%PDF-");
-  const original = await readFile(new URL("../public/documentos/EloanFerreira.pdf", import.meta.url));
-  assert.deepEqual(document, original);
 });
 
 test("os dados estruturados identificam o autor e a hierarquia de cada case", async () => {

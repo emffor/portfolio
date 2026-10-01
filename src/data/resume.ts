@@ -1,6 +1,7 @@
 import { Resume } from "@/types/resume";
+import { documentUrl } from "@/lib/storage";
 
-// Informações transcritas do currículo fornecido em public/documentos/EloanFerreira.pdf.
+// Informações transcritas do currículo.
 export const RESUME_DATA: Resume = {
   title: "Desenvolvedor Full Stack",
   location: "Fortaleza/CE",
@@ -11,7 +12,7 @@ export const RESUME_DATA: Resume = {
     href: "tel:+5585988800005",
   },
   document: {
-    href: "/documentos/EloanFerreira.pdf",
+    href: documentUrl("EloanFerreira.pdf"),
     fileName: "EloanFerreira.pdf",
   },
   skillAreas: [

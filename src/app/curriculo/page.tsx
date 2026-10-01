@@ -5,7 +5,6 @@ import { getExperiences } from "@/data/experience";
 import { getFeaturedProjects } from "@/data/projects";
 import { RESUME_DATA } from "@/data/resume";
 import { Button } from "@/components/ui/Button";
-import { PrintResumeButton } from "@/components/ui/PrintResumeButton";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
 
 const title = `Currículo de ${PROFILE_DATA.name}`;
@@ -55,19 +54,20 @@ export default async function ResumePage() {
           ))}
         </ul>
         <div className="resume-actions mt-6 border-t border-border pt-5">
-          <div className="grid grid-cols-2 gap-3 sm:w-fit">
+          <div className="w-full sm:w-fit">
             <Button
               href={RESUME_DATA.document.href}
-              download={RESUME_DATA.document.fileName}
+              target="_blank"
+              rel="noopener noreferrer"
               size="sm"
-              className="w-full sm:min-w-32"
+              className="w-full sm:w-auto"
+              aria-label="Baixar ou imprimir PDF do currículo (abre em nova aba)"
             >
-              Baixar PDF
+              Baixar / Imprimir PDF
             </Button>
-            <PrintResumeButton className="w-full sm:min-w-32" />
           </div>
           <p className="mt-2 text-xs leading-relaxed text-muted">
-            Imprima pelo visualizador do PDF, que abre em uma nova aba.
+            Abre o visualizador do PDF em uma nova aba para salvar ou imprimir.
           </p>
         </div>
       </header>

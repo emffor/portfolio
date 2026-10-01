@@ -14,9 +14,9 @@ export function PrintResumeButton({ className }: PrintResumeButtonProps) {
       variant="outline"
       size="sm"
       className={className}
-      aria-label="Imprimir PDF do currículo (abre em nova aba)"
+      aria-label="Baixar ou imprimir PDF do currículo (abre em nova aba)"
     >
-      Imprimir PDF
+      Baixar / Imprimir PDF
     </Button>
   );
 }
