@@ -322,7 +322,7 @@ export const PROJECTS: readonly Project[] = [
     category: "Fintech & Dados Financeiros",
     featured: true,
     featuredOrder: 1,
-    status: "Aplicação online com acesso controlado",
+    status: "Demonstração online · acesso por código de teste",
     shortDescription:
       "Plataforma de investimentos que reúne carteira, renda e análise de empresas, com API própria para integrar e normalizar fontes de dados financeiros.",
     fullDescription:
@@ -382,7 +382,7 @@ export const PROJECTS: readonly Project[] = [
     projectUrl: "https://investidor.emfsystems.com.br",
     projectUrlLabel: "Acessar aplicação",
     sourceNote: "Código-fonte privado. Projeto autoral.",
-    accessNote: "A aplicação tem acesso controlado. Entre em contato para solicitar uma demonstração e conhecer os fluxos do produto.",
+    accessNote: "Para acessar a demonstração, abra a aplicação e informe o código de teste 11111111.",
     brief: [
       {
         label: "Problema",

@@ -101,7 +101,7 @@ Interações de teclado, tema, carrossel e galeria também devem ser verificadas
 - As prévias de compartilhamento são geradas em PNG para cada projeto em
   `/projetos/[slug]/opengraph-image`.
 - Competências possuem links para exemplos nos cases e na experiência profissional.
-- Aplicações com acesso controlado podem informar `accessNote` com orientação para solicitar uma demonstração.
+- A orientação de acesso à demonstração fica em `accessNote`. No Investidor, ela informa o código público de teste.
 
 Ao editar o conteúdo, diferencie produto, case corporativo e estudo técnico.
 Descreva entregas verificáveis e sua participação; inclua métricas somente quando

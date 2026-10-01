@@ -222,12 +222,13 @@ test("os dados estruturados identificam o autor e a hierarquia de cada case", as
   }
 });
 
-test("o Investidor explica o acesso controlado e oferece solicitação de demonstração", async () => {
+test("o Investidor informa o código público de teste sem exigir solicitação de acesso", async () => {
   const html = markup(await getPage("/projetos/investidor"));
-  const accessNote = html.indexOf("A aplicação tem acesso controlado.");
+  const accessNote = html.indexOf("Para acessar a demonstração, abra a aplicação e informe o código de teste 11111111.");
   assert.ok(accessNote >= 0 && accessNote < html.indexOf('id="contexto"'));
-  assert.match(html, /href="mailto:[^"]+\?subject=Demonstra/);
-  assert.ok(html.includes("Solicitar demonstração"));
+  assert.ok(html.includes("Demonstração online · acesso por código de teste"));
+  assert.ok(html.includes('href="https://investidor.emfsystems.com.br"'));
+  assert.doesNotMatch(html, /Solicitar demonstração|href="mailto:[^"]+\?subject=Demonstra/);
 });
 
 test("o case adicional retorna à seção correspondente sem entrar na navegação principal", async () => {

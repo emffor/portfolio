@@ -34,19 +34,8 @@ export default async function ResumePage() {
 
   return (
     <article className="resume-page mx-auto max-w-4xl px-5 py-10 sm:px-8 sm:py-16">
-      <div className="resume-actions mb-10 flex flex-wrap items-center justify-between gap-4">
+      <div className="resume-actions mb-8">
         <Button href="/" variant="ghost">← Voltar ao portfólio</Button>
-        <div className="max-w-sm">
-          <div className="grid w-fit grid-cols-2 gap-3">
-            <Button href={RESUME_DATA.document.href} download={RESUME_DATA.document.fileName}>
-              Baixar PDF
-            </Button>
-            <PrintResumeButton />
-          </div>
-          <p className="mt-2 text-xs leading-relaxed text-muted">
-            Para imprimir, use o controle de impressão do visualizador de PDF na nova aba.
-          </p>
-        </div>
       </div>
 
       <header className="border-b border-border pb-6">
@@ -65,6 +54,22 @@ export default async function ResumePage() {
             </li>
           ))}
         </ul>
+        <div className="resume-actions mt-6 border-t border-border pt-5">
+          <div className="grid grid-cols-2 gap-3 sm:w-fit">
+            <Button
+              href={RESUME_DATA.document.href}
+              download={RESUME_DATA.document.fileName}
+              size="sm"
+              className="w-full sm:min-w-32"
+            >
+              Baixar PDF
+            </Button>
+            <PrintResumeButton className="w-full sm:min-w-32" />
+          </div>
+          <p className="mt-2 text-xs leading-relaxed text-muted">
+            Imprima pelo visualizador do PDF, que abre em uma nova aba.
+          </p>
+        </div>
       </header>
 
       <section aria-labelledby="resume-summary" className="mt-8">

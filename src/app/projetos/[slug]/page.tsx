@@ -15,7 +15,6 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { ProjectGallery } from "@/components/ui/ProjectGallery";
 import { ProjectArchitectureDiagram } from "@/components/ui/ProjectArchitecture";
-import { PROFILE_DATA } from "@/data/profile";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -279,17 +278,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <p className="text-sm leading-relaxed text-muted">{project.sourceNote}</p>
         )}
         {project.accessNote && (
-          <div className="max-w-2xl space-y-3 rounded-lg border border-border bg-surface p-4">
+          <div className="max-w-2xl rounded-lg border border-border bg-surface p-4">
             <p className="text-sm leading-relaxed text-muted">{project.accessNote}</p>
-            {PROFILE_DATA.socials.email && (
-              <Button
-                href={`mailto:${PROFILE_DATA.socials.email}?subject=${encodeURIComponent(`Demonstração do projeto ${project.title}`)}`}
-                variant="outline"
-                size="sm"
-              >
-                Solicitar demonstração
-              </Button>
-            )}
           </div>
         )}
 
