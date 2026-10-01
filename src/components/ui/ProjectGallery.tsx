@@ -107,7 +107,6 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
           closeModal();
         }}
         onClose={() => {
-          // Um evento de fechamento anterior pode chegar após uma reabertura.
           if (!dialogRef.current?.open) closeModal();
         }}
         onKeyDown={(event) => {
@@ -129,7 +128,6 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
       >
         {currentScreenshot && selectedIdx !== null && (
           <div className="relative flex w-full flex-col items-center justify-center">
-            {/* Header com controles */}
             <div className="flex w-full items-center justify-between border-b border-border/70 px-4 py-3 sm:px-6">
               <span className="font-mono text-xs text-muted" aria-live="polite">
                 Tela {selectedIdx + 1} de {screenshots.length}
@@ -157,7 +155,6 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
               </button>
             </div>
 
-            {/* Imagem em tamanho ampliado */}
             <div className="relative aspect-[16/10] w-full max-h-[70vh] bg-surface-secondary">
               <Image
                 src={currentScreenshot.src}
@@ -222,7 +219,6 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
               )}
             </div>
 
-            {/* Legenda técnica */}
             {currentScreenshot.caption && (
               <div className="w-full border-t border-border/70 px-4 py-3 sm:px-6 bg-surface">
                 <p className="font-sans text-xs sm:text-sm text-foreground/90">

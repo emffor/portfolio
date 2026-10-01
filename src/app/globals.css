@@ -12,10 +12,6 @@
   --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
-/* =========================================================
-   TOKENS SEMÂNTICOS
-   ========================================================= */
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -32,18 +28,10 @@
   --color-muted: var(--muted);
 }
 
-/* =========================================================
-   LIGHT MODE
-   ========================================================= */
-
 :root {
   --background: #f7f9f8;
   --foreground: #17201f;
 
-  /*
-   * Verde petróleo mais profundo no light mode
-   * para preservar contraste em fundos claros.
-   */
   --accent: #386863;
   --accent-hover: #2f5955;
   --accent-soft: rgba(56, 104, 99, 0.10);
@@ -59,24 +47,11 @@
   color-scheme: light;
 }
 
-/* =========================================================
-   DARK MODE
-   ========================================================= */
-
 .dark {
   color-scheme: dark;
-  /*
-   * Fundo quase preto com leve temperatura verde.
-   * Evita preto absoluto e integra melhor com o accent.
-   */
   --background: #090d0e;
   --foreground: #eef2f1;
 
-  /*
-   * Accent principal.
-   * Mais luminoso que #386863 para funcionar sobre
-   * o fundo escuro sem perder a identidade petróleo.
-   */
   --accent: #63a39c;
   --accent-hover: #76b3ac;
   --accent-soft: rgba(99, 163, 156, 0.12);
@@ -89,10 +64,6 @@
   --border: #293536;
   --muted: #96a3a1;
 }
-
-/* =========================================================
-   HTML
-   ========================================================= */
 
 html {
   scroll-behavior: smooth;
@@ -122,10 +93,6 @@ html {
   content: "";
   pointer-events: none;
 }
-
-/* =========================================================
-   TYPOGRAPHY
-   ========================================================= */
 
 h1,
 h2,
@@ -267,10 +234,6 @@ h6,
   }
 }
 
-/* =========================================================
-   BODY
-   ========================================================= */
-
 body {
   background-color: var(--background);
   color: var(--foreground);
@@ -287,36 +250,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* =========================================================
-   TEXT SELECTION
-   ========================================================= */
-
 ::selection {
   background: var(--accent);
   color: var(--on-accent);
 }
-
-/* =========================================================
-   FOCUS
-   ========================================================= */
 
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
-/* =========================================================
-   LINKS
-   ========================================================= */
-
 a {
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
-
-/* =========================================================
-   SCROLLBAR
-   ========================================================= */
 
 * {
   scrollbar-width: thin;
@@ -342,10 +289,6 @@ a {
   background: var(--muted);
 }
 
-/* =========================================================
-   ACESSIBILIDADE
-   ========================================================= */
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -366,7 +309,6 @@ a {
   }
 }
 
-/* Currículo: texto selecionável e layout próprio para impressão em A4. */
 @media print {
   @page {
     size: A4;

@@ -3,12 +3,6 @@ const STORAGE_URL =
 const STORAGE_BUCKET =
   process.env.NEXT_PUBLIC_STORAGE_BUCKET ?? process.env.AWS_BUCKET ?? "";
 
-/**
- * Constrói a URL pública completa de um asset armazenado no MinIO/S3.
- *
- * @param path Caminho relativo dentro do bucket (ex: "projects/investidor/capa.png")
- * @returns URL pública resolvida
- */
 export function storageUrl(path: string): string {
   const normalizedBase = STORAGE_URL.replace(/\/+$/, "");
   const normalizedBucket = STORAGE_BUCKET.replace(/^\/+|\/+$/g, "");
@@ -25,13 +19,6 @@ export function storageUrl(path: string): string {
   return `${normalizedBase}/${normalizedBucket}/${normalizedPath}`;
 }
 
-/**
- * Constrói a URL pública da foto de perfil.
- * Aceita somente o nome do arquivo da foto (ex: "perfil.png").
- *
- * @param photo Nome do arquivo da foto (ex: "perfil.png")
- * @returns URL pública da foto de perfil
- */
 export function profilePhotoUrl(photo: string = "perfil.png"): string {
   if (photo.startsWith("http://") || photo.startsWith("https://")) {
     return photo;
@@ -40,14 +27,6 @@ export function profilePhotoUrl(photo: string = "perfil.png"): string {
   return storageUrl(`profile/${clean}`);
 }
 
-/**
- * Constrói a URL pública de uma imagem de projeto.
- * Aceita o slug do projeto e somente o nome da imagem/foto (ex: "capa.png").
- *
- * @param slug Slug do projeto (ex: "rastro-florestal")
- * @param photo Nome do arquivo da imagem (ex: "capa.png")
- * @returns URL pública da imagem do projeto
- */
 export function projectImageUrl(slug: string, photo: string): string {
   if (photo.startsWith("http://") || photo.startsWith("https://")) {
     return photo;
@@ -59,13 +38,6 @@ export function projectImageUrl(slug: string, photo: string): string {
   return storageUrl(`projects/${cleanSlug}/${cleanPhoto}`);
 }
 
-/**
- * Constrói a URL pública de um documento (ex: currículo em PDF).
- * Aceita o nome ou caminho do documento (ex: "EloanFerreira.pdf").
- *
- * @param doc Nome ou caminho relativo do documento
- * @returns URL pública resolvida
- */
 export function documentUrl(doc: string = "EloanFerreira.pdf"): string {
   if (doc.startsWith("http://") || doc.startsWith("https://")) {
     return doc;
@@ -74,9 +46,6 @@ export function documentUrl(doc: string = "EloanFerreira.pdf"): string {
   return storageUrl(`documentos/${clean}`);
 }
 
-/**
- * Service de mídia e armazenamento para centralizar a resolução de URLs de assets.
- */
 export const storageService = {
   url: storageUrl,
   profilePhoto: profilePhotoUrl,

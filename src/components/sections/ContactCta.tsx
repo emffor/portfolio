@@ -70,7 +70,6 @@ export function ContactCta() {
       className="section-highlight scroll-mt-20 py-10 sm:py-16"
     >
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-14">
-        {/* Coluna esquerda: título, texto e canais */}
         <div>
           <p className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-muted">
             Contato
@@ -115,7 +114,6 @@ export function ContactCta() {
           </ul>
         </div>
 
-        {/* Coluna direita: disponibilidade e ação direta */}
         <div className="flex items-start md:items-center">
           <div className="min-w-0 w-full rounded-xl border border-border bg-surface p-5 sm:p-8">
             {PROFILE_DATA.availableForWork && (

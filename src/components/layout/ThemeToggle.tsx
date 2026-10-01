@@ -8,7 +8,6 @@ function subscribe(callback: () => void) {
     try {
       saved = localStorage.getItem("theme");
     } catch {
-      // Sem storage, mantém o tema escuro padrão.
     }
     document.documentElement.classList.toggle(
       "dark",
@@ -58,7 +57,6 @@ export function ThemeToggle() {
     try {
       localStorage.setItem("theme", nextTheme);
     } catch {
-      // Ignora erro caso localStorage esteja desabilitado
     }
 
     window.dispatchEvent(new Event("theme-change"));
@@ -86,7 +84,6 @@ export function ThemeToggle() {
       }
     >
       {theme === "dark" ? (
-        // Ícone Sol
         <svg
           className="w-4 h-4"
           fill="none"
@@ -102,7 +99,6 @@ export function ThemeToggle() {
           />
         </svg>
       ) : (
-        // Ícone Lua
         <svg
           className="w-4 h-4"
           fill="none"

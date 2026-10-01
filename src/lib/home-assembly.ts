@@ -1,5 +1,3 @@
-// Runs before the first paint, independently of React hydration.
-// The default (no attribute) always leaves the server-rendered content visible.
 export const HOME_ASSEMBLY_SCRIPT = `
   (function() {
     if (window.location.pathname !== '/') return;
@@ -8,7 +6,6 @@ export const HOME_ASSEMBLY_SCRIPT = `
     try {
       if (sessionStorage.getItem(key)) return;
     } catch (error) {
-      // If storage is unavailable, prefer immediate content over repeated motion.
       return;
     }
 
@@ -43,7 +40,6 @@ export const HOME_ASSEMBLY_SCRIPT = `
     }
 
     function armFallback() {
-      // Safety net if animationend is skipped (background tab, interrupted CSS).
       timer = window.setTimeout(finish, 1600);
     }
 

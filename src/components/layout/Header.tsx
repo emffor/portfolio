@@ -27,7 +27,6 @@ export function Header() {
       )}
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10 h-16 flex items-center justify-between gap-4">
-        {/* Brand / Logo */}
         <Link
           href="/#inicio"
           className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"

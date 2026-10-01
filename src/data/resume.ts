@@ -1,7 +1,6 @@
 import { Resume } from "@/types/resume";
 import { documentUrl } from "@/lib/storage";
 
-// Informações transcritas do currículo.
 export const RESUME_DATA: Resume = {
   title: "Desenvolvedor Full Stack",
   location: "Fortaleza/CE",

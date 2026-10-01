@@ -1,34 +1,9 @@
 #!/usr/bin/env bash
-# ==============================================================================
-# Script de sincronização de assets estáticos com o MinIO / S3
-#
-# Estrutura no bucket:
-#   portfolio/
-#   ├── profile/
-#   ├── documentos/
-#   └── projects/
-#       ├── rastro-florestal/
-#       ├── consolidacao-arquitetural/
-#       ├── investidor/
-#       ├── task-markdown/
-#       ├── vidora/
-#       └── bruna-e-eloan/
-#
-# Variáveis necessárias (.env ou ambiente):
-#   - NEXT_PUBLIC_STORAGE_URL
-#   - NEXT_PUBLIC_STORAGE_BUCKET
-#   - NEXT_AWS_ACCESS_KEY_ID (ou AWS_ACCESS_KEY_ID)
-#   - NEXT_AWS_SECRET_ACCESS_KEY (ou AWS_SECRET_ACCESS_KEY)
-#
-# Uso:
-#   pnpm upload:assets
-# ==============================================================================
 
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# Função para carregar variáveis de arquivo sem eval inseguro
 load_env_file() {
   local file="$1"
   if [ -f "$file" ]; then
@@ -61,7 +36,6 @@ STORAGE_BUCKET="${NEXT_PUBLIC_STORAGE_BUCKET:-${AWS_BUCKET:-}}"
 AWS_ACCESS_KEY_ID="${NEXT_AWS_ACCESS_KEY_ID:-${AWS_ACCESS_KEY_ID:-}}"
 AWS_SECRET_ACCESS_KEY="${NEXT_AWS_SECRET_ACCESS_KEY:-${AWS_SECRET_ACCESS_KEY:-}}"
 
-# Validação das variáveis obrigatórias
 missing_vars=()
 [ -z "${STORAGE_URL:-}" ] && missing_vars+=("NEXT_PUBLIC_STORAGE_URL (ou AWS_ENDPOINT)")
 [ -z "${STORAGE_BUCKET:-}" ] && missing_vars+=("NEXT_PUBLIC_STORAGE_BUCKET (ou AWS_BUCKET)")
@@ -85,7 +59,6 @@ if ! command -v mc &> /dev/null; then
   exit 1
 fi
 
-# Resolução do diretório de origem
 if [ -n "${SOURCE_DIR:-}" ]; then
   ASSETS_SRC="${SOURCE_DIR}"
 elif [ -d "${REPO_ROOT}/.assets-migration" ]; then
@@ -137,10 +110,7 @@ sync_dir() {
   fi
 }
 
-# 1. Perfil
 sync_dir "perfil" "profile"
-
-# 2. Projetos com normalização para slugs oficiais
 sync_dir "rastro-florestal" "projects/rastro-florestal"
 sync_dir "consolidacao-readi" "projects/consolidacao-arquitetural"
 sync_dir "investidor" "projects/investidor"
@@ -148,7 +118,6 @@ sync_dir "taskmarkdown" "projects/task-markdown"
 sync_dir "vidora" "projects/vidora"
 sync_dir "brunaeeloan" "projects/bruna-e-eloan"
 
-# 3. Documentos (Currículo / PDFs)
 if [ -d "${REPO_ROOT}/public/documentos" ]; then
   echo "→ Sincronizando public/documentos → documentos..."
   mc mirror --overwrite "${REPO_ROOT}/public/documentos" "${ALIAS_NAME}/${STORAGE_BUCKET}/documentos"
