@@ -6,7 +6,7 @@ export const PROFILE_DATA: Profile = {
   positioning:
     "Backend e modernização de sistemas em produção.",
   headline:
-    "Transformo regras de negócio complexas em aplicações com Laravel, Node.js e TypeScript — da modelagem de dados à interface e ao deploy.",
+    "Transformo regras de negócio complexas em aplicações com Laravel, Node.js e TypeScript da modelagem de dados à interface e ao deploy.",
   experienceSince: "2019",
   domain: "me.emfsystems.com.br",
   location: "Brasil",
