@@ -15,7 +15,6 @@ const pages = new Map();
 try {
   process.loadEnvFile?.();
 } catch {
-  // Ignora se arquivo .env não existir no ambiente
 }
 
 const storageUrlEnv =
@@ -51,7 +50,6 @@ before(async () => {
       }
       await response.body?.cancel();
     } catch {
-      // Aguarda a disponibilidade do servidor de produção.
     }
     await delay(200);
   }
