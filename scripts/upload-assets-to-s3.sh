@@ -5,6 +5,7 @@
 # Estrutura no bucket:
 #   portfolio/
 #   ├── profile/
+#   ├── documentos/
 #   └── projects/
 #       ├── rastro-florestal/
 #       ├── consolidacao-arquitetural/
@@ -146,6 +147,12 @@ sync_dir "investidor" "projects/investidor"
 sync_dir "taskmarkdown" "projects/task-markdown"
 sync_dir "vidora" "projects/vidora"
 sync_dir "brunaeeloan" "projects/bruna-e-eloan"
+
+# 3. Documentos (Currículo / PDFs)
+if [ -d "${REPO_ROOT}/public/documentos" ]; then
+  echo "→ Sincronizando public/documentos → documentos..."
+  mc mirror --overwrite "${REPO_ROOT}/public/documentos" "${ALIAS_NAME}/${STORAGE_BUCKET}/documentos"
+fi
 
 echo "========================================================"
 echo " Upload concluído com sucesso!"

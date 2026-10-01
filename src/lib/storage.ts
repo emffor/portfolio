@@ -60,10 +60,26 @@ export function projectImageUrl(slug: string, photo: string): string {
 }
 
 /**
+ * Constrói a URL pública de um documento (ex: currículo em PDF).
+ * Aceita o nome ou caminho do documento (ex: "EloanFerreira.pdf").
+ *
+ * @param doc Nome ou caminho relativo do documento
+ * @returns URL pública resolvida
+ */
+export function documentUrl(doc: string = "EloanFerreira.pdf"): string {
+  if (doc.startsWith("http://") || doc.startsWith("https://")) {
+    return doc;
+  }
+  const clean = doc.replace(/^documentos\//, "").replace(/^\/+/, "");
+  return storageUrl(`documentos/${clean}`);
+}
+
+/**
  * Service de mídia e armazenamento para centralizar a resolução de URLs de assets.
  */
 export const storageService = {
   url: storageUrl,
   profilePhoto: profilePhotoUrl,
   projectImage: projectImageUrl,
+  document: documentUrl,
 };
