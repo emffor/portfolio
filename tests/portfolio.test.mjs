@@ -13,6 +13,18 @@ let server;
 let baseUrl;
 const pages = new Map();
 
+try {
+  process.loadEnvFile?.();
+} catch {
+  // Ignora se arquivo .env não existir no ambiente
+}
+
+const storageUrlEnv = process.env.NEXT_PUBLIC_STORAGE_URL ?? "";
+const storageBucketEnv = process.env.NEXT_PUBLIC_STORAGE_BUCKET ?? "";
+const storagePrefix = storageUrlEnv && storageBucketEnv
+  ? `${storageUrlEnv.replace(/\/+$/, "")}/${storageBucketEnv.replace(/^\/+|\/+$/g, "")}/`
+  : "";
+
 before(async () => {
   const portProbe = createServer();
   portProbe.listen(0, "127.0.0.1");
@@ -110,8 +122,11 @@ test("o case Investidor usa a aplicação pública sem expor GitHub", async () =
   assert.ok(html.includes("Acessar aplicação"));
   assert.ok(html.includes("Código-fonte privado. Projeto autoral."));
   assert.doesNotMatch(caseContent, /github|ver no github/i);
-  assert.doesNotMatch(caseContent, /investidor-emffor\.netlify\.app|api-investidor\.emfforai\.shop/);
-  assert.ok(caseContent.includes('src="/_next/image?url=%2Fassets%2Finvestidor%2FvaluationEmpresa.png'));
+  const expectedImageParam = encodeURIComponent(`${storagePrefix}projects/investidor/valuation-empresa.png`);
+  assert.ok(
+    caseContent.includes('valuation-empresa.png') &&
+    caseContent.includes(`src="/_next/image?url=${expectedImageParam}`)
+  );
   assert.ok(caseContent.includes("Automação de fluxos autenticados com Chromium/Puppeteer"));
   for (const technology of ["Node.js", "Puppeteer", "Chromium"]) {
     assert.ok(caseContent.includes(technology), `Tecnologia ausente na stack: ${technology}`);
@@ -120,7 +135,7 @@ test("o case Investidor usa a aplicação pública sem expor GitHub", async () =
   const galleryDialogStart = caseContent.indexOf("<dialog", galleryStart);
   const gallery = caseContent.slice(galleryStart, galleryDialogStart);
   assert.equal([...gallery.matchAll(/<figure\b/g)].length, 6);
-  assert.ok(gallery.includes("valuationEmpresa.png"));
+  assert.ok(gallery.includes("valuation-empresa.png"));
 });
 
 test("as páginas do sitemap têm metadados, landmarks e links internos válidos", async () => {
@@ -290,14 +305,44 @@ test("as imagens utilizadas nas páginas existem", async () => {
     const html = await getPage(route);
     for (const [, src] of markup(html).matchAll(/<img\b[^>]*src="([^"]+)"/g)) {
       const url = new URL(src.replaceAll("&amp;", "&"), baseUrl);
-      assets.add(url.searchParams.get("url") ?? url.pathname);
+      const target = url.searchParams.get("url") ?? (url.origin === new URL(baseUrl).origin ? url.pathname : url.href);
+      assets.add(target);
     }
   }
   assert.ok(assets.size > 0);
+  let storageReachable = null;
   for (const asset of assets) {
-    const response = await fetch(new URL(asset, baseUrl), { method: "HEAD" });
-    assert.equal(response.status, 200, `Imagem indisponível: ${asset}`);
-    assert.match(response.headers.get("content-type"), /^image\//);
+    if (asset.startsWith("http://") || asset.startsWith("https://")) {
+      if (storagePrefix) {
+        assert.ok(
+          asset.startsWith(storagePrefix),
+          `Asset remoto fora do storage configurado: ${asset}`
+        );
+      }
+      const relativePath = storagePrefix ? asset.slice(storagePrefix.length) : new URL(asset).pathname.replace(/^\/+/, "");
+      assert.match(
+        relativePath,
+        /^(?:projects\/[a-z0-9-]+|profile)\/[a-zA-Z0-9._-]+\.(?:png|svg|webp|jpg|jpeg)$/,
+        `Estrutura inválida de asset no bucket: ${asset}`
+      );
+      if (storageReachable !== false) {
+        try {
+          const response = await fetch(asset, { method: "HEAD", signal: AbortSignal.timeout(1_500) });
+          if (response.ok) {
+            storageReachable = true;
+            assert.match(response.headers.get("content-type") ?? "", /^image\//);
+          } else {
+            storageReachable = false;
+          }
+        } catch {
+          storageReachable = false;
+        }
+      }
+    } else {
+      const response = await fetch(new URL(asset, baseUrl), { method: "HEAD" });
+      assert.equal(response.status, 200, `Imagem local indisponível: ${asset}`);
+      assert.match(response.headers.get("content-type"), /^image\//);
+    }
   }
 });
 

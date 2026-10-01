@@ -168,7 +168,7 @@ portfolio/
 A arquitetura foi projetada para separar dados de apresentação. Para adicionar um novo projeto:
 
 1. **Adicione o asset visual:**
-   Insira a imagem ou mockup em `public/assets/seu-projeto.png` (ou `.svg`).
+   Envie a imagem ou mockup para o MinIO/S3 no bucket `portfolio` (ex.: `projects/seu-projeto/capa.png`).
 
 2. **Cadastre os dados em `src/data/projects.ts`:**
    Adicione um novo objeto ao array `PROJECTS` seguindo a interface `Project`:
@@ -183,7 +183,7 @@ A arquitetura foi projetada para separar dados de apresentação. Para adicionar
      featured: true, // true para exibir na seção de destaque
      shortDescription: "Resumo em uma linha para o cabeçalho do card.",
      fullDescription: "Descrição detalhada do propósito e escopo.",
-     image: "/assets/seu-projeto.png",
+     image: storageUrl("projects/seu-projeto/capa.png"),
      imageAlt: "Descrição do que a captura mostra",
      imageCaption: "Contexto da imagem e identificação de dados de demonstração, se aplicável.",
      technologies: ["TypeScript", "Next.js", "PostgreSQL", "Docker"],

@@ -1,4 +1,5 @@
 import { Profile } from "@/types/profile";
+import { storageUrl } from "@/lib/storage";
 
 export const PROFILE_DATA: Profile = {
   name: "Eloan Ferreira",
@@ -44,7 +45,7 @@ export const PROFILE_DATA: Profile = {
     },
   ],
   photo: {
-    src: "/assets/perfil.png",
+    src: storageUrl("profile/perfil.png"),
     alt: "Eloan Ferreira - Full Stack Developer",
   },
   summary:

@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+/.assets-migration/
 
 # debug
 npm-debug.log*

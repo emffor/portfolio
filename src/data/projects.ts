@@ -1,4 +1,5 @@
 import { Project, ProjectKind } from "@/types/project";
+import { storageUrl } from "@/lib/storage";
 
 export const PROJECT_KIND_LABELS: Record<ProjectKind, string> = {
   product: "Produto",
@@ -23,7 +24,7 @@ export const PROJECTS: readonly Project[] = [
       "SaaS multiempresa para madeireiras: conciliação de estoque legal e físico, rastreabilidade de DOFs e mapa interativo do pátio.",
     fullDescription:
       "SaaS multi-empresa para madeireiras e serrarias reguladas pelo IBAMA. Une conformidade legal do DOF (Documento de Origem Florestal) com a operação real de pátio: controla saldo legal em m³ e estoque físico em peças simultaneamente, com mapa visual do pátio em canvas, movimentações auditáveis e relatórios para fiscalização.",
-    image: "/assets/rastro-florestal.png",
+    image: storageUrl("projects/rastro-florestal/capa.png"),
     imageAlt: "Dashboard do Rastro Florestal com saldos de DOF, estoque e movimentações por lote",
     imageCaption: "Visão operacional do produto com dados de demonstração. Os volumes exibidos ilustram o fluxo de estoque.",
     primaryTechnologies: ["Laravel", "React", "PostgreSQL", "TypeScript"],
@@ -118,37 +119,37 @@ export const PROJECTS: readonly Project[] = [
       "Desenvolvimento Full Stack: arquitetura do backend em Laravel (regras de negócio, estoque duplo, alocação DOF-lote, RBAC e relatórios) e frontend em React + TypeScript (dashboard operacional, mapa de pátio em canvas, fluxos de saída e painel administrativo).",
     screenshots: [
       {
-        src: "/assets/rastro-florestal-movimentacoes.png",
+        src: storageUrl("projects/rastro-florestal/movimentacoes.png"),
         alt: "Histórico de movimentações com 8 entradas, volume filtrado e relatórios em PDF e Excel",
         caption:
           "Movimentações com dados de demonstração: histórico imutável de entradas, filtros por tipo e relatórios em PDF e Excel.",
       },
       {
-        src: "/assets/rastro-florestal-movimentacoes-dimencao.png",
+        src: storageUrl("projects/rastro-florestal/movimentacoes-dimensao.png"),
         alt: "Peças dimensionadas no Lote 2 com 3.500 peças e volumes por produto",
         caption:
           "Estoque físico no lote: 3.500 peças distribuídas por produto dimensionado, com volume individual em m³.",
       },
       {
-        src: "/assets/rastro-florestal-patio-lote-descricao.png",
+        src: storageUrl("projects/rastro-florestal/patio-lote-descricao.png"),
         alt: "Alocações de DOF no Lote 2 com 22,5 m³ distribuídos em 4 documentos",
         caption:
           "Estoque legal no lote: 22,5 m³ vinculados a 4 DOFs, com status, ocupação e itens com peças.",
       },
       {
-        src: "/assets/rastro-florestal-produto-dimensionado.png",
+        src: storageUrl("projects/rastro-florestal/produto-dimensionado.png"),
         alt: "Lista de produtos dimensionados com espécies, dimensões e volume unitário em metros cúbicos",
         caption:
           "Cadastro de produtos dimensionados: espécies vinculadas e volume unitário utilizado na conversão entre peças e metros cúbicos.",
       },
       {
-        src: "/assets/rastro-florestal-patio-lote.png",
+        src: storageUrl("projects/rastro-florestal/patio-lote.png"),
         alt: "Mapa do Pátio Cinza em modo de edição, com três lotes posicionados no canvas",
         caption:
           "Edição do layout do pátio: posicionamento e rotação de lotes no canvas.",
       },
       {
-        src: "/assets/rastro-florestal-patio-cinza.png",
+        src: storageUrl("projects/rastro-florestal/patio-cinza.png"),
         alt: "Listagem de pátios com filtros, área total e acesso ao mapa do Pátio Cinza",
         caption:
           "Listagem de pátios: consulta de áreas, quantidade de lotes, filtros e acesso ao mapa de cada pátio.",
@@ -189,7 +190,7 @@ export const PROJECTS: readonly Project[] = [
       "Consolidação de 11 microsserviços e 11 bancos de dados em um monólito modular Laravel, com migração do legado e sustentação em produção.",
     fullDescription:
       "Modernização da plataforma corporativa da READI, anteriormente distribuída em 11 microsserviços Node.js e 11 bancos de dados independentes em PostgreSQL e SQL Server. Liderei a estratégia e a execução da consolidação em um monólito modular Laravel/PHP, com migração das regras de negócio, dos dados históricos e sustentação da nova arquitetura em produção.",
-    image: "/assets/consolidacao-readi.svg",
+    image: storageUrl("projects/consolidacao-arquitetural/capa.svg"),
     imageAlt: "Diagrama da consolidação de 11 microsserviços Node.js em um monólito modular Laravel",
     imageCaption: "Representação conceitual da mudança arquitetural. O diagrama não expõe dados ou detalhes internos da plataforma.",
     primaryTechnologies: ["Laravel", "PostgreSQL", "SQL Server", "Docker"],
@@ -327,7 +328,7 @@ export const PROJECTS: readonly Project[] = [
       "Plataforma de investimentos que reúne carteira, renda e análise de empresas, com API própria para integrar e normalizar fontes de dados financeiros.",
     fullDescription:
       "Produto autoral para acompanhar carteira, renda e patrimônio, consultar empresas e analisar dividendos e referências de valuation. Uma API própria integra e normaliza dados financeiros externos para a aplicação.",
-    image: "/assets/investidor/valuationEmpresa.png",
+    image: storageUrl("projects/investidor/valuation-empresa.png"),
     imageAlt: "Análise de empresa com métricas financeiras e referências de valuation Graham, Bazin e Damodaran",
     imageCaption:
       "Detalhe de empresa com referências Graham e Bazin e framework Damodaran que explicita completude e limitações dos dados.",
@@ -449,37 +450,37 @@ export const PROJECTS: readonly Project[] = [
       "Desenvolvimento Full Stack do produto: arquitetura da API Laravel e integração com provedores financeiros, automação de fluxos autenticados, construção da interface React, modelagem de dados, controle de acesso, segurança aplicada, monitoramento das integrações, testes e infraestrutura Docker.",
     screenshots: [
       {
-        src: "/assets/investidor/valuationEmpresa.png",
+        src: storageUrl("projects/investidor/valuation-empresa.png"),
         alt: "Análise de empresa com métricas financeiras e referências de valuation Graham, Bazin e Damodaran",
         caption:
           "Detalhe de empresa com referências Graham e Bazin e framework Damodaran que explicita completude e limitações dos dados.",
       },
       {
-        src: "/assets/investidor/analiseDetalhadasEmpresas.png",
+        src: storageUrl("projects/investidor/analise-detalhadas-empresas.png"),
         alt: "Detalhe de empresa com indicadores, abas de análise e referências de preço",
         caption:
           "Visão da empresa com indicadores e navegação entre áreas de análise financeira.",
       },
       {
-        src: "/assets/investidor/analiseDeCompraEmpresa.png",
+        src: storageUrl("projects/investidor/analise-compra-empresa.png"),
         alt: "Análise de empresa com critérios avaliados, cobertura dos dados e riscos",
         caption:
           "Análise orientada a renda que apresenta critérios, cobertura e riscos do recorte avaliado.",
       },
       {
-        src: "/assets/investidor/analiseIAEmpresas.png",
+        src: storageUrl("projects/investidor/analise-ia-empresas.png"),
         alt: "Análise detalhada de empresa com critérios financeiros e indicadores",
         caption:
           "Visão analítica de uma empresa com critérios financeiros e indicadores organizados por seção.",
       },
       {
-        src: "/assets/investidor/projecaoPagamentoDividendos.png",
+        src: storageUrl("projects/investidor/projecao-pagamento-dividendos.png"),
         alt: "Histórico anual de dividendos e projeção mensal de uma empresa",
         caption:
           "Consulta de histórico anual e projeções de dividendos no detalhe de uma empresa.",
       },
       {
-        src: "/assets/investidor/empresasRecomentadasValores.png",
+        src: storageUrl("projects/investidor/empresas-recomentadas-valores.png"),
         alt: "Empresas recomendadas com quantidades sugeridas e indicadores financeiros",
         caption:
           "Empresas recomendadas com quantidades e valores apresentados para apoiar a análise de aporte.",
@@ -537,7 +538,7 @@ export const PROJECTS: readonly Project[] = [
       "Ferramenta para organizar projetos e conteúdos em Markdown, com persistência local, drag-and-drop e visualização de diagramas técnicos.",
     fullDescription:
       "Aplicação para organizar projetos e itens em Markdown, com renderização de conteúdo, persistência local, visualizações combinadas e diagramas técnicos.",
-    image: "/assets/taskmarkdown/1.png",
+    image: storageUrl("projects/task-markdown/projetos.png"),
     imageAlt: "Workspace do Task Markdown com organização de conteúdos por projeto e ações de backup",
     imageCaption: "Organização por projetos, com importação e exportação dos conteúdos armazenados no navegador.",
     primaryTechnologies: ["Next.js", "TypeScript", "IndexedDB", "React-Konva"],
@@ -622,12 +623,12 @@ export const PROJECTS: readonly Project[] = [
       "Desenvolvimento do produto, definição da arquitetura frontend, persistência local com IndexedDB, organização de projetos e itens, drag-and-drop, renderização de Markdown, diagramas e testes automatizados.",
     screenshots: [
       {
-        src: "/assets/taskmarkdown/1.png",
+        src: storageUrl("projects/task-markdown/projetos.png"),
         alt: "Tela de projetos do Task Markdown com criação, importação e exportação de projetos",
         caption: "Organização dos conteúdos por projetos e acesso às ações de importação e exportação.",
       },
       {
-        src: "/assets/taskmarkdown/db.png",
+        src: storageUrl("projects/task-markdown/db.png"),
         alt: "Editor DBML e canvas com diagrama de tabelas e relações",
         caption: "Edição de DBML ao lado da visualização do diagrama de banco de dados.",
       },
@@ -689,7 +690,7 @@ export const PROJECTS: readonly Project[] = [
     ],
     fullDescription:
       "Aplicação Full Stack estruturada em microsserviços, com API Gateway como ponto único de entrada e serviços independentes responsáveis por autenticação, vídeos e favoritos. O projeto demonstra separação de responsabilidades, integração com API externa, persistência isolada, comunicação entre serviços e testes automatizados.",
-    image: "/assets/vidora.png",
+    image: storageUrl("projects/vidora/capa.png"),
     imageAlt: "Interface do Vidora com pesquisa de vídeos e ações para adicionar favoritos",
     imageCaption: "Interface do estudo técnico: pesquisa na YouTube Data API e favoritos por usuário.",
     primaryTechnologies: ["TypeScript", "Express", "PostgreSQL", "Docker"],
@@ -826,7 +827,7 @@ export const PROJECTS: readonly Project[] = [
       "Aplicação web para casamento com confirmação de presença, lista de presentes, carrinho, pagamentos e persistência de mensagens dos convidados.",
     fullDescription:
       "Aplicação responsiva para reunir informações do casamento, confirmação de presença, lista de presentes, carrinho e mensagens dos convidados.",
-    image: "/assets/brunaeeloan/capa.png",
+    image: storageUrl("projects/bruna-e-eloan/capa.png"),
     imageAlt: "Página inicial da aplicação Bruna & Eloan com informações do casamento",
     imageCaption: "Aplicação do evento com informações, confirmação de presença e lista de presentes.",
     primaryTechnologies: ["React", "TypeScript", "Supabase", "Mercado Pago"],
@@ -888,12 +889,12 @@ export const PROJECTS: readonly Project[] = [
       "Desenvolvimento da aplicação web, experiência responsiva, fluxo de RSVP, persistência com Supabase, lista de presentes, carrinho e integração do checkout.",
     screenshots: [
       {
-        src: "/assets/brunaeeloan/presentes.png",
+        src: storageUrl("projects/bruna-e-eloan/presentes.png"),
         alt: "Lista de presentes com cards de itens e acesso ao carrinho",
         caption: "Lista de presentes, com opção de adicionar itens ao carrinho.",
       },
       {
-        src: "/assets/brunaeeloan/confirmar.png",
+        src: storageUrl("projects/bruna-e-eloan/confirmar.png"),
         alt: "Formulário de confirmação de presença com nome, e-mail, telefone, convidados e mensagem",
         caption: "Formulário de RSVP e mensagem para os noivos.",
       },
