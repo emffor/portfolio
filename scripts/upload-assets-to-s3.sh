@@ -16,8 +16,8 @@
 # Variáveis necessárias (.env ou ambiente):
 #   - NEXT_PUBLIC_STORAGE_URL
 #   - NEXT_PUBLIC_STORAGE_BUCKET
-#   - AWS_ACCESS_KEY_ID
-#   - AWS_SECRET_ACCESS_KEY
+#   - NEXT_AWS_ACCESS_KEY_ID (ou AWS_ACCESS_KEY_ID)
+#   - NEXT_AWS_SECRET_ACCESS_KEY (ou AWS_SECRET_ACCESS_KEY)
 #
 # Uso:
 #   pnpm upload:assets
@@ -57,12 +57,15 @@ load_env_file "${REPO_ROOT}/.env"
 STORAGE_URL="${NEXT_PUBLIC_STORAGE_URL:-${AWS_ENDPOINT:-}}"
 STORAGE_BUCKET="${NEXT_PUBLIC_STORAGE_BUCKET:-${AWS_BUCKET:-}}"
 
+AWS_ACCESS_KEY_ID="${NEXT_AWS_ACCESS_KEY_ID:-${AWS_ACCESS_KEY_ID:-}}"
+AWS_SECRET_ACCESS_KEY="${NEXT_AWS_SECRET_ACCESS_KEY:-${AWS_SECRET_ACCESS_KEY:-}}"
+
 # Validação das variáveis obrigatórias
 missing_vars=()
 [ -z "${STORAGE_URL:-}" ] && missing_vars+=("NEXT_PUBLIC_STORAGE_URL (ou AWS_ENDPOINT)")
 [ -z "${STORAGE_BUCKET:-}" ] && missing_vars+=("NEXT_PUBLIC_STORAGE_BUCKET (ou AWS_BUCKET)")
-[ -z "${AWS_ACCESS_KEY_ID:-}" ] && missing_vars+=("AWS_ACCESS_KEY_ID")
-[ -z "${AWS_SECRET_ACCESS_KEY:-}" ] && missing_vars+=("AWS_SECRET_ACCESS_KEY")
+[ -z "${AWS_ACCESS_KEY_ID:-}" ] && missing_vars+=("NEXT_AWS_ACCESS_KEY_ID (ou AWS_ACCESS_KEY_ID)")
+[ -z "${AWS_SECRET_ACCESS_KEY:-}" ] && missing_vars+=("NEXT_AWS_SECRET_ACCESS_KEY (ou AWS_SECRET_ACCESS_KEY)")
 
 if [ ${#missing_vars[@]} -gt 0 ]; then
   echo "Erro: As seguintes variáveis de ambiente obrigatórias não estão definidas:" >&2

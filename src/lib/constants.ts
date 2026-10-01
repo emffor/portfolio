@@ -1,5 +1,4 @@
-export const SITE_URL =
-  (process.env.NEXT_PUBLIC_SITE_URL || "https://me.emfsystems.com.br").replace(/\/+$/, "");
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "").replace(/\/+$/, "");
 
 export const SITE_NAME = "Eloan Ferreira | Full Stack Developer";
 
