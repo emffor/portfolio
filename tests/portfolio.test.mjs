@@ -21,8 +21,10 @@ const storageUrlEnv =
   process.env.NEXT_PUBLIC_STORAGE_URL ?? process.env.AWS_ENDPOINT ?? "";
 const storageBucketEnv =
   process.env.NEXT_PUBLIC_STORAGE_BUCKET ?? process.env.AWS_BUCKET ?? "";
-const storagePrefix = storageUrlEnv && storageBucketEnv
-  ? `${storageUrlEnv.replace(/\/+$/, "")}/${storageBucketEnv.replace(/^\/+|\/+$/g, "")}/`
+const storageBase = storageUrlEnv.replace(/\/+$/, "");
+const storageBucket = storageBucketEnv.replace(/^\/+|\/+$/g, "");
+const storagePrefix = storageBase || storageBucket
+  ? `${storageBase}${storageBucket ? `/${storageBucket}` : ""}/`
   : "";
 
 before(async () => {
@@ -35,7 +37,7 @@ before(async () => {
 
   server = spawn(process.execPath, [
     require.resolve("next/dist/bin/next"), "start", "--hostname", "127.0.0.1", "--port", String(port),
-  ], { stdio: ["ignore", "ignore", "pipe"] });
+  ], { env: { ...process.env, NODE_ENV: "production" }, stdio: ["ignore", "ignore", "pipe"] });
   let errors = "";
   server.stderr.on("data", (chunk) => { errors += chunk; });
 
@@ -77,7 +79,7 @@ function markup(html) {
   return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "");
 }
 
-test("a home apresenta os cinco cases e os caminhos para contato", async () => {
+test("a home prioriza três cases e mantém os demais projetos acessíveis", async () => {
   const html = markup(await getPage("/"));
   for (const slug of ["rastro-florestal", "investidor", "consolidacao-arquitetural", "task-markdown", "vidora"]) {
     assert.ok(html.includes(`href="/projetos/${slug}"`), `Case ausente: ${slug}`);
@@ -87,14 +89,18 @@ test("a home apresenta os cinco cases e os caminhos para contato", async () => {
   const featuredSection = html.slice(featuredSectionStart, featuredSectionEnd);
   const featuredOrder = [
     "rastro-florestal",
-    "investidor",
     "consolidacao-arquitetural",
-    "task-markdown",
-    "vidora",
+    "investidor",
   ].map((slug) => featuredSection.indexOf(`href="/projetos/${slug}"`));
+  assert.ok(featuredOrder.every((index) => index >= 0));
   assert.deepEqual(featuredOrder, [...featuredOrder].sort((a, b) => a - b));
-  assert.ok(!featuredSection.includes('href="/projetos/bruna-e-eloan"'));
+  assert.equal([...featuredSection.matchAll(/<article\b/g)].length, 3);
   const additionalSectionStart = html.indexOf('<section id="projetos-adicionais"');
+  const additionalSection = html.slice(additionalSectionStart, html.indexOf("</section>", additionalSectionStart));
+  for (const slug of ["task-markdown", "vidora", "bruna-e-eloan"]) {
+    assert.ok(!featuredSection.includes(`href="/projetos/${slug}"`));
+    assert.ok(additionalSection.includes(`href="/projetos/${slug}"`));
+  }
   assert.ok(additionalSectionStart > html.indexOf("</section>", featuredSectionStart));
   const experienceSectionStart = html.indexOf('id="experiencia"');
   assert.ok(additionalSectionStart < experienceSectionStart);
@@ -111,6 +117,34 @@ test("a home apresenta os cinco cases e os caminhos para contato", async () => {
   assert.match(html, /href="mailto:[^"]+"/);
   for (const id of ["inicio", "sobre", "projetos", "experiencia", "tecnologias", "contato"]) {
     assert.ok(html.includes(`id="${id}"`), `Âncora ausente: ${id}`);
+  }
+});
+
+test("o currículo está nos menus desktop e mobile de todas as páginas principais", async () => {
+  for (const route of ["/", "/curriculo", "/projetos/consolidacao-arquitetural"]) {
+    const html = markup(await getPage(route));
+    const header = html.slice(html.indexOf("<header"), html.indexOf("</header>"));
+    for (const label of ["Navegação Principal", "Navegação móvel"]) {
+      const nav = header.match(new RegExp(`<nav\\b[^>]*aria-label="${label}"[^>]*>([\\s\\S]*?)<\\/nav>`));
+      assert.ok(nav, `Menu ausente: ${route} ${label}`);
+      assert.ok(nav[1].includes('href="/curriculo"'), `Currículo ausente: ${route} ${label}`);
+    }
+    if (route === "/curriculo") {
+      assert.match(header, /<a\b(?=[^>]*href="\/curriculo")(?=[^>]*aria-current="page")[^>]*>/);
+    }
+  }
+});
+
+test("os cards informam como acessar as demonstrações sem abrir o case", async () => {
+  const html = markup(await getPage("/"));
+  for (const [slug, instruction] of [
+    ["rastro-florestal", "Como acessar a demonstração"],
+    ["investidor", "Para acessar a demonstração, abra a aplicação e informe o código de teste"],
+  ]) {
+    const start = html.indexOf(`<article aria-labelledby="project-${slug}"`);
+    assert.ok(start >= 0);
+    const card = html.slice(start, html.indexOf("</article>", start));
+    assert.ok(card.includes(instruction), `Orientação ausente no card: ${slug}`);
   }
 });
 
@@ -196,7 +230,7 @@ test("o currículo é acessível pela home, indexável e completo no HTML do ser
   assert.doesNotMatch(html, /madeireira@email\.com|123123/);
 });
 
-test("download e impressão usam o PDF oficial enviado, com o mesmo conteúdo do arquivo", async () => {
+test("download e impressão apontam para um PDF disponível com assinatura válida", async () => {
   const html = markup(await getPage("/curriculo"));
   const expectedHref = storagePrefix
     ? `${storagePrefix}documentos/EloanFerreira.pdf`
@@ -204,8 +238,8 @@ test("download e impressão usam o PDF oficial enviado, com o mesmo conteúdo do
   const escapedHref = expectedHref.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   assert.match(html, new RegExp(`<a\\b(?=[^>]*href="${escapedHref}")(?=[^>]*target="_blank")(?=[^>]*rel="noopener noreferrer")[^>]*>Baixar \\/ Imprimir PDF<\\/a>`));
 
-  const fetchUrl = expectedHref.startsWith("http") ? expectedHref : `${baseUrl}${expectedHref}`;
-  const response = await fetch(fetchUrl);
+  const fetchUrl = new URL(expectedHref, baseUrl);
+  const response = await fetch(fetchUrl, { signal: AbortSignal.timeout(10_000) });
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type"), /^application\/pdf/);
   const document = Buffer.from(await response.arrayBuffer());
@@ -246,12 +280,14 @@ test("o Investidor informa o código público de teste sem exigir solicitação 
   assert.doesNotMatch(html, /Solicitar demonstração|href="mailto:[^"]+\?subject=Demonstra/);
 });
 
-test("o case adicional retorna à seção correspondente sem entrar na navegação principal", async () => {
-  const html = markup(await getPage("/projetos/bruna-e-eloan"));
-  assert.ok(html.includes('href="/#projetos-adicionais"'));
-  assert.doesNotMatch(html, /Case anterior|Próximo case/);
-  assert.ok(html.includes("Acessar aplicação"));
-  assert.ok(html.includes("Ver no GitHub"));
+test("os cases adicionais retornam à seção correspondente sem entrar na navegação dos destaques", async () => {
+  for (const slug of ["task-markdown", "vidora", "bruna-e-eloan"]) {
+    const html = markup(await getPage(`/projetos/${slug}`));
+    assert.ok(html.includes('href="/#projetos-adicionais"'));
+    assert.doesNotMatch(html, /Case anterior|Próximo case/);
+    if (slug !== "vidora") assert.ok(html.includes("Acessar aplicação"));
+    assert.ok(html.includes("Ver no GitHub"));
+  }
 });
 
 test("o CTA do GitHub do Task Markdown aparece no card e no case", async () => {
@@ -297,7 +333,7 @@ test("cada case tem prévia social própria em PNG disponível para compartilham
   }
 });
 
-test("as imagens utilizadas nas páginas existem", async () => {
+test("as imagens utilizadas nas páginas existem e retornam conteúdo de imagem", async (t) => {
   const assets = new Set();
   const sitemap = await getPage("/sitemap.xml");
   const routes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => new URL(match[1]).pathname);
@@ -310,39 +346,29 @@ test("as imagens utilizadas nas páginas existem", async () => {
     }
   }
   assert.ok(assets.size > 0);
-  let storageReachable = null;
   for (const asset of assets) {
-    if (asset.startsWith("http://") || asset.startsWith("https://")) {
-      if (storagePrefix) {
-        assert.ok(
-          asset.startsWith(storagePrefix),
-          `Asset remoto fora do storage configurado: ${asset}`
+    await t.test(`Imagem: ${new URL(asset, baseUrl).pathname}`, async () => {
+      if (asset.startsWith("http://") || asset.startsWith("https://")) {
+        if (storagePrefix) {
+          assert.ok(
+            asset.startsWith(storagePrefix),
+            `Asset remoto fora do storage configurado: ${asset}`
+          );
+        }
+        const relativePath = storagePrefix ? asset.slice(storagePrefix.length) : new URL(asset).pathname.replace(/^\/+/, "");
+        assert.match(
+          relativePath,
+          /^(?:projects\/[a-z0-9-]+|profile)\/[a-zA-Z0-9._-]+\.(?:png|svg|webp|jpg|jpeg)$/,
+          `Estrutura inválida de asset no bucket: ${asset}`
         );
       }
-      const relativePath = storagePrefix ? asset.slice(storagePrefix.length) : new URL(asset).pathname.replace(/^\/+/, "");
-      assert.match(
-        relativePath,
-        /^(?:projects\/[a-z0-9-]+|profile)\/[a-zA-Z0-9._-]+\.(?:png|svg|webp|jpg|jpeg)$/,
-        `Estrutura inválida de asset no bucket: ${asset}`
-      );
-      if (storageReachable !== false) {
-        try {
-          const response = await fetch(asset, { method: "HEAD", signal: AbortSignal.timeout(1_500) });
-          if (response.ok) {
-            storageReachable = true;
-            assert.match(response.headers.get("content-type") ?? "", /^image\//);
-          } else {
-            storageReachable = false;
-          }
-        } catch {
-          storageReachable = false;
-        }
-      }
-    } else {
-      const response = await fetch(new URL(asset, baseUrl), { method: "HEAD" });
-      assert.equal(response.status, 200, `Imagem local indisponível: ${asset}`);
-      assert.match(response.headers.get("content-type"), /^image\//);
-    }
+      const response = await fetch(new URL(asset, baseUrl), {
+        method: "HEAD",
+        signal: AbortSignal.timeout(10_000),
+      });
+      assert.equal(response.status, 200, `Imagem indisponível: ${asset}`);
+      assert.match(response.headers.get("content-type") ?? "", /^image\//, `Conteúdo inválido: ${asset}`);
+    });
   }
 });
 

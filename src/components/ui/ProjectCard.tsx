@@ -5,6 +5,7 @@ import { Project } from "@/types/project";
 import { getProjectKindLabel } from "@/data/projects";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { ProjectDemoInstructions } from "@/components/ui/ProjectDemoInstructions";
 
 interface ProjectCardProps {
   project: Project;
@@ -21,9 +22,9 @@ export function ProjectCard({
   compact = false,
   spotlight = false,
 }: ProjectCardProps) {
-  const visibleTechnologies =
-    project.primaryTechnologies ??
-    project.technologies.slice(0, compact ? 4 : VISIBLE_TECHNOLOGIES);
+  const visibleTechnologies = (
+    project.primaryTechnologies ?? project.technologies
+  ).slice(0, compact ? 4 : VISIBLE_TECHNOLOGIES);
 
   return (
     <article
@@ -93,20 +94,12 @@ export function ProjectCard({
           </p>
         </div>
 
-        {!compact && (project.roleLabel || project.outcomeSummary) && (
+        {!compact && project.outcomeSummary && (
           <dl className="space-y-3 border-t border-border pt-4 text-sm">
-            {project.roleLabel && (
-              <div>
-                <dt className="text-xs text-muted">Minha atuação</dt>
-                <dd className="mt-1 font-medium text-foreground">{project.roleLabel}</dd>
-              </div>
-            )}
-            {project.outcomeSummary && (
-              <div>
-                <dt className="text-xs text-muted">{project.kind === "technical-study" ? "Foco do estudo" : "Entrega principal"}</dt>
-                <dd className="mt-1 leading-relaxed text-foreground">{project.outcomeSummary}</dd>
-              </div>
-            )}
+            <div>
+              <dt className="text-xs text-muted">{project.kind === "technical-study" ? "Foco do estudo" : "Entrega principal"}</dt>
+              <dd className="mt-1 leading-relaxed text-foreground">{project.outcomeSummary}</dd>
+            </div>
           </dl>
         )}
 
@@ -193,6 +186,9 @@ export function ProjectCard({
             </Button>
           )}
         </div>
+        {project.projectUrl && (
+          <ProjectDemoInstructions demoAccess={project.demoAccess} accessNote={project.accessNote} />
+        )}
       </div>
     </article>
   );

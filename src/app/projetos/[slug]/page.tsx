@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { ProjectGallery } from "@/components/ui/ProjectGallery";
 import { ProjectArchitectureDiagram } from "@/components/ui/ProjectArchitecture";
+import { ProjectDemoInstructions } from "@/components/ui/ProjectDemoInstructions";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -257,30 +258,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         )}
 
-        {project.demoAccess && (
-          <details className="max-w-md rounded-lg border border-border bg-surface px-4 py-3">
-            <summary className="cursor-pointer rounded py-1 text-sm font-medium focus-visible:ring-2 focus-visible:ring-accent">
-              Como acessar a demonstração
-            </summary>
-            <dl className="mt-3 space-y-2 text-sm">
-              <div className="flex flex-wrap gap-x-2">
-                <dt className="text-muted">E-mail</dt>
-                <dd className="break-all">{project.demoAccess.email}</dd>
-              </div>
-              <div className="flex flex-wrap gap-x-2">
-                <dt className="text-muted">Senha</dt>
-                <dd>{project.demoAccess.password}</dd>
-              </div>
-            </dl>
-          </details>
-        )}
+        <ProjectDemoInstructions demoAccess={project.demoAccess} accessNote={project.accessNote} />
         {project.sourceNote && (
           <p className="text-sm leading-relaxed text-muted">{project.sourceNote}</p>
-        )}
-        {project.accessNote && (
-          <div className="max-w-2xl rounded-lg border border-border bg-surface p-4">
-            <p className="text-sm leading-relaxed text-muted">{project.accessNote}</p>
-          </div>
         )}
 
         <ProjectImageCarousel
@@ -366,10 +346,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
               {project.context}
             </p>
-            <details className="rounded-lg border border-border px-4 py-3">
-              <summary className="cursor-pointer text-sm font-medium">Visão geral do projeto</summary>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{project.fullDescription}</p>
-            </details>
           </section>
 
           <section id="solucao" aria-label="Solução" className="scroll-mt-20 space-y-3">

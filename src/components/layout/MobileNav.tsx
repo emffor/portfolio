@@ -25,7 +25,7 @@ export function MobileNav() {
         close();
       }
     };
-    const media = window.matchMedia("(min-width: 768px)");
+    const media = window.matchMedia("(min-width: 1024px)");
     const handleResize = () => {
       if (media.matches) close();
     };
@@ -42,7 +42,7 @@ export function MobileNav() {
   return (
     <div
       ref={containerRef}
-      className="md:hidden"
+      className="lg:hidden"
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) close();
       }}

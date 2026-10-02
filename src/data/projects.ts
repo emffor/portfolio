@@ -184,7 +184,7 @@ export const PROJECTS: readonly Project[] = [
     kind: "modernization",
     category: "Arquitetura & Engenharia de Dados",
     featured: true,
-    featuredOrder: 2,
+    featuredOrder: 1,
     status: "Em produção na READI",
     shortDescription:
       "Consolidação de 11 microsserviços e 11 bancos de dados em um monólito modular Laravel, com migração do legado e sustentação em produção.",
@@ -322,7 +322,7 @@ export const PROJECTS: readonly Project[] = [
     kind: "product",
     category: "Fintech & Dados Financeiros",
     featured: true,
-    featuredOrder: 1,
+    featuredOrder: 2,
     status: "Demonstração online · acesso por código de teste",
     shortDescription:
       "Plataforma de investimentos que reúne carteira, renda e análise de empresas, com API própria para integrar e normalizar fontes de dados financeiros.",
@@ -531,8 +531,7 @@ export const PROJECTS: readonly Project[] = [
     slug: "task-markdown",
     kind: "product",
     category: "Ferramenta para Desenvolvedores",
-    featured: true,
-    featuredOrder: 3,
+    featured: false,
     status: "Aplicação online disponível",
     shortDescription:
       "Ferramenta para organizar projetos e conteúdos em Markdown, com persistência local, drag-and-drop e visualização de diagramas técnicos.",
@@ -665,8 +664,7 @@ export const PROJECTS: readonly Project[] = [
     slug: "vidora",
     kind: "technical-study",
     category: "Arquitetura distribuída",
-    featured: true,
-    featuredOrder: 4,
+    featured: false,
     status: "Estudo técnico · código aberto",
     shortDescription:
       "Estudo de arquitetura distribuída para pesquisa de vídeos e favoritos, com API Gateway e serviços independentes.",

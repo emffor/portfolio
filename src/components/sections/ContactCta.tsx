@@ -1,6 +1,7 @@
 import React from "react";
 import { PROFILE_DATA } from "@/data/profile";
 import { Button } from "@/components/ui/Button";
+import { CopyEmailButton } from "@/components/ui/CopyEmailButton";
 
 const socialLinks = [
   {
@@ -129,13 +130,13 @@ export function ContactCta() {
               Compartilhe o contexto da vaga, os desafios do time e como posso
               contribuir. Meu currículo também está disponível para consulta e impressão.
             </p>
-            <div className="mt-6 grid gap-3 sm:w-fit sm:grid-cols-2">
+            <div className="mt-6 flex flex-wrap gap-3">
               {PROFILE_DATA.socials.email && (
                 <Button
                   href={`mailto:${PROFILE_DATA.socials.email}`}
                   variant="glow"
                   size="lg"
-                  className="w-full break-all sm:min-w-56"
+                  className="w-full break-all"
                 >
                   {PROFILE_DATA.socials.email}
                 </Button>
@@ -144,11 +145,12 @@ export function ContactCta() {
                 href="/curriculo"
                 variant="outline"
                 size="lg"
-                className="w-full sm:min-w-56"
+                className="w-full"
               >
                 Ver currículo
               </Button>
             </div>
+            {PROFILE_DATA.socials.email && <CopyEmailButton email={PROFILE_DATA.socials.email} />}
           </div>
         </div>
       </div>

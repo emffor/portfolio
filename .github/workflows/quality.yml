@@ -11,6 +11,9 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      NEXT_PUBLIC_STORAGE_URL: https://s3minio.emfsystems.com.br
+      NEXT_PUBLIC_STORAGE_BUCKET: portfolio
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -24,3 +27,5 @@ jobs:
       - run: pnpm lint
       - run: pnpm build
       - run: pnpm test:smoke
+        env:
+          NODE_ENV: test

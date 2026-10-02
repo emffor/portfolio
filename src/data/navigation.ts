@@ -6,4 +6,5 @@ export const NAVIGATION_ITEMS: readonly NavItem[] = [
   { label: "Experiência", href: "/#experiencia" },
   { label: "Tecnologias", href: "/#tecnologias" },
   { label: "Contato", href: "/#contato" },
+  { label: "Currículo", href: "/curriculo" },
 ] as const;

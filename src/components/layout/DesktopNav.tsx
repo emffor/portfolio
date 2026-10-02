@@ -12,7 +12,8 @@ export function DesktopNav() {
   useEffect(() => {
     if (pathname !== "/") return;
 
-    const sections = NAVIGATION_ITEMS.map((item) => item.href.replace("/#", ""));
+    const sections = NAVIGATION_ITEMS.filter((item) => item.href.startsWith("/#"))
+      .map((item) => item.href.slice(2));
     let frame: number | undefined;
     const handleScroll = () => {
       frame = undefined;
@@ -51,17 +52,20 @@ export function DesktopNav() {
   return (
     <nav
       aria-label="Navegação Principal"
-      className="hidden md:flex items-center gap-6 font-sans text-sm font-medium"
+      className="hidden lg:flex items-center gap-5 font-sans text-sm font-medium"
     >
       {NAVIGATION_ITEMS.map((item) => {
         const targetId = item.href.replace("/#", "");
-        const isActive = pathname === "/" && activeSection === targetId;
+        const isPage = !item.href.startsWith("/#");
+        const isActive = isPage
+          ? pathname === item.href
+          : pathname === "/" && activeSection === targetId;
 
         return (
           <Link
             key={item.href}
             href={item.href}
-            aria-current={isActive ? "location" : undefined}
+            aria-current={isActive ? (isPage ? "page" : "location") : undefined}
             className={`relative inline-flex min-h-11 items-center transition-colors duration-200 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded ${
               isActive ? "text-accent font-semibold" : "text-muted"
             }`}

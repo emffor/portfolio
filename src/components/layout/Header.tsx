@@ -46,7 +46,7 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={PROFILE_DATA.socials.github.label}
-            className="hidden lg:inline-flex items-center justify-center w-9 h-9 rounded-md text-muted hover:text-accent hover:bg-surface-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="hidden xl:inline-flex items-center justify-center w-9 h-9 rounded-md text-muted hover:text-accent hover:bg-surface-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             <svg
               className="w-[18px] h-[18px]"
@@ -66,7 +66,7 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={PROFILE_DATA.socials.linkedin.label}
-            className="hidden lg:inline-flex items-center justify-center w-9 h-9 rounded-md text-muted hover:text-accent hover:bg-surface-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="hidden xl:inline-flex items-center justify-center w-9 h-9 rounded-md text-muted hover:text-accent hover:bg-surface-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             <svg
               className="w-[18px] h-[18px]"

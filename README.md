@@ -45,10 +45,12 @@ Apresentar de maneira objetiva e estruturada a trajetória profissional iniciada
    pnpm install
    ```
 
-3. **Configure as variáveis de ambiente (opcional):**
-   ```bash
-   cp .env.example .env.local
-   ```
+3. **Configure as URLs públicas do site e do storage:**
+    ```bash
+    cp .env.example .env
+    ```
+    As imagens e o currículo estão no storage público indicado no exemplo.
+    Não é necessário configurar credenciais de upload para executar o portfólio.
 
 4. **Inicie o servidor de desenvolvimento:**
    ```bash
@@ -78,7 +80,7 @@ pnpm lint
 pnpm build
 
 # Smoke tests HTTP sobre o build de produção (iniciam e encerram um servidor local)
-pnpm test:smoke
+NODE_ENV=test pnpm test:smoke
 
 # Execução do bundle gerado
 pnpm start
@@ -87,12 +89,18 @@ pnpm start
 O workflow `.github/workflows/quality.yml` executa geração de tipos do Next.js,
 typecheck, lint, build e smoke tests em pushes e pull requests. Os smoke tests
 verificam rotas, metadados, links internos, imagens, acesso à demonstração e 404.
+Cada imagem é verificada individualmente; erro HTTP, conteúdo inválido ou timeout
+reprova a verificação. O acesso de leitura ao storage público é necessário para
+validar imagens e PDF. O servidor local dos testes usa o build de produção.
 Interações de teclado, tema, carrossel e galeria também devem ser verificadas no navegador.
 
 ## Apresentação dos projetos
 
 - O primeiro projeto em `featuredOrder` recebe destaque editorial na home; os demais formam uma grade equilibrada.
-- Os cards apresentam contexto, atuação, entrega principal e tecnologias selecionadas.
+- A home destaca Rastro Florestal, READI e Investidor, nessa ordem. Os outros projetos permanecem
+  acessíveis em cards compactos, com seus links de aplicação e código-fonte.
+- Os cards principais apresentam contexto, entrega e tecnologias selecionadas;
+  a contribuição individual é detalhada no case.
 - Cada case inclui resumo, atuação, entregas, contexto, solução e stack. Arquitetura,
   decisões, limites e galeria aparecem conforme os dados disponíveis.
 - A navegação por seções fica fixa na lateral em telas grandes.
@@ -101,7 +109,10 @@ Interações de teclado, tema, carrossel e galeria também devem ser verificadas
 - As prévias de compartilhamento são geradas em PNG para cada projeto em
   `/projetos/[slug]/opengraph-image`.
 - Competências possuem links para exemplos nos cases e na experiência profissional.
-- A orientação de acesso à demonstração fica em `accessNote`. No Investidor, ela informa o código público de teste.
+- As orientações de demonstração (`demoAccess` e `accessNote`) aparecem tanto no
+  card quanto no case. No Investidor, elas informam o código público de teste.
+- O currículo está nos menus desktop e mobile. O contato oferece envio e cópia de
+  e-mail, com confirmação acessível e orientação caso a cópia não seja permitida.
 
 Ao editar o conteúdo, diferencie produto, case corporativo e estudo técnico.
 Descreva entregas verificáveis e sua participação; inclua métricas somente quando
@@ -115,9 +126,9 @@ contatos. O resumo, contato e competências específicos do currículo ficam em
 `src/data/resume.ts`; as experiências reutilizam `src/data/experience.ts`, com
 `resumeResponsibilities` para o detalhamento transcrito do PDF.
 
-O documento oficial está em `public/documentos/EloanFerreira.pdf`. **Baixar PDF**
-inicia o download desse arquivo; **Imprimir PDF** abre o mesmo documento em uma nova
-aba, onde a impressão é feita pelo visualizador do navegador. Ao substituir o PDF,
+O documento oficial está em `documentos/EloanFerreira.pdf` no storage configurado.
+**Baixar / Imprimir PDF** abre o documento em uma nova aba, onde é possível salvar
+ou imprimir pelo visualizador do navegador. Ao substituir o PDF,
 atualize também os dados tipados da página para manter as informações alinhadas.
 O layout A4 da página permanece disponível pela impressão nativa do navegador.
 

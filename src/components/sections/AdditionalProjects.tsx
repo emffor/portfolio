@@ -22,7 +22,7 @@ export async function AdditionalProjects() {
         </h2>
         <div aria-hidden="true" className="mt-3 h-1 w-12 rounded-full bg-accent" />
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
-          Outras aplicações que complementam minha experiência com interfaces, persistência e integrações de serviços.
+          Ferramentas, estudos técnicos e outras aplicações com código aberto para explorar minhas implementações.
         </p>
       </div>
 
