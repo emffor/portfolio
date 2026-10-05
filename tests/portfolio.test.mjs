@@ -180,9 +180,10 @@ test("as páginas do sitemap têm metadados, landmarks e links internos válidos
 
   for (const route of routes) {
     const html = markup(await getPage(route));
+    const expectedLang = route === "/en" || route.startsWith("/en/") ? "en" : "pt-BR";
     assert.equal([...html.matchAll(/<main\b/g)].length, 1, `Landmark main: ${route}`);
     assert.equal([...html.matchAll(/<h1\b/g)].length, 1, `Título h1: ${route}`);
-    assert.match(html, /<html[^>]*lang="pt-BR"/);
+    assert.match(html, new RegExp(`<html[^>]*lang="${expectedLang}"`));
     assert.match(html, /<meta name="description" content="[^"]+"/);
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
     assert.ok(canonical, `Canonical ausente: ${route}`);
@@ -307,11 +308,13 @@ test("todos os cases apresentam atuação, entregas, stack e resumo com âncoras
 
   for (const route of routes) {
     const html = markup(await getPage(route));
+    const roleLabel = route.startsWith("/en/") ? "My role" : "Minha atuação";
     for (const id of ["resumo", "atuacao", "entregas", "stack"]) {
       assert.ok(html.includes(`id="${id}"`), `Seção ausente: ${route}#${id}`);
       assert.ok(html.includes(`href="#${id}"`), `Navegação ausente: ${route}#${id}`);
     }
-    assert.ok(html.indexOf("Minha atuação") < html.indexOf('aria-roledescription="carrossel"'));
+    assert.ok(html.indexOf(roleLabel) > 0, `Atuação ausente: ${route}`);
+    assert.ok(html.indexOf(roleLabel) < html.indexOf('aria-roledescription="carrossel"'));
     assert.match(html, /<figcaption\b/);
   }
 });
@@ -324,7 +327,10 @@ test("cada case tem prévia social própria em PNG disponível para compartilham
       const image = html.match(new RegExp(`<meta ${property} content="([^"]+)"`));
       assert.ok(image, `Prévia ausente: ${route} ${property}`);
       const imageUrl = new URL(image[1].replaceAll("&amp;", "&"));
-      assert.equal(imageUrl.pathname, `${route}/opengraph-image`);
+      assert.ok(
+        imageUrl.pathname.startsWith(`${route}/opengraph-image`),
+        `Prévia inesperada: ${route} ${property} → ${imageUrl.pathname}`
+      );
       const response = await fetch(new URL(imageUrl.pathname + imageUrl.search, baseUrl));
       assert.equal(response.status, 200);
       assert.match(response.headers.get("content-type"), /^image\/png/);
@@ -381,6 +387,49 @@ test("o acesso à demonstração fica disponível antes do conteúdo longo", asy
   assert.ok(access > 0 && access < html.indexOf('id="contexto"'));
   assert.match(html, /<dialog\b/);
   assert.match(html, /aria-haspopup="dialog"/);
+});
+
+test("a versão em inglês usa o idioma, o chrome e os canônicos próprios", async () => {
+  const home = markup(await getPage("/en"));
+  assert.match(home, /<html[^>]*lang="en"/);
+  assert.ok(home.includes('href="/en/curriculo"'));
+  assert.ok(home.includes("Selected projects"));
+  assert.ok(home.includes("Additional projects"));
+  assert.ok(home.includes("Professional experience"));
+  assert.ok(home.includes("Applied skills"));
+  assert.ok(home.includes("aria-label=\"Primary navigation\""));
+  assert.ok(home.includes("View projects"));
+  assert.doesNotMatch(home, /Ver projetos/);
+  const homeCanonical = home.match(/<link rel="canonical" href="([^"]+)"/);
+  assert.ok(homeCanonical);
+  assert.equal(new URL(homeCanonical[1]).pathname, "/en");
+
+  const resume = markup(await getPage("/en/curriculo"));
+  assert.ok(resume.includes("Professional summary"));
+  assert.ok(resume.includes("Download / Print PDF"));
+  assert.ok(resume.includes("Education and languages"));
+  const resumeCanonical = resume.match(/<link rel="canonical" href="([^"]+)"/);
+  assert.equal(new URL(resumeCanonical[1]).pathname, "/en/curriculo");
+
+  const nexo = markup(await getPage("/en/projetos/nexo"));
+  assert.ok(nexo.includes("Back to projects"));
+  assert.ok(nexo.includes("Case summary"));
+  assert.ok(nexo.includes("Deliverables and evidence"));
+  assert.doesNotMatch(nexo, /View on GitHub/);
+  assert.ok(nexo.includes('href="https://nexo.emfsystems.com.br"'));
+  assert.doesNotMatch(nexo, /Voltar para projetos|Resumo do case/);
+  const nexoCanonical = nexo.match(/<link rel="canonical" href="([^"]+)"/);
+  assert.equal(new URL(nexoCanonical[1]).pathname, "/en/projetos/nexo");
+
+  const sitemap = await getPage("/sitemap.xml");
+  for (const route of ["/en", "/en/curriculo", "/en/projetos/nexo"]) {
+    assert.ok(
+      [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].some(
+        ([, url]) => new URL(url).pathname === route
+      ),
+      `Rota EN ausente no sitemap: ${route}`
+    );
+  }
 });
 
 test("um slug inexistente retorna 404", async () => {

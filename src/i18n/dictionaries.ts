@@ -21,6 +21,7 @@ export interface ChromeDict {
     contact: string;
     viewResume: string;
   };
+  aboutHeading: string;
   featured: {
     tag: string;
     title: string;
@@ -175,6 +176,7 @@ const pt: ChromeDict = {
     contact: "Entrar em contato",
     viewResume: "Ver currículo",
   },
+  aboutHeading: "Sobre mim",
   featured: {
     tag: "Trabalhos selecionados",
     title: "Projetos selecionados",
@@ -338,6 +340,7 @@ const en: ChromeDict = {
     contact: "Get in touch",
     viewResume: "View resume",
   },
+  aboutHeading: "About me",
   featured: {
     tag: "Selected work",
     title: "Selected projects",

@@ -11,9 +11,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
+  const englishProjectRoutes = projects.map((project) => ({
+    url: `${SITE_URL}/en/projetos/${project.slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
   return [
     {
       url: SITE_URL,
+      changeFrequency: "weekly",
+      priority: 1.0,
+    },
+    {
+      url: `${SITE_URL}/en`,
       changeFrequency: "weekly",
       priority: 1.0,
     },
@@ -22,6 +33,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: `${SITE_URL}/en/curriculo`,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
     ...projectRoutes,
+    ...englishProjectRoutes,
   ];
 }

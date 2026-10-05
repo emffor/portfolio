@@ -13,7 +13,7 @@ export function ExperienceSummary({ lang = "pt" }: { lang?: Locale }) {
   return (
     <section
       id="sobre"
-      aria-label={lang === "en" ? "About me" : "Sobre mim"}
+      aria-label={dict.aboutHeading}
       className="section-highlight scroll-mt-20 py-10 sm:py-16"
     >
       <div className="space-y-8">
@@ -42,7 +42,7 @@ export function ExperienceSummary({ lang = "pt" }: { lang?: Locale }) {
 
         <div className="grid gap-4 border-t border-border pt-6 md:grid-cols-[1fr_2fr] md:gap-8">
           <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">
-            {lang === "en" ? "About me" : "Sobre mim"}
+            {dict.aboutHeading}
           </h2>
           <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
             {summary}

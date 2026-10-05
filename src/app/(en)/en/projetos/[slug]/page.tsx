@@ -27,17 +27,17 @@ export async function generateMetadata({
 
   if (!project) {
     return {
-      title: "Projeto não encontrado",
+      title: "Project not found",
     };
   }
 
-  const url = `${SITE_URL}/projetos/${project.slug}`;
+  const url = `${SITE_URL}/en/projetos/${project.slug}`;
 
   return {
     title: project.title,
     description: project.shortDescription,
     alternates: {
-      canonical: `/projetos/${project.slug}`,
+      canonical: `/en/projetos/${project.slug}`,
       languages: {
         pt: `/projetos/${project.slug}`,
         en: `/en/projetos/${project.slug}`,
@@ -49,7 +49,7 @@ export async function generateMetadata({
       title: project.title,
       description: project.shortDescription,
       siteName: SITE_NAME,
-      locale: "pt_BR",
+      locale: "en_US",
     },
     twitter: {
       card: "summary_large_image",
@@ -59,7 +59,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
+export default async function EnglishProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = await getProjectBySlug(slug);
 
@@ -67,5 +67,5 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  return <ProjectCaseView project={project} lang="pt" />;
+  return <ProjectCaseView project={project} lang="en" />;
 }

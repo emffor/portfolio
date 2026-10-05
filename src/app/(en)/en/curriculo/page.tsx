@@ -6,14 +6,14 @@ import { RESUME_DATA } from "@/data/resume";
 import { ResumeView } from "@/components/case/ResumeView";
 import { SITE_URL, SITE_NAME } from "@/lib/constants";
 
-const title = `Currículo de ${PROFILE_DATA.name}`;
-const description = `${RESUME_DATA.title} com atuação em backend, APIs e modernização de sistemas. Experiência profissional, competências, projetos e formação.`;
+const title = `${PROFILE_DATA.name}'s Resume`;
+const description = `${RESUME_DATA.titleEn ?? RESUME_DATA.title} working with backend, APIs, and systems modernization. Professional experience, skills, projects, and education.`;
 
 export const metadata: Metadata = {
-  title: "Currículo",
+  title: "Resume",
   description,
   alternates: {
-    canonical: "/curriculo",
+    canonical: "/en/curriculo",
     languages: {
       pt: "/curriculo",
       en: "/en/curriculo",
@@ -22,19 +22,19 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    url: `${SITE_URL}/curriculo`,
+    url: `${SITE_URL}/en/curriculo`,
     type: "profile",
-    locale: "pt_BR",
+    locale: "en_US",
     siteName: SITE_NAME,
   },
   twitter: { card: "summary_large_image", title, description },
 };
 
-export default async function ResumePage() {
+export default async function EnglishResumePage() {
   const [experiences, projects] = await Promise.all([
     getExperiences(),
     getFeaturedProjects(),
   ]);
 
-  return <ResumeView experiences={experiences} projects={projects} lang="pt" />;
+  return <ResumeView experiences={experiences} projects={projects} lang="en" />;
 }
