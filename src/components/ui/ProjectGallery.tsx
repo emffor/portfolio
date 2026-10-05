@@ -3,12 +3,16 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { ProjectScreenshot } from "@/types/project";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/locale";
 
 interface ProjectGalleryProps {
   screenshots?: readonly ProjectScreenshot[];
+  lang?: Locale;
 }
 
-export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
+export function ProjectGallery({ screenshots, lang = "pt" }: ProjectGalleryProps) {
+  const dict = getDictionary(lang);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const isOpen = selectedIdx !== null;
@@ -58,13 +62,13 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
     selectedIdx !== null ? screenshots[selectedIdx] : null;
 
   return (
-    <section aria-label="Telas e capturas do projeto" className="space-y-6">
+    <section aria-label={dict.gallery.sectionAria} className="space-y-6">
       <div className="flex items-baseline justify-between gap-4">
         <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-          Telas do projeto
+          {dict.gallery.title}
         </h2>
         <span className="font-sans text-xs text-muted">
-          Clique para ampliar
+          {dict.gallery.hint}
         </span>
       </div>
 
@@ -77,7 +81,7 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
             <button
               type="button"
               onClick={() => setSelectedIdx(idx)}
-              aria-label={`Ampliar imagem: ${shot.alt || `Tela ${idx + 1}`}`}
+              aria-label={`${dict.gallery.enlargePrefix}${shot.alt || `Tela ${idx + 1}`}`}
               aria-haspopup="dialog"
               className="relative block aspect-[16/10] w-full cursor-zoom-in overflow-hidden bg-surface-secondary focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent"
             >
@@ -100,7 +104,7 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
 
       <dialog
         ref={dialogRef}
-        aria-label="Visualização ampliada das telas do projeto"
+        aria-label={dict.gallery.dialogAria}
         className="fixed inset-0 m-auto max-h-[92svh] w-[calc(100%_-_2rem)] max-w-5xl overflow-y-auto rounded-xl border border-border bg-surface p-0 text-foreground shadow-2xl backdrop:bg-black/85 backdrop:backdrop-blur-sm"
         onCancel={(event) => {
           event.preventDefault();
@@ -130,12 +134,12 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
           <div className="relative flex w-full flex-col items-center justify-center">
             <div className="flex w-full items-center justify-between border-b border-border/70 px-4 py-3 sm:px-6">
               <span className="font-mono text-xs text-muted" aria-live="polite">
-                Tela {selectedIdx + 1} de {screenshots.length}
+                {dict.gallery.screenWord} {selectedIdx + 1} de {screenshots.length}
               </span>
               <button
                 type="button"
                 onClick={closeModal}
-                aria-label="Fechar visualização ampliada (Esc)"
+                aria-label={dict.gallery.closeAria}
                 className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border/80 text-muted transition-colors hover:bg-surface-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
                 <svg
@@ -173,7 +177,7 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
                       e.stopPropagation();
                       showPrev();
                     }}
-                    aria-label="Imagem anterior (Seta para a esquerda)"
+                    aria-label={dict.gallery.prevAria}
                     className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white shadow-md backdrop-blur-sm transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   >
                     <svg
@@ -197,7 +201,7 @@ export function ProjectGallery({ screenshots }: ProjectGalleryProps) {
                       e.stopPropagation();
                       showNext();
                     }}
-                    aria-label="Próxima imagem (Seta para a direita)"
+                    aria-label={dict.gallery.nextAria}
                     className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white shadow-md backdrop-blur-sm transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   >
                     <svg

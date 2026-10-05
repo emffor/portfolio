@@ -3,17 +3,23 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAVIGATION_ITEMS } from "@/data/navigation";
+import { getNavigationItems } from "@/data/navigation";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/locale";
 
-export function DesktopNav() {
+export function DesktopNav({ lang = "pt" }: { lang?: Locale }) {
+  const dict = getDictionary(lang);
+  const items = getNavigationItems(lang);
+  const homeHref = lang === "en" ? "/en" : "/";
   const pathname = usePathname();
   const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
-    if (pathname !== "/") return;
+    if (pathname !== homeHref) return;
 
-    const sections = NAVIGATION_ITEMS.filter((item) => item.href.startsWith("/#"))
-      .map((item) => item.href.slice(2));
+    const sections = items
+      .map((item) => item.href.split("#")[1])
+      .filter((section): section is string => Boolean(section));
     let frame: number | undefined;
     const handleScroll = () => {
       frame = undefined;
@@ -47,19 +53,19 @@ export function DesktopNav() {
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
     };
-  }, [pathname]);
+  }, [pathname, homeHref, items]);
 
   return (
     <nav
-      aria-label="Navegação Principal"
+      aria-label={dict.navPrimaryAria}
       className="hidden lg:flex items-center gap-5 font-sans text-sm font-medium"
     >
-      {NAVIGATION_ITEMS.map((item) => {
-        const targetId = item.href.replace("/#", "");
-        const isPage = !item.href.startsWith("/#");
+      {items.map((item) => {
+        const targetId = item.href.split("#")[1] ?? "";
+        const isPage = !item.href.includes("#");
         const isActive = isPage
           ? pathname === item.href
-          : pathname === "/" && activeSection === targetId;
+          : pathname === homeHref && activeSection === targetId;
 
         return (
           <Link

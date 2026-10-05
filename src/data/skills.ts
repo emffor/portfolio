@@ -6,6 +6,8 @@ export const SKILL_AREAS: readonly SkillArea[] = [
     icon: "laravel",
     description:
       "Desenvolvimento de APIs REST, regras de negócio e modernização de legado com Laravel/PHP, Node.js e Python.",
+    descriptionEn:
+      "REST API development, business rules, and legacy modernization with Laravel/PHP, Node.js, and Python.",
     items: [
       "Laravel",
       "PHP 8.2+",
@@ -16,6 +18,7 @@ export const SKILL_AREAS: readonly SkillArea[] = [
     ],
     evidence: {
       label: "API e integrações no Investidor",
+      labelEn: "API and integrations in Investidor",
       href: "/projetos/investidor#solucao",
     },
   },
@@ -24,6 +27,8 @@ export const SKILL_AREAS: readonly SkillArea[] = [
     icon: "database",
     description:
       "Modelagem relacional, unificação e migração de bases heterogêneas, Docker e deploys em nuvem.",
+    descriptionEn:
+      "Relational modeling, unification and migration of heterogeneous databases, Docker, and cloud deploys.",
     items: [
       "PostgreSQL",
       "SQL Server",
@@ -34,6 +39,7 @@ export const SKILL_AREAS: readonly SkillArea[] = [
     ],
     evidence: {
       label: "Migração de dados na READI",
+      labelEn: "Data migration at READI",
       href: "/projetos/consolidacao-arquitetural#contexto",
     },
   },
@@ -42,6 +48,8 @@ export const SKILL_AREAS: readonly SkillArea[] = [
     icon: "architecture",
     description:
       "Monólito modular, microsserviços distribuídos, SOLID, Clean Code e testes de regressão.",
+    descriptionEn:
+      "Modular monolith, distributed microservices, SOLID, Clean Code, and regression testing.",
     items: [
       "Monólito Modular",
       "Microsserviços",
@@ -52,6 +60,7 @@ export const SKILL_AREAS: readonly SkillArea[] = [
     ],
     evidence: {
       label: "Decisões na modernização da READI",
+      labelEn: "Decisions in the READI modernization",
       href: "/projetos/consolidacao-arquitetural#decisoes",
     },
   },
@@ -60,6 +69,8 @@ export const SKILL_AREAS: readonly SkillArea[] = [
     icon: "react",
     description:
       "Dashboards operacionais, mapas em canvas interativo e SPAs responsivas com ecossistema React.",
+    descriptionEn:
+      "Operational dashboards, interactive canvas maps, and responsive SPAs with the React ecosystem.",
     items: [
       "React",
       "Next.js",
@@ -69,6 +80,7 @@ export const SKILL_AREAS: readonly SkillArea[] = [
     ],
     evidence: {
       label: "Mapa de pátio no Rastro Florestal",
+      labelEn: "Yard map in Rastro Florestal",
       href: "/projetos/rastro-florestal#telas",
     },
   },
@@ -77,6 +89,8 @@ export const SKILL_AREAS: readonly SkillArea[] = [
     icon: "ai",
     description:
       "Automação de rotinas corporativas e integração de APIs de LLMs e AI Agents em fluxos de backend.",
+    descriptionEn:
+      "Corporate routine automation and integration of LLM and AI agent APIs into backend flows.",
     items: [
       "AI Agents",
       "APIs de LLMs",
@@ -85,6 +99,7 @@ export const SKILL_AREAS: readonly SkillArea[] = [
     ],
     evidence: {
       label: "Automações na experiência profissional",
+      labelEn: "Automations in professional experience",
       href: "/#experiencia",
     },
   },

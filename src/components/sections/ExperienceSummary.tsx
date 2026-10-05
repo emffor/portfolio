@@ -1,12 +1,19 @@
 import React from "react";
 import Link from "next/link";
 import { PROFILE_DATA } from "@/data/profile";
+import { getDictionary } from "@/i18n/dictionaries";
+import { localizedHref, type Locale } from "@/i18n/locale";
 
-export function ExperienceSummary() {
+export function ExperienceSummary({ lang = "pt" }: { lang?: Locale }) {
+  const dict = getDictionary(lang);
+  const summary =
+    lang === "en"
+      ? (PROFILE_DATA.summaryEn ?? PROFILE_DATA.summary)
+      : PROFILE_DATA.summary;
   return (
     <section
       id="sobre"
-      aria-label="Sobre mim"
+      aria-label={lang === "en" ? "About me" : "Sobre mim"}
       className="section-highlight scroll-mt-20 py-10 sm:py-16"
     >
       <div className="space-y-8">
@@ -17,16 +24,16 @@ export function ExperienceSummary() {
                 {item.value}
               </p>
               <p className="max-w-[16rem] font-sans text-sm text-muted">
-                {item.label}
+                {lang === "en" ? (item.labelEn ?? item.label) : item.label}
               </p>
               {item.href && item.linkLabel && (
                 <Link
-                  href={item.href}
+                  href={localizedHref(item.href, lang)}
                   target={item.href.startsWith("https://") ? "_blank" : undefined}
                   rel={item.href.startsWith("https://") ? "noopener noreferrer" : undefined}
                   className="inline-block py-2 text-xs font-medium text-accent underline underline-offset-4"
                 >
-                  {item.linkLabel}
+                  {lang === "en" ? (item.linkLabelEn ?? item.linkLabel) : item.linkLabel}
                 </Link>
               )}
             </li>
@@ -35,10 +42,10 @@ export function ExperienceSummary() {
 
         <div className="grid gap-4 border-t border-border pt-6 md:grid-cols-[1fr_2fr] md:gap-8">
           <h2 className="font-display text-2xl font-bold tracking-tight text-foreground">
-            Sobre mim
+            {lang === "en" ? "About me" : "Sobre mim"}
           </h2>
           <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
-            {PROFILE_DATA.summary}
+            {summary}
           </p>
         </div>
       </div>

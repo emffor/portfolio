@@ -6,12 +6,15 @@ import { getProjectKindLabel } from "@/data/projects";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { ProjectDemoInstructions } from "@/components/ui/ProjectDemoInstructions";
+import { getDictionary } from "@/i18n/dictionaries";
+import { localizedHref, type Locale } from "@/i18n/locale";
 
 interface ProjectCardProps {
   project: Project;
   priority?: boolean;
   compact?: boolean;
   spotlight?: boolean;
+  lang?: Locale;
 }
 
 const VISIBLE_TECHNOLOGIES = 6;
@@ -21,7 +24,10 @@ export function ProjectCard({
   priority = false,
   compact = false,
   spotlight = false,
+  lang = "pt",
 }: ProjectCardProps) {
+  const dict = getDictionary(lang);
+  const caseHref = localizedHref(`/projetos/${project.slug}`, lang);
   const visibleTechnologies = (
     project.primaryTechnologies ?? project.technologies
   ).slice(0, compact ? 4 : VISIBLE_TECHNOLOGIES);
@@ -36,7 +42,7 @@ export function ProjectCard({
       }`}
     >
       <Link
-        href={`/projetos/${project.slug}`}
+        href={caseHref}
         tabIndex={-1}
         aria-hidden="true"
         className={`relative block w-full overflow-hidden bg-surface-secondary ${
@@ -66,7 +72,7 @@ export function ProjectCard({
       >
         <div>
           <p className="mb-2 font-mono text-xs font-medium uppercase tracking-wider text-muted">
-            {getProjectKindLabel(project.kind)}
+            {getProjectKindLabel(project.kind, lang)}
             <span className="mx-1.5 text-border" aria-hidden="true">
               ·
             </span>
@@ -74,7 +80,7 @@ export function ProjectCard({
           </p>
 
           <h3 id={`project-${project.slug}`} className={`font-display font-bold tracking-tight text-foreground ${spotlight ? "text-2xl sm:text-3xl" : "text-xl"}`}>
-            <Link href={`/projetos/${project.slug}`} className="rounded-sm transition-colors hover:text-accent">
+            <Link href={caseHref} className="rounded-sm transition-colors hover:text-accent">
               {project.title}
             </Link>
           </h3>
@@ -97,7 +103,7 @@ export function ProjectCard({
         {!compact && project.outcomeSummary && (
           <dl className="space-y-3 border-t border-border pt-4 text-sm">
             <div>
-              <dt className="text-xs text-muted">{project.kind === "technical-study" ? "Foco do estudo" : "Entrega principal"}</dt>
+              <dt className="text-xs text-muted">{project.kind === "technical-study" ? dict.card.studyFocusLabel : dict.card.deliverableLabel}</dt>
               <dd className="mt-1 leading-relaxed text-foreground">{project.outcomeSummary}</dd>
             </div>
           </dl>
@@ -116,12 +122,12 @@ export function ProjectCard({
 
         <div className="mt-auto flex flex-wrap items-center gap-2.5 pt-2">
           <Button
-            href={`/projetos/${project.slug}`}
+            href={caseHref}
             variant="primary"
             size="sm"
-            aria-label={`Explorar case do projeto ${project.title}`}
+            aria-label={`${dict.card.exploreCaseAriaPrefix}${project.title}`}
           >
-            Explorar case
+            {dict.card.exploreCase}
             <svg
               className="w-3.5 h-3.5 ml-1"
               fill="none"
@@ -143,9 +149,9 @@ export function ProjectCard({
               href={project.projectUrl}
               variant="outline"
               size="sm"
-              aria-label={`${project.projectUrlLabel ?? "Acessar demonstração"} de ${project.title} (abre em nova aba)`}
+              aria-label={`${project.projectUrlLabel ?? dict.card.demoFallback}${dict.card.demoAriaMiddle}${project.title}${dict.card.demoAriaSuffix}`}
             >
-              {project.projectUrlLabel ?? "Acessar demonstração"}
+              {project.projectUrlLabel ?? dict.card.demoFallback}
               <svg
                 className="w-3.5 h-3.5 ml-1"
                 fill="none"
@@ -168,7 +174,7 @@ export function ProjectCard({
               href={project.githubUrl}
               variant="outline"
               size="sm"
-              aria-label={`Ver código do projeto ${project.title} no GitHub`}
+              aria-label={`${dict.card.githubAriaPrefix}${project.title}${dict.card.githubAriaSuffix}`}
             >
               GitHub
               <svg
@@ -187,7 +193,7 @@ export function ProjectCard({
           )}
         </div>
         {project.projectUrl && (
-          <ProjectDemoInstructions demoAccess={project.demoAccess} accessNote={project.accessNote} />
+          <ProjectDemoInstructions demoAccess={project.demoAccess} accessNote={project.accessNote} lang={lang} />
         )}
       </div>
     </article>

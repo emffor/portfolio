@@ -2,11 +2,13 @@ export interface SocialLink {
   name: string;
   url: string;
   label: string;
+  labelEn?: string;
 }
 
 export interface ProfilePhoto {
   src: string;
   alt: string;
+  altEn?: string;
 }
 
 export interface Education {
@@ -18,8 +20,10 @@ export interface Education {
 export interface ProfessionalIndicator {
   value: string;
   label: string;
+  labelEn?: string;
   href?: string;
   linkLabel?: string;
+  linkLabelEn?: string;
 }
 
 export interface Language {
@@ -31,13 +35,17 @@ export interface Profile {
   name: string;
   title: string;
   positioning: string;
+  positioningEn?: string;
   headline: string;
+  headlineEn?: string;
   experienceSince: string;
   domain: string;
   summary: string;
+  summaryEn?: string;
   location: string;
   availableForWork: boolean;
   availabilityLabel: string;
+  availabilityLabelEn?: string;
   indicators: readonly ProfessionalIndicator[];
   education: Education;
   languages?: readonly Language[];
@@ -71,9 +79,11 @@ export interface SkillArea {
   title: string;
   icon: SkillIconName;
   description?: string;
+  descriptionEn?: string;
   items: readonly string[];
   evidence?: {
     label: string;
+    labelEn?: string;
     href: string;
   };
 }

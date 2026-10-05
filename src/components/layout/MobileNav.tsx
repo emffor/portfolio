@@ -2,9 +2,13 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { NAVIGATION_ITEMS } from "@/data/navigation";
+import { getNavigationItems } from "@/data/navigation";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/locale";
 
-export function MobileNav() {
+export function MobileNav({ lang = "pt" }: { lang?: Locale }) {
+  const dict = getDictionary(lang);
+  const items = getNavigationItems(lang);
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -54,7 +58,7 @@ export function MobileNav() {
         className="inline-flex items-center justify-center w-11 h-11 rounded-md border border-border text-muted hover:bg-surface-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         aria-expanded={isOpen}
         aria-controls="mobile-navigation-menu"
-        aria-label={isOpen ? "Fechar menu principal" : "Abrir menu principal"}
+        aria-label={isOpen ? dict.menuCloseAria : dict.menuOpenAria}
       >
         {isOpen ? (
           <svg
@@ -95,10 +99,10 @@ export function MobileNav() {
         className="absolute top-16 left-0 right-0 z-50 max-h-[calc(100svh_-_4rem)] overflow-y-auto border-b border-border bg-background/95 px-6 py-4 shadow-xl backdrop-blur-sm"
       >
         <nav
-          aria-label="Navegação móvel"
+          aria-label={dict.navMobileAria}
           className="flex flex-col gap-1"
         >
-          {NAVIGATION_ITEMS.map((item) => (
+          {items.map((item) => (
             <Link
               key={item.href}
               href={item.href}

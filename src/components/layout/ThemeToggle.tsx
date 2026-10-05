@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useSyncExternalStore } from "react";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/locale";
 
 function subscribe(callback: () => void) {
   const syncTheme = () => {
@@ -35,7 +37,8 @@ function getServerSnapshot(): "light" | "dark" {
   return "dark";
 }
 
-export function ThemeToggle() {
+export function ThemeToggle({ lang = "pt" }: { lang?: Locale }) {
+  const dict = getDictionary(lang);
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -77,10 +80,10 @@ export function ThemeToggle() {
       type="button"
       className="inline-flex items-center justify-center w-11 h-11 rounded-md border border-border bg-transparent text-muted hover:bg-surface-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
       aria-label={
-        theme === "dark" ? "Alternar para tema claro" : "Alternar para tema escuro"
+        theme === "dark" ? dict.themeToLightAria : dict.themeToDarkAria
       }
       title={
-        theme === "dark" ? "Alternar para tema claro" : "Alternar para tema escuro"
+        theme === "dark" ? dict.themeToLightAria : dict.themeToDarkAria
       }
     >
       {theme === "dark" ? (

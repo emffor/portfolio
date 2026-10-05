@@ -7,8 +7,20 @@ import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { DesktopNav } from "@/components/layout/DesktopNav";
 import { cn } from "@/lib/utils";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/locale";
 
-export function Header() {
+export function Header({ lang = "pt" }: { lang?: Locale }) {
+  const dict = getDictionary(lang);
+  const githubLabel =
+    lang === "en"
+      ? (PROFILE_DATA.socials.github.labelEn ?? PROFILE_DATA.socials.github.label)
+      : PROFILE_DATA.socials.github.label;
+  const linkedinLabel =
+    lang === "en"
+      ? (PROFILE_DATA.socials.linkedin.labelEn ?? PROFILE_DATA.socials.linkedin.label)
+      : PROFILE_DATA.socials.linkedin.label;
+  const homeHref = lang === "en" ? "/en#inicio" : "/#inicio";
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -28,9 +40,9 @@ export function Header() {
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-10 h-16 flex items-center justify-between gap-4">
         <Link
-          href="/#inicio"
+          href={homeHref}
           className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
-          aria-label="Ir para o início do portfólio"
+          aria-label={dict.brandAria}
         >
           <span className="text-base sm:text-lg font-bold tracking-tight font-display text-foreground">
             Eloan{" "}
@@ -38,14 +50,14 @@ export function Header() {
           </span>
         </Link>
 
-        <DesktopNav />
+        <DesktopNav lang={lang} />
 
         <div className="flex items-center gap-1.5 sm:gap-2">
           <a
             href={PROFILE_DATA.socials.github.url}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={PROFILE_DATA.socials.github.label}
+            aria-label={githubLabel}
             className="hidden xl:inline-flex items-center justify-center w-9 h-9 rounded-md text-muted hover:text-accent hover:bg-surface-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             <svg
@@ -65,7 +77,7 @@ export function Header() {
             href={PROFILE_DATA.socials.linkedin.url}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={PROFILE_DATA.socials.linkedin.label}
+            aria-label={linkedinLabel}
             className="hidden xl:inline-flex items-center justify-center w-9 h-9 rounded-md text-muted hover:text-accent hover:bg-surface-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             <svg
@@ -77,8 +89,8 @@ export function Header() {
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
             </svg>
           </a>
-          <ThemeToggle />
-          <MobileNav />
+          <ThemeToggle lang={lang} />
+          <MobileNav lang={lang} />
         </div>
       </div>
     </header>

@@ -4,10 +4,13 @@ export const EXPERIENCES: readonly Experience[] = [
   {
     company: "READI",
     role: "Desenvolvedor Full Stack",
+    roleEn: "Full Stack Developer",
     period: "Nov/2022 – Atual",
+    periodEn: "Nov 2022 – Present",
     location: "Fortaleza/CE",
     featured: true,
     recognition: "Destaque do Ano · 2024 e 2025",
+    recognitionEn: "Top Performer of the Year · 2024 and 2025",
     description:
       "Atuação na evolução e modernização de uma plataforma corporativa de alta complexidade, conectando decisões técnicas e arquitetura de backend à operação do produto.",
     responsibilities: [
@@ -42,6 +45,7 @@ export const EXPERIENCES: readonly Experience[] = [
     relatedLinks: [
       {
         label: "Ver case da consolidação",
+        labelEn: "See the consolidation case",
         url: "/projetos/consolidacao-arquitetural",
         type: "product",
       },
@@ -55,7 +59,9 @@ export const EXPERIENCES: readonly Experience[] = [
   {
     company: "Velty",
     role: "Desenvolvedor Full Stack",
+    roleEn: "Full Stack Developer",
     period: "Mai/2022 – Nov/2022",
+    periodEn: "May 2022 – Nov 2022",
     location: "Natal/RN",
     description:
       "Desenvolvimento de painéis web e aplicativos mobile para clientes do setor de beleza.",
@@ -72,6 +78,7 @@ export const EXPERIENCES: readonly Experience[] = [
     relatedLinks: [
       {
         label: "Conhecer a empresa",
+        labelEn: "Visit the company site",
         url: "https://velty.com.br/",
         type: "company",
       },
@@ -80,7 +87,9 @@ export const EXPERIENCES: readonly Experience[] = [
   {
     company: "Nestec",
     role: "Desenvolvedor Full Stack",
+    roleEn: "Full Stack Developer",
     period: "Jan/2022 – Jun/2022",
+    periodEn: "Jan 2022 – Jun 2022",
     location: "Fortaleza/CE",
     description:
       "Atuação em uma solução para o CREA-CE envolvendo mapeamento geográfico dinâmico para apoiar processos de fiscalização.",
@@ -108,7 +117,9 @@ export const EXPERIENCES: readonly Experience[] = [
   {
     company: "SN Representação",
     role: "Desenvolvedor Full Stack",
+    roleEn: "Full Stack Developer",
     period: "Abr/2021 – Mai/2022",
+    periodEn: "Apr 2021 – May 2022",
     location: "Fortaleza/CE",
     description:
       "Desenvolvimento do zero de uma plataforma ERP web/mobile em tempo real.",
@@ -123,7 +134,9 @@ export const EXPERIENCES: readonly Experience[] = [
   {
     company: "Data Business",
     role: "Desenvolvedor Full Stack",
+    roleEn: "Full Stack Developer",
     period: "Set/2019 – Dez/2019",
+    periodEn: "Sep 2019 – Dec 2019",
     location: "Fortaleza/CE",
     description: "Atuação em sistemas legados.",
     responsibilities: [

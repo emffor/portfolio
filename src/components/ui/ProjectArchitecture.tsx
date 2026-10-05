@@ -1,21 +1,26 @@
 import React from "react";
 import { ProjectArchitecture } from "@/types/project";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/locale";
 
 interface ProjectArchitectureDiagramProps {
   architecture?: ProjectArchitecture;
+  lang?: Locale;
 }
 
 export function ProjectArchitectureDiagram({
   architecture,
+  lang = "pt",
 }: ProjectArchitectureDiagramProps) {
+  const dict = getDictionary(lang);
   if (!architecture || architecture.layers.length === 0) {
     return null;
   }
 
   return (
-    <section aria-label="Arquitetura técnica do projeto" className="space-y-6">
+    <section aria-label={dict.architecture.sectionAria} className="space-y-6">
       <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-        Arquitetura técnica
+        {dict.architecture.title}
       </h2>
 
       <ol className="space-y-0 max-w-xl">
@@ -107,7 +112,7 @@ export function ProjectArchitectureDiagram({
         architecture.infrastructureServices.length > 0 && (
           <div className="max-w-xl rounded-lg border border-border bg-surface-secondary/60 p-4">
             <p className="font-sans text-xs font-semibold uppercase tracking-wider text-muted">
-              {architecture.infrastructureTitle ?? "Infraestrutura"}
+              {architecture.infrastructureTitle ?? dict.architecture.infraFallback}
             </p>
             <ul className="mt-3 grid grid-cols-2 gap-2">
               {architecture.infrastructureServices.map((service) => (

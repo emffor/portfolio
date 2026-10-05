@@ -29,40 +29,83 @@
 }
 
 :root {
-  --background: #f7f9f8;
-  --foreground: #17201f;
+  /*
+   * Light theme
+   *
+   * Base fria e neutra com azul petróleo dessaturado.
+   * A intenção é manter aparência técnica, sóbria e profissional
+   * sem cair no azul padrão de interfaces SaaS.
+   */
+  --background: #f7f9fa;
+  --foreground: #111a1e;
 
-  --accent: #386863;
-  --accent-hover: #2f5955;
-  --accent-soft: rgba(56, 104, 99, 0.10);
+  /*
+   * Brand / Accent
+   */
+  --accent: #42677a;
+  --accent-hover: #36596b;
+  --accent-soft: rgba(66, 103, 122, 0.1);
   --on-accent: #ffffff;
 
+  /*
+   * Surfaces
+   */
   --surface: #ffffff;
-  --surface-secondary: #f0f4f3;
-  --section-highlight: rgba(56, 104, 99, 0.12);
+  --surface-secondary: #eef2f4;
 
-  --border: #d9e1df;
-  --muted: #596b66;
+  /*
+   * Section highlight
+   */
+  --section-highlight: rgba(66, 103, 122, 0.09);
+
+  /*
+   * Borders and secondary text
+   */
+  --border: #d8e0e3;
+  --muted: #607078;
 
   color-scheme: light;
 }
 
 .dark {
+  /*
+   * Dark theme
+   *
+   * Quase preto azulado.
+   * Evita preto puro e mantém coerência com o azul petróleo.
+   */
   color-scheme: dark;
-  --background: #090d0e;
-  --foreground: #eef2f1;
 
-  --accent: #63a39c;
-  --accent-hover: #76b3ac;
-  --accent-soft: rgba(99, 163, 156, 0.12);
-  --on-accent: #07110f;
+  --background: #090d0f;
+  --foreground: #eef2f4;
 
-  --surface: #0f1516;
-  --surface-secondary: #151d1e;
-  --section-highlight: rgba(99, 163, 156, 0.1);
+  /*
+   * Accent
+   *
+   * Versão mais luminosa do accent light para preservar
+   * contraste sobre superfícies escuras.
+   */
+  --accent: #7aa6ba;
+  --accent-hover: #8db6c8;
+  --accent-soft: rgba(122, 166, 186, 0.12);
+  --on-accent: #081115;
 
-  --border: #293536;
-  --muted: #96a3a1;
+  /*
+   * Surfaces
+   */
+  --surface: #101619;
+  --surface-secondary: #161e22;
+
+  /*
+   * Section highlight
+   */
+  --section-highlight: rgba(122, 166, 186, 0.075);
+
+  /*
+   * Borders and secondary text
+   */
+  --border: #29353a;
+  --muted: #8e9ba1;
 }
 
 html {
@@ -78,11 +121,15 @@ html {
 .section-highlight::before {
   position: absolute;
   z-index: -1;
+
   top: 0;
   bottom: 0;
   left: 50%;
+
   width: 100vw;
+
   transform: translateX(-50%);
+
   background: linear-gradient(
     to bottom,
     transparent 0%,
@@ -90,6 +137,7 @@ html {
     var(--section-highlight) 76%,
     transparent 100%
   );
+
   content: "";
   pointer-events: none;
 }
@@ -107,19 +155,27 @@ h6,
 
 .hero-name {
   display: inline-block;
+
   background: linear-gradient(
     110deg,
     var(--foreground) 20%,
     var(--accent) 100%
   );
+
   background-size: 200% 100%;
   background-position: left center;
+
   background-clip: text;
+
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
   padding-right: 0.08em;
+
   transform-origin: left center;
+
   cursor: default;
+
   transition:
     transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
     filter 350ms ease,
@@ -128,19 +184,26 @@ h6,
 
 .hero-name:hover {
   background-position: right center;
-  filter: drop-shadow(0 4px 18px var(--accent-soft));
+
+  filter: drop-shadow(
+    0 4px 18px var(--accent-soft)
+  );
+
   transform: translateY(-2px) scale(1.015);
 }
 
 @keyframes interface-assembly {
   from {
     opacity: 0;
+
     transform: translate3d(
       calc(var(--assembly-x, 0px) * var(--assembly-distance)),
       calc(var(--assembly-y, 0px) * var(--assembly-distance)),
       0
-    ) scale(var(--assembly-scale, 1));
+    )
+      scale(var(--assembly-scale, 1));
   }
+
   to {
     opacity: 1;
     transform: none;
@@ -150,8 +213,12 @@ h6,
 @media (prefers-reduced-motion: no-preference) {
   html[data-home-assembly] [data-assembly] {
     --assembly-distance: 1;
-    animation: interface-assembly var(--assembly-duration, 760ms)
-      cubic-bezier(0.22, 1, 0.36, 1) var(--assembly-delay, 0ms) backwards;
+
+    animation: interface-assembly
+      var(--assembly-duration, 760ms)
+      cubic-bezier(0.22, 1, 0.36, 1)
+      var(--assembly-delay, 0ms)
+      backwards;
   }
 
   [data-assembly="header"] {
@@ -235,14 +302,15 @@ h6,
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-
   min-height: 100vh;
 
   display: flex;
   flex-direction: column;
+
+  background-color: var(--background);
+  color: var(--foreground);
+
+  font-family: var(--font-sans);
 
   text-rendering: optimizeLegibility;
 
@@ -281,6 +349,7 @@ a {
 
 *::-webkit-scrollbar-thumb {
   background: var(--border);
+
   border: 2px solid var(--background);
   border-radius: 999px;
 }
@@ -299,7 +368,9 @@ a {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+
     transition-duration: 0.01ms !important;
+
     scroll-behavior: auto !important;
   }
 
@@ -317,19 +388,27 @@ a {
 
   html:has(.resume-page) {
     color-scheme: light;
+
     --background: #ffffff;
-    --foreground: #17201f;
-    --muted: #3d4c48;
-    --accent: #305953;
-    --border: #d9e1df;
+    --foreground: #111a1e;
+
+    --muted: #45545b;
+
+    --accent: #36596b;
+
+    --border: #d8e0e3;
   }
 
   body:has(.resume-page) {
     display: block;
+
     min-height: auto;
+
     background: #ffffff;
+
     font-family: Arial, Helvetica, sans-serif;
     font-size: 10pt;
+
     transition: none;
   }
 

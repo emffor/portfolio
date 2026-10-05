@@ -2,6 +2,7 @@ export type ExperienceRelatedLinkType = "company" | "product" | "client";
 
 export interface ExperienceRelatedLink {
   label: string;
+  labelEn?: string;
   url?: string;
   type: ExperienceRelatedLinkType;
 }
@@ -9,9 +10,12 @@ export interface ExperienceRelatedLink {
 export interface Experience {
   company: string;
   role: string;
+  roleEn?: string;
   period: string;
+  periodEn?: string;
   featured?: boolean;
   recognition?: string;
+  recognitionEn?: string;
   location?: string;
   workModel?: string;
   contextLabel?: string;

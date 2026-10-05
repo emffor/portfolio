@@ -1,5 +1,7 @@
 import { Project, ProjectKind } from "@/types/project";
 import { projectImageUrl } from "@/lib/storage";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/locale";
 
 export const PROJECT_KIND_LABELS: Record<ProjectKind, string> = {
   product: "Produto",
@@ -7,8 +9,12 @@ export const PROJECT_KIND_LABELS: Record<ProjectKind, string> = {
   "technical-study": "Estudo técnico",
 };
 
-export function getProjectKindLabel(kind: ProjectKind): string {
-  return PROJECT_KIND_LABELS[kind];
+export function getProjectKindLabel(kind: ProjectKind, locale: Locale = "pt"): string {
+  if (locale === "pt") return PROJECT_KIND_LABELS[kind];
+  const labels = getDictionary("en").kindLabels;
+  if (kind === "product") return labels.product;
+  if (kind === "modernization") return labels.modernization;
+  return labels.technicalStudy;
 }
 
 export const PROJECTS: readonly Project[] = [

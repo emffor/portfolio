@@ -1,8 +1,19 @@
 import React from "react";
 import Link from "next/link";
 import { PROFILE_DATA } from "@/data/profile";
+import { getDictionary } from "@/i18n/dictionaries";
+import { localizedHref, type Locale } from "@/i18n/locale";
 
-export function Footer() {
+export function Footer({ lang = "pt" }: { lang?: Locale }) {
+  const dict = getDictionary(lang);
+  const githubLabel =
+    lang === "en"
+      ? (PROFILE_DATA.socials.github.labelEn ?? PROFILE_DATA.socials.github.label)
+      : PROFILE_DATA.socials.github.label;
+  const linkedinLabel =
+    lang === "en"
+      ? (PROFILE_DATA.socials.linkedin.labelEn ?? PROFILE_DATA.socials.linkedin.label)
+      : PROFILE_DATA.socials.linkedin.label;
   const currentYear = new Date().getFullYear();
 
   return (
@@ -21,14 +32,14 @@ export function Footer() {
           </p>
 
           <div className="flex flex-wrap items-center gap-5 font-sans text-sm font-medium text-muted">
-            <Link href="/curriculo" className="inline-flex min-h-11 items-center transition-colors hover:text-accent">
-              Currículo
+            <Link href={localizedHref("/curriculo", lang)} className="inline-flex min-h-11 items-center transition-colors hover:text-accent">
+              {dict.footer.resume}
             </Link>
             <a
               href={PROFILE_DATA.socials.github.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={PROFILE_DATA.socials.github.label}
+              aria-label={githubLabel}
               className="inline-flex min-h-11 items-center transition-colors hover:text-accent"
             >
               GitHub
@@ -37,7 +48,7 @@ export function Footer() {
               href={PROFILE_DATA.socials.linkedin.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={PROFILE_DATA.socials.linkedin.label}
+              aria-label={linkedinLabel}
               className="inline-flex min-h-11 items-center transition-colors hover:text-accent"
             >
               LinkedIn

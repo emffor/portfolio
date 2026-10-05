@@ -2,6 +2,8 @@ import React from "react";
 import { PROFILE_DATA } from "@/data/profile";
 import { Button } from "@/components/ui/Button";
 import { CopyEmailButton } from "@/components/ui/CopyEmailButton";
+import { getDictionary } from "@/i18n/dictionaries";
+import { localizedHref, type Locale } from "@/i18n/locale";
 
 const socialLinks = [
   {
@@ -63,28 +65,32 @@ const socialLinks = [
   },
 ];
 
-export function ContactCta() {
+export function ContactCta({ lang = "pt" }: { lang?: Locale }) {
+  const dict = getDictionary(lang);
+  const availability =
+    lang === "en"
+      ? (PROFILE_DATA.availabilityLabelEn ?? PROFILE_DATA.availabilityLabel)
+      : PROFILE_DATA.availabilityLabel;
   return (
     <section
       id="contato"
-      aria-label="Informações de contato e canais de comunicação"
+      aria-label={lang === "en" ? "Contact information and communication channels" : "Informações de contato e canais de comunicação"}
       className="section-highlight scroll-mt-20 py-10 sm:py-16"
     >
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-14">
         <div>
           <p className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-muted">
-            Contato
+            {dict.contact.tag}
           </p>
           <h2 className="mt-2 font-display text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-            Vamos conversar?
+            {dict.contact.title}
           </h2>
           <div
             aria-hidden="true"
             className="mt-4 h-1 w-14 rounded-full bg-accent"
           />
           <p className="mt-6 max-w-md font-sans text-sm sm:text-base text-muted leading-relaxed">
-            Para oportunidades em desenvolvimento Full Stack, backend e
-            modernização de sistemas, fale comigo por e-mail ou LinkedIn.
+            {dict.contact.intro}
           </p>
 
           <ul className="mt-8 space-y-1">
@@ -120,15 +126,14 @@ export function ContactCta() {
             {PROFILE_DATA.availableForWork && (
               <p className="flex items-center gap-2 font-sans text-xs font-medium text-muted">
                 <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent" />
-                {PROFILE_DATA.availabilityLabel}
+                {availability}
               </p>
             )}
             <p className="mt-4 font-display text-xl font-bold tracking-tight text-foreground">
-              Vamos falar sobre sua oportunidade
+              {dict.contact.cardTitle}
             </p>
             <p className="mt-2 font-sans text-sm text-muted leading-relaxed">
-              Compartilhe o contexto da vaga, os desafios do time e como posso
-              contribuir. Meu currículo também está disponível para consulta e impressão.
+              {dict.contact.cardText}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               {PROFILE_DATA.socials.email && (
@@ -142,15 +147,15 @@ export function ContactCta() {
                 </Button>
               )}
               <Button
-                href="/curriculo"
+                href={localizedHref("/curriculo", lang)}
                 variant="outline"
                 size="lg"
                 className="w-full"
               >
-                Ver currículo
+                {dict.contact.viewResume}
               </Button>
             </div>
-            {PROFILE_DATA.socials.email && <CopyEmailButton email={PROFILE_DATA.socials.email} />}
+            {PROFILE_DATA.socials.email && <CopyEmailButton email={PROFILE_DATA.socials.email} lang={lang} />}
           </div>
         </div>
       </div>

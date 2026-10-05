@@ -6,14 +6,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
 import { ExperienceRelatedLinkType } from "@/types/experience";
 import { TbExternalLink } from "react-icons/tb";
-
-const RELATED_LINK_GROUP_LABELS: Record<
-  Exclude<ExperienceRelatedLinkType, "company">,
-  string
-> = {
-  product: "Produtos em que atuei",
-  client: "Cliente / Instituição",
-};
+import { getDictionary } from "@/i18n/dictionaries";
+import { localizedHref, type Locale } from "@/i18n/locale";
 
 const RELATED_LINK_TYPES: readonly ExperienceRelatedLinkType[] = [
   "company",
@@ -21,35 +15,42 @@ const RELATED_LINK_TYPES: readonly ExperienceRelatedLinkType[] = [
   "client",
 ];
 
-export async function ExperienceTimeline() {
+export async function ExperienceTimeline({ lang = "pt" }: { lang?: Locale }) {
   const experiences = await getExperiences();
+  const dict = getDictionary(lang);
+  const groupLabels: Record<
+    Exclude<ExperienceRelatedLinkType, "company">,
+    string
+  > = {
+    product: dict.timeline.groupProduct,
+    client: dict.timeline.groupClient,
+  };
 
   return (
     <section
       id="experiencia"
-      aria-label="Experiência profissional"
+      aria-label={lang === "en" ? "Professional experience" : "Experiência profissional"}
       className="section-highlight scroll-mt-20 py-10 sm:py-16"
     >
       <SectionHeading
-        tag="Trajetória"
-        title="Experiência profissional"
-        description="Onde trabalhei e quais responsabilidades assumi em cada etapa."
+        tag={dict.timeline.tag}
+        title={dict.timeline.title}
+        description={dict.timeline.description}
       />
 
       {experiences.length === 0 ? (
         <div className="rounded-xl border border-border bg-surface p-6 sm:p-8">
           <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
-            Trajetória profissional detalhada disponível no LinkedIn, incluindo
-            cargos, períodos e responsabilidades por empresa.
+            {dict.timeline.emptyFallback}
           </p>
           <a
             href={PROFILE_DATA.socials.linkedin.url}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={PROFILE_DATA.socials.linkedin.label}
+            aria-label={lang === "en" ? (PROFILE_DATA.socials.linkedin.labelEn ?? PROFILE_DATA.socials.linkedin.label) : PROFILE_DATA.socials.linkedin.label}
             className="mt-4 inline-flex items-center font-sans text-sm font-medium text-foreground underline underline-offset-4 decoration-border hover:decoration-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
           >
-            Ver experiência no LinkedIn
+            {dict.timeline.linkedinCta}
             <svg
               className="w-3.5 h-3.5 ml-1.5"
               fill="none"
@@ -84,15 +85,15 @@ export async function ExperienceTimeline() {
                       {exp.company}
                     </h3>
                     {exp.recognition && (
-                      <Badge variant="subtle">{exp.recognition}</Badge>
+                      <Badge variant="subtle">{lang === "en" ? (exp.recognitionEn ?? exp.recognition) : exp.recognition}</Badge>
                     )}
                   </div>
                   <p className="mt-1 font-sans text-sm font-medium text-accent">
-                    {exp.role}
+                    {lang === "en" ? (exp.roleEn ?? exp.role) : exp.role}
                   </p>
                 </div>
                 <p className="font-mono text-xs leading-relaxed text-muted sm:max-w-64 sm:text-right">
-                  {exp.period}
+                  {lang === "en" ? (exp.periodEn ?? exp.period) : exp.period}
                   {exp.location ? ` · ${exp.location}` : ""}
                   {exp.workModel ? ` · ${exp.workModel}` : ""}
                 </p>
@@ -121,7 +122,7 @@ export async function ExperienceTimeline() {
               {exp.featured && exp.responsibilities.length > 3 && (
                 <details className="mt-4 text-sm">
                   <summary className="cursor-pointer py-2 font-medium text-accent">
-                    Outras responsabilidades
+                    {dict.timeline.otherResponsibilities}
                   </summary>
                   <ul className="mt-2 list-disc space-y-2 pl-5 leading-relaxed text-muted">
                     {exp.responsibilities.slice(3).map((item) => (
@@ -148,18 +149,19 @@ export async function ExperienceTimeline() {
                         {type !== "company" && (
                           <span className="font-mono text-[11px] text-muted">
                             {type === "product" && links.length === 1
-                              ? "Produto em que atuei"
-                              : RELATED_LINK_GROUP_LABELS[type]}
+                              ? dict.timeline.groupProductSingle
+                              : groupLabels[type]}
                           </span>
                         )}
                         {links.map((link) => {
+                          const linkLabel = lang === "en" ? (link.labelEn ?? link.label) : link.label;
                           if (!link.url) {
                             return (
                               <span
                                 key={`${link.type}-${link.label}`}
                                 className="font-sans text-xs font-medium text-muted sm:text-sm"
                               >
-                                {link.label}
+                                {linkLabel}
                               </span>
                             );
                           }
@@ -172,10 +174,10 @@ export async function ExperienceTimeline() {
                             return (
                               <Link
                                 key={`${link.type}-${link.url}`}
-                                href={link.url}
+                                href={localizedHref(link.url, lang)}
                                 className={linkClasses}
                               >
-                                {link.label}
+                                {linkLabel}
                                 <span aria-hidden="true" className="text-xs">
                                   →
                                 </span>
@@ -189,10 +191,10 @@ export async function ExperienceTimeline() {
                               href={link.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              aria-label={`${link.label} (abre em nova aba)`}
+                              aria-label={`${linkLabel}${dict.timeline.externalSuffix}`}
                               className={linkClasses}
                             >
-                              {link.label}
+                              {linkLabel}
                               <TbExternalLink
                                 className="h-3.5 w-3.5 shrink-0"
                                 aria-hidden="true"
@@ -209,7 +211,7 @@ export async function ExperienceTimeline() {
               {exp.technologies.length > 0 && (
                 <div
                   className="mt-4 flex flex-wrap gap-1.5 pt-1"
-                  aria-label={`Tecnologias em ${exp.company}`}
+                  aria-label={`${dict.timeline.techAriaPrefix}${exp.company}`}
                 >
                   {exp.technologies.map((tech) => (
                     <Badge key={tech} variant="subtle">
@@ -226,7 +228,7 @@ export async function ExperienceTimeline() {
       <div className="mt-8 rounded-xl border border-border bg-surface p-5 sm:p-6 space-y-3">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
           <span className="font-mono text-xs font-medium uppercase tracking-wider text-muted">
-            Formação
+            {dict.timeline.education}
           </span>
           <p className="font-sans text-sm text-foreground">
             {PROFILE_DATA.education.degree} · {PROFILE_DATA.education.institution} ·{" "}
@@ -236,7 +238,7 @@ export async function ExperienceTimeline() {
         {PROFILE_DATA.languages && PROFILE_DATA.languages.length > 0 && (
           <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
             <span className="font-mono text-xs font-medium uppercase tracking-wider text-muted">
-              Idiomas
+              {dict.timeline.languages}
             </span>
             <p className="font-sans text-sm text-foreground">
               {PROFILE_DATA.languages

@@ -4,18 +4,21 @@ import { SKILL_AREAS } from "@/data/skills";
 import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SkillIcon } from "@/components/ui/SkillIcon";
+import { getDictionary } from "@/i18n/dictionaries";
+import { localizedHref, type Locale } from "@/i18n/locale";
 
-export function TechStack() {
+export function TechStack({ lang = "pt" }: { lang?: Locale }) {
+  const dict = getDictionary(lang);
   return (
     <section
       id="tecnologias"
-      aria-label="Competências e tecnologias"
+      aria-label={lang === "en" ? "Skills and technologies" : "Competências e tecnologias"}
       className="scroll-mt-20 py-10 sm:py-16"
     >
       <SectionHeading
-        tag="Competências"
-        title="Competências aplicadas"
-        description="Minha stack de trabalho, conectada a exemplos de implementação nos projetos e na experiência profissional."
+        tag={dict.skills.tag}
+        title={dict.skills.title}
+        description={dict.skills.description}
       />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -35,7 +38,7 @@ export function TechStack() {
               </div>
               {area.description && (
                 <p className="mb-4 font-sans text-sm text-muted leading-relaxed">
-                  {area.description}
+                  {lang === "en" ? (area.descriptionEn ?? area.description) : area.description}
                 </p>
               )}
             </div>
@@ -47,8 +50,8 @@ export function TechStack() {
               ))}
             </ul>
             {area.evidence && (
-              <Link href={area.evidence.href} className="mt-4 inline-flex min-h-11 items-center gap-2 self-start rounded-sm text-sm font-medium text-accent underline underline-offset-4">
-                {area.evidence.label}
+              <Link href={localizedHref(area.evidence.href, lang)} className="mt-4 inline-flex min-h-11 items-center gap-2 self-start rounded-sm text-sm font-medium text-accent underline underline-offset-4">
+                {lang === "en" ? (area.evidence.labelEn ?? area.evidence.label) : area.evidence.label}
                 <span aria-hidden="true">→</span>
               </Link>
             )}

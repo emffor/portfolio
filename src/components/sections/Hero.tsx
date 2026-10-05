@@ -3,8 +3,27 @@ import Image from "next/image";
 import { PROFILE_DATA } from "@/data/profile";
 import { profilePhotoUrl } from "@/lib/storage";
 import { Button } from "@/components/ui/Button";
+import { getDictionary } from "@/i18n/dictionaries";
+import { localizedHref, type Locale } from "@/i18n/locale";
 
-export function Hero() {
+export function Hero({ lang = "pt" }: { lang?: Locale }) {
+  const dict = getDictionary(lang);
+  const positioning =
+    lang === "en"
+      ? (PROFILE_DATA.positioningEn ?? PROFILE_DATA.positioning)
+      : PROFILE_DATA.positioning;
+  const headline =
+    lang === "en"
+      ? (PROFILE_DATA.headlineEn ?? PROFILE_DATA.headline)
+      : PROFILE_DATA.headline;
+  const photoAlt =
+    lang === "en" && PROFILE_DATA.photo?.altEn
+      ? PROFILE_DATA.photo.altEn
+      : PROFILE_DATA.photo?.alt;
+  const availability =
+    lang === "en"
+      ? (PROFILE_DATA.availabilityLabelEn ?? PROFILE_DATA.availabilityLabel)
+      : PROFILE_DATA.availabilityLabel;
   return (
     <section
       id="inicio"
@@ -15,7 +34,7 @@ export function Hero() {
         <div className="min-w-0 space-y-6 sm:space-y-7">
           <div className="space-y-3">
             <p className="font-mono text-xs font-medium uppercase tracking-wider text-accent">
-              Desenvolvimento de software · Desde {PROFILE_DATA.experienceSince}
+              {dict.hero.eyebrowPrefix}{PROFILE_DATA.experienceSince}
             </p>
             <h1 data-assembly="name" className="font-display text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
               <span className="hero-name">{PROFILE_DATA.name}</span>
@@ -24,17 +43,17 @@ export function Hero() {
               {PROFILE_DATA.title}
             </p>
             <p data-assembly="positioning" className="max-w-md break-words font-display text-base font-medium leading-snug tracking-tight text-foreground sm:text-lg">
-              {PROFILE_DATA.positioning}
+              {positioning}
             </p>
           </div>
 
           <p data-assembly="description" className="max-w-lg font-sans text-base sm:text-lg text-muted leading-relaxed">
-            {PROFILE_DATA.headline}
+            {headline}
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <Button data-assembly="primary-cta" href="/#projetos" variant="glow" size="lg">
-              Ver projetos
+            <Button data-assembly="primary-cta" href={localizedHref("/#projetos", lang)} variant="glow" size="lg">
+              {dict.hero.viewProjects}
               <svg
                 className="w-4 h-4 ml-2"
                 fill="none"
@@ -51,8 +70,8 @@ export function Hero() {
               </svg>
             </Button>
 
-            <Button data-assembly="secondary-cta" href="/#contato" variant="outline" size="lg">
-              Entrar em contato
+            <Button data-assembly="secondary-cta" href={localizedHref("/#contato", lang)} variant="outline" size="lg">
+              {dict.hero.contact}
             </Button>
           </div>
 
@@ -61,7 +80,7 @@ export function Hero() {
               href={PROFILE_DATA.socials.github.url}
               variant="ghost"
               size="sm"
-              aria-label={PROFILE_DATA.socials.github.label}
+              aria-label={lang === "en" ? (PROFILE_DATA.socials.github.labelEn ?? PROFILE_DATA.socials.github.label) : PROFILE_DATA.socials.github.label}
             >
               <svg
                 className="w-4 h-4 mr-2"
@@ -82,7 +101,7 @@ export function Hero() {
               href={PROFILE_DATA.socials.linkedin.url}
               variant="ghost"
               size="sm"
-              aria-label={PROFILE_DATA.socials.linkedin.label}
+              aria-label={lang === "en" ? (PROFILE_DATA.socials.linkedin.labelEn ?? PROFILE_DATA.socials.linkedin.label) : PROFILE_DATA.socials.linkedin.label}
             >
               <svg
                 className="w-4 h-4 mr-2"
@@ -94,8 +113,8 @@ export function Hero() {
               </svg>
               LinkedIn
             </Button>
-            <Button href="/curriculo" variant="ghost" size="sm">
-              Ver currículo
+            <Button href={localizedHref("/curriculo", lang)} variant="ghost" size="sm">
+              {dict.hero.viewResume}
               <span aria-hidden="true">↗</span>
             </Button>
           </div>
@@ -123,7 +142,7 @@ export function Hero() {
                 {PROFILE_DATA.photo ? (
                   <Image
                     src={profilePhotoUrl(PROFILE_DATA.photo.src)}
-                    alt={PROFILE_DATA.photo.alt}
+                    alt={photoAlt ?? PROFILE_DATA.photo.alt}
                     width={1024}
                     height={1536}
                     preload
@@ -145,7 +164,7 @@ export function Hero() {
             {PROFILE_DATA.availableForWork && (
               <figcaption data-assembly="badge" className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-surface/95 px-4 py-2 text-xs font-medium text-foreground shadow-lg backdrop-blur-sm">
                 <span aria-hidden="true" className="mr-2 inline-block h-2 w-2 rounded-full bg-accent" />
-                {PROFILE_DATA.availabilityLabel}
+                {availability}
               </figcaption>
             )}
           </figure>

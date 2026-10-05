@@ -4,7 +4,7 @@ import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, AUTHOR_NAME } from "@/lib/consta
 import { HOME_ASSEMBLY_SCRIPT } from "@/lib/home-assembly";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import "./globals.css";
+import "../globals.css";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -47,6 +47,10 @@ export const metadata: Metadata = {
   creator: AUTHOR_NAME,
   alternates: {
     canonical: "/",
+    languages: {
+      pt: "/",
+      en: "/en",
+    },
   },
   openGraph: {
     type: "website",
