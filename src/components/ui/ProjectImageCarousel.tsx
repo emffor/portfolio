@@ -3,11 +3,14 @@
 import React, { useEffect, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { ProjectScreenshot } from "@/types/project";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/locale";
 
 interface ProjectImageCarouselProps {
   images: readonly ProjectScreenshot[];
   projectTitle: string;
   priority: boolean;
+  lang?: Locale;
   sizes?: string;
 }
 
@@ -25,8 +28,10 @@ export function ProjectImageCarousel({
   images,
   projectTitle,
   priority,
+  lang = "pt",
   sizes = "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 360px",
 }: ProjectImageCarouselProps) {
+  const dict = getDictionary(lang);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
@@ -59,8 +64,8 @@ export function ProjectImageCarousel({
   return (
     <figure
       className="overflow-hidden rounded-xl border border-border bg-surface"
-      aria-roledescription="carrossel"
-      aria-label={`Imagens de ${projectTitle}`}
+      aria-roledescription={dict.carousel.role}
+      aria-label={`${dict.carousel.imagesAriaPrefix}${projectTitle}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => setIsFocused(true)}
@@ -72,7 +77,7 @@ export function ProjectImageCarousel({
         <Image
           key={activeImage.src}
           src={activeImage.src}
-          alt={activeImage.alt || `Demonstração visual do projeto ${projectTitle}`}
+          alt={activeImage.alt || `${dict.carousel.imageFallback}: ${projectTitle}`}
           fill
           preload={priority && activeIndex === 0}
           sizes={sizes}
@@ -86,12 +91,12 @@ export function ProjectImageCarousel({
             {activeImage.caption ?? activeImage.alt}
           </p>
           {images.length > 1 && (
-            <div className="flex shrink-0 items-center gap-2" role="group" aria-label="Controles das imagens">
+            <div className="flex shrink-0 items-center gap-2" role="group" aria-label={dict.carousel.controlsAria}>
               <button
                 type="button"
                 disabled={reducedMotion}
                 onClick={() => setIsPaused((paused) => !paused)}
-                aria-label={reducedMotion ? "Rotação desativada: movimento reduzido" : isPaused ? "Iniciar rotação de imagens" : "Pausar rotação de imagens"}
+                aria-label={reducedMotion ? dict.carousel.reducedMotionAria : isPaused ? dict.carousel.playAria : dict.carousel.pauseAria}
                 className="flex h-11 w-11 items-center justify-center rounded-lg text-muted hover:bg-surface-secondary focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-50"
               >
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -101,18 +106,18 @@ export function ProjectImageCarousel({
               <button
                 type="button"
                 onClick={() => showImage(-1)}
-                aria-label="Mostrar imagem anterior"
+                aria-label={dict.carousel.previousAria}
                 className="flex h-11 w-11 items-center justify-center rounded-lg border border-border hover:bg-surface-secondary focus-visible:ring-2 focus-visible:ring-accent"
               >
                 <span aria-hidden="true">←</span>
               </button>
               <span className="min-w-12 text-center font-mono text-xs text-muted" aria-live={isPlaying ? "off" : "polite"} aria-atomic="true">
-                <span className="sr-only">Imagem </span>{activeIndex + 1} / {images.length}
+                <span className="sr-only">{dict.carousel.imageWord} </span>{activeIndex + 1} / {images.length}
               </span>
               <button
                 type="button"
                 onClick={() => showImage(1)}
-                aria-label="Mostrar próxima imagem"
+                aria-label={dict.carousel.nextAria}
                 className="flex h-11 w-11 items-center justify-center rounded-lg border border-border hover:bg-surface-secondary focus-visible:ring-2 focus-visible:ring-accent"
               >
                 <span aria-hidden="true">→</span>

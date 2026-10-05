@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/Badge";
 import { ExperienceRelatedLinkType } from "@/types/experience";
 import { TbExternalLink } from "react-icons/tb";
 import { getDictionary } from "@/i18n/dictionaries";
-import { localizedHref, type Locale } from "@/i18n/locale";
+import { localizedHref, localizedId, type Locale } from "@/i18n/locale";
 
 const RELATED_LINK_TYPES: readonly ExperienceRelatedLinkType[] = [
   "company",
@@ -28,7 +28,7 @@ export async function ExperienceTimeline({ lang = "pt" }: { lang?: Locale }) {
 
   return (
     <section
-      id="experiencia"
+      id={localizedId("experiencia", lang)}
       aria-label={lang === "en" ? "Professional experience" : "Experiência profissional"}
       className="section-highlight scroll-mt-20 py-10 sm:py-16"
     >

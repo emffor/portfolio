@@ -3,7 +3,7 @@ import { PROFILE_DATA } from "@/data/profile";
 import { Button } from "@/components/ui/Button";
 import { CopyEmailButton } from "@/components/ui/CopyEmailButton";
 import { getDictionary } from "@/i18n/dictionaries";
-import { localizedHref, type Locale } from "@/i18n/locale";
+import { localizedHref, localizedId, type Locale } from "@/i18n/locale";
 
 const socialLinks = [
   {
@@ -73,7 +73,7 @@ export function ContactCta({ lang = "pt" }: { lang?: Locale }) {
       : PROFILE_DATA.availabilityLabel;
   return (
     <section
-      id="contato"
+      id={localizedId("contato", lang)}
       aria-label={lang === "en" ? "Contact information and communication channels" : "Informações de contato e canais de comunicação"}
       className="section-highlight scroll-mt-20 py-10 sm:py-16"
     >

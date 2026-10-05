@@ -262,6 +262,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     title: "Modernização da plataforma READI",
+    titleEn: "READI platform modernization",
     slug: "consolidacao-arquitetural",
     kind: "modernization",
     category: "Arquitetura & Engenharia de Dados",

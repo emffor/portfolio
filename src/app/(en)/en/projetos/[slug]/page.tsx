@@ -32,9 +32,10 @@ export async function generateMetadata({
   }
 
   const url = `${SITE_URL}/en/projetos/${project.slug}`;
+  const title = project.titleEn ?? project.title;
 
   return {
-    title: project.title,
+    title,
     description: project.shortDescriptionEn ?? project.shortDescription,
     alternates: {
       canonical: `/en/projetos/${project.slug}`,
@@ -46,14 +47,14 @@ export async function generateMetadata({
     openGraph: {
       type: "article",
       url,
-      title: project.title,
+      title,
       description: project.shortDescriptionEn ?? project.shortDescription,
       siteName: SITE_NAME,
       locale: "en_US",
     },
     twitter: {
       card: "summary_large_image",
-      title: project.title,
+      title,
       description: project.shortDescriptionEn ?? project.shortDescription,
     },
   };

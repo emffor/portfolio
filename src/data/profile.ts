@@ -5,7 +5,7 @@ export const PROFILE_DATA: Profile = {
   title: "Full Stack Developer",
   positioning:
     "Backend e modernização de sistemas em produção.",
-  positioningEn: "Backend and production systems modernization.",
+  positioningEn: "Backend engineering and production systems modernization.",
   headline:
     "Transformo regras de negócio complexas em aplicações com Laravel, Node.js e TypeScript — da modelagem de dados à interface e ao deploy.",
   headlineEn:

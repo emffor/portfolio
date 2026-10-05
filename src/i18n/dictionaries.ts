@@ -18,6 +18,7 @@ export interface ChromeDict {
   localeToggleAria: string;
   localeToggleShort: string;
   hero: {
+    sectionAria: string;
     eyebrowPrefix: string;
     viewProjects: string;
     contact: string;
@@ -130,6 +131,7 @@ export interface ChromeDict {
     enlargePrefix: string;
     dialogAria: string;
     screenWord: string;
+    screenCountOf: string;
     closeAria: string;
     prevAria: string;
     nextAria: string;
@@ -138,6 +140,18 @@ export interface ChromeDict {
     title: string;
     sectionAria: string;
     infraFallback: string;
+  };
+  carousel: {
+    role: string;
+    imagesAriaPrefix: string;
+    controlsAria: string;
+    reducedMotionAria: string;
+    playAria: string;
+    pauseAria: string;
+    previousAria: string;
+    nextAria: string;
+    imageWord: string;
+    imageFallback: string;
   };
   resumePage: {
     title: string;
@@ -175,6 +189,7 @@ const pt: ChromeDict = {
   localeToggleAria: "Ver versão em inglês",
   localeToggleShort: "EN",
   hero: {
+    sectionAria: "Apresentação inicial",
     eyebrowPrefix: "Desenvolvimento de software · Desde ",
     viewProjects: "Ver projetos",
     contact: "Entrar em contato",
@@ -296,6 +311,7 @@ const pt: ChromeDict = {
     enlargePrefix: "Ampliar imagem: ",
     dialogAria: "Visualização ampliada das telas do projeto",
     screenWord: "Tela",
+    screenCountOf: "de",
     closeAria: "Fechar visualização ampliada (Esc)",
     prevAria: "Imagem anterior (Seta para a esquerda)",
     nextAria: "Próxima imagem (Seta para a direita)",
@@ -304,6 +320,18 @@ const pt: ChromeDict = {
     title: "Arquitetura técnica",
     sectionAria: "Arquitetura técnica do projeto",
     infraFallback: "Infraestrutura",
+  },
+  carousel: {
+    role: "carrossel",
+    imagesAriaPrefix: "Imagens de ",
+    controlsAria: "Controles das imagens",
+    reducedMotionAria: "Rotação desativada: movimento reduzido",
+    playAria: "Iniciar rotação de imagens",
+    pauseAria: "Pausar rotação de imagens",
+    previousAria: "Mostrar imagem anterior",
+    nextAria: "Mostrar próxima imagem",
+    imageWord: "Imagem",
+    imageFallback: "Demonstração visual do projeto",
   },
   resumePage: {
     title: "Currículo",
@@ -325,11 +353,11 @@ const en: ChromeDict = {
   skipLink: "Skip to main content",
   brandAria: "Go to the portfolio home",
   nav: [
-    { label: "About", href: "/en#sobre" },
-    { label: "Projects", href: "/en#projetos" },
-    { label: "Experience", href: "/en#experiencia" },
-    { label: "Technologies", href: "/en#tecnologias" },
-    { label: "Contact", href: "/en#contato" },
+    { label: "About", href: "/en#about" },
+    { label: "Projects", href: "/en#projects" },
+    { label: "Experience", href: "/en#experience" },
+    { label: "Technologies", href: "/en#technologies" },
+    { label: "Contact", href: "/en#contact" },
     { label: "Resume", href: "/en/curriculo" },
   ],
   navPrimaryAria: "Primary navigation",
@@ -341,6 +369,7 @@ const en: ChromeDict = {
   localeToggleAria: "View Portuguese version",
   localeToggleShort: "PT",
   hero: {
+    sectionAria: "Introduction",
     eyebrowPrefix: "Software development · Since ",
     viewProjects: "View projects",
     contact: "Get in touch",
@@ -462,6 +491,7 @@ const en: ChromeDict = {
     enlargePrefix: "Enlarge image: ",
     dialogAria: "Expanded view of the project screens",
     screenWord: "Screen",
+    screenCountOf: "of",
     closeAria: "Close expanded view (Esc)",
     prevAria: "Previous image (Left arrow)",
     nextAria: "Next image (Right arrow)",
@@ -470,6 +500,18 @@ const en: ChromeDict = {
     title: "Technical architecture",
     sectionAria: "Project technical architecture",
     infraFallback: "Infrastructure",
+  },
+  carousel: {
+    role: "carousel",
+    imagesAriaPrefix: "Images of ",
+    controlsAria: "Image controls",
+    reducedMotionAria: "Rotation disabled: reduced motion preference",
+    playAria: "Start image rotation",
+    pauseAria: "Pause image rotation",
+    previousAria: "Show previous image",
+    nextAria: "Show next image",
+    imageWord: "Image",
+    imageFallback: "Project demonstration image",
   },
   resumePage: {
     title: "Resume",

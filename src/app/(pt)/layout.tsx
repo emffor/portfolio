@@ -1,31 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Manrope, Sora } from "next/font/google";
+import { RootShell } from "@/components/layout/RootShell";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, AUTHOR_NAME } from "@/lib/constants";
-import { HOME_ASSEMBLY_SCRIPT } from "@/lib/home-assembly";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import "../globals.css";
-
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const sora = Sora({
-  variable: "--font-sora",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["500", "600", "700"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600"],
-});
 
 export const viewport: Viewport = {
   themeColor: [
@@ -74,62 +50,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function PortugueseLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <html
-      lang="pt-BR"
-      className={`${manrope.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased`}
-      suppressHydrationWarning
-    >
-      <head>
-        <script
-          id="hide-netlify-hud"
-          dangerouslySetInnerHTML={{
-            __html: `try { localStorage.setItem('nl-hud:public:v1', 'hidden'); } catch (error) {}`,
-          }}
-        />
-        <script
-          id="home-assembly"
-          dangerouslySetInnerHTML={{ __html: HOME_ASSEMBLY_SCRIPT }}
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var saved = null;
-                  try { saved = localStorage.getItem('theme'); } catch (e) {}
-                  if (saved === 'dark') {
-                    document.documentElement.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
-      </head>
-      <body
-        className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-200"
-        suppressHydrationWarning
-      >
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 font-sans bg-accent text-[var(--on-accent)] text-sm font-medium rounded-md shadow-md"
-        >
-          Pular para o conteúdo principal
-        </a>
-        <Header />
-        <main id="main-content" tabIndex={-1} className="flex-1 scroll-mt-20">
-          {children}
-        </main>
-        <Footer />
-      </body>
-    </html>
-  );
+  return <RootShell lang="pt">{children}</RootShell>;
 }

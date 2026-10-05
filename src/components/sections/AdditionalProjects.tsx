@@ -2,7 +2,7 @@ import React from "react";
 import { getAdditionalProjects } from "@/data/projects";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { getDictionary } from "@/i18n/dictionaries";
-import type { Locale } from "@/i18n/locale";
+import { localizedId, type Locale } from "@/i18n/locale";
 
 export async function AdditionalProjects({ lang = "pt" }: { lang?: Locale }) {
   const projects = await getAdditionalProjects();
@@ -12,7 +12,7 @@ export async function AdditionalProjects({ lang = "pt" }: { lang?: Locale }) {
 
   return (
     <section
-      id="projetos-adicionais"
+      id={localizedId("projetos-adicionais", lang)}
       aria-label={lang === "en" ? "Additional projects" : "Projetos adicionais"}
       className="scroll-mt-20 py-3 sm:py-6"
     >

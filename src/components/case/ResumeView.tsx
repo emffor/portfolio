@@ -20,6 +20,10 @@ export function ResumeView({ experiences, projects, lang = "pt" }: ResumeViewPro
     lang === "en" ? (RESUME_DATA.titleEn ?? RESUME_DATA.title) : RESUME_DATA.title;
   const resumeSummary =
     lang === "en" ? (RESUME_DATA.summaryEn ?? RESUME_DATA.summary) : RESUME_DATA.summary;
+  const positioning =
+    lang === "en"
+      ? (PROFILE_DATA.positioningEn ?? PROFILE_DATA.positioning)
+      : PROFILE_DATA.positioning;
 
   return (
     <article className="resume-page mx-auto max-w-4xl px-5 py-10 sm:px-8 sm:py-16">
@@ -30,7 +34,7 @@ export function ResumeView({ experiences, projects, lang = "pt" }: ResumeViewPro
       <header className="border-b border-border pb-6">
         <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">{PROFILE_DATA.name}</h1>
         <p className="mt-2 text-lg font-medium text-accent">{resumeTitle}</p>
-        <p className="mt-2 text-sm text-muted">{PROFILE_DATA.positioning} · {RESUME_DATA.location}</p>
+        <p className="mt-2 text-sm text-muted">{positioning} · {RESUME_DATA.location}</p>
         <ul aria-label={dict.resumePage.contactAria} className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
           <li><a href={RESUME_DATA.phone.href} className="underline underline-offset-4">{RESUME_DATA.phone.label}</a></li>
           {PROFILE_DATA.socials.email && (
@@ -43,23 +47,25 @@ export function ResumeView({ experiences, projects, lang = "pt" }: ResumeViewPro
             </li>
           ))}
         </ul>
-        <div className="resume-actions mt-6 border-t border-border pt-5">
-          <div className="w-full sm:w-fit">
-            <Button
-              href={RESUME_DATA.document.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              size="sm"
-              className="w-full sm:w-auto"
-              aria-label={dict.resumePage.docAria}
-            >
-              {dict.resumePage.docButton}
-            </Button>
+        {lang === "pt" && (
+          <div className="resume-actions mt-6 border-t border-border pt-5">
+            <div className="w-full sm:w-fit">
+              <Button
+                href={RESUME_DATA.document.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                size="sm"
+                className="w-full sm:w-auto"
+                aria-label={dict.resumePage.docAria}
+              >
+                {dict.resumePage.docButton}
+              </Button>
+            </div>
+            <p className="mt-2 text-xs leading-relaxed text-muted">
+              {dict.resumePage.docHint}
+            </p>
           </div>
-          <p className="mt-2 text-xs leading-relaxed text-muted">
-            {dict.resumePage.docHint}
-          </p>
-        </div>
+        )}
       </header>
 
       <section aria-labelledby="resume-summary" className="mt-8">
@@ -109,7 +115,7 @@ export function ResumeView({ experiences, projects, lang = "pt" }: ResumeViewPro
           {projects.filter((project) => project.kind !== "technical-study").slice(0, 3).map((project) => (
             <div key={project.slug} className="resume-entry">
               <h3 className="font-display text-base font-semibold">
-                <Link href={localizedHref(`/projetos/${project.slug}`, lang)} className="underline underline-offset-4">{project.title}</Link>
+                <Link href={localizedHref(`/projetos/${project.slug}`, lang)} className="underline underline-offset-4">{lang === "en" ? (project.titleEn ?? project.title) : project.title}</Link>
               </h3>
               <p className="mt-1 text-sm leading-relaxed text-muted">{lang === "en" ? (project.outcomeSummaryEn ?? project.outcomeSummary) : project.outcomeSummary}</p>
               <p className="mt-1 text-xs text-muted">{project.primaryTechnologies?.join(" · ")}</p>

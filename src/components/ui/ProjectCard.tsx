@@ -28,6 +28,12 @@ export function ProjectCard({
 }: ProjectCardProps) {
   const dict = getDictionary(lang);
   const caseHref = localizedHref(`/projetos/${project.slug}`, lang);
+  const projectTitle = tx(lang, project.title, project.titleEn);
+  const projectUrlLabel = tx(
+    lang,
+    project.projectUrlLabel ?? dict.card.demoFallback,
+    project.projectUrlLabelEn
+  );
   const visibleTechnologies = (
     project.primaryTechnologies ?? project.technologies
   ).slice(0, compact ? 4 : VISIBLE_TECHNOLOGIES);
@@ -81,7 +87,7 @@ export function ProjectCard({
 
           <h3 id={`project-${project.slug}`} className={`font-display font-bold tracking-tight text-foreground ${spotlight ? "text-2xl sm:text-3xl" : "text-xl"}`}>
             <Link href={caseHref} className="rounded-sm transition-colors hover:text-accent">
-              {project.title}
+              {projectTitle}
             </Link>
           </h3>
 
@@ -111,7 +117,7 @@ export function ProjectCard({
 
         <div
           className="flex flex-wrap items-center gap-1.5"
-          aria-label={`${lang === "en" ? "Key technologies in" : "Principais tecnologias de"} ${project.title}`}
+          aria-label={`${lang === "en" ? "Key technologies in" : "Principais tecnologias de"} ${projectTitle}`}
         >
           {visibleTechnologies.map((tech) => (
             <Badge key={tech} variant="subtle">
@@ -125,7 +131,7 @@ export function ProjectCard({
             href={caseHref}
             variant="primary"
             size="sm"
-            aria-label={`${dict.card.exploreCaseAriaPrefix}${project.title}`}
+            aria-label={`${dict.card.exploreCaseAriaPrefix}${projectTitle}`}
           >
             {dict.card.exploreCase}
             <svg
@@ -149,9 +155,9 @@ export function ProjectCard({
               href={project.projectUrl}
               variant="outline"
               size="sm"
-              aria-label={`${project.projectUrlLabel ?? dict.card.demoFallback}${dict.card.demoAriaMiddle}${project.title}${dict.card.demoAriaSuffix}`}
+              aria-label={`${projectUrlLabel}${dict.card.demoAriaMiddle}${projectTitle}${dict.card.demoAriaSuffix}`}
             >
-              {project.projectUrlLabel ?? dict.card.demoFallback}
+              {projectUrlLabel}
               <svg
                 className="w-3.5 h-3.5 ml-1"
                 fill="none"
@@ -174,7 +180,7 @@ export function ProjectCard({
               href={project.githubUrl}
               variant="outline"
               size="sm"
-              aria-label={`${dict.card.githubAriaPrefix}${project.title}${dict.card.githubAriaSuffix}`}
+              aria-label={`${dict.card.githubAriaPrefix}${projectTitle}${dict.card.githubAriaSuffix}`}
             >
               GitHub
               <svg

@@ -106,8 +106,8 @@ Interações de teclado, tema, carrossel e galeria também devem ser verificadas
 - A navegação por seções fica fixa na lateral em telas grandes.
 - O carrossel inicia parado e permite navegação manual ou rotação opcional. A
   preferência de movimento reduzido desabilita a rotação automática.
-- As prévias de compartilhamento são geradas em PNG para cada projeto em
-  `/projetos/[slug]/opengraph-image`.
+- As prévias de compartilhamento são geradas em PNG para cada projeto e idioma em
+  `/projetos/[slug]/opengraph-image` e `/en/projetos/[slug]/opengraph-image`.
 - Competências possuem links para exemplos nos cases e na experiência profissional.
 - As orientações de demonstração (`demoAccess` e `accessNote`) aparecem tanto no
   card quanto no case. No Investidor, elas informam o código público de teste.
@@ -122,12 +122,15 @@ conceituais devem ser identificados nas legendas.
 ## Currículo
 
 A rota `/curriculo` reúne resumo, competências, experiência, projetos, formação e
-contatos. O resumo, contato e competências específicos do currículo ficam em
+contatos. O currículo em inglês fica em `/en/curriculo`, com conteúdo próprio em
+inglês. O PDF oficial está disponível somente na versão em português; por isso, o
+link de download/impressão aparece apenas em `/curriculo`. O resumo, contato e
+competências específicos do currículo ficam em
 `src/data/resume.ts`; as experiências reutilizam `src/data/experience.ts`, com
 `resumeResponsibilities` para o detalhamento transcrito do PDF.
 
 O documento oficial está em `documentos/EloanFerreira.pdf` no storage configurado.
-**Baixar / Imprimir PDF** abre o documento em uma nova aba, onde é possível salvar
+Em `/curriculo`, **Baixar / Imprimir PDF** abre o documento em uma nova aba, onde é possível salvar
 ou imprimir pelo visualizador do navegador. Ao substituir o PDF,
 atualize também os dados tipados da página para manter as informações alinhadas.
 O layout A4 da página permanece disponível pela impressão nativa do navegador.
@@ -138,25 +141,28 @@ O layout A4 da página permanece disponível pela impressão nativa do navegador
 
 ```
 portfolio/
-├── public/                     # Arquivos estáticos públicos
-│   └── assets/                 # Capturas de tela e imagens dos projetos
+├── public/                     # Assets estáticos públicos
 ├── src/
 │   ├── app/                    # Rotas e configurações do App Router
+│   │   ├── (pt)/               # Rotas em português: /, /curriculo, /projetos/*
+│   │   ├── (en)/en/            # Rotas em inglês: /en, /en/curriculo, /en/projetos/*
+│   │   ├── (pt)/layout.tsx     # Metadados PT e root layout do grupo
+│   │   ├── (en)/layout.tsx     # Metadados EN e root layout do grupo
 │   │   ├── globals.css         # Variáveis de tema e estilos globais
-│   │   ├── layout.tsx          # Layout raiz (SEO, fontes, tema, semântica)
-│   │   ├── page.tsx            # Página inicial (composição de seções)
 │   │   ├── robots.ts           # Configuração programática de robots.txt
 │   │   └── sitemap.ts          # Geração dinâmica do sitemap.xml
 │   ├── components/
-│   │   ├── layout/             # Componentes estruturais (Header, Footer, Nav)
+│   │   ├── case/               # Visualizações compartilhadas de cases e currículo
+│   │   ├── layout/             # RootShell, Header, Footer, navegação e toggles
 │   │   ├── sections/           # Seções da página (Hero, Projetos, Experiência, Techs, Contato)
 │   │   └── ui/                 # Componentes de interface reutilizáveis (Button, Badge, ProjectCard)
 │   ├── data/                   # Conteúdo tipado e funções de busca desacopladas
-│   │   ├── navigation.ts       # Itens de menu e navegação
 │   │   ├── profile.ts          # Dados profissionais, bio e links sociais
 │   │   ├── projects.ts         # Catálogo de projetos e queries assíncronas
 │   │   └── skills.ts           # Categorização da stack tecnológica
+│   ├── i18n/                   # Dicionários e helpers de idioma/rotas
 │   ├── lib/                    # Constantes e utilitários
+│   │   ├── storage.ts          # URLs dos assets públicos no storage
 │   │   ├── constants.ts
 │   │   └── utils.ts
 │   └── types/                  # Definições estritas de tipos TypeScript

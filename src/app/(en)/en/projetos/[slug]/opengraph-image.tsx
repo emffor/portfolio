@@ -22,7 +22,7 @@ export default async function Image({
   if (!project) notFound();
 
   return createSocialImage({
-    title: project.title,
+    title: project.titleEn ?? project.title,
     subtitle: `${getProjectKindLabel(project.kind, "en")} · ${AUTHOR_NAME}`,
     description: project.outcomeSummaryEn ?? project.outcomeSummary ?? project.shortDescriptionEn ?? project.shortDescription,
   });

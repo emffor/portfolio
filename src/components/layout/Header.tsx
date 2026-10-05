@@ -8,11 +8,11 @@ import { MobileNav } from "@/components/layout/MobileNav";
 import { DesktopNav } from "@/components/layout/DesktopNav";
 import { cn } from "@/lib/utils";
 import { getDictionary } from "@/i18n/dictionaries";
-import type { Locale } from "@/i18n/locale";
+import { localizedHref, type Locale } from "@/i18n/locale";
 
 export function Header({ lang = "pt" }: { lang?: Locale }) {
   const dict = getDictionary(lang);
-  const homeHref = lang === "en" ? "/en#inicio" : "/#inicio";
+  const homeHref = localizedHref("/#inicio", lang);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {

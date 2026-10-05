@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { PROFILE_DATA } from "@/data/profile";
 import { getDictionary } from "@/i18n/dictionaries";
-import { localizedHref, type Locale } from "@/i18n/locale";
+import { localizedHref, localizedId, type Locale } from "@/i18n/locale";
 
 export function ExperienceSummary({ lang = "pt" }: { lang?: Locale }) {
   const dict = getDictionary(lang);
@@ -12,7 +12,7 @@ export function ExperienceSummary({ lang = "pt" }: { lang?: Locale }) {
       : PROFILE_DATA.summary;
   return (
     <section
-      id="sobre"
+      id={localizedId("sobre", lang)}
       aria-label={dict.aboutHeading}
       className="section-highlight scroll-mt-20 py-10 sm:py-16"
     >

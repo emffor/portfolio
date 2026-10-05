@@ -61,6 +61,7 @@ export interface ProjectOutcome {
 
 export interface Project {
   title: string;
+  titleEn?: string;
   slug: string;
   shortDescription: string;
   shortDescriptionEn?: string;

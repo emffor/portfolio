@@ -304,40 +304,46 @@ test("todos os cases apresentam atuação, entregas, stack e resumo com âncoras
   const sitemap = await getPage("/sitemap.xml");
   const routes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)]
     .map((match) => new URL(match[1]).pathname)
-    .filter((path) => path.startsWith("/projetos/"));
+    .filter((path) => path.startsWith("/projetos/") || path.startsWith("/en/projetos/"));
 
   for (const route of routes) {
     const html = markup(await getPage(route));
     const roleLabel = route.startsWith("/en/") ? "My role" : "Minha atuação";
-    for (const id of ["resumo", "atuacao", "entregas", "stack"]) {
+    const sectionIds = route.startsWith("/en/")
+      ? ["summary", "role", "deliverables", "stack"]
+      : ["resumo", "atuacao", "entregas", "stack"];
+    for (const id of sectionIds) {
       assert.ok(html.includes(`id="${id}"`), `Seção ausente: ${route}#${id}`);
       assert.ok(html.includes(`href="#${id}"`), `Navegação ausente: ${route}#${id}`);
     }
     assert.ok(html.indexOf(roleLabel) > 0, `Atuação ausente: ${route}`);
-    assert.ok(html.indexOf(roleLabel) < html.indexOf('aria-roledescription="carrossel"'));
+    const carouselRole = route.startsWith("/en/") ? "carousel" : "carrossel";
+    assert.ok(html.indexOf(roleLabel) < html.indexOf(`aria-roledescription="${carouselRole}"`));
     assert.match(html, /<figcaption\b/);
   }
 });
 
 test("cada case tem prévia social própria em PNG disponível para compartilhamento", async () => {
-  for (const slug of ["rastro-florestal", "investidor", "consolidacao-arquitetural", "nexo", "vidora", "bruna-e-eloan"]) {
-    const route = `/projetos/${slug}`;
-    const html = markup(await getPage(route));
-    for (const property of ['property="og:image"', 'name="twitter:image"']) {
-      const image = html.match(new RegExp(`<meta ${property} content="([^"]+)"`));
-      assert.ok(image, `Prévia ausente: ${route} ${property}`);
-      const imageUrl = new URL(image[1].replaceAll("&amp;", "&"));
-      assert.ok(
-        imageUrl.pathname.startsWith(`${route}/opengraph-image`),
-        `Prévia inesperada: ${route} ${property} → ${imageUrl.pathname}`
-      );
-      const response = await fetch(new URL(imageUrl.pathname + imageUrl.search, baseUrl));
-      assert.equal(response.status, 200);
-      assert.match(response.headers.get("content-type"), /^image\/png/);
-      const bytes = Buffer.from(await response.arrayBuffer());
-      assert.equal(bytes.subarray(1, 4).toString(), "PNG");
-      assert.equal(bytes.readUInt32BE(16), 1200);
-      assert.equal(bytes.readUInt32BE(20), 630);
+  for (const localePrefix of ["", "/en"]) {
+    for (const slug of ["rastro-florestal", "investidor", "consolidacao-arquitetural", "nexo", "vidora", "bruna-e-eloan"]) {
+      const route = `${localePrefix}/projetos/${slug}`;
+      const html = markup(await getPage(route));
+      for (const property of ['property="og:image"', 'name="twitter:image"']) {
+        const image = html.match(new RegExp(`<meta ${property} content="([^"]+)"`));
+        assert.ok(image, `Prévia ausente: ${route} ${property}`);
+        const imageUrl = new URL(image[1].replaceAll("&amp;", "&"));
+        assert.ok(
+          imageUrl.pathname.startsWith(`${route}/opengraph-image`),
+          `Prévia inesperada: ${route} ${property} → ${imageUrl.pathname}`
+        );
+        const response = await fetch(new URL(imageUrl.pathname + imageUrl.search, baseUrl));
+        assert.equal(response.status, 200);
+        assert.match(response.headers.get("content-type"), /^image\/png/);
+        const bytes = Buffer.from(await response.arrayBuffer());
+        assert.equal(bytes.subarray(1, 4).toString(), "PNG");
+        assert.equal(bytes.readUInt32BE(16), 1200);
+        assert.equal(bytes.readUInt32BE(20), 630);
+      }
     }
   }
 });
@@ -401,6 +407,9 @@ test("a versão em inglês usa o idioma, o chrome e os canônicos próprios", as
   assert.ok(home.includes("View projects"));
   assert.doesNotMatch(home, /Ver projetos/);
   assert.ok(home.includes('aria-label="View Portuguese version"'));
+  for (const href of ["/en#about", "/en#projects", "/en#experience", "/en#technologies", "/en#contact"]) {
+    assert.ok(home.includes(`href="${href}"`), `Âncora do menu EN ausente: ${href}`);
+  }
   const ptHome = markup(await getPage("/"));
   assert.ok(ptHome.includes('aria-label="Ver versão em inglês"'));
   assert.ok(ptHome.includes('href="/en"'));
@@ -410,7 +419,9 @@ test("a versão em inglês usa o idioma, o chrome e os canônicos próprios", as
 
   const resume = markup(await getPage("/en/curriculo"));
   assert.ok(resume.includes("Professional summary"));
-  assert.ok(resume.includes("Download / Print PDF"));
+  assert.ok(resume.includes("Backend engineering and production systems modernization."));
+  assert.ok(resume.includes("Intermediate B1"));
+  assert.doesNotMatch(resume, /Download \/ Print PDF|EloanFerreira\.pdf/);
   assert.ok(resume.includes("Education and languages"));
   const resumeCanonical = resume.match(/<link rel="canonical" href="([^"]+)"/);
   assert.equal(new URL(resumeCanonical[1]).pathname, "/en/curriculo");
@@ -456,6 +467,42 @@ test("a versão em inglês usa o idioma, o chrome e os canônicos próprios", as
   const rastroEn = markup(await getPage("/en/projetos/rastro-florestal"));
   assert.ok(rastroEn.includes("Multi-tenant SaaS"));
   assert.ok(rastroEn.includes("How to access the demo"));
+
+  const englishRoutes = [
+    "/en",
+    "/en/curriculo",
+    ...["rastro-florestal", "investidor", "consolidacao-arquitetural", "nexo", "vidora", "bruna-e-eloan"].map(
+      (slug) => `/en/projetos/${slug}`
+    ),
+  ];
+  const portugueseLeaks = /Apresentação inicial|Dados & Infraestrutura|Arquitetura & Qualidade|IA & Automações|Modernização da plataforma READI|Backend e modernização de sistemas em produção|Controles das imagens|Mostrar imagem anterior|Mostrar próxima imagem|Pausar rotação de imagens|Portfólio/;
+  for (const route of englishRoutes) {
+    const html = markup(await getPage(route));
+    assert.doesNotMatch(html, portugueseLeaks, `Texto PT vazou em ${route}`);
+    if (route !== "/en" && route !== "/en/curriculo") {
+      assert.ok(html.includes('aria-roledescription="carousel"'), `Carrossel EN sem locale em ${route}`);
+      assert.ok(html.includes('href="#context"'), `Âncora EN ausente em ${route}`);
+    }
+  }
+
+  const readi = await getPage("/en/projetos/consolidacao-arquitetural");
+  assert.ok(readi.includes("<title>READI platform modernization | Eloan Ferreira</title>"));
+  assert.match(readi, /<meta property="og:title" content="READI platform modernization"/);
+  assert.match(readi, /<meta name="twitter:title" content="READI platform modernization"/);
+  const caseSchema = readi.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  assert.ok(caseSchema, "JSON-LD do case ausente");
+  const structuredData = JSON.parse(caseSchema[1]);
+  assert.equal(structuredData["@graph"][0].name, "READI platform modernization");
+  assert.equal(structuredData["@graph"][1].itemListElement[0].name, "Portfolio");
+
+  for (const route of englishRoutes) {
+    const expectedPortuguesePath = route.replace(/^\/en(?=\/|$)/, "") || "/";
+    const html = markup(await getPage(route));
+    const toggle = [...html.matchAll(/<a\b[^>]*>/g)]
+      .map(([anchor]) => anchor)
+      .find((anchor) => anchor.includes('aria-label="View Portuguese version"'));
+    assert.ok(toggle?.includes(`href="${expectedPortuguesePath}"`), `Alternância de idioma não preservou a página: ${route}`);
+  }
 });
 
 test("um slug inexistente retorna 404", async () => {

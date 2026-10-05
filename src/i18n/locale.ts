@@ -1,9 +1,29 @@
 export type Locale = "pt" | "en";
 
-export const DEFAULT_LOCALE: Locale = "pt";
+const ENGLISH_ANCHORS: Readonly<Record<string, string>> = {
+  inicio: "intro",
+  sobre: "about",
+  projetos: "projects",
+  "projetos-adicionais": "additional-projects",
+  experiencia: "experience",
+  tecnologias: "technologies",
+  contato: "contact",
+  resumo: "summary",
+  "resumo-title": "summary-title",
+  atuacao: "role",
+  entregas: "deliverables",
+  "entregas-title": "deliverables-title",
+  contexto: "context",
+  solucao: "solution",
+  desafios: "challenges",
+  arquitetura: "architecture",
+  decisoes: "decisions",
+  limites: "limits",
+  telas: "screens",
+};
 
-export function isLocale(value: string | undefined): value is Locale {
-  return value === "pt" || value === "en";
+export function localizedId(id: string, locale: Locale): string {
+  return locale === "en" ? (ENGLISH_ANCHORS[id] ?? id) : id;
 }
 
 /**
@@ -33,7 +53,20 @@ export function txList(
 export function localizedHref(href: string, locale: Locale): string {
   if (locale === "pt") return href;
   if (href.startsWith("http://") || href.startsWith("https://")) return href;
-  if (href.startsWith("/en")) return href;
-  if (href.startsWith("/")) return `/en${href}`;
-  return href;
+
+  const hashIndex = href.indexOf("#");
+  const path = hashIndex === -1 ? href : href.slice(0, hashIndex);
+  const anchor = hashIndex === -1 ? undefined : href.slice(hashIndex + 1);
+  const englishPath =
+    path === "/en" || path.startsWith("/en/")
+      ? path
+      : path === "/" || path === ""
+        ? "/en"
+        : path.startsWith("/")
+          ? `/en${path}`
+          : path;
+
+  return anchor
+    ? `${englishPath}#${localizedId(anchor, locale)}`
+    : englishPath;
 }

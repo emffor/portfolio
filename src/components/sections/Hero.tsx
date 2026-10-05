@@ -4,7 +4,7 @@ import { PROFILE_DATA } from "@/data/profile";
 import { profilePhotoUrl } from "@/lib/storage";
 import { Button } from "@/components/ui/Button";
 import { getDictionary } from "@/i18n/dictionaries";
-import { localizedHref, type Locale } from "@/i18n/locale";
+import { localizedHref, localizedId, type Locale } from "@/i18n/locale";
 
 export function Hero({ lang = "pt" }: { lang?: Locale }) {
   const dict = getDictionary(lang);
@@ -26,8 +26,8 @@ export function Hero({ lang = "pt" }: { lang?: Locale }) {
       : PROFILE_DATA.availabilityLabel;
   return (
     <section
-      id="inicio"
-      aria-label="Apresentação inicial"
+      id={localizedId("inicio", lang)}
+      aria-label={dict.hero.sectionAria}
       className="relative scroll-mt-20 py-12 pb-16 sm:py-16 lg:min-h-[38rem] lg:flex lg:items-center"
     >
       <div className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)] items-center gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.9fr)] lg:gap-12">

@@ -29,7 +29,7 @@ const profileSchema = {
       image: profilePhotoUrl(PROFILE_DATA.photo.src),
     }),
     sameAs: [PROFILE_DATA.socials.github.url, PROFILE_DATA.socials.linkedin.url],
-    knowsAbout: [...new Set(SKILL_AREAS.flatMap((area) => area.items))],
+    knowsAbout: [...new Set(SKILL_AREAS.flatMap((area) => area.itemsEn ?? area.items))],
     alumniOf: {
       "@type": "EducationalOrganization",
       name: PROFILE_DATA.education.institution,

@@ -5,13 +5,13 @@ import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SkillIcon } from "@/components/ui/SkillIcon";
 import { getDictionary } from "@/i18n/dictionaries";
-import { localizedHref, type Locale } from "@/i18n/locale";
+import { localizedHref, localizedId, type Locale } from "@/i18n/locale";
 
 export function TechStack({ lang = "pt" }: { lang?: Locale }) {
   const dict = getDictionary(lang);
   return (
     <section
-      id="tecnologias"
+      id={localizedId("tecnologias", lang)}
       aria-label={lang === "en" ? "Skills and technologies" : "Competências e tecnologias"}
       className="scroll-mt-20 py-10 sm:py-16"
     >
@@ -33,7 +33,7 @@ export function TechStack({ lang = "pt" }: { lang?: Locale }) {
                   <SkillIcon name={area.icon} />
                 </span>
                 <h3 className="font-display text-base font-semibold tracking-tight text-foreground">
-                  {area.title}
+                  {lang === "en" ? (area.titleEn ?? area.title) : area.title}
                 </h3>
               </div>
               {area.description && (
@@ -42,8 +42,8 @@ export function TechStack({ lang = "pt" }: { lang?: Locale }) {
                 </p>
               )}
             </div>
-            <ul className="flex flex-wrap gap-1.5 pt-1" aria-label={area.title}>
-              {area.items.map((item) => (
+            <ul className="flex flex-wrap gap-1.5 pt-1" aria-label={lang === "en" ? (area.titleEn ?? area.title) : area.title}>
+              {(lang === "en" ? (area.itemsEn ?? area.items) : area.items).map((item) => (
                 <li key={item}>
                   <Badge variant="subtle">{item}</Badge>
                 </li>

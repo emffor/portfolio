@@ -134,7 +134,7 @@ export function ProjectGallery({ screenshots, lang = "pt" }: ProjectGalleryProps
           <div className="relative flex w-full flex-col items-center justify-center">
             <div className="flex w-full items-center justify-between border-b border-border/70 px-4 py-3 sm:px-6">
               <span className="font-mono text-xs text-muted" aria-live="polite">
-                {dict.gallery.screenWord} {selectedIdx + 1} de {screenshots.length}
+                {dict.gallery.screenWord} {selectedIdx + 1} {dict.gallery.screenCountOf} {screenshots.length}
               </span>
               <button
                 type="button"
