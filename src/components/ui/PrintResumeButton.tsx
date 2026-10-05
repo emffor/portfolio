@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/Button";
 import { RESUME_DATA } from "@/data/resume";
+import { getDictionary } from "@/i18n/dictionaries";
+import type { Locale } from "@/i18n/locale";
 
 interface PrintResumeButtonProps {
   className?: string;
+  lang?: Locale;
 }
 
-export function PrintResumeButton({ className }: PrintResumeButtonProps) {
+export function PrintResumeButton({ className, lang = "pt" }: PrintResumeButtonProps) {
+  const dict = getDictionary(lang);
   return (
     <Button
       href={RESUME_DATA.document.href}
@@ -14,9 +18,9 @@ export function PrintResumeButton({ className }: PrintResumeButtonProps) {
       variant="outline"
       size="sm"
       className={className}
-      aria-label="Baixar ou imprimir PDF do currículo (abre em nova aba)"
+      aria-label={dict.resumePage.docAria}
     >
-      Baixar / Imprimir PDF
+      {dict.resumePage.docButton}
     </Button>
   );
 }

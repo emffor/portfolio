@@ -13,7 +13,7 @@ function subscribe(callback: () => void) {
     }
     document.documentElement.classList.toggle(
       "dark",
-      saved !== "light"
+      saved === "dark"
     );
     callback();
   };
@@ -34,7 +34,7 @@ function getSnapshot(): "light" | "dark" {
 }
 
 function getServerSnapshot(): "light" | "dark" {
-  return "dark";
+  return "light";
 }
 
 export function ThemeToggle({ lang = "pt" }: { lang?: Locale }) {

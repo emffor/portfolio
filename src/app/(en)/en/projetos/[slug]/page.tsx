@@ -35,7 +35,7 @@ export async function generateMetadata({
 
   return {
     title: project.title,
-    description: project.shortDescription,
+    description: project.shortDescriptionEn ?? project.shortDescription,
     alternates: {
       canonical: `/en/projetos/${project.slug}`,
       languages: {
@@ -47,14 +47,14 @@ export async function generateMetadata({
       type: "article",
       url,
       title: project.title,
-      description: project.shortDescription,
+      description: project.shortDescriptionEn ?? project.shortDescription,
       siteName: SITE_NAME,
       locale: "en_US",
     },
     twitter: {
       card: "summary_large_image",
       title: project.title,
-      description: project.shortDescription,
+      description: project.shortDescriptionEn ?? project.shortDescription,
     },
   };
 }

@@ -44,13 +44,16 @@ export const PROFILE_DATA: Profile = {
   ],
   education: {
     degree: "Análise e Desenvolvimento de Sistemas",
+    degreeEn: "Analysis and Systems Development",
     institution: "Estácio de Sá",
     completionYear: 2023,
   },
   languages: [
     {
       name: "Inglês",
+      nameEn: "English",
       level: "Intermediário B1",
+      levelEn: "Intermediate B1",
     },
   ],
   photo: {

@@ -20,9 +20,12 @@ export interface Experience {
   workModel?: string;
   contextLabel?: string;
   description: string;
+  descriptionEn?: string;
   impactLabel?: string;
   responsibilities: readonly string[];
+  responsibilitiesEn?: readonly string[];
   resumeResponsibilities?: readonly string[];
+  resumeResponsibilitiesEn?: readonly string[];
   recognitionLabel?: string;
   technologies: readonly string[];
   relatedLinks?: readonly ExperienceRelatedLink[];

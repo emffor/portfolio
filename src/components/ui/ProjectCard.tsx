@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { ProjectDemoInstructions } from "@/components/ui/ProjectDemoInstructions";
 import { getDictionary } from "@/i18n/dictionaries";
-import { localizedHref, type Locale } from "@/i18n/locale";
+import { localizedHref, tx, type Locale } from "@/i18n/locale";
 
 interface ProjectCardProps {
   project: Project;
@@ -76,7 +76,7 @@ export function ProjectCard({
             <span className="mx-1.5 text-border" aria-hidden="true">
               ·
             </span>
-            <span className="text-accent">{project.category}</span>
+            <span className="text-accent">{tx(lang, project.category, project.categoryEn)}</span>
           </p>
 
           <h3 id={`project-${project.slug}`} className={`font-display font-bold tracking-tight text-foreground ${spotlight ? "text-2xl sm:text-3xl" : "text-xl"}`}>
@@ -91,12 +91,12 @@ export function ProjectCard({
                 className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
                 aria-hidden="true"
               />
-              {project.status}
+              {tx(lang, project.status, project.statusEn)}
             </p>
           )}
 
           <p className="mt-2.5 font-sans text-sm leading-relaxed text-muted">
-            {project.shortDescription}
+            {tx(lang, project.shortDescription, project.shortDescriptionEn)}
           </p>
         </div>
 
@@ -104,14 +104,14 @@ export function ProjectCard({
           <dl className="space-y-3 border-t border-border pt-4 text-sm">
             <div>
               <dt className="text-xs text-muted">{project.kind === "technical-study" ? dict.card.studyFocusLabel : dict.card.deliverableLabel}</dt>
-              <dd className="mt-1 leading-relaxed text-foreground">{project.outcomeSummary}</dd>
+              <dd className="mt-1 leading-relaxed text-foreground">{tx(lang, project.outcomeSummary, project.outcomeSummaryEn)}</dd>
             </div>
           </dl>
         )}
 
         <div
           className="flex flex-wrap items-center gap-1.5"
-          aria-label={`Principais tecnologias de ${project.title}`}
+          aria-label={`${lang === "en" ? "Key technologies in" : "Principais tecnologias de"} ${project.title}`}
         >
           {visibleTechnologies.map((tech) => (
             <Badge key={tech} variant="subtle">
@@ -193,7 +193,7 @@ export function ProjectCard({
           )}
         </div>
         {project.projectUrl && (
-          <ProjectDemoInstructions demoAccess={project.demoAccess} accessNote={project.accessNote} lang={lang} />
+          <ProjectDemoInstructions demoAccess={project.demoAccess} accessNote={project.accessNote} accessNoteEn={project.accessNoteEn} lang={lang} />
         )}
       </div>
     </article>

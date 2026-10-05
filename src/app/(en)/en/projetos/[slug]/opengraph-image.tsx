@@ -24,6 +24,6 @@ export default async function Image({
   return createSocialImage({
     title: project.title,
     subtitle: `${getProjectKindLabel(project.kind, "en")} · ${AUTHOR_NAME}`,
-    description: project.outcomeSummary ?? project.shortDescription,
+    description: project.outcomeSummaryEn ?? project.outcomeSummary ?? project.shortDescriptionEn ?? project.shortDescription,
   });
 }

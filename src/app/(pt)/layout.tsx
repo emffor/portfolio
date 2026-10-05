@@ -82,7 +82,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${manrope.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased dark`}
+      className={`${manrope.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -103,7 +103,7 @@ export default function RootLayout({
                 try {
                   var saved = null;
                   try { saved = localStorage.getItem('theme'); } catch (e) {}
-                  if (saved !== 'light') {
+                  if (saved === 'dark') {
                     document.documentElement.classList.add('dark');
                   } else {
                     document.documentElement.classList.remove('dark');

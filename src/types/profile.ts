@@ -13,6 +13,7 @@ export interface ProfilePhoto {
 
 export interface Education {
   degree: string;
+  degreeEn?: string;
   institution: string;
   completionYear: number;
 }
@@ -28,7 +29,9 @@ export interface ProfessionalIndicator {
 
 export interface Language {
   name: string;
+  nameEn?: string;
   level: string;
+  levelEn?: string;
 }
 
 export interface Profile {

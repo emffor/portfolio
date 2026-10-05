@@ -89,9 +89,11 @@ export function ResumeView({ experiences, projects, lang = "pt" }: ResumeViewPro
                 <p className="text-xs text-muted">{lang === "en" ? (experience.periodEn ?? experience.period) : experience.period}</p>
               </div>
               {experience.location && <p className="mt-1 text-xs text-muted">{experience.location}</p>}
-              <p className="mt-2 text-sm leading-relaxed text-muted">{experience.description}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{lang === "en" ? (experience.descriptionEn ?? experience.description) : experience.description}</p>
               <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-muted">
-                {(experience.resumeResponsibilities ?? experience.responsibilities).map((responsibility) => (
+                {(lang === "en"
+                  ? (experience.resumeResponsibilitiesEn ?? experience.resumeResponsibilities ?? experience.responsibilities)
+                  : (experience.resumeResponsibilities ?? experience.responsibilities)).map((responsibility) => (
                   <li key={responsibility}>{responsibility}</li>
                 ))}
               </ul>
@@ -109,7 +111,7 @@ export function ResumeView({ experiences, projects, lang = "pt" }: ResumeViewPro
               <h3 className="font-display text-base font-semibold">
                 <Link href={localizedHref(`/projetos/${project.slug}`, lang)} className="underline underline-offset-4">{project.title}</Link>
               </h3>
-              <p className="mt-1 text-sm leading-relaxed text-muted">{project.outcomeSummary}</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted">{lang === "en" ? (project.outcomeSummaryEn ?? project.outcomeSummary) : project.outcomeSummary}</p>
               <p className="mt-1 text-xs text-muted">{project.primaryTechnologies?.join(" · ")}</p>
               <p className="mt-1 text-xs text-muted">
                 <a href={`${SITE_URL}${lang === "en" ? "/en" : ""}/projetos/${project.slug}`} className="break-all">{new URL(SITE_URL).host}{lang === "en" ? "/en" : ""}/projetos/{project.slug}</a>
@@ -122,10 +124,10 @@ export function ResumeView({ experiences, projects, lang = "pt" }: ResumeViewPro
       <section aria-labelledby="resume-education" className="resume-entry mt-8">
         <h2 id="resume-education" className="font-display text-xl font-semibold">{dict.resumePage.education}</h2>
         <p className="mt-3 text-sm leading-relaxed text-muted">
-          {PROFILE_DATA.education.degree} · {PROFILE_DATA.education.institution} · {PROFILE_DATA.education.completionYear}
+          {lang === "en" ? (PROFILE_DATA.education.degreeEn ?? PROFILE_DATA.education.degree) : PROFILE_DATA.education.degree} · {PROFILE_DATA.education.institution} · {PROFILE_DATA.education.completionYear}
         </p>
         {PROFILE_DATA.languages?.map((language) => (
-          <p key={language.name} className="mt-1 text-sm text-muted">{language.name}: {language.level}</p>
+          <p key={language.name} className="mt-1 text-sm text-muted">{lang === "en" ? (language.nameEn ?? language.name) : language.name}: {lang === "en" ? (language.levelEn ?? language.level) : language.level}</p>
         ))}
       </section>
     </article>

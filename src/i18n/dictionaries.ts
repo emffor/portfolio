@@ -15,6 +15,8 @@ export interface ChromeDict {
   menuCloseAria: string;
   themeToLightAria: string;
   themeToDarkAria: string;
+  localeToggleAria: string;
+  localeToggleShort: string;
   hero: {
     eyebrowPrefix: string;
     viewProjects: string;
@@ -170,6 +172,8 @@ const pt: ChromeDict = {
   menuCloseAria: "Fechar menu principal",
   themeToLightAria: "Alternar para tema claro",
   themeToDarkAria: "Alternar para tema escuro",
+  localeToggleAria: "Ver versão em inglês",
+  localeToggleShort: "EN",
   hero: {
     eyebrowPrefix: "Desenvolvimento de software · Desde ",
     viewProjects: "Ver projetos",
@@ -334,6 +338,8 @@ const en: ChromeDict = {
   menuCloseAria: "Close main menu",
   themeToLightAria: "Switch to light theme",
   themeToDarkAria: "Switch to dark theme",
+  localeToggleAria: "View Portuguese version",
+  localeToggleShort: "PT",
   hero: {
     eyebrowPrefix: "Software development · Since ",
     viewProjects: "View projects",

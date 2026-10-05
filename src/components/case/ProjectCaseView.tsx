@@ -10,7 +10,7 @@ import { ProjectGallery } from "@/components/ui/ProjectGallery";
 import { ProjectArchitectureDiagram } from "@/components/ui/ProjectArchitecture";
 import { ProjectDemoInstructions } from "@/components/ui/ProjectDemoInstructions";
 import { getDictionary } from "@/i18n/dictionaries";
-import { localizedHref, type Locale } from "@/i18n/locale";
+import { localizedHref, tx, txList, type Locale } from "@/i18n/locale";
 
 interface ProjectCaseViewProps {
   project: Project;
@@ -36,16 +36,26 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
         ]
       : undefined;
 
+  const localizeScreenshot = (image: ProjectScreenshot): ProjectScreenshot => ({
+    ...image,
+    alt: lang === "en" ? (image.altEn ?? image.alt) : image.alt,
+    caption:
+      lang === "en" ? (image.captionEn ?? image.caption) : image.caption,
+  });
+
   const projectImages: readonly ProjectScreenshot[] = [
-    {
+    localizeScreenshot({
       src: project.image,
       alt: project.imageAlt ?? `Imagem principal do projeto ${project.title}`,
+      altEn: project.imageAltEn,
       caption: project.imageCaption,
-    },
-    ...(project.screenshots ?? []).filter(
-      (image) => image.src !== project.image
-    ),
+      captionEn: project.imageCaptionEn,
+    }),
+    ...(project.screenshots ?? [])
+      .filter((image) => image.src !== project.image)
+      .map(localizeScreenshot),
   ];
+  const galleryScreenshots = (project.screenshots ?? []).map(localizeScreenshot);
 
   const caseSections = [
     ...(project.brief?.length ? [{ id: "resumo", label: dict.casePage.briefTitle }] : []),
@@ -69,7 +79,7 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
         "@type": "CreativeWork",
         "@id": `${caseUrl}#case`,
         name: project.title,
-        description: project.shortDescription,
+        description: lang === "en" ? (project.shortDescriptionEn ?? project.shortDescription) : project.shortDescription,
         url: caseUrl,
         image: new URL(project.image, SITE_URL).href,
         inLanguage: lang === "en" ? "en" : "pt-BR",
@@ -129,7 +139,7 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
             <span className="mx-1.5 text-border" aria-hidden="true">
               ·
             </span>
-            <span className="text-accent">{project.category}</span>
+            <span className="text-accent">{tx(lang, project.category, project.categoryEn)}</span>
           </p>
           <h1 className="text-balance font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-foreground">
             {project.title}
@@ -139,18 +149,18 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
             className="h-1 w-14 rounded-full bg-accent"
           />
           <p className="font-sans text-base sm:text-lg text-muted leading-relaxed max-w-2xl">
-            {project.shortDescription}
+            {tx(lang, project.shortDescription, project.shortDescriptionEn)}
           </p>
         </div>
 
         <dl className="grid max-w-4xl gap-5 border-y border-border py-5 text-sm sm:grid-cols-2">
           <div>
             <dt className="text-xs text-muted">{dict.casePage.roleLabel}</dt>
-            <dd className="mt-1.5 font-medium">{project.roleLabel ?? AUTHOR_NAME}</dd>
+            <dd className="mt-1.5 font-medium">{tx(lang, project.roleLabel ?? AUTHOR_NAME, project.roleLabelEn)}</dd>
           </div>
           <div>
             <dt className="text-xs text-muted">{dict.casePage.contextLabel}</dt>
-            <dd className="mt-1.5 font-medium">{project.status ?? getProjectKindLabel(project.kind, lang)}</dd>
+            <dd className="mt-1.5 font-medium">{tx(lang, project.status ?? getProjectKindLabel(project.kind, lang), project.statusEn)}</dd>
           </div>
         </dl>
 
@@ -158,7 +168,7 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
           <div className="flex flex-wrap items-center gap-3 pt-1">
             {project.projectUrl && (
               <Button href={project.projectUrl} variant="primary" size="sm">
-                {project.projectUrlLabel ?? dict.card.demoFallback}
+                {tx(lang, project.projectUrlLabel ?? dict.card.demoFallback, project.projectUrlLabelEn)}
                 <svg
                   className="w-3.5 h-3.5 ml-1"
                   fill="none"
@@ -200,9 +210,9 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
           </div>
         )}
 
-        <ProjectDemoInstructions demoAccess={project.demoAccess} accessNote={project.accessNote} lang={lang} />
+        <ProjectDemoInstructions demoAccess={project.demoAccess} accessNote={project.accessNote} accessNoteEn={project.accessNoteEn} lang={lang} />
         {project.sourceNote && (
-          <p className="text-sm leading-relaxed text-muted">{project.sourceNote}</p>
+          <p className="text-sm leading-relaxed text-muted">{tx(lang, project.sourceNote, project.sourceNoteEn)}</p>
         )}
 
         <ProjectImageCarousel
@@ -238,10 +248,10 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
                 {project.brief.map((item) => (
                   <div key={item.label} className="border-l-2 border-accent/40 pl-4">
                     <dt className="font-sans text-xs font-semibold uppercase tracking-wide text-accent">
-                      {item.label}
+                      {tx(lang, item.label, item.labelEn)}
                     </dt>
                     <dd className="mt-1.5 font-sans text-sm leading-relaxed text-foreground">
-                      {item.text}
+                      {tx(lang, item.text, item.textEn)}
                     </dd>
                   </div>
                 ))}
@@ -254,7 +264,7 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
               {dict.casePage.roleSection}
             </h2>
             <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
-              {project.myRole}
+              {tx(lang, project.myRole, project.myRoleEn)}
             </p>
           </section>
 
@@ -273,8 +283,8 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
               <ul className="grid gap-4 sm:grid-cols-3">
                 {project.outcomes.map((outcome) => (
                   <li key={outcome.title} className="border-t-2 border-accent/50 pt-4">
-                    <h3 className="text-sm font-semibold leading-relaxed">{outcome.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted">{outcome.description}</p>
+                    <h3 className="text-sm font-semibold leading-relaxed">{tx(lang, outcome.title, outcome.titleEn)}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">{tx(lang, outcome.description, outcome.descriptionEn)}</p>
                   </li>
                 ))}
               </ul>
@@ -286,7 +296,7 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
               {dict.casePage.contextSection}
             </h2>
             <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
-              {project.context}
+              {tx(lang, project.context, project.contextEn)}
             </p>
           </section>
 
@@ -294,7 +304,7 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
             <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
               {dict.casePage.solutionSection}
             </h2>
-            {project.solution.split("\n\n").map((paragraph) => (
+            {tx(lang, project.solution, project.solutionEn).split("\n\n").map((paragraph) => (
               <p key={paragraph} className="font-sans text-sm sm:text-base text-muted leading-relaxed">
                 {paragraph}
               </p>
@@ -307,7 +317,7 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
                 {dict.casePage.challengesSection}
               </h2>
               <ul className="space-y-2 font-sans text-sm sm:text-base text-muted">
-                {project.technicalChallenges.map((challenge) => (
+                {txList(lang, project.technicalChallenges, project.technicalChallengesEn).map((challenge) => (
                   <li key={challenge} className="flex items-start gap-2">
                     <span className="text-accent font-bold shrink-0" aria-hidden="true">›</span>
                     <span>{challenge}</span>
@@ -329,7 +339,7 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
                 {dict.casePage.otherHighlights}
               </summary>
               <ul className="mt-4 space-y-2 font-sans text-sm sm:text-base text-muted">
-                {project.technicalHighlights.map((highlight) => (
+                {txList(lang, project.technicalHighlights ?? [], project.technicalHighlightsEn).map((highlight) => (
                   <li key={highlight} className="flex items-start gap-2">
                     <span className="text-accent font-bold shrink-0" aria-hidden="true">›</span>
                     <span>{highlight}</span>
@@ -348,15 +358,15 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
                 {project.decisions.map((decision) => (
                   <div key={decision.title} className="rounded-lg border border-border bg-surface px-4 py-3 space-y-2">
                     <h3 className="font-sans text-sm font-semibold text-foreground">
-                      {decision.title}
+                      {tx(lang, decision.title, decision.titleEn)}
                     </h3>
                     <p className="font-sans text-sm text-muted leading-relaxed">
                       <span className="font-medium text-accent">{dict.casePage.benefitPrefix}</span>
-                      {decision.benefit}
+                      {tx(lang, decision.benefit, decision.benefitEn)}
                     </p>
                     <p className="font-sans text-sm text-muted leading-relaxed">
                       <span className="font-medium text-foreground">{dict.casePage.costPrefix}</span>
-                      {decision.cost}
+                      {tx(lang, decision.cost, decision.costEn)}
                     </p>
                   </div>
                 ))}
@@ -370,7 +380,7 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
                 {dict.casePage.authNoteTitle}
               </h2>
               <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
-                {project.authNote}
+                {tx(lang, project.authNote, project.authNoteEn)}
               </p>
             </section>
           )}
@@ -378,7 +388,7 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
           {project.limitationNote && (
             <section id={project.authNote ? undefined : "limites"} aria-label={dict.casePage.limitsTitle} className="scroll-mt-20 space-y-3 rounded-lg border border-border bg-surface p-5">
               <h2 className="font-display text-xl font-semibold tracking-tight">{dict.casePage.limitsTitle}</h2>
-              <p className="text-sm leading-relaxed text-muted">{project.limitationNote}</p>
+              <p className="text-sm leading-relaxed text-muted">{tx(lang, project.limitationNote, project.limitationNoteEn)}</p>
             </section>
           )}
 
@@ -393,7 +403,7 @@ export async function ProjectCaseView({ project, lang = "pt" }: ProjectCaseViewP
 
           {!!project.screenshots?.length && (
             <div id="telas" className="scroll-mt-20">
-              <ProjectGallery screenshots={project.screenshots} lang={lang} />
+              <ProjectGallery screenshots={galleryScreenshots} lang={lang} />
             </div>
           )}
 

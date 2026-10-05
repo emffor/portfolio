@@ -1,7 +1,7 @@
 import React from "react";
 import { ProjectArchitecture } from "@/types/project";
 import { getDictionary } from "@/i18n/dictionaries";
-import type { Locale } from "@/i18n/locale";
+import { tx, type Locale } from "@/i18n/locale";
 
 interface ProjectArchitectureDiagramProps {
   architecture?: ProjectArchitecture;
@@ -28,11 +28,11 @@ export function ProjectArchitectureDiagram({
           <li key={layer.label}>
             <div className="rounded-lg border border-border bg-surface px-4 py-3">
               <p className="font-sans text-sm font-semibold text-foreground">
-                {layer.label}
+                {tx(lang, layer.label, layer.labelEn)}
               </p>
               {layer.description && (
                 <p className="mt-0.5 font-sans text-sm text-muted">
-                  {layer.description}
+                  {tx(lang, layer.description, layer.descriptionEn)}
                 </p>
               )}
             </div>
@@ -91,7 +91,7 @@ export function ProjectArchitectureDiagram({
                 </p>
                 {service.description && (
                   <p className="font-sans text-xs text-muted leading-relaxed">
-                    {service.description}
+                    {tx(lang, service.description, service.descriptionEn)}
                   </p>
                 )}
                 {service.dependency && (
@@ -112,10 +112,12 @@ export function ProjectArchitectureDiagram({
         architecture.infrastructureServices.length > 0 && (
           <div className="max-w-xl rounded-lg border border-border bg-surface-secondary/60 p-4">
             <p className="font-sans text-xs font-semibold uppercase tracking-wider text-muted">
-              {architecture.infrastructureTitle ?? dict.architecture.infraFallback}
+              {lang === "en"
+                ? (architecture.infrastructureTitleEn ?? architecture.infrastructureTitle ?? dict.architecture.infraFallback)
+                : (architecture.infrastructureTitle ?? dict.architecture.infraFallback)}
             </p>
             <ul className="mt-3 grid grid-cols-2 gap-2">
-              {architecture.infrastructureServices.map((service) => (
+              {(lang === "en" ? (architecture.infrastructureServicesEn ?? architecture.infrastructureServices) : architecture.infrastructureServices)?.map((service) => (
                 <li
                   key={service}
                   className="rounded-md border border-border bg-surface px-3 py-2 font-sans text-sm text-foreground"

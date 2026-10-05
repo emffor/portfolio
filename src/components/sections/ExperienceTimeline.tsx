@@ -100,12 +100,12 @@ export async function ExperienceTimeline({ lang = "pt" }: { lang?: Locale }) {
               </header>
 
               <p className="mt-3.5 font-sans text-sm leading-relaxed text-muted">
-                {exp.description}
+                {lang === "en" ? (exp.descriptionEn ?? exp.description) : exp.description}
               </p>
 
               {exp.responsibilities.length > 0 && (
                 <ul className="mt-4 space-y-2 font-sans text-sm leading-relaxed text-foreground/90">
-                  {exp.responsibilities
+                  {(lang === "en" ? (exp.responsibilitiesEn ?? exp.responsibilities) : exp.responsibilities)
                     .slice(0, exp.featured ? 3 : exp.responsibilities.length)
                     .map((item) => (
                       <li key={item} className="flex items-start gap-2.5">
@@ -125,7 +125,7 @@ export async function ExperienceTimeline({ lang = "pt" }: { lang?: Locale }) {
                     {dict.timeline.otherResponsibilities}
                   </summary>
                   <ul className="mt-2 list-disc space-y-2 pl-5 leading-relaxed text-muted">
-                    {exp.responsibilities.slice(3).map((item) => (
+                    {(lang === "en" ? (exp.responsibilitiesEn ?? exp.responsibilities) : exp.responsibilities).slice(3).map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
@@ -231,7 +231,7 @@ export async function ExperienceTimeline({ lang = "pt" }: { lang?: Locale }) {
             {dict.timeline.education}
           </span>
           <p className="font-sans text-sm text-foreground">
-            {PROFILE_DATA.education.degree} · {PROFILE_DATA.education.institution} ·{" "}
+            {lang === "en" ? (PROFILE_DATA.education.degreeEn ?? PROFILE_DATA.education.degree) : PROFILE_DATA.education.degree} · {PROFILE_DATA.education.institution} ·{" "}
             {PROFILE_DATA.education.completionYear}
           </p>
         </div>
@@ -242,7 +242,7 @@ export async function ExperienceTimeline({ lang = "pt" }: { lang?: Locale }) {
             </span>
             <p className="font-sans text-sm text-foreground">
               {PROFILE_DATA.languages
-                .map((language) => `${language.name} · ${language.level}`)
+                .map((language) => `${lang === "en" ? (language.nameEn ?? language.name) : language.name} · ${lang === "en" ? (language.levelEn ?? language.level) : language.level}`)
                 .join(" · ")}
             </p>
           </div>

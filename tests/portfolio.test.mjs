@@ -400,6 +400,10 @@ test("a versão em inglês usa o idioma, o chrome e os canônicos próprios", as
   assert.ok(home.includes("aria-label=\"Primary navigation\""));
   assert.ok(home.includes("View projects"));
   assert.doesNotMatch(home, /Ver projetos/);
+  assert.ok(home.includes('aria-label="View Portuguese version"'));
+  const ptHome = markup(await getPage("/"));
+  assert.ok(ptHome.includes('aria-label="Ver versão em inglês"'));
+  assert.ok(ptHome.includes('href="/en"'));
   const homeCanonical = home.match(/<link rel="canonical" href="([^"]+)"/);
   assert.ok(homeCanonical);
   assert.equal(new URL(homeCanonical[1]).pathname, "/en");
@@ -416,6 +420,10 @@ test("a versão em inglês usa o idioma, o chrome e os canônicos próprios", as
   assert.ok(nexo.includes("Case summary"));
   assert.ok(nexo.includes("Deliverables and evidence"));
   assert.doesNotMatch(nexo, /View on GitHub/);
+  assert.ok(nexo.includes("Full-Stack Workspace"));
+  assert.ok(nexo.includes("Live app available"));
+  assert.ok(nexo.includes("ID-preserving transactional replacement"));
+  assert.ok(nexo.includes("View live app"));
   assert.ok(nexo.includes('href="https://nexo.emfsystems.com.br"'));
   assert.doesNotMatch(nexo, /Voltar para projetos|Resumo do case/);
   const nexoCanonical = nexo.match(/<link rel="canonical" href="([^"]+)"/);
@@ -430,6 +438,24 @@ test("a versão em inglês usa o idioma, o chrome e os canônicos próprios", as
       `Rota EN ausente no sitemap: ${route}`
     );
   }
+
+  const experienceEn = markup(await getPage("/en"));
+  assert.ok(experienceEn.includes("Consolidation of 11 microservices and 11 databases"));
+  assert.ok(experienceEn.includes("Top Performer of the Year"));
+  assert.ok(experienceEn.includes("REST API development, business rules"));
+  assert.doesNotMatch(experienceEn, /Consolidação de 11 microsserviços/);
+
+  const investidorEn = markup(await getPage("/en/projetos/investidor"));
+  assert.ok(investidorEn.includes("To access the demo, open the app and enter test code 11111111."));
+  assert.ok(investidorEn.includes("Private source code. Authored project."));
+
+  const vidoraEn = markup(await getPage("/en/projetos/vidora"));
+  assert.ok(vidoraEn.includes("Note on authentication"));
+  assert.ok(vidoraEn.includes("implements JWT by hand with HMAC-SHA256"));
+
+  const rastroEn = markup(await getPage("/en/projetos/rastro-florestal"));
+  assert.ok(rastroEn.includes("Multi-tenant SaaS"));
+  assert.ok(rastroEn.includes("How to access the demo"));
 });
 
 test("um slug inexistente retorna 404", async () => {
@@ -544,10 +570,10 @@ test("o Hero permanece completo no HTML sem depender de JavaScript", async () =>
   assert.doesNotMatch(html, /<(?:header|h1|p|figcaption)\b[^>]*(?:inert|visibility:\s*hidden|opacity:\s*0)/);
 });
 
-test("o tema inicial é escuro e respeita uma preferência clara salva", async () => {
+test("o tema inicial é claro e respeita uma preferência escura salva", async () => {
   const html = await getPage("/");
-  assert.match(html, /<html\b[^>]*class="[^"]*\bdark\b[^"]*"/);
-  assert.match(html, /if \(saved !== 'light'\)/);
+  assert.doesNotMatch(html, /<html\b[^>]*class="[^"]*\bdark\b[^"]*"/);
+  assert.match(html, /if \(saved === 'dark'\)/);
   assert.doesNotMatch(html, /var prefersDark = window\.matchMedia/);
 });
 

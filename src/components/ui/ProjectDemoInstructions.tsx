@@ -1,14 +1,15 @@
 import type { Project } from "@/types/project";
 import { getDictionary } from "@/i18n/dictionaries";
-import type { Locale } from "@/i18n/locale";
+import { tx, type Locale } from "@/i18n/locale";
 
-type ProjectDemoInstructionsProps = Pick<Project, "demoAccess" | "accessNote"> & {
+type ProjectDemoInstructionsProps = Pick<Project, "demoAccess" | "accessNote" | "accessNoteEn"> & {
   lang?: Locale;
 };
 
 export function ProjectDemoInstructions({
   demoAccess,
   accessNote,
+  accessNoteEn,
   lang = "pt",
 }: ProjectDemoInstructionsProps) {
   const dict = getDictionary(lang);
@@ -33,7 +34,7 @@ export function ProjectDemoInstructions({
           </dl>
         </details>
       )}
-      {accessNote && <p>{accessNote}</p>}
+      {accessNote && <p>{tx(lang, accessNote, accessNoteEn)}</p>}
     </div>
   );
 }
