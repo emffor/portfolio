@@ -114,7 +114,7 @@ sync_dir "perfil" "profile"
 sync_dir "rastro-florestal" "projects/rastro-florestal"
 sync_dir "consolidacao-readi" "projects/consolidacao-arquitetural"
 sync_dir "investidor" "projects/investidor"
-sync_dir "taskmarkdown" "projects/task-markdown"
+sync_dir "nexo" "projects/nexo"
 sync_dir "vidora" "projects/vidora"
 sync_dir "brunaeeloan" "projects/bruna-e-eloan"
 

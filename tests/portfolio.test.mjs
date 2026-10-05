@@ -81,7 +81,7 @@ function markup(html) {
 
 test("a home prioriza três cases e mantém os demais projetos acessíveis", async () => {
   const html = markup(await getPage("/"));
-  for (const slug of ["rastro-florestal", "investidor", "consolidacao-arquitetural", "task-markdown", "vidora"]) {
+  for (const slug of ["rastro-florestal", "investidor", "consolidacao-arquitetural", "nexo", "vidora"]) {
     assert.ok(html.includes(`href="/projetos/${slug}"`), `Case ausente: ${slug}`);
   }
   const featuredSectionStart = html.indexOf('<section id="projetos"');
@@ -97,7 +97,7 @@ test("a home prioriza três cases e mantém os demais projetos acessíveis", asy
   assert.equal([...featuredSection.matchAll(/<article\b/g)].length, 3);
   const additionalSectionStart = html.indexOf('<section id="projetos-adicionais"');
   const additionalSection = html.slice(additionalSectionStart, html.indexOf("</section>", additionalSectionStart));
-  for (const slug of ["task-markdown", "vidora", "bruna-e-eloan"]) {
+  for (const slug of ["nexo", "vidora", "bruna-e-eloan"]) {
     assert.ok(!featuredSection.includes(`href="/projetos/${slug}"`));
     assert.ok(additionalSection.includes(`href="/projetos/${slug}"`));
   }
@@ -108,8 +108,8 @@ test("a home prioriza três cases e mantém os demais projetos acessíveis", asy
   assert.ok(html.includes('href="https://brunaeeloan.emfsystems.com.br/"'));
   assert.ok(html.includes('href="https://github.com/emffor/projeto_casamento_web"'));
   assert.ok(html.includes('href="https://rastro.emfsystems.com.br/"'));
-  assert.ok(html.includes('href="https://taskmarkdown.emfsystems.com.br"'));
-  assert.ok(html.includes('href="https://github.com/emffor/task-markdown"'));
+  assert.ok(html.includes('href="https://nexo.emfsystems.com.br"'));
+  assert.ok(!html.includes('href="https://github.com/emffor/task-markdown"'));
   assert.ok(html.includes("Ver publicação no LinkedIn"));
   assert.match(html, /<a\b(?=[^>]*href="https:\/\/www\.linkedin\.com\/posts\/eloanferreira_destaquetech-gratidaeto-inovaaexaeto-activity-7275562861198790656-ngqM\?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAAC1Jm_sBcLwJPBGBts8leF2NMZAPHQY_uR8")(?=[^>]*target="_blank")[^>]*>Ver publicação no LinkedIn<\/a>/);
   assert.ok(html.includes("Acessar aplicação"));
@@ -281,19 +281,22 @@ test("o Investidor informa o código público de teste sem exigir solicitação 
 });
 
 test("os cases adicionais retornam à seção correspondente sem entrar na navegação dos destaques", async () => {
-  for (const slug of ["task-markdown", "vidora", "bruna-e-eloan"]) {
+  for (const slug of ["nexo", "vidora", "bruna-e-eloan"]) {
     const html = markup(await getPage(`/projetos/${slug}`));
     assert.ok(html.includes('href="/#projetos-adicionais"'));
     assert.doesNotMatch(html, /Case anterior|Próximo case/);
     if (slug !== "vidora") assert.ok(html.includes("Acessar aplicação"));
-    assert.ok(html.includes("Ver no GitHub"));
+    if (slug === "nexo") assert.doesNotMatch(html, /Ver no GitHub/);
+    else assert.ok(html.includes("Ver no GitHub"));
   }
 });
 
-test("o CTA do GitHub do Task Markdown aparece no card e no case", async () => {
-  const html = markup(await getPage("/projetos/task-markdown"));
-  assert.ok(html.includes('href="https://github.com/emffor/task-markdown"'));
-  assert.ok(html.includes("Ver no GitHub"));
+test("o case Nexo expõe a demonstração sem CTA de GitHub", async () => {
+  const html = markup(await getPage("/projetos/nexo"));
+  assert.ok(html.includes('href="https://nexo.emfsystems.com.br"'));
+  assert.ok(html.includes("Acessar aplicação"));
+  assert.ok(html.includes("Código-fonte privado."));
+  assert.doesNotMatch(html, /Ver no GitHub|github\.com\/emffor\/task-markdown/);
 });
 
 test("todos os cases apresentam atuação, entregas, stack e resumo com âncoras", async () => {
@@ -314,7 +317,7 @@ test("todos os cases apresentam atuação, entregas, stack e resumo com âncoras
 });
 
 test("cada case tem prévia social própria em PNG disponível para compartilhamento", async () => {
-  for (const slug of ["rastro-florestal", "investidor", "consolidacao-arquitetural", "task-markdown", "vidora", "bruna-e-eloan"]) {
+  for (const slug of ["rastro-florestal", "investidor", "consolidacao-arquitetural", "nexo", "vidora", "bruna-e-eloan"]) {
     const route = `/projetos/${slug}`;
     const html = markup(await getPage(route));
     for (const property of ['property="og:image"', 'name="twitter:image"']) {
