@@ -275,13 +275,6 @@ h6,
     --assembly-duration: 900ms;
   }
 
-  [data-assembly="badge"] {
-    --assembly-x: -8px;
-    --assembly-y: -10px;
-    --assembly-scale: 0.97;
-    --assembly-delay: 300ms;
-  }
-
   [data-assembly="dot-top"] {
     --assembly-x: 12px;
     --assembly-y: -10px;

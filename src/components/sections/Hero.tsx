@@ -20,10 +20,6 @@ export function Hero({ lang = "pt" }: { lang?: Locale }) {
     lang === "en" && PROFILE_DATA.photo?.altEn
       ? PROFILE_DATA.photo.altEn
       : PROFILE_DATA.photo?.alt;
-  const availability =
-    lang === "en"
-      ? (PROFILE_DATA.availabilityLabelEn ?? PROFILE_DATA.availabilityLabel)
-      : PROFILE_DATA.availabilityLabel;
   return (
     <section
       id={localizedId("inicio", lang)}
@@ -161,12 +157,6 @@ export function Hero({ lang = "pt" }: { lang?: Locale }) {
               </div>
             </div>
 
-            {PROFILE_DATA.availableForWork && (
-              <figcaption data-assembly="badge" className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-surface/95 px-4 py-2 text-xs font-medium text-foreground shadow-lg backdrop-blur-sm">
-                <span aria-hidden="true" className="mr-2 inline-block h-2 w-2 rounded-full bg-accent" />
-                {availability}
-              </figcaption>
-            )}
           </figure>
         </div>
       </div>

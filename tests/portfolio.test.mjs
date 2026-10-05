@@ -615,6 +615,12 @@ test("o Hero permanece completo no HTML sem depender de JavaScript", async () =>
   assert.match(html, /<a\b[^>]*data-assembly="primary-cta"[^>]*>/);
   assert.match(html, /<html\b(?![^>]*data-home-assembly)[^>]*>/);
   assert.doesNotMatch(html, /<(?:header|h1|p|figcaption)\b[^>]*(?:inert|visibility:\s*hidden|opacity:\s*0)/);
+  for (const route of ["/", "/en"]) {
+    const page = markup(await getPage(route));
+    const hero = page.match(/<section id="(?:inicio|intro)"[\s\S]*?<\/section>/)?.[0];
+    assert.ok(hero, `Hero ausente em ${route}`);
+    assert.doesNotMatch(hero, /Aberto a oportunidades|Open to opportunities|data-assembly="badge"/);
+  }
 });
 
 test("o tema inicial é claro e respeita uma preferência escura salva", async () => {
